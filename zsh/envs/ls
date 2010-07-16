@@ -166,3 +166,11 @@ export LS_COLORS
 
 # Use the ls colors for completion lists
 zstyle ':completion:*' list-colors "${LS_COLORS}"
+
+# Colorize ls output
+# Coreutils
+if [[ -x $(which gls) ]]; then
+  alias ls="gls --color=always -F"
+else
+  alias ls="ls --color=always -F"
+fi
