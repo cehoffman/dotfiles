@@ -1,0 +1,2 @@
+# Prints out how much any single command has been run
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head

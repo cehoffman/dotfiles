@@ -1,0 +1,4 @@
+pushd ~/.dotfiles
+git reup
+rake install
+popd

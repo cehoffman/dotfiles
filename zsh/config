@@ -1,0 +1,61 @@
+path=($HOME/.bin $path)
+fpath=(~/.zsh/functions $fpath)
+manpath=(/usr/local/share/man /usr/share/man $manpath)
+
+# Enable hooks
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+typeset -ga chpwd_functions
+
+autoload -U ~/.zsh/functions/*(:t)
+
+## smart urls
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+
+# Colorize me
+autoload colors; colors;
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+REPORTTIME=10 # print elapsed time when more than 10 seconds
+
+setopt NO_BG_NICE # don't nice background tasks
+setopt NO_HUP
+setopt NO_LIST_BEEP
+setopt LOCAL_OPTIONS # allow functions to have local options
+setopt LOCAL_TRAPS # allow functions to have local traps
+setopt HIST_VERIFY
+setopt SHARE_HISTORY # share history between sessions ???
+setopt EXTENDED_HISTORY # add timestamps to history
+setopt CORRECT
+setopt COMPLETE_IN_WORD
+setopt IGNORE_EOF
+
+setopt APPEND_HISTORY # adds history
+setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
+setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
+setopt HIST_REDUCE_BLANKS
+
+setopt LONG_LIST_JOBS
+setopt AUTO_CD
+
+## pager
+export PAGER=less
+export LC_ALL='en_US.UTF-8'
+export LANG='en_US.UTF-8'
+export LC_CTYPE=en_US.UTF-8
+
+if [[ -x $(which mate) ]]; then
+  export EDITOR='mate -w'
+elif [[ -x $(which vim) ]]; then
+  export EDITOR='vim'
+fi
+
+# Load all of your custom configurations from custom/
+for config_file (~/.zsh/envs/*) source $config_file
+unset config_file
+
+# Remove duplicates in paths
+typeset -gU path cdpath manpath fpath

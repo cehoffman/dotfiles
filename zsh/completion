@@ -1,0 +1,68 @@
+autoload -U compinit
+compinit -i
+
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+bindkey ' ' magic-space    # also do history expansion on space
+
+zmodload -i zsh/complist
+
+# matches case insensitive for lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# pasting with tabs doesn't perform completion
+zstyle ':completion:*' insert-tab pending
+
+# Use a menu for completion
+zstyle ':completion:*:*:*:*:*' menu select
+
+# Make the process selection a little nicer
+zstyle ':completion:*:*:kill:*:processes' list-colors  '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;36=0=01;32'
+zstyle ':completion:*:*:*:*:processes' command "ps -au $USER -o pid,user,comm -w -w"
+
+# Load known hosts file for auto-completion with ssh and scp commands
+if [ -f ~/.ssh/known_hosts ]; then
+  zstyle ':completion:*' hosts $( sed 's/[, ].*$//' $HOME/.ssh/known_hosts )
+  zstyle ':completion:*:*:(ssh|scp):*:*' hosts `sed 's/^\([^ ,]*\).*$/\1/' ~/.ssh/known_hosts`
+fi
+
+# Don't ever select the parent directory, e.g. cd ../<TAB> won't select your current dir
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
+# With commands like rm, it's annoying if you keep getting offered the same
+# file multiple times. This fixes it. Also good for cp, et cetera..
+zstyle ':completion:*:rm:*' ignore-line yes
+zstyle ':completion:*:cp:*' ignore-line yes
+
+# Expand partial paths
+zstyle ':completion:*' expand 'yes'
+zstyle ':completion:*' squeeze-slashes 'yes'
+
+# completion for "man" by Gossamer  980827
+compctl -f -x 'S[1][2][3][4][5][6][7][8][9]' -k '(1 2 3 4 5 6 7 8 9)' \
+  - 'R[[1-9nlo]|[1-9](|[a-z]),^*]' -K 'match-man' \
+  - 's[-M],c[-1,-M]' -g '*(-/)' \
+  - 's[-P],c[-1,-P]' -c \
+  - 's[-S],s[-1,-S]' -k '( )' \
+  - 's[-]' -k '(a d f h k t M P)' \
+  - 'p[1,-1]' -c + -K 'match-man' \
+  -- man
+
+# verbose completion
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' group-name ''
+
+# Some completion settings
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+
+# Ignore completions functions for commands you don't have
+zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# Make approximate allow more erros as the length increases
+zstyle -e ':completion:*:approximate:*' \
+        max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'

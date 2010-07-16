@@ -1,0 +1,39 @@
+[user]
+  name = Chris Hoffman
+  email = cehoffman@gmail.com
+
+[color]
+    ui = auto
+        
+[sendemail]
+    smtpuser = cehoffman
+    smtpserver = smtp.gmail.com
+    chainreplyto = false
+    smptencryption = tls
+[alias]
+    co = checkout
+    reup = pull --rebase
+    st = status --ignore-submodules=untracked
+    df = diff --ignore-submodules=untracked
+    ci = commit
+    br = branch
+    unstage = reset HEAD --
+[core]
+    whitespace = trailing-space,space-before-tab
+    excludesfile = <%= ENV['HOME'] %>/.gitignore
+[apply]
+    whitespace= fix
+[merge]
+    conflictstyle = diff3
+    tool = textmate
+[merge "textmate"]
+    cmd = mate -w
+[github]
+    user = cehoffman
+    token = 5fcd01635ed8dd4479556c6ade2fb5e
+[clean]
+    requireForce = no
+[status]
+    submodulesummary = true
+[format]
+    pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset

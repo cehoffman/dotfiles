@@ -1,0 +1,27 @@
+alias ..='cd ..'
+
+alias l='ls -lAh'
+
+alias mkdir='mkdir -p'
+
+# Rails
+alias rconsole='script/rails console'
+alias rmigrate='rake db:migrate db:test:clone'
+alias rdevlog='tail -f log/development.log'
+
+# show and hide files from Finder
+alias hide="SetFile -a V"
+alias show="Setfile -a v"
+
+# Show full history
+alias history='fc -l 1'
+
+# Git aliases
+alias ga="git add"
+alias gco="git co"
+alias gci="git ci"
+alias gst="git st"
+alias gdf="git df"
+alias gcp="git cp"
+alias gph="git push"
+alias gpl="git reup"

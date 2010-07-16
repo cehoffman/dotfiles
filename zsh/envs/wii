@@ -1,0 +1,7 @@
+if [[ -d $HOME/Repos/devkitpro ]]; then
+  # devkitPro
+  export DEVKITPRO="$HOME/Repos/devkitpro"
+  export DEVKITPPC="$DEVKITPRO/devkitPPC"
+  export WIILOAD=tcp:192.168.1.192
+  path=($DEVKITPPC/bin $path)
+fi

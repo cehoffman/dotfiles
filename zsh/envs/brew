@@ -1,0 +1,15 @@
+if [[ -a ~/.homebrew/bin/brew ]]; then
+  path=($HOME/.homebrew/bin $path)
+  path=($(brew --prefix)/sbin $path)
+  manpath=($(brew --prefix)/share/man $manpath)
+
+  hash -d homebrew=$(brew --prefix)
+
+  # Homebrew Python setup
+  path=($(python -c "from sys import prefix; print prefix")/bin $path)
+
+  # Coreutils
+  if [[ -x $(which gls) ]]; then
+    alias ls="gls --color=always -F"
+  fi
+fi
