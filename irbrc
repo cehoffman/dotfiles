@@ -10,6 +10,10 @@ IRB.conf[:AUTO_INDENT] = true
 # Readline support
 IRB.conf[:USE_READLINE] = true
 
+# DON'T USE THESE IN AN INTERACTIVE PROMPT
+# They will cause line wrapping to become screwed since
+# readline thinks they are physicall characters you can see
+# and thus doesn't know when to wrap the command
 ANSI = {}
 ANSI[:RESET]     = "\e[0m"
 ANSI[:BOLD]      = "\e[1m"
@@ -26,10 +30,10 @@ ANSI[:WHITE]     = "\e[37m"
 
 # Build a simple colorful IRB prompt
 IRB.conf[:PROMPT][:SIMPLE_COLOR] = {
-  :PROMPT_I => "#{ANSI[:BLUE]}#{ANSI[:BOLD]}>>#{ANSI[:RESET]} ",
-  :PROMPT_N => "#{ANSI[:BLUE]}#{ANSI[:BOLD]}>>#{ANSI[:RESET]} ",
-  :PROMPT_C => "#{ANSI[:RED]}#{ANSI[:BOLD]}?>#{ANSI[:RESET]} ",
-  :PROMPT_S => "#{ANSI[:YELLOW]}#{ANSI[:BOLD]}?>#{ANSI[:RESET]} ",
+  :PROMPT_I => ">> ",
+  :PROMPT_N => ">> ",
+  :PROMPT_C => "?> ",
+  :PROMPT_S => "?> ",
   :RETURN   => "#{ANSI[:GREEN]}=>#{ANSI[:RESET]} %s\n",
   :AUTO_INDENT => true }
 IRB.conf[:PROMPT_MODE] = :SIMPLE_COLOR
@@ -40,10 +44,10 @@ if defined?(Rails)
   rails_root = File.basename(Rails.root)
   IRB.conf[:PROMPT] ||= {}
   IRB.conf[:PROMPT][:RAILS] = {
-    :PROMPT_I => "#{ANSI[:CYAN]}#{rails_root}#{ANSI[:BLUE]}#{ANSI[:BOLD]}>>#{ANSI[:RESET]} ",
-    :PROMPT_N => "#{ANSI[:CYAN]}#{rails_root}#{ANSI[:BLUE]}#{ANSI[:BOLD]}>>#{ANSI[:RESET]} ",
-    :PROMPT_C => "#{ANSI[:CYAN]}#{rails_root}#{ANSI[:RED]}#{ANSI[:BOLD]}?>#{ANSI[:RESET]} ",
-    :PROMPT_S => "#{ANSI[:CYAN]}#{rails_root}#{ANSI[:YELLOW]}#{ANSI[:BOLD]}?>#{ANSI[:RESET]} ",
+    :PROMPT_I => "#{rails_root}>> ",
+    :PROMPT_N => "#{rails_root}>> ",
+    :PROMPT_C => "#{rails_root}?> ",
+    :PROMPT_S => "#{rails_root}?> ",
     :RETURN   => "#{ANSI[:GREEN]}=>#{ANSI[:RESET]} %s\n"
   }
   IRB.conf[:PROMPT_MODE] = :RAILS
