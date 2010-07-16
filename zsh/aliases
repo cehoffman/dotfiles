@@ -25,3 +25,8 @@ alias gdf="git df"
 alias gcp="git cp"
 alias gph="git push"
 alias gpl="git reup"
+
+# For hub to take over git
+if [[ -a $(which hub) ]]; then
+  function git(){hub "$@"}
+fi
