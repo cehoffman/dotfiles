@@ -1,5 +1,5 @@
 local pids
-pids=$(ps -ax | grep $1 | grep -v grep | awk '{ print $1 }')
+pids=$(ps ax | grep $1 | grep -v grep | awk '{ print $1 }')
 if [[ -z $pids ]]; then
   echo "$1 is not running"
 else
