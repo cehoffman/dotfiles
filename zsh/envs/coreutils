@@ -1,5 +1,0 @@
-if [[ -x $(which gln) ]]; then
-  # GNU ln has a -T option which is very useful for overwriting links to directories
-  alias ln="gln"
-fi
-
