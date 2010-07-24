@@ -1,0 +1,14 @@
+#compdef fusion
+
+if (( CURRENT > 2)); then
+  _files -W "$HOME/Documents/**/*.vmwarevm" -g "*.vmx" -F "*.lck"
+else
+  local -a cmds
+
+  cmds=(
+    start:'Start a headless fusion instance'
+    stop:'Stop the fusion instance'
+  )
+
+  _describe -t fusion-commands 'Fusion action' cmds
+fi

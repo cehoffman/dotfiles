@@ -16,17 +16,13 @@ alias show="Setfile -a v"
 # Show full history
 alias history='fc -l 1'
 
-# Git aliases
-alias ga="git add"
-alias gco="git co"
-alias gci="git ci"
-alias gst="git st"
-alias gdf="git df"
-alias gcp="git cp"
-alias gph="git push"
-alias gpl="git reup"
-
 # For hub to take over git
 if [[ -a $(which hub) ]]; then
   function git(){hub "$@"}
+fi
+
+if [[ -f /Library/Application\ Support/VMware\ Fusion/vmrun ]]; then
+  function fusion () {
+    /Library/Application\ Support/VMware\ Fusion/vmrun -T fusion $@ nogui
+  }
 fi
