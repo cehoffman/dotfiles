@@ -1,4 +1,6 @@
-pushd ~/.dotfiles
+pushd $HOME/.dotfiles
+git stash
 git reup
+git stash pop
 rake install
 popd
