@@ -34,7 +34,7 @@ setopt IGNORE_EOF
 setopt INTERACTIVE_COMMENTS # Allow comments when in an interactive shell
 setopt PRINT_EXIT_VALUE # If the command exits with non zero, tell me
 
-setopt SHARE_HISTORY # share history between sessions ???
+setopt SHARE_HISTORY # share history between sessions, it implies incremental history sharing
 setopt HIST_VERIFY # Don't immediately execute a command from history, let me edit it first
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
