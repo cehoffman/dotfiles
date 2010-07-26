@@ -52,6 +52,10 @@ setopt REMATCH_PCRE # use perl regex matching for the =~ operator
 
 setopt C_BASES # Output hexadecimal and octal values like they are defined in C, e.g. 0xFF or 077
 
+# Allows any unquoted shell argument of the form identifier=expression to be expanded
+# This allows creating configure arguments like --prefix=~nginx to expand to --prefix=/home/nginx
+setopt MAGIC_EQUAL_SUBST
+
 ## pager
 export PAGER=less
 export LC_ALL='en_US.UTF-8'
