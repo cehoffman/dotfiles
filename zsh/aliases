@@ -2,8 +2,6 @@ alias ..='cd ..'
 
 alias l='ls -lAh'
 
-alias mkdir='mkdir -p'
-
 # Rails
 alias rconsole='script/rails console'
 alias rmigrate='rake db:migrate db:test:clone'
