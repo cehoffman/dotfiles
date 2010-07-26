@@ -26,20 +26,31 @@ setopt NO_HUP
 setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS # allow functions to have local options
 setopt LOCAL_TRAPS # allow functions to have local traps
-setopt HIST_VERIFY
-setopt SHARE_HISTORY # share history between sessions ???
-setopt EXTENDED_HISTORY # add timestamps to history
 setopt CORRECT
 setopt COMPLETE_IN_WORD
+setopt COMPLETE_ALIASES # Treat aliases as unique entities viable for completion
 setopt IGNORE_EOF
 
-setopt APPEND_HISTORY # adds history
-setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
+setopt INTERACTIVE_COMMENTS # Allow comments when in an interactive shell
+setopt PRINT_EXIT_VALUE # If the command exits with non zero, tell me
+
+setopt SHARE_HISTORY # share history between sessions ???
+setopt HIST_VERIFY # Don't immediately execute a command from history, let me edit it first
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_SPACE # don't records commands that the first character is a space
 
 setopt LONG_LIST_JOBS
 setopt AUTO_CD
+setopt AUTO_PUSHD # every cd pushs onto the stack
+setopt PUSHD_SILENT # Don't print out the pushd stack after a pushd or popd
+setopt PUSHD_IGNORE_DUPS # Ignore duplicate pushs
+setopt PUSHD_TO_HOME # have an empty `pushd` work like `pushd $HOME`
+
+setopt EXTENDED_GLOB # use regex style globing
+setopt REMATCH_PCRE # use perl regex matching for the =~ operator
+
+setopt C_BASES # Output hexadecimal and octal values like they are defined in C, e.g. 0xFF or 077
 
 ## pager
 export PAGER=less
