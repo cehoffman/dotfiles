@@ -6,7 +6,7 @@ if [[ $1 != ${pids%% is not running} ]]; then
   pids=${pids#${1}: }
 
   echo -n "killing $1 ($pids)..."
-  kill -9 $=pids
+  kill -${2:-9} $=pids
   echo "slaughtered."
 else
   echo "$1 is not running"
