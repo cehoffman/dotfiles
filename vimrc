@@ -140,9 +140,6 @@ vmap D y'>p
 " overwriting the default register
 vmap P p :call setreg('"', getreg('0')) <CR>
 
-" For Haml
-au! BufRead,BufNewFile *.haml         setfiletype haml
-
 " No Help, please
 nmap <F1> <Esc>
 
@@ -172,7 +169,8 @@ if executable("ack")
 endif
 
 " Color scheme
-" colorscheme vividchalk
+set background=dark
+colorscheme ir_black
 " highlight NonText guibg=#060606
 " highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
