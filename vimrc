@@ -31,6 +31,10 @@ endif
 " Switch wrap off for everything
 set nowrap
 
+" Pathogen intialization
+filetype off
+call pathogen#runtime_append_all_bundles()
+
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
   " Enable file type detection.
@@ -149,7 +153,7 @@ imap <Tab> <C-N>
 imap <C-L> <Space>=><Space>
 
 " Display extra whitespace
-" set list listchars=tab:»·,trail:·
+set list listchars=tab:‣·,trail:·,precedes:<,extends:>
 
 " Edit routes
 command! Rroutes :e config/routes.rb
@@ -195,3 +199,24 @@ let g:fuf_splitPathMatching=1
 
 " Open URL
 command -bar -nargs=1 OpenURL :!open <args>
+function! OpenURL()
+  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
+  echo s:uri
+  if s:uri != ""
+    exec "!open \"" . s:uri . "\""
+  else
+    echo "No URI found in line."
+  endif
+endfunction
+map <Leader>w :call OpenURL()<CR>
+
+" Paste mode to turn off autoindention
+set pastetoggle=<F2>
+
+" Removes trailing spaces
+function TrimWhiteSpace()
+  %s/\s*$//
+  ''
+:endfunction
+
+map <Leader>x :call TrimWhiteSpace()<CR>
