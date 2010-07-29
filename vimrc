@@ -10,7 +10,6 @@ set backspace=indent,eol,start
 set nobackup
 set nowritebackup
 set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 
@@ -34,6 +33,9 @@ set nowrap
 " Pathogen intialization
 filetype off
 call pathogen#runtime_append_all_bundles()
+
+" Custom status line using to show git branch info, has ruler set
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
