@@ -64,6 +64,8 @@ export LC_CTYPE=en_US.UTF-8
 
 if [[ -x $(which mate) ]]; then
   export EDITOR='mate -w'
+elif [[ -x $(which mvim) ]]; then
+  export EDITOR='mvim'
 elif [[ -x $(which vim) ]]; then
   export EDITOR='vim'
 fi
