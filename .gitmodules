@@ -28,8 +28,8 @@
 [submodule "vim/bundle/vim-markdown"]
 	path = vim/bundle/vim-markdown
 	url = http://github.com/tpope/vim-markdown.git
-[submodule "vim/bundle/ragtag"]
-	path = vim/bundle/ragtag
+[submodule "vim/bundle/vim-ragtag"]
+	path = vim/bundle/vim-ragtag
 	url = http://github.com/tpope/vim-ragtag.git
 [submodule "vim/bundle/vim-rails"]
 	path = vim/bundle/vim-rails
