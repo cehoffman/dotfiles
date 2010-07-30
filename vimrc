@@ -85,12 +85,12 @@ if has("autocmd")
     " Don't do it when the position is invalid or when inside an event handler
     " (happens when dropping a file on gvim), or it is a commit message.
     autocmd BufReadPost *
-          \ if &filetype !~ 'commit\c' |
-          \   if line("'\"") > 1 && line("'\"") <= line("$") |
-          \     exe "normal! g`\"" |
-          \     normal! zz |
-          \   endif |
-          \ endif
+         \ if &filetype !~ 'commit\c' |
+         \   if line("'\"") > 1 && line("'\"") <= line("$") |
+         \     exe "normal! g`\"" |
+         \     normal! zz |
+         \   endif |
+         \ endif
 
     " Automatically load .vimrc source when saved
     autocmd BufWritePost .vimrc source $MYVIMRC
@@ -99,7 +99,7 @@ if has("autocmd")
 
 else
 
-  set autoindent		" always set autoindenting on
+  set autoindent    " always set autoindenting on
 
 endif " has("autocmd")
 
