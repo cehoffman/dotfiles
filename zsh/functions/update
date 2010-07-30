@@ -1,4 +1,4 @@
-pushd $HOME/.dotfiles
+cd $HOME/.dotfiles
 git stash
 git reup
 git stash pop
