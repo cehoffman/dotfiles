@@ -327,4 +327,8 @@ if has("gui_running")
   endif
 endif
 
+" Nerd Commenter settings
+let NERDSpaceDelims=1
+let NERDCompactSexyComs=1
+let NERDCommentWholeLinesInVMode=1
 
