@@ -276,9 +276,6 @@ set formatoptions-=o
 " Find in NerdTree!
 nnoremap <silent> <C-f> :NERDTreeFind<CR>
 
-" BufExplorer's <Leader>be is too much
-nnoremap <Leader>b :BufExplorer<CR>
-
 " Make navigating windows nicer
 map <C-h> <C-w>h
 map <C-j> <C-w>j
