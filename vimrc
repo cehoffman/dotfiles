@@ -36,6 +36,9 @@ map k gk
 map <Up> gk
 map <Down> gj
 
+" Diable the stupid bell
+set visualbell t_vb=
+
 " Pathogen intialization
 filetype off
 call pathogen#runtime_append_all_bundles()
