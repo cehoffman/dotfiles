@@ -9,9 +9,9 @@ set backspace=indent,eol,start
 
 set nobackup
 set nowritebackup
-set history=50		" keep 50 lines of command line history
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
+set history=50    " keep 50 lines of command line history
+set showcmd       " display incomplete commands
+set incsearch     " do incremental searching
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -24,7 +24,6 @@ map Q gq
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
-  set hlsearch
 endif
 
 " Switch wrap off for everything
@@ -153,6 +152,16 @@ imap <C-L> <Space>=><Space>
 
 " Display extra whitespace
 set list listchars=tab:‣·,trail:·,precedes:<,extends:>
+
+" Toggle showing whitespace
+nmap <Leader>z :set list!<CR>
+
+" Switch on highlighting the last used search pattern.
+" Also let this be toggleable
+if (&t_Co > 2 || has("gui_running"))
+  set hlsearch
+  map <Leader>h :set hlsearch!<CR>
+endif
 
 " Edit routes
 command! Rroutes :e config/routes.rb
