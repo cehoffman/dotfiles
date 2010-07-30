@@ -2,5 +2,7 @@ pushd $HOME/.dotfiles
 git stash
 git reup
 git stash pop
+git submodule sync
+git submodule update
 rake install
 popd
