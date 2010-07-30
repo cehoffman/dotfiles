@@ -12,7 +12,7 @@ IRB.conf[:USE_READLINE] = true
 
 # DON'T USE THESE IN AN INTERACTIVE PROMPT
 # They will cause line wrapping to become screwed since
-# readline thinks they are physicall characters you can see
+# readline thinks they are physical characters you can see
 # and thus doesn't know when to wrap the command
 ANSI = {}
 ANSI[:RESET]     = "\e[0m"
@@ -101,6 +101,8 @@ end
 extend_console 'ap' do
   alias pp ap
 end
+
+extend_console 'interactive_editor'
 
 # Add a method pm that shows every method on an object
 # Pass a regex to filter these
