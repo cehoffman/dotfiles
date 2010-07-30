@@ -243,3 +243,6 @@ nmap <Leader>ga :Gwrite<CR>
 nmap <Leader>gl :Glog<CR>
 nmap <Leader>gd :Gdiff<CR>
 
+" Swap and backup files suck for the most part
+set nobackup nowritebackup noswapfile
+
