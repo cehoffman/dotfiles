@@ -9,12 +9,15 @@ set backspace=indent,eol,start
 
 set nobackup
 set nowritebackup
-set history=50    " keep 50 lines of command line history
+set history=100    " keep 50 lines of command line history
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
+
+" Make Y consistent with C and D
+nnoremap Y y$
 
 " This is an alternative that also works in block mode, but the deleted
 " text is lost and it only works for putting the current register.
@@ -26,15 +29,19 @@ if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
 endif
 
-" Switch wrap off for everything
-set nowrap
+" Use soft wrapping, and adjust mappings for edit keys
+set wrap linebreak textwidth=0 showbreak=\ \ \ …\  cpoptions+=n
+map j gj
+map k gk
+map <Up> gk
+map <Down> gj
 
 " Pathogen intialization
 filetype off
 call pathogen#runtime_append_all_bundles()
 
 " Custom status line using to show git branch info, has ruler set
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%{rvm#statusline()}\ %-14.(%c%V,%l/%L%)\ %P\ %y
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -53,6 +60,10 @@ if has("autocmd")
   " Makefiles require hard tabs
   autocmd FileType make setlocal noexpandtab
 
+  " Highlight the current line the cursor is on, only for the active window
+  autocmd WinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
     au!
@@ -62,10 +73,13 @@ if has("autocmd")
 
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
-    " (happens when dropping a file on gvim).
+    " (happens when dropping a file on gvim), or it is a commit message.
     autocmd BufReadPost *
-          \ if line("'\"") > 1 && line("'\"") <= line("$") |
-          \   exe "normal! g`\"" |
+          \ if &filetype !~ 'commit\c' |
+          \   if line("'\"") > 1 && line("'\"") <= line("$") |
+          \     exe "normal! g`\"" |
+          \     normal! zz |
+          \   endif |
           \ endif
 
     " Automatically load .vimrc source when saved
@@ -245,4 +259,65 @@ nmap <Leader>gd :Gdiff<CR>
 
 " Swap and backup files suck for the most part
 set nobackup nowritebackup noswapfile
+
+" Don't continue comments when doing o/O
+set formatoptions-=o
+
+" Find in NerdTree!
+nnoremap <silent> <C-f> :NERDTreeFind<CR>
+
+" BufExplorer's <Leader>be is too much
+nnoremap <Leader>b :BufExplorer<CR>
+
+" Make navigating windows nicer
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Command-T configuration
+let g:CommandTMaxHeight=10
+
+" Mark syntax errors with :signs
+let g:syntastic_enable_signs=1
+
+" snipmate setup
+try
+  source ~/.vim/snippets/support_functions.vim
+catch
+  source ~/vimfiles/snippets/support_functions.vim
+endtry
+autocmd vimenter * call s:SetupSnippets()
+function! s:SetupSnippets()
+  "if we're in a rails env then read in the rails snippets
+  if filereadable("./config/environment.rb")
+    call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
+    call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
+  endif
+
+  call ExtractSnips("~/.vim/snippets/html", "eruby")
+  call ExtractSnips("~/.vim/snippets/html", "xhtml")
+  call ExtractSnips("~/.vim/snippets/html", "php")
+endfunction
+
+
+if has("gui_running")
+  set t_Co=256
+  set guioptions-=T
+
+  if has("gui_mac") || has("gui_macvim")
+    set guifont=Akkurat-Mono:h12
+  endif
+
+  if has("gui_gnome")
+    set term=gnome-256color
+    set guifont=Inconsolata\ Medium\ 12
+  endif
+
+  if has("gui_win32") || has("gui_win32s")
+    set guifont=Consolas:h12
+    set enc=utf-8
+  endif
+endif
+
 
