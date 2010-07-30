@@ -263,13 +263,17 @@ let g:CommandTMaxHeight=10
 " Mark syntax errors with :signs
 let g:syntastic_enable_signs=1
 
-" snipmate setup
+" SnipMate Settings
+let g:snips_author = 'Chris Hoffman'
+
 try
   source ~/.vim/snippets/support_functions.vim
 catch
   source ~/vimfiles/snippets/support_functions.vim
 endtry
-autocmd vimenter * call s:SetupSnippets()
+if has("autocmd")
+  autocmd vimenter * call s:SetupSnippets()
+endif
 function! s:SetupSnippets()
   "if we're in a rails env then read in the rails snippets
   if filereadable("./config/environment.rb")
