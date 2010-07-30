@@ -21,7 +21,7 @@
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     unstage = reset HEAD --
 [core]
-    whitespace = trailing-space,space-before-tab
+    whitespace = trailing-space,space-before-tab,-blank-at-eof
     excludesfile = <%= ENV['HOME'] %>/.gitignore
 [apply]
     whitespace= fix

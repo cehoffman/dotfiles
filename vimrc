@@ -236,3 +236,10 @@ map <Leader>x :call TrimWhiteSpace()<CR>
 " Make vim more accepting of hidden buffer
 set hidden
 
+" Mappings for fugitive
+nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>ga :Gwrite<CR>
+nmap <Leader>gl :Glog<CR>
+nmap <Leader>gd :Gdiff<CR>
+
