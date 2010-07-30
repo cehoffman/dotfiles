@@ -86,6 +86,7 @@ endif " has("autocmd")
 
 " Softtabs, 2 spaces
 set tabstop=2
+set softtabstop=2
 set shiftwidth=2
 set expandtab
 
@@ -116,7 +117,6 @@ map <Leader>su :RSunittest
 map <Leader>sf :RSfunctionaltest
 
 " Toggle spell checking
-set spell " Default to on
 map <Leader>s :set spell!<CR>
 
 " Opens an edit command with the path of the currently edited file filled in
@@ -155,7 +155,7 @@ imap <Tab> <C-N>
 imap <C-L> <Space>=><Space>
 
 " Display extra whitespace
-set list listchars=tab:‣·,trail:·,precedes:<,extends:>
+set list listchars=tab:▸\ ,eol:¬,precedes:<,extends:>
 
 " Toggle showing whitespace
 nmap <Leader>z :set list!<CR>
@@ -177,9 +177,9 @@ if filereadable(".vimrc.local")
 endif
 
 " Use Ack instead of Grep when available
-if executable("ack")
-  set grepprg=ack\ -H\ --nogroup\ --nocolor\ --ignore-dir=tmp\ --ignore-dir=coverage
-endif
+" if executable("ack")
+"   set grepprg=ack\ -H\ --nogroup\ --nocolor\ --ignore-dir=tmp\ --ignore-dir=coverage
+" endif
 
 " Color scheme
 set background=dark
@@ -226,7 +226,7 @@ set pastetoggle=<F2>
 function! TrimWhiteSpace()
   %s/\s*$//
   ''
-:endfunction
+endfunction
 
 map <Leader>x :call TrimWhiteSpace()<CR>
 
