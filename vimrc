@@ -50,23 +50,26 @@ if has("autocmd")
   " Enable soft-wrapping for text files
   autocmd FileType text,markdown,html,xhtml,eruby setlocal wrap linebreak nolist
 
+  " Makefiles require hard tabs
+  autocmd FileType make setlocal noexpandtab
+
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
-  au!
+    au!
 
-  " For all text files set 'textwidth' to 78 characters.
-  " autocmd FileType text setlocal textwidth=78
+    " For all text files set 'textwidth' to 78 characters.
+    " autocmd FileType text setlocal textwidth=78
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim).
+    autocmd BufReadPost *
+          \ if line("'\"") > 1 && line("'\"") <= line("$") |
+          \   exe "normal! g`\"" |
+          \ endif
 
-  " Automatically load .vimrc source when saved
-  autocmd BufWritePost .vimrc source $MYVIMRC
+    " Automatically load .vimrc source when saved
+    autocmd BufWritePost .vimrc source $MYVIMRC
 
   augroup END
 
@@ -77,11 +80,11 @@ else
 endif " has("autocmd")
 
 " if has("folding")
-  " set foldenable
-  " set foldmethod=syntax
-  " set foldlevel=1
-  " set foldnestmax=2
-  " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
+"   set foldenable
+"   set foldmethod=syntax
+"   set foldlevel=1
+"   set foldnestmax=2
+"   set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 " endif
 
 " Softtabs, 2 spaces
@@ -150,7 +153,7 @@ nmap <F1> <Esc>
 imap <C-F> <C-R>=expand("%")<CR>
 
 " Maps autocomplete to tab
-imap <Tab> <C-N>
+" imap <Tab> <C-N>
 
 imap <C-L> <Space>=><Space>
 
@@ -229,4 +232,7 @@ function! TrimWhiteSpace()
 endfunction
 
 map <Leader>x :call TrimWhiteSpace()<CR>
+
+" Make vim more accepting of hidden buffer
+set hidden
 
