@@ -335,7 +335,9 @@ let g:rubycomplete_classes_in_global = 1
 let g:ruby_buffer_loading = 1
 let g:rubycomplte_include_object = 1
 let g:rubycomplete_include_objectspace = 1
-let g:ruby_path = $HOME . '/.rvm/bin/' . $rvm_ruby_string
+if executable($rvm_bin_path . '/' . $rvm_ruby_string)
+  let g:ruby_path = $rvm_bin_path . '/' . $rvm_ruby_string
+endif
 
 " Have to do a <c-x><c-o> to have completions fill in to start
 if has("autocmd")
