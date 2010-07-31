@@ -67,13 +67,6 @@ if has("autocmd")
   autocmd WinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
 
-  " Clear search history on reading buffer so there are no errors on search
-  " patterns missing
-  autocmd BufRead *
-            \ if exists(@/) |
-            \  let @/ = "" |
-            \ endif
-
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
     au!
@@ -88,7 +81,6 @@ if has("autocmd")
          \ if &filetype !~ 'commit\c' |
          \   if line("'\"") > 1 && line("'\"") <= line("$") |
          \     exe "normal! g`\"" |
-         \     normal! zz |
          \   endif |
          \ endif
 
