@@ -61,3 +61,12 @@
 [submodule "vim/bundle/vim-command-t"]
 	path = vim/bundle/vim-command-t
 	url = git://git.wincent.com/command-t.git
+[submodule "vim/bundle/vim-cocoa"]
+	path = vim/bundle/vim-cocoa
+	url = http://github.com/msanders/cocoa.vim.git
+[submodule "vim/bundle/vim-javascript"]
+	path = vim/bundle/vim-javascript
+	url = http://github.com/pangloss/vim-javascript.git
+[submodule "vim/bundle/vim-delimitMate"]
+	path = vim/bundle/vim-delimitMate
+	url = http://github.com/Raimondi/delimitMate.git

@@ -103,13 +103,13 @@ else
 
 endif " has("autocmd")
 
-" if has("folding")
-"   set foldenable
-"   set foldmethod=syntax
-"   set foldlevel=1
-"   set foldnestmax=2
-"   set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
-" endif
+if has("folding")
+  set nofoldenable
+  set foldmethod=syntax
+  set foldlevel=1
+  set foldnestmax=3
+  set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
+endif
 
 " Softtabs, 2 spaces
 set tabstop=2
@@ -202,15 +202,6 @@ command! Rschema :e db/schema.rb
 if filereadable(".vimrc.local")
   source .vimrc.local
 endif
-
-" Use Ack instead of Grep when available
-" if executable("ack")
-"   set grepprg=ack\ -H\ --nogroup\ --nocolor\ --ignore-dir=tmp\ --ignore-dir=coverage
-" endif
-
-" Color scheme
-set background=dark
-colorscheme ir_black
 
 " Numbers
 set number
@@ -311,6 +302,8 @@ endfunction
 if has("gui_running")
   set t_Co=256
   set guioptions-=T
+  colorscheme railscasts
+  set guitablabel=%M%t
 
   if has("gui_mac") || has("gui_macvim")
     set guifont=Akkurat-Mono:h12
@@ -325,6 +318,13 @@ if has("gui_running")
     set guifont=Consolas:h12
     set enc=utf-8
   endif
+else
+  " Make CSApprox not load so we don't get a warning
+  let g:CSApprox_loaded = 1
+
+  " Color scheme
+  set background=dark
+  colorscheme ir_black
 endif
 
 " Nerd Commenter settings
@@ -332,3 +332,16 @@ let NERDSpaceDelims=1
 let NERDCompactSexyComs=1
 let NERDCommentWholeLinesInVMode=1
 
+" delimitMate settings
+let delimitMate_expand_space = 1
+let delimitMate_expand_cr = 1
+
+" TList settings for ctags
+let Tlist_Ctags_Cmd="~/.homebrew/bin/ctags --langmap=ruby:.rake.rb"
+let Tlist_Show_One_File = 1
+let Tlist_Process_File_Always = 1
+let Tlist_File_Fold_Auto_Close = 1
+let Tlist_Auto_Update = 1
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Enable_Fold_Column = 0
+set tags=./tags;
