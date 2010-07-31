@@ -327,9 +327,8 @@ let delimitMate_expand_cr = 1
 " TList settings for ctags
 if executable($HOME . "/.homebrew/bin/ctags")
   let Tlist_Ctags_Cmd = "~/.homebrew/bin/ctags --langmap=ruby:.rake.rb"
-elseif executable("ctags")
-  let Tlist_Ctags_Cmd = "ctags"
 endif
+
 let Tlist_Show_One_File = 1
 let Tlist_Process_File_Always = 1
 let Tlist_File_Fold_Auto_Close = 1
