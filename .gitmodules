@@ -70,3 +70,9 @@
 [submodule "vim/bundle/vim-delimitMate"]
 	path = vim/bundle/vim-delimitMate
 	url = http://github.com/Raimondi/delimitMate.git
+[submodule "vim/bundle/vim-abolish"]
+	path = vim/bundle/vim-abolish
+	url = git://github.com/tpope/vim-abolish.git
+[submodule "vim/bundle/vim-repeat"]
+	path = vim/bundle/vim-repeat
+	url = git://github.com/tpope/vim-repeat.git
