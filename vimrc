@@ -343,3 +343,7 @@ endif
 if has("autocmd")
   autocmd FileType ruby,eruby,haml setlocal omnifunc=rubycomplete#Complete
 endif
+
+" Vim Session Management
+let g:session_autosave = 1
+let g:session_directory = ~/.vimsession

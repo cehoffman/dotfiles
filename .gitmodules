@@ -82,3 +82,9 @@
 [submodule "vim/bundle/vim-matchit"]
 	path = vim/bundle/vim-matchit
 	url = http://github.com/edsono/vim-matchit.git
+[submodule "vim/bundle/vim-session"]
+	path = vim/bundle/vim-session
+	url = http://github.com/xolox/vim-session.git
+[submodule "vim/bundle/vim-rdoc"]
+	path = vim/bundle/vim-rdoc
+	url = http://github.com/hallison/vim-rdoc.git
