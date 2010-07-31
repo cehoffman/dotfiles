@@ -248,7 +248,6 @@ set nobackup nowritebackup noswapfile
 set formatoptions-=o
 
 " Find in NerdTree!
-silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 nnoremap <silent> <C-f> :NERDTreeFind<CR>
 
 " Make navigating windows nicer
@@ -309,6 +308,9 @@ else
   " Color scheme
   set background=dark
   colorscheme ir_black
+
+  " Disable peepopen when not in gui
+  let g:peepopen_loaded = 1
 endif
 
 " Nerd Commenter settings
