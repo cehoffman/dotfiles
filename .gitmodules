@@ -76,3 +76,9 @@
 [submodule "vim/bundle/vim-repeat"]
 	path = vim/bundle/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
+[submodule "vim/bundle/vim-gitolite"]
+	path = vim/bundle/vim-gitolite
+	url = http://github.com/tmatilai/gitolite.vim.git
+[submodule "vim/bundle/vim-matchit"]
+	path = vim/bundle/vim-matchit
+	url = http://github.com/edsono/vim-matchit.git
