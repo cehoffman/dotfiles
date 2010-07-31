@@ -4,5 +4,5 @@ git reup
 git stash pop
 git submodule sync
 git submodule update
-rake upgrade
+rake update
 popd
