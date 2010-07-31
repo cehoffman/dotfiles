@@ -10,8 +10,8 @@ set backspace=indent,eol,start
 set nobackup
 set nowritebackup
 set history=100    " keep 50 lines of command line history
-set showcmd       " display incomplete commands
-set incsearch     " do incremental searching
+set showcmd        " display incomplete commands
+set incsearch      " do incremental searching
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -96,12 +96,9 @@ if has("autocmd")
     autocmd BufWritePost .vimrc source $MYVIMRC
 
   augroup END
-
-else
-
-  set autoindent    " always set autoindenting on
-
 endif " has("autocmd")
+
+set autoindent    " always set autoindenting on
 
 if has("folding")
   set nofoldenable
@@ -150,9 +147,9 @@ map <Leader>s :set spell!<CR>
 " Normal mode: <Leader>e
 map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
-" Opens a tab edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>t
-map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+" Opens a vertical edit command with the path of the currently edited file filled in
+" Normal mode: <Leader>ve
+map <Leader>ve :vsp <C-R>=expand("%:p:h") . "/" <CR>
 
 " Move lines up and down
 map <C-J> :m +1 <CR>
@@ -179,6 +176,7 @@ imap <C-F> <C-R>=expand("%")<CR>
 " Maps autocomplete to tab
 " imap <Tab> <C-N>
 
+imap #<TAB> #<Space>=><Space>
 imap <C-L> <Space>=><Space>
 
 " Display extra whitespace
@@ -207,9 +205,6 @@ endif
 set number
 set numberwidth=5
 
-" Snippets are activated by Shift+Tab
-let g:snippetsEmu_key = "<S-Tab>"
-
 " Tab completion options
 " (only complete to the longest unambiguous match, and show a menu)
 set completeopt=longest,menu
@@ -219,10 +214,6 @@ set complete=.,t
 " case only matters with mixed case expressions
 set ignorecase
 set smartcase
-
-" Tags
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
-set tags=./tags;
 
 " Open URL
 command! -bar -nargs=1 OpenURL :!open <args>
@@ -249,7 +240,7 @@ endfunction
 map <Leader>x :call TrimWhiteSpace()<CR>
 
 " Make vim more accepting of hidden buffer
-set hidden
+" set hidden
 
 " Mappings for fugitive
 nmap <Leader>gs :Gstatus<CR>
@@ -265,6 +256,7 @@ set nobackup nowritebackup noswapfile
 set formatoptions-=o
 
 " Find in NerdTree!
+silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 nnoremap <silent> <C-f> :NERDTreeFind<CR>
 
 " Make navigating windows nicer
@@ -298,7 +290,6 @@ function! s:SetupSnippets()
   call ExtractSnips("~/.vim/snippets/html", "php")
 endfunction
 
-
 if has("gui_running")
   set t_Co=256
   set guioptions-=T
@@ -319,9 +310,6 @@ if has("gui_running")
     set enc=utf-8
   endif
 else
-  " Make CSApprox not load so we don't get a warning
-  let g:CSApprox_loaded = 1
-
   " Color scheme
   set background=dark
   colorscheme ir_black
@@ -337,7 +325,11 @@ let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1
 
 " TList settings for ctags
-let Tlist_Ctags_Cmd="~/.homebrew/bin/ctags --langmap=ruby:.rake.rb"
+if executable($HOME . "/.homebrew/bin/ctags")
+  let Tlist_Ctags_Cmd = "~/.homebrew/bin/ctags --langmap=ruby:.rake.rb"
+elseif executable("ctags")
+  let Tlist_Ctags_Cmd = "ctags"
+endif
 let Tlist_Show_One_File = 1
 let Tlist_Process_File_Always = 1
 let Tlist_File_Fold_Auto_Close = 1
@@ -345,3 +337,16 @@ let Tlist_Auto_Update = 1
 let Tlist_Exit_OnlyWindow = 1
 let Tlist_Enable_Fold_Column = 0
 set tags=./tags;
+
+" Ruby completion settings
+let g:rubycomplete_rails = 1
+let g:rubycomplete_classes_in_global = 1
+let g:ruby_buffer_loading = 1
+let g:rubycomplte_include_object = 1
+let g:rubycomplete_include_objectspace = 1
+let g:ruby_path = $HOME . '/.rvm/bin/' . $rvm_ruby_string
+
+" Have to do a <c-x><c-o> to have completions fill in to start
+if has("autocmd")
+  autocmd FileType ruby,eruby,haml setlocal omnifunc=rubycomplete#Complete
+endif
