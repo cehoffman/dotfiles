@@ -346,4 +346,4 @@ endif
 
 " Vim Session Management
 let g:session_autosave = 1
-let g:session_directory = ~/.vimsession
+let g:session_directory = '~/.vimsession'
