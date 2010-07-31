@@ -48,7 +48,7 @@
 	url = http://github.com/tpope/vim-surround.git
 [submodule "vim/bundle/vim-syntastic"]
 	path = vim/bundle/vim-syntastic
-	url = http://github.com/scrooloose/syntastic.git
+	url = git@github.com:cehoffman/syntastic.git
 [submodule "vim/bundle/vim-unimpaired"]
 	path = vim/bundle/vim-unimpaired
 	url = http://github.com/tpope/vim-unimpaired.git
