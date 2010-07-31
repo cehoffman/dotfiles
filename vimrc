@@ -316,6 +316,9 @@ let NERDSpaceDelims=1
 let NERDCompactSexyComs=1
 let NERDCommentWholeLinesInVMode=1
 
+" Nerd Tree settings
+nmap <Leader>d :NERDTreeToggle<CR>
+
 " delimitMate settings
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1

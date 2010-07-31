@@ -6,7 +6,7 @@
 	url = http://github.com/scrooloose/nerdtree.git
 [submodule "vim/bundle/vim-nerd-commenter"]
 	path = vim/bundle/vim-nerd-commenter
-	url = http://github.com/scrooloose/nerdcommenter.git
+	url = git@github.com:cehoffman/nerdcommenter.git
 [submodule "vim/bundle/vim-ack"]
 	path = vim/bundle/vim-ack
 	url = http://github.com/mileszs/ack.vim.git
