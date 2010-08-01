@@ -17,6 +17,9 @@ vbell off
 # detach on hangup
 autodetach on
 
+# don't let screen hang waiting on slow terminal
+nonblock on
+
 # don't display the copyright page
 startup_message off
 
@@ -36,6 +39,9 @@ hardstatus alwayslastline "%{= dk}%-Lw%{= kg} %n*%f %t %{-}%+Lw %=%{= dd}"
 bindkey "\033OQ" screen
 bindkey "\033OR" prev
 bindkey "\033OS" next
+
+# Make anything copied in copy mode able to be put into the mac clipboard
+bind b eval "writebuf" "exec sh -c 'pbcopy < /tmp/screen-exchange'"
 
 # advertise hardstatus support to $TERMCAP
 # termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
