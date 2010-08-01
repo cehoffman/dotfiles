@@ -88,3 +88,6 @@
 [submodule "vim/bundle/vim-rdoc"]
 	path = vim/bundle/vim-rdoc
 	url = http://github.com/hallison/vim-rdoc.git
+[submodule "vim/bundle/vim-fakeclip"]
+	path = vim/bundle/vim-fakeclip
+	url = http://github.com/kana/vim-fakeclip.git

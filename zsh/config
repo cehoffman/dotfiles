@@ -74,5 +74,9 @@ fi
 for config_file (~/.zsh/envs/*) source $config_file
 unset config_file
 
+if [[ $(uname) =~ Darwin ]]; then
+  export __CF_USER_TEXT_ENCODING="$(printf '0x%X' $(id -u)):0x08000100:0"
+fi
+
 # Remove duplicates in paths
 typeset -gU path cdpath manpath fpath
