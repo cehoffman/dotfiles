@@ -359,3 +359,9 @@ endif
 " Vim Session Management
 let g:session_autosave = 1
 let g:session_directory = '~/.vimsession'
+
+" Workaround for making things like arrow keys work under screen
+if $TERM == 'screen'
+  set term=xterm
+endif
+
