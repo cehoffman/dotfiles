@@ -24,12 +24,18 @@ startup_message off
 pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
 
 hardstatus off
-caption always "%?%F%{= Kk}%:%{=u kR}%? %h %-024=%{+b} %C%a %D %d %M %Y%{= db}"
-hardstatus alwayslastline "%{= kR} %-Lw%{= Kk} %n%f %t %{-}%+Lw %=%{= dd}"
+caption always "%?%F%{= kg}%:%{= kr}%? %h %-024=%{= .c} %C%a %D %d %M %Y%{= dd}"
+hardstatus alwayslastline "%{= dk}%-Lw%{= kg} %n%f %t %{-}%+Lw %=%{= dd}"
 
+# Standard F key binding
 bindkey -k k2 screen
 bindkey -k k3 prev
 bindkey -k k4 next
+
+# These are the key bindings as setup from the Terminal.app
+bindkey "\033OQ" screen
+bindkey "\033OR" prev
+bindkey "\033OS" next
 
 # advertise hardstatus support to $TERMCAP
 # termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
