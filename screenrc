@@ -8,6 +8,9 @@ escape ``
 # This is how one can set a reattach password:
 # password ODSJQf.4IJN7E    # "1234"
 
+# Use utf8 by default
+utf8 on on
+
 # no annoying audible bell, please
 vbell off
 
