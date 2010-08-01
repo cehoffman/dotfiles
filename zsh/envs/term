@@ -10,11 +10,8 @@ case "$TERM" in
   screen*)
 
     function preexec () {
-      local -a cmd;
       local -a exe;
-
       exe=(${(z)1})
-      cmd=${1[(wr)^(*=*|sudo|ssh|-*)]}
 
       print -Pn "\e]0;[%~] $1\a"
       print -Pn  "\ek%n@%m $exe[1]:t\e\\"
