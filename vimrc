@@ -81,6 +81,7 @@ if has("autocmd")
          \ if &filetype !~ 'commit\c' |
          \   if line("'\"") > 1 && line("'\"") <= line("$") |
          \     exe "normal! g`\"" |
+         \     exe "normal! zvzz" |
          \   endif |
          \ endif
 
@@ -93,10 +94,11 @@ endif " has("autocmd")
 set autoindent    " always set autoindenting on
 
 if has("folding")
-  set nofoldenable
-  set foldmethod=syntax
-  set foldlevel=1
-  set foldnestmax=3
+  set foldenable
+  " set foldmethod=syntax
+  set foldmethod=indent
+  set foldlevel=2 " How far down fold tree to go before folding code on opening file
+  set foldnestmax=10
   set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 endif
 
@@ -248,7 +250,7 @@ set nobackup nowritebackup noswapfile
 set formatoptions-=o
 
 " Find in NerdTree!
-nnoremap <silent> <C-f> :NERDTreeFind<CR>
+nnoremap <silent> <Leader>r :NERDTreeFind<CR>
 
 " Make navigating windows nicer
 map <C-h> <C-w>h
