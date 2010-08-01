@@ -123,6 +123,7 @@ map <Leader>c :Rcontroller
 map <Leader>v :Rview
 map <Leader>u :Runittest
 map <Leader>f :Rfunctionaltest
+map <Leader>rs :Rspec
 map <Leader>tm :RTmodel
 map <Leader>tc :RTcontroller
 map <Leader>tv :RTview

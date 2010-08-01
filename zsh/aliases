@@ -24,3 +24,7 @@ if [[ -f /Library/Application\ Support/VMware\ Fusion/vmrun ]]; then
     /Library/Application\ Support/VMware\ Fusion/vmrun -T fusion $@ nogui
   }
 fi
+
+if [[ ! $TERM =~ ^screen ]]; then
+  alias screen="screen -dRaA"
+fi
