@@ -29,7 +29,7 @@ let g:colors_name = "railscasts"
 hi Normal                    guifg=#E6E1DC guibg=#2B2B2B
 hi Cursor                    guibg=#FFFFFF
 hi CursorLine                guibg=#333435
-hi Search                    guibg=#5A647E
+hi Search                    guifg=NONE guibg=NONE gui=underline " guibg=#5A647E
 hi Visual                    guibg=#5A647E
 hi LineNr                    guibg=#333435 guifg=#777777 gui=NONE
 hi StatusLine                guibg=#414243 gui=NONE
@@ -40,8 +40,8 @@ hi NonText                   guifg=#4e4e4e
 " Folds
 " -----
 " line used for closed folds
-hi Folded                    guifg=#F6F3E8 guibg=#444444 gui=NONE
-
+" hi Folded                    guifg=#F6F3E8 guibg=#444444 gui=NONE
+hi Folded                    guifg=#F6F3E9 guibg=#2B2B2B gui=NONE
 " Misc
 " ----
 " directory names and other special names in listings
