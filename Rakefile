@@ -40,6 +40,7 @@ end
 
 desc "update the dot files into user's home directory"
 task :update do
+  system %Q{git submodule init}
   system %Q{git submodule sync}
   system %Q{git submodule update}
   replace_all = false
