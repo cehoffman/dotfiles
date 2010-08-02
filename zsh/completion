@@ -1,6 +1,13 @@
 autoload -U compinit
 compinit -i
 
+# Make sure that C-a and C-e do the appropriate things
+# Discovered this when using zsh inside a tmux that was inside
+# another tmux. It would just print ^A or ^E instead of doing
+# the action
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+
 # Look in history for a line that matches the current up
 # to where the cursor currently is, uses up/down arrow keys
 bindkey '^[[A' history-beginning-search-backward
