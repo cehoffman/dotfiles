@@ -291,7 +291,7 @@ endfunction
 if has("gui_running")
   set t_Co=256
   set guioptions-=T
-  colorscheme railscasts
+  colorscheme plasticcodewrap
   set guitablabel=%M%t
 
   if has("gui_mac") || has("gui_macvim")
@@ -308,9 +308,16 @@ if has("gui_running")
     set enc=utf-8
   endif
 else
+  " Shut CSApprox up so we don't hear any warnings
+  let g:CSApprox_verbose_level = 0
+
   " Color scheme
   set background=dark
-  colorscheme ir_black
+  if &t_Co > 255
+    colorscheme plasticcodewrap
+  else
+    colorscheme ir_black
+  endif
 
   " Disable peepopen when not in gui
   let g:peepopen_loaded = 1
@@ -331,7 +338,9 @@ let delimitMate_expand_cr = 1
 " TList settings for ctags
 if executable($HOME . "/.homebrew/bin/ctags")
   let Tlist_Ctags_Cmd = "~/.homebrew/bin/ctags --langmap=ruby:.rake.rb"
-endif
+elseif !executable("ctags")
+  let loaded_taglist = 1
+end
 
 let Tlist_Show_One_File = 1
 let Tlist_Process_File_Always = 1
