@@ -235,7 +235,7 @@ endfunction
 map <Leader>x :call TrimWhiteSpace()<CR>
 
 " Make vim more accepting of hidden buffer
-" set hidden
+set hidden
 
 " Mappings for fugitive
 nmap <Leader>gs :Gstatus<CR>
