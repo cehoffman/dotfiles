@@ -147,8 +147,8 @@ map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 map <Leader>ve :vsp <C-R>=expand("%:p:h") . "/" <CR>
 
 " Move lines up and down
-map <C-J> :m +1 <CR>
-map <C-K> :m -2 <CR>
+noremap <C-J> :m +1 <CR>
+noremap <C-K> :m -2 <CR>
 
 " Inserts the path of the currently edited file into a command
 " Command mode: Ctrl+P
