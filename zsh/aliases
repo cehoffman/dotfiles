@@ -28,3 +28,7 @@ fi
 if [[ ! $TERM =~ ^screen ]]; then
   alias screen="screen -dRaA"
 fi
+
+# Create a tmux session if there isn't one to attach to
+alias tmux="tmux attach-session"
+
