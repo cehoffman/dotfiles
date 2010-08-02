@@ -374,3 +374,6 @@ if $TERM == 'screen'
   set term=xterm
 endif
 
+" Turn on mouse support
+let mouse=a
+
