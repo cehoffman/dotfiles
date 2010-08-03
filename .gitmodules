@@ -39,7 +39,7 @@
 	url = http://github.com/cakebaker/scss-syntax.vim.git
 [submodule "vim/bundle/vim-snipmate"]
 	path = vim/bundle/vim-snipmate
-	url = http://github.com/akitaonrails/snipmate.vim.git
+	url = git@github.com:cehoffman/snipmate.vim.git
 [submodule "vim/bundle/vim-supertab"]
 	path = vim/bundle/vim-supertab
 	url = http://github.com/ervandew/supertab.git
