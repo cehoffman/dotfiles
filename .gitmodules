@@ -97,3 +97,6 @@
 [submodule "vim/bundle/vim-lusty"]
 	path = vim/bundle/vim-lusty
 	url = http://github.com/sjbach/lusty.git
+[submodule "vim/bundle/vim-csapprox"]
+	path = vim/bundle/vim-csapprox
+	url = http://github.com/godlygeek/csapprox.git
