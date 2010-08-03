@@ -64,6 +64,7 @@ if has("autocmd")
   autocmd FileType make setlocal noexpandtab
 
   " Highlight the current line the cursor is on, only for the active window
+  set cursorline
   autocmd WinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
 
@@ -202,9 +203,9 @@ set numberwidth=5
 
 " Tab completion options
 " (only complete to the longest unambiguous match, and show a menu)
-set completeopt=longest,menu
+set completeopt=longest,menu,menuone
 set wildmode=list:longest,list:full
-set complete=.,t
+set complete=.,t,i
 
 " case only matters with mixed case expressions
 set ignorecase
@@ -250,9 +251,6 @@ set nobackup nowritebackup noswapfile
 " Don't continue comments when doing o/O
 set formatoptions-=o
 
-" Find in NerdTree!
-nnoremap <silent> <Leader>r :NERDTreeFind<CR>
-
 " Make navigating windows nicer
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -265,14 +263,8 @@ let g:CommandTMaxHeight=10
 " Mark syntax errors with :signs
 let g:syntastic_enable_signs=1
 
-" SnipMate Settings
-let g:snips_author = 'Chris Hoffman'
-
-try
-  source ~/.vim/snippets/support_functions.vim
-catch
-  source ~/vimfiles/snippets/support_functions.vim
-endtry
+" snipmate setup
+source ~/.vim/snippets/support_functions.vim
 if has("autocmd")
   autocmd vimenter * call s:SetupSnippets()
 endif
@@ -287,6 +279,28 @@ function! s:SetupSnippets()
   call ExtractSnips("~/.vim/snippets/html", "xhtml")
   call ExtractSnips("~/.vim/snippets/html", "php")
 endfunction
+
+" Make snippets show up in the completion list
+let g:acp_behaviorSnipmateLength = 1
+
+if has("autocmd")
+  autocmd FileType ruby,eruby,haml setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+endif
+
+" Ruby completion settings
+let g:rubycomplete_rails = 1
+let g:rubycomplete_classes_in_global = 1
+let g:ruby_buffer_loading = 1
+let g:rubycomplte_include_object = 1
+let g:rubycomplete_include_objectspace = 1
+if executable($rvm_bin_path . '/' . $rvm_ruby_string)
+  let g:ruby_path = $rvm_bin_path . '/' . $rvm_ruby_string
+endif
 
 if has("gui_running")
   set t_Co=256
@@ -350,30 +364,32 @@ let Tlist_Exit_OnlyWindow = 1
 let Tlist_Enable_Fold_Column = 0
 set tags=./tags;
 
-" Ruby completion settings
-let g:rubycomplete_rails = 1
-let g:rubycomplete_classes_in_global = 1
-let g:ruby_buffer_loading = 1
-let g:rubycomplte_include_object = 1
-let g:rubycomplete_include_objectspace = 1
-if executable($rvm_bin_path . '/' . $rvm_ruby_string)
-  let g:ruby_path = $rvm_bin_path . '/' . $rvm_ruby_string
-endif
-
-" Have to do a <c-x><c-o> to have completions fill in to start
-if has("autocmd")
-  autocmd FileType ruby,eruby,haml setlocal omnifunc=rubycomplete#Complete
-endif
-
-" Vim Session Management
-let g:session_autosave = 1
-let g:session_directory = '~/.vimsession'
-
 " Workaround for making things like arrow keys work under screen
-if $TERM == 'screen'
+if $TERM == 'screen*'
   set term=xterm
-endif
+elseif $TERM == 'screen-256color'
+  set term=xterm-256color
+end
 
 " Turn on mouse support
-let mouse=a
+set mouse=a
+
+" Allow inserting just one stupid character
+nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
+
+" Make using lusty juggler and explorer a bit nicer
+nnoremap <Leader>j :LustyJuggler<CR> 
+nnoremap <Leader>q :LustyBufferExplorer<CR>
+nnoremap <Leader>f :LustyFilesystemExplorerFromHere<CR>
+
+" Find in NerdTree!
+nnoremap <silent> <Leader>r :NERDTreeFind<CR>
+
+" Allow a method to delete without updating paste buffer
+vnoremap x "_x
+vnoremap X "_X
+
+" Don't move the cursosr after pasting
+noremap p p`[
+noremap P P`[
 
