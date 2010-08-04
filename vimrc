@@ -142,13 +142,19 @@ map <Leader>sf :RSfunctionaltest
 map <Leader>s :set spell!<CR>
 
 " Opens an edit command with the path of the currently edited file filled in
-nnoremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+" nnoremap <Leader>e :edit <C-R>=expand("%:p:h") . "/" <CR>
 
 " Opens a vertical window and moves to it
-nnoremap <Leader>ev :vsp<CR><C-w><C-w>
+nnoremap <Leader>nv :vsplit<CR><C-w><C-w>
 
 " Opens a horizontal split window and moves to it
-nnoremap <Leader>eh :sp<CR><C-w><C-w>
+nnoremap <Leader>nh :split<CR><C-w><C-w>
+
+" Open a new blank tab
+nnoremap <Leader>nt :tabnew<CR>
+
+" Open current window in new tab
+nnoremap <Leader>nT <C-w>T
 
 " Move lines up and down
 noremap <C-J> :m +1 <CR>
