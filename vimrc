@@ -280,9 +280,6 @@ function! s:SetupSnippets()
   call ExtractSnips("~/.vim/snippets/html", "php")
 endfunction
 
-" Make snippets show up in the completion list
-let g:acp_behaviorSnipmateLength = 1
-
 if has("autocmd")
   autocmd FileType ruby,eruby,haml setlocal omnifunc=rubycomplete#Complete
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
