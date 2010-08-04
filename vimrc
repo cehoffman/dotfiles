@@ -335,17 +335,22 @@ let delimitMate_expand_cr = 1
 
 " TList settings for ctags
 if executable($HOME . "/.homebrew/bin/ctags")
-  let Tlist_Ctags_Cmd = "~/.homebrew/bin/ctags --langmap=ruby:.rake.rb"
+  let Tlist_Ctags_Cmd = $HOME . "/.homebrew/bin/ctags --langmap=ruby:.rake.rb"
 elseif !executable("ctags")
   let loaded_taglist = 1
 end
 
+" Tlist doesn't seem to work with MacVim and exuberant ctags from homebrew
 let Tlist_Show_One_File = 1
 let Tlist_Process_File_Always = 1
 let Tlist_File_Fold_Auto_Close = 1
 let Tlist_Auto_Update = 1
 let Tlist_Exit_OnlyWindow = 1
+let Tlist_Auto_Open = 1
 let Tlist_Enable_Fold_Column = 0
+let Tlist_Use_SingleClick = 1
+let Tlist_Show_Menu = 0
+let Tlist_Auto_Open = 1
 set tags=./tags;
 
 " Workaround for making things like arrow keys work under screen
