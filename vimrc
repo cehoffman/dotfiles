@@ -285,7 +285,7 @@ if has("autocmd")
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-  autocmd FileType ruby setlocal formatoptions-=o
+  autocmd FileType vim,ruby setlocal formatoptions-=o
   autocmd FileType nerdtree,taglist setlocal nolist nowrap
 endif
 
