@@ -31,6 +31,8 @@ endif
 
 " Use soft wrapping, and adjust mappings for edit keys
 set wrap linebreak textwidth=0 showbreak=\ \ \ …\  cpoptions+=n
+
+" Allows moving up by screen lines, not file lines
 map j gj
 map k gk
 map <Up> gk
@@ -56,9 +58,6 @@ if has("autocmd")
 
   " Set File type to 'text' for files ending in .txt
   autocmd BufNewFile,BufRead *.txt setfiletype text
-
-  " Enable soft-wrapping for text files
-  autocmd FileType text,markdown,html,xhtml,eruby setlocal wrap linebreak nolist
 
   " Makefiles require hard tabs
   autocmd FileType make setlocal noexpandtab
@@ -112,7 +111,7 @@ set expandtab
 " Always display the status line
 set laststatus=2
 
-" \ is the leader character
+" \ is the default leader character
 let mapleader = ","
 
 " Edit the README_FOR_APP (makes :R commands work)
@@ -169,12 +168,6 @@ nmap <F1> <Esc>
 " Press ^F from insert mode to insert the current file name
 imap <C-F> <C-R>=expand("%")<CR>
 
-" Maps autocomplete to tab
-" imap <Tab> <C-N>
-
-imap #<TAB> #<Space>=><Space>
-imap <C-L> <Space>=><Space>
-
 " Display extra whitespace
 set list listchars=tab:▸\ ,eol:¬,precedes:<,extends:>
 
@@ -203,7 +196,7 @@ set numberwidth=5
 
 " Tab completion options
 " (only complete to the longest unambiguous match, and show a menu)
-set completeopt=longest,menu,menuone
+set completeopt=longest,menu
 set wildmode=list:longest,list:full
 set complete=.,t,i
 
@@ -250,12 +243,6 @@ set nobackup nowritebackup noswapfile
 
 " Don't continue comments when doing o/O
 set formatoptions-=o
-
-" Make navigating windows nicer
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
 
 " Command-T configuration
 let g:CommandTMaxHeight=10
