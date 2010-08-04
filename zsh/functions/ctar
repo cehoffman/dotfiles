@@ -1,1 +1,1 @@
-curl -LsSf "$@" | tar zxv -
+curl -LsSf "$@" | tar ${${${test:#*bz2}:-j}:#$test}${${${test:#*gz:-z}}:#$test}xv -
