@@ -91,9 +91,6 @@ if has("autocmd")
   augroup END
 endif " has("autocmd")
 
-" Shortcut to edit .vimrc
-noremap <Leader>e :edit $MYVIMRC<CR>
-
 set autoindent    " always set autoindenting on
 
 if has("folding")
@@ -116,6 +113,9 @@ set laststatus=2
 
 " \ is the default leader character
 let mapleader = ","
+
+" Shortcut to edit .vimrc
+noremap <Leader>e :edit $MYVIMRC<CR>
 
 " Edit the README_FOR_APP (makes :R commands work)
 map <Leader>R :e doc/README_FOR_APP<CR>
