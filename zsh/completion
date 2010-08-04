@@ -1,6 +1,13 @@
 autoload -U compinit
 compinit -i
 
+# Use vi keybindings to edit command line
+bindkey -v
+
+# Make backspace work
+bindkey '^?' delete-char
+bindkey '^H' delete-char
+
 # Make sure that C-a and C-e do the appropriate things
 # Discovered this when using zsh inside a tmux that was inside
 # another tmux. It would just print ^A or ^E instead of doing
@@ -22,10 +29,10 @@ bindkey '^[[B' history-beginning-search-forward
 bindkey ' ' magic-space    # also do history expansion on space
 
 # Better movement on the line
-bindkey '^b' backward-word
-bindkey '^f' forward-word
-bindkey '^d' delete-word
-bindkey '^u' kill-whole-line
+# bindkey '^b' backward-word
+# bindkey '^f' forward-word
+# bindkey '^d' delete-word
+# bindkey '^u' kill-whole-line
 
 zmodload -i zsh/complist
 
