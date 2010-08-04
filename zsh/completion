@@ -5,8 +5,8 @@ compinit -i
 bindkey -v
 
 # Make backspace work
-bindkey '^?' delete-char
-bindkey '^H' delete-char
+bindkey '^?' backward-delete-char
+bindkey '^H' backward-delete-char
 
 # Make sure that C-a and C-e do the appropriate things
 # Discovered this when using zsh inside a tmux that was inside
