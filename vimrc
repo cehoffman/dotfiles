@@ -274,6 +274,8 @@ if has("autocmd")
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+  autocmd FileType ruby setlocal formatoptions-=o
 endif
 
 " Ruby completion settings
