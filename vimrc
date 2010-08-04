@@ -277,6 +277,7 @@ if has("autocmd")
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
   autocmd FileType ruby setlocal formatoptions-=o
+  autocmd FileType nerdtree,taglist setlocal nolist nowrap
 endif
 
 " Ruby completion settings
