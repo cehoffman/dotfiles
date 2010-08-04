@@ -173,7 +173,7 @@ vmap D y'>p
 vmap P p :call setreg('"', getreg('0')) <CR>
 
 " No Help, please
-nmap <F1> <Esc>
+" nmap <F1> <Esc>
 
 " Press ^F from insert mode to insert the current file name
 imap <C-F> <C-R>=expand("%")<CR>
@@ -392,8 +392,8 @@ vnoremap x "_x
 vnoremap X "_X
 
 " Don't move the cursosr after pasting
-noremap p p`[
-noremap P P`[
+" noremap p p`[
+" noremap P P`[
 
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
