@@ -1,1 +1,14 @@
-curl -LsSf "$@" | tar ${${${test:#*bz2}:-j}:#$test}${${${test:#*gz:-z}}:#$test}xv -
+case "$@" in
+  *bz2)
+    curl -LsSf "$@" | tar jxv
+    ;;
+  *gz)
+    curl -LsSf "$@" | tar zxv
+    ;;
+  *tar)
+    curl -LsSf "$@" | tar xv
+    ;;
+  *)
+    echo "Not an understood archive format. Does it end in something other than .bz2, .gz, or .tar?"
+esac
+
