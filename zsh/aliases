@@ -27,6 +27,7 @@ fi
 
 if [[ ! $TERM =~ ^screen ]]; then
   alias screen="screen -dRaA"
+  export TERM="screen-256color"
 fi
 
 # Create a tmux session if there isn't one to attach to
