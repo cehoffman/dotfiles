@@ -91,6 +91,9 @@ if has("autocmd")
   augroup END
 endif " has("autocmd")
 
+" Shortcut to edit .vimrc
+noremap <Leader>e :edit $MYVIMRC<CR>
+
 set autoindent    " always set autoindenting on
 
 if has("folding")
