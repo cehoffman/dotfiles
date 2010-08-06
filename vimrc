@@ -307,6 +307,7 @@ if has("autocmd")
 endif
 
 " Ruby completion settings
+let ruby_minlines = 200
 let g:rubycomplete_rails = 1
 let g:rubycomplete_classes_in_global = 1
 let g:ruby_buffer_loading = 1
