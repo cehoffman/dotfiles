@@ -477,8 +477,7 @@ function! TabLabel()
     endfor
 
     " Append the number of windows in the tab page
-    let wincount = tabpagewinnr(i, '$')
-    let label .= '[' . wincount . ']'
+    let label .= '[' . tabpagewinnr(i, '$') . ']'
     let i += 1
   endwhile
 
