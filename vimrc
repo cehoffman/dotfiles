@@ -68,7 +68,9 @@ if has("autocmd")
   " Don't show white spaces in man mode
   augroup ManPages
     au!
-    autocmd FileType man setlocal nolist nofoldenable
+    autocmd FileType man
+          \ setlocal nolist nofoldenable |
+          \ map <buffer> q <ESC>:q!<CR>
   augroup END
 
   " Highlight the current line the cursor is on, only for the active window
