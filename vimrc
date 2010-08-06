@@ -394,6 +394,8 @@ let Tlist_Enable_Fold_Column = 0
 let Tlist_Use_SingleClick = 1
 let Tlist_Show_Menu = 0
 let Tlist_Auto_Open = 1
+let Tlist_Display_Prototype = 1
+let Tlist_WinWidth = 35
 set tags=./tags;
 
 " Workaround for making things like arrow keys work under screen
