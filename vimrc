@@ -427,19 +427,64 @@ vnoremap X "_X
 " noremap p p`[
 " noremap P P`[
 
-if has("autocmd") && exists("+omnifunc")
-  autocmd Filetype *
-    \ if &omnifunc == "" |
-    \   setlocal omnifunc=syntaxcomplete#Complete |
-    \ endif
-endif
-
 " Select just pasted text in last used visual mode
 nnoremap <expr> gp '`[' . visualmode() . '`]'
 
-" Use ^L to exit insert or visual mode
-inoremap <C-l> <ESC>
-vnoremap <C-l> <ESC>
-snoremap <C-l> <ESC>
-onoremap <C-l> <ESC>
+" Use ^L to exit modes and keep cursor where it was
+inoremap <C-l> <ESC>l
+vnoremap <C-l> <ESC>l
+snoremap <C-l> <ESC>l
+onoremap <C-l> <ESC>l
+" Don't put the cursor so close to a windows edge
+set scrolloff=10
+
+" set up tab labels with tab number, buffer name, number of windows
+function! TabLabel()
+  let label = ''
+  let i = 1
+  let current = tabpagenr()
+
+  while i <= tabpagenr('$')
+    let bufnrlist = tabpagebuflist(i)
+
+    " Let vim know which tab this delineates
+    let label .= '%' . (i == current ? '#TabLineSel#' : '#TabLine#') . ' %' . i . 'T'
+
+    " Append the tab number
+    let label .= i . ': '
+
+    " Append the buffer name
+    let name = bufname(bufnrlist[tabpagewinnr(i) - 1])
+    if name == ''
+      " give a name to no-name documents
+      if &buftype=='quickfix'
+        let name = '[Quickfix List]'
+      else
+        let name = '[No Name]'
+      endif
+    else
+      " get only the file name
+      let name = fnamemodify(name,":p:t")
+    endif
+    let label .= name . ' '
+
+    " Add '+' if one of the buffers in the tab page is modified
+    for bufnr in bufnrlist
+      if getbufvar(bufnr, "&modified")
+        let label .= '[+]'
+        break
+      endif
+    endfor
+
+    " Append the number of windows in the tab page
+    let wincount = tabpagewinnr(i, '$')
+    let label .= '[' . wincount . ']'
+    let i += 1
+  endwhile
+
+  let label .= '%T%#TabLineFill#%=%999%X'
+  return label
+endfunction
+
+set tabline=%!TabLabel()
 
