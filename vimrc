@@ -412,7 +412,7 @@ set mouse=a
 nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
 
 " Make using lusty juggler and explorer a bit nicer
-nnoremap <Leader>j :LustyJuggler<CR> 
+nnoremap <Leader>j :LustyJuggler<CR>
 nnoremap <Leader>q :LustyBufferExplorer<CR>
 nnoremap <Leader>f :LustyFilesystemExplorerFromHere<CR>
 
