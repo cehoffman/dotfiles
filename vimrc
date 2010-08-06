@@ -435,6 +435,7 @@ inoremap <C-l> <ESC>l
 vnoremap <C-l> <ESC>l
 snoremap <C-l> <ESC>l
 onoremap <C-l> <ESC>l
+
 " Don't put the cursor so close to a windows edge
 set scrolloff=10
 
