@@ -34,7 +34,6 @@ hardstatus alwayslastline "%{= dk}%-Lw%{= kg} %n*%f %t %{-}%+Lw %=%{= dd}"
 # bindkey -k k2 screen
 # bindkey -k k3 prev
 # bindkey -k k4 next
-
 # These are the F* key bindings as setup from the Terminal.app
 bindkey "\033OQ" screen
 bindkey "\033OR" prev
