@@ -278,11 +278,9 @@ if has("autocmd")
   augroup END
 endif
 function! s:SetupSnippets()
-  "if we're in a rails env then read in the rails snippets
-  if filereadable("./config/environment.rb")
-    call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
-    call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
-  endif
+  " Enable rails, mostly ActiveSupport based sippets in normal ruby
+  call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
+  call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
 
   call ExtractSnips("~/.vim/snippets/html", "eruby")
   call ExtractSnips("~/.vim/snippets/html", "xhtml")
