@@ -48,6 +48,9 @@ call pathogen#runtime_append_all_bundles()
 " Custom status line using to show git branch info, has ruler set
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%{rvm#statusline()}\ %-14.(%c%V,%l/%L%)\ %P\ %y
 
+" Enable the :Man command
+runtime! ftplugin/man.vim
+
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
   " Enable file type detection.
@@ -59,8 +62,11 @@ if has("autocmd")
   " Set File type to 'text' for files ending in .txt
   autocmd BufNewFile,BufRead *.txt setfiletype text
 
-  " Makefiles require hard tabs
-  autocmd FileType make setlocal noexpandtab
+  " Don't show white spaces in man mode
+  augroup ManPages
+    au!
+    autocmd FileType man setlocal nolist nofoldenable
+  augroup END
 
   " Highlight the current line the cursor is on, only for the active window
   set cursorline
