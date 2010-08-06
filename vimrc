@@ -246,6 +246,7 @@ function! TrimWhiteSpace()
 endfunction
 
 map <Leader>x :call TrimWhiteSpace()<CR>
+map <Leader>xw :call TrimWhiteSpace()<CR>:w<CR>
 
 " Make vim more accepting of hidden buffer
 set hidden
