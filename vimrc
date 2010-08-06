@@ -60,7 +60,10 @@ if has("autocmd")
   filetype plugin indent on
 
   " Set File type to 'text' for files ending in .txt
-  autocmd BufNewFile,BufRead *.txt setfiletype text
+  augroup TextFiles
+    au!
+    autocmd BufNewFile,BufRead *.txt setfiletype text
+  augroup END
 
   " Don't show white spaces in man mode
   augroup ManPages
@@ -70,15 +73,15 @@ if has("autocmd")
 
   " Highlight the current line the cursor is on, only for the active window
   set cursorline
-  autocmd WinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
+  augroup CursorLine
+    au!
+    autocmd WinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
+  augroup END
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
     au!
-
-    " For all text files set 'textwidth' to 78 characters.
-    " autocmd FileType text setlocal textwidth=78
 
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
@@ -269,7 +272,10 @@ let g:syntastic_enable_signs=1
 " snipmate setup
 source ~/.vim/snippets/support_functions.vim
 if has("autocmd")
-  autocmd vimenter * call s:SetupSnippets()
+  augroup Snippets
+    au!
+    autocmd VimEnter * call s:SetupSnippets()
+  augroup END
 endif
 function! s:SetupSnippets()
   "if we're in a rails env then read in the rails snippets
@@ -284,15 +290,22 @@ function! s:SetupSnippets()
 endfunction
 
 if has("autocmd")
-  autocmd FileType ruby,eruby,haml setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  augroup MoreCompletions
+    au!
+    autocmd Filetype *
+          \ if &omnifunc == "" |
+          \   setlocal omnifunc=syntaxcomplete#Complete |
+          \ endif
+    autocmd FileType ruby,eruby,haml setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-  autocmd FileType vim,ruby setlocal formatoptions-=o
-  autocmd FileType nerdtree,taglist setlocal nolist nowrap
+    autocmd FileType vim,ruby setlocal formatoptions-=o
+    autocmd FileType nerdtree,taglist setlocal nolist nowrap
+  augroup END
 endif
 
 " Ruby completion settings
