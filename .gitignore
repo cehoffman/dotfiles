@@ -1,4 +1,6 @@
 tags
 tags-ja
+vim/swap/*
+vim/undo/*
 vim/.netrwhist
 gitconfig

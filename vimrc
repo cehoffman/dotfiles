@@ -103,6 +103,7 @@ if has("autocmd")
 endif " has("autocmd")
 
 set autoindent    " always set autoindenting on
+set smartindent
 
 if has("folding")
   set foldenable
@@ -260,8 +261,25 @@ nmap <Leader>ga :Gwrite<CR>
 nmap <Leader>gl :Glog<CR>
 nmap <Leader>gd :Gdiff<CR>
 
-" Swap and backup files suck for the most part
-set nobackup nowritebackup noswapfile
+" Store swap files outside of the project direcotry if possible or in
+" tmp directory of project
+set directory=~/.vim/swap,tmp
+
+" Ask me what to do when quiting or saving fails
+set confirm
+
+" Automatically reload files that change on disk
+set autoread
+
+" Jump to matching }] briefly when typing
+set showmatch
+
+" Don't jump to start of line as side effect, e.g. <<
+set nostartofline
+
+" Make ' jump to line, cursor instead of ` since that is used for tmux
+nnoremap ' `
+nnoremap ` '
 
 " Don't continue comments when doing o/O
 set formatoptions-=o
@@ -303,6 +321,9 @@ if has("autocmd")
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Ruby functions can have these in thier names
+    autocmd FileType eruby,ruby setlocal iskeyword+=!,?
 
     autocmd FileType vim,ruby setlocal formatoptions-=o
     autocmd FileType nerdtree,taglist setlocal nolist nowrap
@@ -410,6 +431,11 @@ end
 " Turn on mouse support
 set mouse=a
 
+if has("persistent_undo")
+  set undofile
+  set undodir=~/.vim/undo,tmp
+endif
+
 " Allow inserting just one stupid character
 nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
 
@@ -420,7 +446,8 @@ nnoremap <Leader>f :LustyFilesystemExplorerFromHere<CR>
 let g:loaded_lustyjuggler = 1
 
 " Find in NerdTree!
-nnoremap <silent> <Leader>r :NERDTreeFind<CR>
+nnoremap <silent> <Leader>D :NERDTreeFind<CR>
+
 
 " Allow a method to delete without updating paste buffer
 vnoremap x "_x
@@ -441,6 +468,8 @@ onoremap <C-l> <ESC>l
 
 " Don't put the cursor so close to a windows edge
 set scrolloff=10
+set sidescrolloff=7
+set sidescroll=1
 
 " set up tab labels with tab number, buffer name, number of windows
 function! TabLabel()
