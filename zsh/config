@@ -47,6 +47,7 @@ setopt PUSHD_SILENT # Don't print out the pushd stack after a pushd or popd
 setopt PUSHD_IGNORE_DUPS # Ignore duplicate pushs
 setopt PUSHD_TO_HOME # have an empty `pushd` work like `pushd $HOME`
 
+setopt NULL_GLOB # If a glob pattern doesn't match a file, return a blank string
 setopt EXTENDED_GLOB # use regex style globing
 setopt REMATCH_PCRE # use perl regex matching for the =~ operator
 
