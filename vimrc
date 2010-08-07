@@ -243,13 +243,13 @@ map <Leader>w :call OpenURL()<CR>
 set pastetoggle=<F2>
 
 " Removes trailing spaces
-function! TrimWhiteSpace()
+function! s:TrimWhiteSpace()
   %s/\s*$//
   ''
 endfunction
 
-map <Leader>x :call TrimWhiteSpace()<CR>
-map <Leader>xw :call TrimWhiteSpace()<CR>:w<CR>
+map <Leader>x :call <SID>TrimWhiteSpace()<CR>
+map <Leader>xw :call <SID>TrimWhiteSpace()<CR>:w<CR>
 
 " Make vim more accepting of hidden buffer
 set hidden
@@ -292,12 +292,7 @@ let g:syntastic_enable_signs=1
 
 " snipmate setup
 source ~/.vim/snippets/support_functions.vim
-if has("autocmd")
-  augroup Snippets
-    au!
-    autocmd VimEnter * call s:SetupSnippets()
-  augroup END
-endif
+
 function! s:SetupSnippets()
   " Enable rails, mostly ActiveSupport based sippets in normal ruby
   call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
@@ -309,6 +304,11 @@ function! s:SetupSnippets()
 endfunction
 
 if has("autocmd")
+  augroup Snippets
+    au!
+    autocmd VimEnter * call s:SetupSnippets()
+  augroup END
+
   augroup MoreCompletions
     au!
     autocmd Filetype *
@@ -381,9 +381,6 @@ let NERDSpaceDelims=1
 let NERDCompactSexyComs=1
 let NERDCommentWholeLinesInVMode=1
 
-" Nerd Tree settings
-nmap <Leader>d :NERDTreeToggle<CR>
-
 " delimitMate settings
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 0
@@ -421,6 +418,12 @@ let Tlist_Display_Prototype = 1
 let Tlist_WinWidth = 35
 set tags=./tags;
 
+" Make accessing the taglist easier
+nnoremap <Leader>l :TlistToggle<CR>
+
+" Make taglist update which section of code we are in faster
+set updatetime=1000
+
 " Workaround for making things like arrow keys work under screen
 if $TERM == 'screen*'
   set term=xterm
@@ -445,9 +448,11 @@ nnoremap <Leader>j :LustyBufferExplorer<CR>
 nnoremap <Leader>f :LustyFilesystemExplorerFromHere<CR>
 let g:loaded_lustyjuggler = 1
 
+" Nerd Tree settings
+nmap <Leader>d :NERDTreeToggle<CR>
+
 " Find in NerdTree!
 nnoremap <silent> <Leader>D :NERDTreeFind<CR>
-
 
 " Allow a method to delete without updating paste buffer
 vnoremap x "_x
@@ -525,4 +530,17 @@ noremap <C-j> <C-w>j
 noremap <C-h> <C-w>h
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+
+" This makes * and # work on visual mode too.
+" http://got-ravings.blogspot.com/2008/07/vim-pr0n-visual-search-mappings.html
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+" Search for the current word from visual mode
+vmap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
+vmap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
