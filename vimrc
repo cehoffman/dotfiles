@@ -136,24 +136,34 @@ noremap <Leader>e :edit $MYVIMRC<CR>
 " Edit the README_FOR_APP (makes :R commands work)
 map <Leader>R :e doc/README_FOR_APP<CR>
 
-" Leader shortcuts for Rails commands
-map <Leader>m :Rmodel
-map <Leader>c :Rcontroller
-map <Leader>v :Rview
-map <Leader>u :Runittest
-map <Leader>f :Rfunctionaltest
-map <Leader>rs :Rspec
-map <Leader>tm :RTmodel
-map <Leader>tc :RTcontroller
-map <Leader>tv :RTview
-map <Leader>tu :RTunittest
-map <Leader>tf :RTfunctionaltest
-map <Leader>sm :RSmodel
-map <Leader>sc :RScontroller
-map <Leader>sv :RSview
-map <Leader>su :RSunittest
-map <Leader>sf :RSfunctionaltest
+if has("autocmd")
+  " Leader shortcuts for Rails commands
+  augroup RailsShortcuts
+    au!
+    autocmd BufEnter *
+          \ if exists("b:rails_root") |
+          \   let g:base_dir = b:rails_root |
+          \ endif
 
+    autocmd User Rails
+        \ map <buffer> <Leader>m :Rmodel |
+        \ map <buffer> <Leader>c :Rcontroller |
+        \ map <buffer> <Leader>v :Rview |
+        \ map <buffer> <Leader>u :Runittest |
+        \ map <buffer> <Leader>f :Rfunctionaltest |
+        \ map <buffer> <Leader>rs :Rspec |
+        \ map <buffer> <Leader>tm :RTmodel |
+        \ map <buffer> <Leader>tc :RTcontroller |
+        \ map <buffer> <Leader>tv :RTview |
+        \ map <buffer> <Leader>tu :RTunittest |
+        \ map <buffer> <Leader>tf :RTfunctionaltest |
+        \ map <buffer> <Leader>sm :RSmodel |
+        \ map <buffer> <Leader>sc :RScontroller |
+        \ map <buffer> <Leader>sv :RSview |
+        \ map <buffer> <Leader>su :RSunittest |
+        \ map <buffer> <Leader>sf :RSfunctionaltest
+  augroup END
+endif
 " Toggle spell checking
 map <Leader>s :set spell!<CR>
 
