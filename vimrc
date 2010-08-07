@@ -174,7 +174,7 @@ map <Leader>s :set spell!<CR>
 nnoremap <Leader>nv :vsplit<CR><C-w><C-w>
 
 " Opens a horizontal split window and moves to it
-nnoremap <Leader>nh :split<CR><C-w><C-w>
+nnoremap <Leader>ns :split<CR><C-w><C-w>
 
 " Open a new blank tab
 nnoremap <Leader>nt :tabnew<CR>
@@ -389,7 +389,7 @@ else
   " Color scheme
   set background=dark
   if &t_Co > 255
-    colorscheme plasticcodewrap
+    colorscheme test
   else
     colorscheme ir_black
   endif
