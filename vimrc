@@ -327,6 +327,7 @@ if has("autocmd")
 
     autocmd FileType vim,ruby setlocal formatoptions-=o
     autocmd FileType nerdtree,taglist setlocal nolist nowrap
+    autocmd FileType taglist setlocal foldnestmax=0
   augroup END
 endif
 
@@ -398,13 +399,14 @@ let g:SuperTabMidWordCompletion = 0
 
 " TList settings for ctags
 if executable($HOME . "/.homebrew/bin/ctags")
-  let Tlist_Ctags_Cmd = $HOME . "/.homebrew/bin/ctags --langmap=ruby:.rake.rb"
+  let Tlist_Ctags_Cmd = $HOME . "/.homebrew/bin/ctags"
 elseif !executable("ctags")
   let loaded_taglist = 1
 end
 
 " Tlist doesn't seem to work with MacVim and exuberant ctags from homebrew
-let Tlist_Show_One_File = 1
+let Tlist_Compact_Format = 1
+let Tlist_Use_Right_Window = 1
 let Tlist_Process_File_Always = 1
 let Tlist_File_Fold_Auto_Close = 1
 let Tlist_Auto_Update = 1
@@ -415,7 +417,7 @@ let Tlist_Use_SingleClick = 1
 let Tlist_Show_Menu = 0
 let Tlist_Auto_Open = 1
 let Tlist_Display_Prototype = 1
-let Tlist_WinWidth = 35
+let Tlist_WinWidth = 40
 set tags=./tags;
 
 " Make accessing the taglist easier

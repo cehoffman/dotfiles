@@ -1,0 +1,4 @@
+--langmap=ruby:+.rake
+--langmap=html:+.rhtml
+--langdef=css
+--langmap=css:.css

@@ -57,6 +57,7 @@
 " ****************** Do not modify after this line ************************
 
 " Line continuation used here
+let g:base_dir = getcwd()
 let s:cpo_save = &cpo
 set cpo&vim
 
@@ -212,7 +213,7 @@ if !exists('loaded_taglist')
     if !exists('Tlist_Auto_Highlight_Tag')
         let Tlist_Auto_Highlight_Tag = 1
     endif
-    
+
     " Automatically highlight the current tag on entering a buffer
     if !exists('Tlist_Highlight_Tag_On_BufEnter')
         let Tlist_Highlight_Tag_On_BufEnter = 1
@@ -350,7 +351,7 @@ let loaded_taglist = 'available'
 " Variable name format:
 "
 "       s:tlist_def_{vim_ftype}_settings
-" 
+"
 " vim_ftype - Filetype detected by Vim
 "
 " Value format:
@@ -411,6 +412,10 @@ let s:tlist_def_fortran_settings = 'fortran;p:program;b:block data;' .
 
 " HTML language
 let s:tlist_def_html_settings = 'html;a:anchor;f:javascript function'
+
+let s:tlist_def_eruby_settings = 'html;a:anchor;f:javascript function'
+
+let s:tlist_def_css_settings = 'css;f:fake'
 
 " java language
 let s:tlist_def_java_settings = 'java;p:package;c:class;i:interface;' .
@@ -670,7 +675,7 @@ function! s:Tlist_Log_Msg(msg)
             if len > 3000
                 let s:tlist_msg = strpart(s:tlist_msg, len - 3000)
             endif
-            let s:tlist_msg = s:tlist_msg . strftime('%H:%M:%S') . ': ' . 
+            let s:tlist_msg = s:tlist_msg . strftime('%H:%M:%S') . ': ' .
                         \ a:msg . "\n"
         endif
     endif
@@ -1916,8 +1921,36 @@ function! s:Tlist_Window_Refresh_File(filename, ftype)
         exe s:tlist_{fidx}_start - 1
     endif
 
-    let txt = fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' .
-                \ fnamemodify(s:tlist_{fidx}_filename, ':p:h') . ')'
+    let inner_dir = strpart(fnamemodify(s:tlist_{fidx}_filename, ':p:h'),strlen(g:base_dir) + 1)
+
+    if stridx(inner_dir,"models") != -1
+      let txt = "aM: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"controllers") != -1
+      let txt = "aC: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"views") != -1
+      let txt = "aV: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"helpers") != -1
+      let txt = "aH: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ') '
+    elseif stridx(inner_dir,"spec") != -1
+      let txt = "tS: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"mailers") != -1
+      let txt = "aE: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"step_definitions") != -1
+      let txt = "tF: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"unit") != -1
+      let txt = "tU: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"functional") != -1
+      let txt = "tF: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"lib") != -1
+      let txt = "mL: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"migrate") != -1
+      let txt = "mD: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    elseif stridx(inner_dir,"stylesheets") != -1
+      let txt = "aS: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    else
+      let txt = "::: " . fnamemodify(s:tlist_{fidx}_filename, ':t') . ' (' . inner_dir . ')'
+    endif
+
     if g:Tlist_Compact_Format == 0
         silent! put =txt
     else
@@ -2419,7 +2452,7 @@ function! s:Tlist_Process_File(filename, ftype)
         let s:tlist_{fidx}_tag_count = tidx
     endif
 
-    call s:Tlist_Log_Msg('Processed ' . s:tlist_{fidx}_tag_count . 
+    call s:Tlist_Log_Msg('Processed ' . s:tlist_{fidx}_tag_count .
                 \ ' tags in ' . a:filename)
 
     return fidx
@@ -3105,6 +3138,8 @@ function! s:Tlist_Window_Open_File(win_ctrl, filename, tagpat)
                 \ a:win_ctrl . ')')
     let prev_Tlist_Skip_Refresh = s:Tlist_Skip_Refresh
     let s:Tlist_Skip_Refresh = 1
+
+    exec "cd " . fnamemodify(a:filename, ':p:h')
 
     if s:tlist_app_name == "winmanager"
         " Let the winmanager edit the file
