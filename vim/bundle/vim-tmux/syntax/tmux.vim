@@ -31,7 +31,7 @@ syn keyword tmuxCmds command-prompt setb set-buffer showb show-buffer lsb
 syn keyword tmuxCmds list-buffers deleteb delete-buffer lscm list-commands
 syn keyword tmuxCmds movew move-window respawnw respawn-window
 syn keyword tmuxCmds source[-file] info server-info clock-mode lock[-server]
-syn keyword tmuxCmds saveb save-buffer downp down-pane killp
+syn keyword tmuxCmds saveb save-buffer downp down-pane killp command
 syn keyword tmuxCmds kill-pane resizep resize-pane selectp select-pane swapp
 syn keyword tmuxCmds swap-pane splitw split-window upp up-pane choose-session
 syn keyword tmuxCmds choose-window loadb load-buffer copyb copy-buffer suspendc
@@ -71,7 +71,8 @@ syn keyword tmuxOptsSetw main-pane-width main-pane-height monitor-content
 syn keyword tmuxOptsSetw window-status-current-attr window-status-current-bg
 syn keyword tmuxOptsSetw window-status-current-fg mode-mouse synchronize-panes
 syn keyword tmuxOptsSetw window-status-format window-status-current-format
-syn keyword tmuxOptsSetw word-separators
+syn keyword tmuxOptsSetw window-status-alert-bg window-status-alert-fg window-status-alert-attr
+syn keyword tmuxOptsSetw word-separators utf8
 
 syn keyword tmuxTodo FIXME NOTE TODO XXX contained
 
@@ -80,6 +81,9 @@ syn match tmuxNumber    /\d\+/      display
 syn match tmuxOptions   /\s-\a\+/   display
 syn match tmuxVariable    /\w\+=/     display
 syn match tmuxVariableExpansion /\${\=\w\+}\=/    display
+syn match tmuxColourConstant /\scolour\d\{1,3}/ display
+syn keyword tmuxColourConstant  bright bold dim underscore blink reverse hidden italics
+syn keyword tmuxColourConstant black red green yellow blue magenta cyan white default
 
 syn region tmuxComment  start=/#/ end=/$/ contains=tmuxTodo display oneline
 syn region tmuxString start=/"/ end=/"/ display oneline
@@ -98,5 +102,6 @@ hi def link tmuxString      String
 hi def link tmuxTodo      Todo
 hi def link tmuxVariable    Constant
 hi def link tmuxVariableExpansion Constant
+hi def link tmuxColourConstant Constant
 
 let b:current_syntax = "tmux"
