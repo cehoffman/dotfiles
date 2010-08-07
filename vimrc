@@ -13,6 +13,9 @@ set history=100    " keep 50 lines of command line history
 set showcmd        " display incomplete commands
 set incsearch      " do incremental searching
 
+set cmdheight=3    " Reduce the number of times the hit enter dialog comes up
+set shortmess+=a   " Make messages even shorter
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
@@ -109,7 +112,8 @@ if has("folding")
   set foldenable
   " set foldmethod=syntax
   set foldmethod=indent
-  set foldlevel=2 " How far down fold tree to go before folding code on opening file
+  set foldlevel=3 " How far down fold tree to go before folding code on opening file
+  set foldlevelstart=3
   set foldnestmax=10
   set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 endif
@@ -346,7 +350,7 @@ if has("gui_running")
   set t_Co=256
   set guioptions-=T
   colorscheme plasticcodewrap
-  set guitablabel=%M%t
+  set guitablabel=%N\ %M%t
 
   if has("gui_mac") || has("gui_macvim")
     set guifont=Akkurat-Mono:h12
@@ -362,6 +366,13 @@ if has("gui_running")
     set enc=utf-8
   endif
 else
+  " Workaround for making things like arrow keys work under screen
+  if $TERM == 'screen*'
+    set term=xterm
+  elseif $TERM == 'screen-256color'
+    set term=xterm-256color
+  end
+
   " Shut CSApprox up so we don't hear any warnings
   let g:CSApprox_verbose_level = 0
 
@@ -425,13 +436,6 @@ nnoremap <Leader>l :TlistToggle<CR>
 
 " Make taglist update which section of code we are in faster
 set updatetime=1000
-
-" Workaround for making things like arrow keys work under screen
-if $TERM == 'screen*'
-  set term=xterm
-elseif $TERM == 'screen-256color'
-  set term=xterm-256color
-end
 
 " Turn on mouse support
 set mouse=a
