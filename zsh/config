@@ -32,7 +32,7 @@ setopt COMPLETE_ALIASES # Treat aliases as unique entities viable for completion
 setopt LIST_ROWS_FIRST # Order completion by row instead of column
 setopt IGNORE_EOF
 setopt RC_EXPAND_PARAM # Expand `foo${xx}bar', where the parameter xx is set to (a b c), are substituted with `fooabar foobbar foocbar' instead  of the default `fooa  b foocbar`
-setopt WARN_CREATE_GLOBAL # Warn when creating a global variable accidentally in a function
+# setopt WARN_CREATE_GLOBAL # Warn when creating a global variable accidentally in a function
 setopt CLOBBER # allow traditional bash like functionality where > clobbers a file and >> can create a file if none exists
 
 setopt INTERACTIVE_COMMENTS # Allow comments when in an interactive shell
