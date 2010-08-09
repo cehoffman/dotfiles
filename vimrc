@@ -103,6 +103,18 @@ if has("autocmd")
     autocmd BufWritePost .vimrc source $MYVIMRC
 
   augroup END
+
+  augroup GitShortcuts
+    au!
+    autocmd FileType gitrebase
+        \ nnoremap <buffer> p :Pick<CR> |
+        \ nnoremap <buffer> s :Squach<CR> |
+        \ nnoremap <buffer> e :Edit<CR> |
+        \ nnoremap <buffer> r :Reword<CR> |
+        \ nnoremap <buffer> f :Fixup<CR> |
+        \ nnoremap <buffer> <C-j> :m +1<CR> |
+        \ nnoremap <buffer> <C-k> :m -2<CR>
+  augroup END
 endif " has("autocmd")
 
 set autoindent    " always set autoindenting on
