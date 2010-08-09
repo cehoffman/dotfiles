@@ -183,8 +183,8 @@ nnoremap <Leader>nt :tabnew<CR>
 nnoremap <Leader>nT <C-w>T
 
 " Move lines up and down
-noremap <C-J> :m +1 <CR>
-noremap <C-K> :m -2 <CR>
+" noremap <M-J> :m +1 <CR>
+" noremap <M-K> :m -2 <CR>
 
 " Inserts the path of the currently edited file into a command
 " Command mode: Ctrl+P
@@ -389,7 +389,7 @@ else
   " Color scheme
   set background=dark
   if &t_Co > 255
-    colorscheme test
+    colorscheme plasticcodewrap
   else
     colorscheme ir_black
   endif
@@ -465,12 +465,22 @@ nnoremap <Leader>f :LustyFilesystemExplorerFromHere<CR>
 let g:loaded_lustyjuggler = 1
 
 " Nerd Tree settings
+let NERDTreeQuitOnOpen = 0
+let NERDTreeShowBookmarks = 1
+let NERDTreeShowHidden = 1
+let NERDTreeWinPos = 'left'
+let NERDTreeWinSize = 30
+let NERDTreeMouseMode = 3 " Don't require double click to open file
+let NERDTreeIgnore=['\~$', '^\.git$', '^\.svn$', '^\.bundle$']
 nmap <Leader>d :NERDTreeToggle<CR>
 
 " Find in NerdTree!
 nnoremap <silent> <Leader>D :NERDTreeFind<CR>
 
 " Allow a method to delete without updating paste buffer
+" Use dlp to do the same as what xp used to do
+nnoremap x "_x
+nnoremap X "_x
 vnoremap x "_x
 vnoremap X "_X
 
@@ -482,10 +492,21 @@ vnoremap X "_X
 nnoremap <expr> gp '`[' . visualmode() . '`]'
 
 " Use ^L to exit modes and keep cursor where it was
-inoremap <C-l> <ESC>l
-vnoremap <C-l> <ESC>l
-snoremap <C-l> <ESC>l
-onoremap <C-l> <ESC>l
+" Commented out for now since ^C does essentially the same
+" inoremap <C-l> <ESC>`^
+" vnoremap <C-l> <ESC>`^
+" snoremap <C-l> <ESC>`^
+" onoremap <C-l> <ESC>`^
+
+" Make exiting insert mode not move the cursor to right
+" Also makes ^C now trigger abbreviations and InsertLeave autocmd
+inoremap <C-c> <ESC>`^
+
+" Make moving around on the line easier in insert move
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
 
 " Don't put the cursor so close to a windows edge
 set scrolloff=10
@@ -559,4 +580,8 @@ endfunction
 " Search for the current word from visual mode
 vmap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vmap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
+
+" Make shifting in highlight mode reselect text
+vnoremap < <gv
+vnoremap > >gv
 
