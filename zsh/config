@@ -29,7 +29,11 @@ setopt LOCAL_TRAPS # allow functions to have local traps
 setopt CORRECT
 setopt COMPLETE_IN_WORD
 setopt COMPLETE_ALIASES # Treat aliases as unique entities viable for completion
+setopt LIST_ROWS_FIRST # Order completion by row instead of column
 setopt IGNORE_EOF
+setopt RC_EXPAND_PARAM # Expand `foo${xx}bar', where the parameter xx is set to (a b c), are substituted with `fooabar foobbar foocbar' instead  of the default `fooa  b foocbar`
+setopt WARN_CREATE_GLOBAL # Warn when creating a global variable accidentally in a function
+setopt CLOBBER # allow traditional bash like functionality where > clobbers a file and >> can create a file if none exists
 
 setopt INTERACTIVE_COMMENTS # Allow comments when in an interactive shell
 setopt PRINT_EXIT_VALUE # If the command exits with non zero, tell me
@@ -39,6 +43,7 @@ setopt HIST_VERIFY # Don't immediately execute a command from history, let me ed
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE # don't records commands that the first character is a space
+setopt HIST_NO_STORE # Don't save the history command (fc -1) in history
 
 setopt LONG_LIST_JOBS
 setopt AUTO_CD
@@ -53,6 +58,9 @@ setopt REMATCH_PCRE # use perl regex matching for the =~ operator
 
 setopt C_BASES # Output hexadecimal and octal values like they are defined in C, e.g. 0xFF or 077
 
+setopt AUTO_PARAM_KEYS # When autocompleting params, if a space is added but something that is supposed to be appened to the param is typed, delete the space
+setopt AUTO_PARAM_SLASH # Add a / to the end of a param if the param contains a directory
+
 # Allows any unquoted shell argument of the form identifier=expression to be expanded
 # This allows creating configure arguments like --prefix=~nginx to expand to --prefix=/home/nginx
 setopt MAGIC_EQUAL_SUBST
@@ -61,7 +69,7 @@ setopt MAGIC_EQUAL_SUBST
 export PAGER=less
 export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
-export LC_CTYPE=en_US.UTF-8
+export LC_CTYPE='en_US.UTF-8'
 
 export EDITOR='vim'
 

@@ -59,5 +59,5 @@ preexec_functions+='preexec_update_git_vars'
 precmd_functions+='precmd_update_git_vars'
 chpwd_functions+='parse_git_dirty'
 
-# Replace the git log completion with a simple file completion
-function _git-log () { _files }
+# Suggested completion style from _git completion
+zstyle ':completion::*:git-{name-rev,add,rm}:*' ignore-line true

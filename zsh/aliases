@@ -14,11 +14,6 @@ alias show="Setfile -a v"
 # Show full history
 alias history='fc -l 1'
 
-# For hub to take over git
-if [[ -a $(which hub) ]]; then
-  function git(){hub "$@"}
-fi
-
 if [[ -f /Library/Application\ Support/VMware\ Fusion/vmrun ]]; then
   function fusion () {
     /Library/Application\ Support/VMware\ Fusion/vmrun -T fusion $@ nogui
@@ -30,6 +25,7 @@ if [[ ! $TERM =~ ^screen ]]; then
 else
   export TERM="screen-256color"
 fi
+
 # Create a tmux session if there isn't one to attach to
 alias tmux="tmux attach-session"
 
