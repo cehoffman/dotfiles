@@ -1,7 +1,12 @@
 . ~/.zsh/config
 . ~/.zsh/aliases
-. ~/.zsh/completion
-. ~/.zsh/corrections
+
+if [[ -o interactive  ]]; then
+  . ~/.zsh/completion
+  . ~/.zsh/corrections
+  . ~/.zsh/bindings
+  . ~/.zsh/prompt
+fi
 
 # use .localrc for settings specific to one system
 [[ -f ~/.localrc ]] && .  ~/.localrc

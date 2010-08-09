@@ -20,12 +20,6 @@ if [[ -f /Library/Application\ Support/VMware\ Fusion/vmrun ]]; then
   }
 fi
 
-if [[ ! $TERM =~ ^screen ]]; then
-  alias screen="screen -dRaA"
-else
-  export TERM="screen-256color"
-fi
-
 # Create a tmux session if there isn't one to attach to
 alias tmux="tmux attach-session"
 
