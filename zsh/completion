@@ -52,7 +52,7 @@ zstyle ':completion:*:*:*:*:processes' command "ps -au $USER -o pid,user,comm -w
 # Load known hosts file for auto-completion with ssh and scp commands
 if [ -f ~/.ssh/known_hosts ]; then
   zstyle ':completion:*' hosts $( sed 's/[, ].*$//' $HOME/.ssh/known_hosts )
-  zstyle ':completion:*:*:(ssh|scp):*:*' hosts `sed 's/^\([^ ,]*\).*$/\1/' ~/.ssh/known_hosts`
+  zstyle ':completion:*:*:(ssh|scp):*:*' hosts $(sed 's/^\([^ ,]*\).*$/\1/' ~/.ssh/known_hosts)
 fi
 
 # Don't ever select the parent directory, e.g. cd ../<TAB> won't select your current dir
@@ -93,5 +93,4 @@ zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # Make approximate allow more erros as the length increases
-zstyle -e ':completion:*:approximate:*' \
-        max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
