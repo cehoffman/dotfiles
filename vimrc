@@ -158,11 +158,11 @@ if has("autocmd")
           \ endif
 
     autocmd User Rails
-        \ map <buffer> <Leader>m :Rmodel |
-        \ map <buffer> <Leader>c :Rcontroller |
-        \ map <buffer> <Leader>v :Rview |
-        \ map <buffer> <Leader>u :Runittest |
-        \ map <buffer> <Leader>f :Rfunctionaltest |
+        \ map <buffer> <Leader>rm :Rmodel |
+        \ map <buffer> <Leader>rc :Rcontroller |
+        \ map <buffer> <Leader>rv :Rview |
+        \ map <buffer> <Leader>ru :Runittest |
+        \ map <buffer> <Leader>rf :Rfunctionaltest |
         \ map <buffer> <Leader>rs :Rspec |
         \ map <buffer> <Leader>tm :RTmodel |
         \ map <buffer> <Leader>tc :RTcontroller |
