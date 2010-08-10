@@ -4,6 +4,7 @@
 --type-set=ragel=.rl
 --type-set=nib=.xib
 --type-set=plist=.plist
+--type-set=sass=.scss,.sass
 --type-set=tmstuff=.tmproj,.tm_build_errors
 --nonib
 --notmstuff
