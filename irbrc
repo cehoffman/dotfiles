@@ -102,8 +102,6 @@ extend_console 'ap' do
   alias pp ap
 end
 
-extend_console 'interactive_editor'
-
 # Add a method pm that shows every method on an object
 # Pass a regex to filter these
 extend_console 'pm', true, false do
