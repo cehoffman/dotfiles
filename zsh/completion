@@ -30,8 +30,15 @@ zstyle ':completion:*:cd:*' ignore-parents parent pwd
 zstyle ':completion:*:rm:*' ignore-line yes
 zstyle ':completion:*:cp:*' ignore-line yes
 
+
+function _force_rehash () {
+  (( CURRENT == 1 )) && rehash
+  return 1 # Because we didn't really complete anything
+}
+
 # Expand partial paths
 zstyle ':completion:*' expand 'yes'
+zstyle ':completion:*' _force_rehash
 zstyle ':completion:*' squeeze-slashes 'yes'
 
 # completion for "man" by Gossamer  980827
