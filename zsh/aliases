@@ -1,5 +1,3 @@
-alias ..='cd ..'
-
 alias l='ls -lAh'
 
 # Rails
@@ -9,7 +7,7 @@ alias rdevlog='tail -f log/development.log'
 
 # show and hide files from Finder
 alias hide="SetFile -a V"
-alias show="Setfile -a v"
+alias show="SetFile -a v"
 
 # Show full history
 alias history='fc -l 1'
@@ -23,3 +21,4 @@ fi
 # Create a tmux session if there isn't one to attach to
 alias tmux="tmux attach-session"
 
+# vim: filetype=zsh
