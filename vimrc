@@ -108,7 +108,7 @@ if has("autocmd")
     au!
     autocmd FileType gitrebase
         \ nnoremap <buffer> p :Pick<CR> |
-        \ nnoremap <buffer> s :Squach<CR> |
+        \ nnoremap <buffer> s :Squash<CR> |
         \ nnoremap <buffer> e :Edit<CR> |
         \ nnoremap <buffer> r :Reword<CR> |
         \ nnoremap <buffer> f :Fixup<CR> |
