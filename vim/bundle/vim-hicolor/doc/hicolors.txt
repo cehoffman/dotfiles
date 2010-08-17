@@ -1,0 +1,27 @@
+vim: ft=hicolors
+*hicolors*
+AltAltUnique  Directory   MoreMsg         SpecialKey    Typedef                                       
+AltConstant   Error       NonText         SpellBad      Underlined                                    
+AltFunction   ErrorMsg    Normal          SpellCap      Unique                                        
+AltType       Exception   Operator        SpellLocal    User1                                         
+AltUnique     Float       Pmenu           SpellRare     User2                                         
+Blue          FoldColumn  PmenuSbar       Statement     User3                                         
+Boolean       Folded      PmenuSel        StatusLine    User4                                         
+ColorColumn   Function    PmenuThumb      StatusLineNC  User5                                         
+Comment       Green       PreCondit       StorageClass  User6                                         
+Constant      Identifier  PreProc         String        User7                                         
+Cursor        Ignore      Question        Structure     User8                                         
+CursorColumn  IncSearch   Red             Subtitle      User9                                         
+CursorLine    Label       Repeat          TabLine       VertSplit                                     
+Cyan          lCursor     Scrollbar       TabLineFill   Visual                                        
+Debug         LineNr      Search          TabLineSel    VisualNOS                                     
+Delimiter     Magenta     SignColumn      Tag           WarningMsg                                    
+DiffAdd       MatchParen  Special         Title         White                                         
+DiffChange    Menu        SpecialChar     Todo          WildMenu                                      
+DiffDelete    ModeMsg     SpecialComment  Type          Yellow                                        
+DiffText                                       
+
+    leftmouse,?    : help for given colorname if any is available
+                     use ctrl-o to return
+    rightmouse,<cr>: brings up the color editor
+    see "hicolorshelp" for help with hicolors itself
