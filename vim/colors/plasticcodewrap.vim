@@ -32,7 +32,7 @@ hi VisualNOS                    term=bold,underline cterm=bold,underline ctermfg
 hi WarningMsg                   ctermfg=124         ctermbg=232          guifg=#f8f8f8   guibg=#a32411
 hi WildMenu                     ctermfg=16          ctermbg=226          guifg=#000000   guibg=#ffff00
 hi Folded                       ctermfg=32          ctermbg=16           guifg=#1e9ae0   guibg=#0b161d
-hi FoldColumn                   ctermfg=51          ctermbg=250          guifg=#00ffff   guibg=#bebebe
+hi FoldColumn                   ctermfg=238         ctermbg=16           guifg=#00ffff   guibg=#bebebe
 hi DiffAdd                      ctermfg=231         ctermbg=22           guifg=fg        guibg=#00008b
 hi DiffChange                   ctermfg=231         ctermbg=130          guifg=fg        guibg=#8b008b
 hi DiffDelete                   cterm=bold          ctermfg=254          ctermbg=88      gui=bold        guifg=#0000ff      guibg=#008b8b
