@@ -30,6 +30,12 @@ case $state in
         fi
         compadd $_gem_installed && ret=0
       ;;
+     build)
+        _files -g "*.gemspec"
+      ;;
+     install)
+        _files -g "*.gem"
+      ;;
     esac
   ;;
 esac
