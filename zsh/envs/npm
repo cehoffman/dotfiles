@@ -1,0 +1,7 @@
+if [[ -a $(which npm) ]]; then
+  path=($(npm config get binroot 2>/dev/null) $path)
+
+  export NODE_PATH=$(npm config get root 2>/dev/null)
+fi
+
+# vim: ft=zsh
