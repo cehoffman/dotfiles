@@ -597,3 +597,5 @@ vmap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" Shortcut to redraw screen
+noremap <Leader><C-l> :redraw!<CR>
