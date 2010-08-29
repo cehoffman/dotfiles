@@ -22,8 +22,22 @@ bindkey '^[[B' history-beginning-search-forward
 # bindkey '^[[A' up-line-or-search
 # bindkey '^[[B' down-line-or-search
 
+# Alias C-n and C-p to up and down arrow
+bindkey -s '^P' '^[[A'
+bindkey -s '^N' '^[[B'
+
+# Make autocomplete cycling work like in vim
+bindkey -M menuselect '^N' reverse-menu-complete
+bindkey -M menuselect '^P' menu-complete
+
+# Make G go to the end of history
+bindkey -a 'G' end-of-history
+
+# Make Y like D and C
+bindkey -a 'Y' vi-yank-eol
+
 # Expansion of history
-bindkey ' ' magic-space    # also do history expansion on space
+bindkey ' ' magic-space
 
 # Better movement on the line
 # bindkey '^b' backward-word

@@ -32,6 +32,7 @@ setopt CORRECT
 setopt COMPLETE_IN_WORD
 setopt CORRECT_ALL
 setopt COMPLETE_ALIASES # Treat aliases as unique entities viable for completion
+setopt AUTO_MENU
 setopt LIST_ROWS_FIRST # Order completion by row instead of column
 setopt IGNORE_EOF
 setopt RC_EXPAND_PARAM # Expand `foo${xx}bar', where the parameter xx is set to (a b c), are substituted with `fooabar foobbar foocbar' instead  of the default `fooa  b foocbar`
