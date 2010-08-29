@@ -1,3 +1,6 @@
+emulate -L zsh
+setopt NO_RC_EXPAND_PARAM
+
 local pids
 pids=$(ps ax | grep $1 | grep -v grep | awk '{ print $1 }')
 if [[ -z $pids ]]; then
@@ -5,3 +8,5 @@ if [[ -z $pids ]]; then
 else
   echo "$1: ${(f)pids}"
 fi
+
+# vim: filetype=zsh
