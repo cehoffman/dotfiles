@@ -21,7 +21,7 @@ fi
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-REPORTTIME=10 # print elapsed time when more than 10 seconds
+REPORTTIME=60 # print elapsed time when more than 10 seconds
 
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
