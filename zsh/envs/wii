@@ -5,3 +5,5 @@ if [[ -d $HOME/Repos/devkitpro ]]; then
   export WIILOAD=tcp:192.168.1.192
   path=($DEVKITPPC/bin $path)
 fi
+
+# vim: filetype=zsh

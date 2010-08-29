@@ -1,5 +1,3 @@
-setopt PROMPT_SUBST
-
 if [ "$(whoami)" = "root" ]; then NCOLOR="%{$fg_no_bold[red]%}"; else NCOLOR="%{$fg_no_bold[white]%}"; fi
 
 function collapse_pwd {
@@ -27,3 +25,5 @@ ZSH_THEME_RVM_PROMPT_SUFFIX="%{$fg_no_bold[blue]%}]%{$reset_color%}"
 # virtualenv themening
 ZSH_THEME_VENV_PROMPT_PREFIX="%{$fg_no_bold[blue]%}[%{$fg_no_bold[cyan]%}"
 ZSH_THEME_VENV_PROMT_SUFFIX="%{$fg_no_bold[blue]%}]%{$reset_color%}"
+
+# vim: filetype=zsh

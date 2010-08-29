@@ -6,3 +6,5 @@ git submodule sync
 git submodule update
 rake update
 popd
+
+# vim: filetype=zsh

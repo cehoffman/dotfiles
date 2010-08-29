@@ -4,3 +4,5 @@ alias mkdir='nocorrect mkdir -p'
 
 ## SPROMPT - the spelling prompt
 SPROMPT='zsh: correct '%R' to '%r' ? ([Y]es/[N]o/[E]dit/[A]bort) '
+
+# vim: filetype=zsh

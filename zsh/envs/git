@@ -62,3 +62,5 @@ chpwd_functions+='parse_git_dirty'
 # Suggested completion style from _git completion
 zstyle ':completion::*:git-{name-rev,add,rm}:*' ignore-line true
 zstyle ':completion:*:*:git:*' user-commands 'submodule:initialize, update or inspect submodules'
+
+# vim: filetype=zsh

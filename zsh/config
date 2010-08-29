@@ -68,6 +68,9 @@ setopt AUTO_PARAM_SLASH # Add a / to the end of a param if the param contains a 
 # This allows creating configure arguments like --prefix=~nginx to expand to --prefix=/home/nginx
 setopt MAGIC_EQUAL_SUBST
 
+# Allow variable substitution in the prompt
+setopt PROMPT_SUBST
+
 ## pager
 export PAGER=less
 export LC_ALL='en_US.UTF-8'
@@ -96,3 +99,5 @@ fi
 
 # Remove duplicates in paths
 typeset -gU path cdpath manpath fpath
+
+# vim: filetype=zsh

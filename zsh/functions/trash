@@ -19,3 +19,5 @@ for file in $*; do
     echo "No such file or directory: $file"
   fi
 done
+
+# vim: filetype=zsh

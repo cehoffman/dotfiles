@@ -6,3 +6,5 @@ if [[ -a ~/.homebrew/bin/brew ]]; then
   # Homebrew Python setup
   path=($(python -c "from sys import prefix; print prefix")/bin $path)
 fi
+
+# vim: filetype=zsh

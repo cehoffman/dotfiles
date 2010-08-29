@@ -1,2 +1,4 @@
 # Prints out how much any single command has been run
 fc -l 1 | awk '{print $2}' | sort | uniq -c | sort -rn | head
+
+# vim: filetype=zsh

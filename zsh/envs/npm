@@ -4,4 +4,4 @@ if [[ -a $(which npm) ]]; then
   export NODE_PATH=$(npm config get root 2>/dev/null)
 fi
 
-# vim: ft=zsh
+# vim: filetype=zsh

@@ -11,3 +11,5 @@ if [[ $1 != ${pids%% is not running} ]]; then
 else
   echo "$1 is not running"
 fi
+
+# vim: filetype=zsh
