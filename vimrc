@@ -423,7 +423,7 @@ let delimitMate_expand_cr = 0
 inoremap ; <C-R>=delimitMate#JumpAny(";")<CR>
 
 " Don't use CR for doing an accept in supertab
-let g:SuperTabCrMapping = 0
+" let g:SuperTabCrMapping = 0
 
 " Recalculate completion string when hitting tab on an open menu
 let g:SuperTabLongestEnhanced = 1
