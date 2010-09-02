@@ -1,0 +1,30 @@
+set editing-mode vi
+set blink-matching-paren on
+set print-completions-horizontally on
+set completion-ignore-case on
+set bell-style visible
+set meta-flag on
+set input-meta on
+set output-meta on
+set convert-meta off
+
+set keymap vi-command
+"gg": beginning-of-history
+"G": end-of-history
+"\C-e": vi-append-eol
+"\C-a": vi-insert-beg
+"\C-[[A": history-search-backward
+"\C-[[B": history-search-forward
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"'": vi-goto-mark
+
+set keymap vi-insert
+"\C-e": end-of-line
+"\C-a": beginning-of-line
+"\C-[[A": history-search-backward
+"\C-[[B": history-search-forward
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"\C-l": clear-screen
+
