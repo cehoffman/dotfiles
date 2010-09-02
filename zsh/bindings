@@ -12,6 +12,10 @@ bindkey '^H' backward-delete-char
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 
+# Make C-e and C-a goto insert mode from command
+bindkey -a '^A' vi-insert-bol
+bindkey -a '^E' vi-add-eol
+
 # Look in history for a line that matches the current up
 # to where the cursor currently is, uses up/down arrow keys
 bindkey '^[[A' history-beginning-search-backward
