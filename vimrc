@@ -162,18 +162,14 @@ if has("autocmd")
         \ map <buffer> <Leader>rc :Rcontroller |
         \ map <buffer> <Leader>rv :Rview |
         \ map <buffer> <Leader>ru :Runittest |
-        \ map <buffer> <Leader>rf :Rfunctionaltest |
+        \ map <buffer> <Leader>rf :Rintegrationtest |
         \ map <buffer> <Leader>rs :Rspec |
-        \ map <buffer> <Leader>tm :RTmodel |
-        \ map <buffer> <Leader>tc :RTcontroller |
-        \ map <buffer> <Leader>tv :RTview |
-        \ map <buffer> <Leader>tu :RTunittest |
-        \ map <buffer> <Leader>tf :RTfunctionaltest |
-        \ map <buffer> <Leader>sm :RSmodel |
-        \ map <buffer> <Leader>sc :RScontroller |
-        \ map <buffer> <Leader>sv :RSview |
-        \ map <buffer> <Leader>su :RSunittest |
-        \ map <buffer> <Leader>sf :RSfunctionaltest
+        \ map <buffer> <Leader>re :Renvironment |
+        \ map <buffer> <Leader>rr :Rtask |
+        \ map <buffer> <Leader>rj :Rjavascript |
+        \ map <buffer> <Leader>ri :Rinitializer |
+        \ map <buffer> <Leader>rl :Rlocale
+
   augroup END
 endif
 " Toggle spell checking
