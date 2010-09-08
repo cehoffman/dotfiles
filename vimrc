@@ -171,6 +171,11 @@ if has("autocmd")
         \ map <buffer> <Leader>rl :Rlocale
 
   augroup END
+
+  augroup CucumberExpandTab
+    au!
+    autocmd FileType cucumber set expandtab
+  augroup END
 endif
 " Toggle spell checking
 map <Leader>s :set spell!<CR>
