@@ -600,3 +600,51 @@ vnoremap > >gv
 
 " Shortcut to redraw screen
 noremap <Leader><C-l> :redraw!<CR>
+
+function! s:HOpen(dir,what_to_open)
+  let [type,name] = a:what_to_open
+
+  if a:dir=='left' || a:dir=='right'
+    vsplit
+  elseif a:dir=='up' || a:dir=='down'
+    split
+  end
+
+  if a:dir=='down' || a:dir=='right'
+    exec "normal! \<c-w>\<c-w>"
+  end
+
+  if type=='buffer'
+    exec 'buffer '.name
+  else
+    exec 'edit '.name
+  end
+endfunction
+
+function! s:HYankWindow()
+  let g:window = winnr()
+  let g:buffer = bufnr('%')
+  let g:bufhidden = &bufhidden
+endfunction
+
+function! s:HDeleteWindow()
+  call <SID>HYankWindow()
+  set bufhidden=hide
+  close
+endfunction
+
+function! s:HPasteWindow(direction)
+  let old_buffer = bufnr('%')
+  call <SID>HOpen(a:direction,['buffer',g:buffer])
+  let g:buffer = old_buffer
+  let &bufhidden = g:bufhidden
+endfunction
+
+noremap <c-w>d :call <SID>HDeleteWindow()<cr>
+noremap <c-w>y :call <SID>HYankWindow()<cr>
+noremap <c-w>pk :call <SID>HPasteWindow('up')<cr>
+noremap <c-w>pj :call <SID>HPasteWindow('down')<cr>
+noremap <c-w>ph :call <SID>HPasteWindow('left')<cr>
+noremap <c-w>pl :call <SID>HPasteWindow('right')<cr>
+noremap <c-w>pp :call <SID>HPasteWindow('here')<cr>
+noremap <c-w>P :call <SID>HPasteWindow('here')<cr>
