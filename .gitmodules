@@ -33,7 +33,7 @@
 	url = git@github.com:cehoffman/vim-ragtag.git
 [submodule "vim/bundle/vim-rails"]
 	path = vim/bundle/vim-rails
-	url = http://github.com/tpope/vim-rails.git
+	url = http://github.com/cehoffman/vim-rails.git
 [submodule "vim/bundle/vim-scss-syntax"]
 	path = vim/bundle/vim-scss-syntax
 	url = http://github.com/cakebaker/scss-syntax.vim.git
