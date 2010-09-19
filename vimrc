@@ -176,6 +176,13 @@ if has("autocmd")
     au!
     autocmd FileType cucumber set expandtab
   augroup END
+
+  augroup Mustache
+    au!
+    autocmd BufNewFile,BufRead *.html.mustache
+          \ call RagtagInit() |
+          \ set ft=mustache
+  augroup END
 endif
 " Toggle spell checking
 map <Leader>s :set spell!<CR>
