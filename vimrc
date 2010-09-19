@@ -168,7 +168,11 @@ if has("autocmd")
         \ map <buffer> <Leader>rr :Rtask |
         \ map <buffer> <Leader>rj :Rjavascript |
         \ map <buffer> <Leader>ri :Rinitializer |
-        \ map <buffer> <Leader>rl :Rlocale
+        \ map <buffer> <Leader>rl :Rlocale |
+        \ :Rnavcommand observer app/observers -glob=**/* -suffix=_observer.rb |
+        \ :Rnavcommand job app/jobs -glob=**/* |
+        \ map <buffer> <Leader>ro :Robserver |
+        \ map <buffer> <Leader>rb :Rjob
 
   augroup END
 
@@ -201,10 +205,6 @@ nnoremap <Leader>nt :tabnew<CR>
 
 " Open current window in new tab
 nnoremap <Leader>nT <C-w>T
-
-" Move lines up and down
-" noremap <M-J> :m +1 <CR>
-" noremap <M-K> :m -2 <CR>
 
 " Inserts the path of the currently edited file into a command
 " Command mode: Ctrl+P
@@ -431,7 +431,7 @@ let delimitMate_expand_cr = 0
 inoremap ; <C-R>=delimitMate#JumpAny(";")<CR>
 
 " Don't use CR for doing an accept in supertab
-" let g:SuperTabCrMapping = 0
+let g:SuperTabCrMapping = 0
 
 " Recalculate completion string when hitting tab on an open menu
 let g:SuperTabLongestEnhanced = 1
