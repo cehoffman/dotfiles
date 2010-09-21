@@ -15,7 +15,7 @@ function! s:RubyBlockBraceToDoEnd(lineno)
   let suffix = s:String_Strip(getreg("z"))
   call setreg("z", oldz)
   let orig = getline(".")
-  let repl = substitute(orig, '\v\s*\{\s*(\|[^|]*\|)?.*', ' do \1', '')
+  let repl = substitute(orig, '\v\s*\{\s*(\|[^|]*\|)?.*', ' do\1', '')
   call setline(".", repl)
   let nextline = substitute(orig, '\v[^{]*\v\s*\{\s*(\|[^|]*\|)?', '', '')
   let nextline = substitute(nextline, '\}[^}]*$', '', '')
@@ -61,7 +61,7 @@ function! s:RubyBlockDoEndToBrace(_firstline, _lastline)
   let l = substitute(l, '\s*$', '', '')
   let orig = orig . l
 
-  let repl = substitute(orig, '\v\s*do\s*(\|[^|]*\|)?', '{ \1 ', '')
+  let repl = substitute(orig, '\v\s*do\s*(\|[^|]*\|)?', ' { \1 ', '')
   execute ':' . a:_firstline . ',' . a:_lastline . 'd'
   call append(a:_firstline - 1, repl)
   execute ':' . a:_firstline
