@@ -169,6 +169,7 @@ if has("autocmd")
         \ map <buffer> <Leader>rj :Rjavascript |
         \ map <buffer> <Leader>ri :Rinitializer |
         \ map <buffer> <Leader>rl :Rlocale |
+        \ map <buffer> <Leader>rh :Rhelper |
         \ :Rnavcommand observer app/observers -glob=**/* -suffix=_observer.rb |
         \ :Rnavcommand job app/jobs -glob=**/* |
         \ map <buffer> <Leader>ro :Robserver |
