@@ -172,8 +172,10 @@ if has("autocmd")
         \ map <buffer> <Leader>rh :Rhelper |
         \ :Rnavcommand observer app/observers -glob=**/* -suffix=_observer.rb |
         \ :Rnavcommand job app/jobs -glob=**/* |
+        \ :Rnavcommand compass app/stylesheets -glob=**/* -suffix=.scss |
         \ map <buffer> <Leader>ro :Robserver |
-        \ map <buffer> <Leader>rb :Rjob
+        \ map <buffer> <Leader>rb :Rjob |
+        \ map <buffer> <Leader>rp :Rcompass
 
   augroup END
 
