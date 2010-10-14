@@ -103,3 +103,6 @@
 [submodule "vim/bundle/vim-rake"]
 	path = vim/bundle/vim-rake
 	url = http://github.com/tpope/vim-rake.git
+[submodule "vim/bundle/vim-html5"]
+	path = vim/bundle/vim-html5
+	url = http://github.com/othree/html5.vim.git
