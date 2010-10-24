@@ -1,0 +1,10 @@
+#compdef jake
+if [[ -f Jakefile || -f Jakefile.coffee ]]; then
+  local recent=$(ls -t .jake_tasks~ Jakefile Jakefile.coffee 2> /dev/null | head -n 1)
+  if [[ $recent != '.jake_tasks~' ]]; then
+    jake --tasks | cut -d " " -f 1 > .jake_tasks~
+  fi
+  compadd $(cat .jake_tasks~)
+fi
+
+# vim: set filetype zsh

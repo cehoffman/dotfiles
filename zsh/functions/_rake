@@ -6,3 +6,5 @@ if [ -f Rakefile ]; then
   fi
   compadd $(cat .rake_tasks~)
 fi
+
+# vim: set filetype zsh

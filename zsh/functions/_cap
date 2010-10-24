@@ -7,4 +7,4 @@ if [ -f Capfile ]; then
   compadd $(cat .cap_tasks~)
 fi
 
-# set filetype zsh
+# vim: set filetype zsh
