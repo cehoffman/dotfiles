@@ -1,0 +1,10 @@
+#compdef cake
+if [ -f Cakefile ]; then
+  local recent=$(ls -t .cake_tasks~ Cakefile **/*.cake 2> /dev/null | head -n 1)
+  if [[ $recent != '.cake_tasks~' ]]; then
+    cake | cut -d " " -f 2 > .cake_tasks~
+  fi
+  compadd $(cat .cake_tasks~)
+fi
+
+# set filetype zsh
