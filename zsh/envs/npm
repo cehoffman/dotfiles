@@ -1,7 +1,8 @@
-if [[ -a $(which npm) ]]; then
-  path=($(npm config get binroot 2>/dev/null) $path)
+if [[ -a $HOME/.npm/bin/npm ]]; then
+  path=($HOME/.npm/bin $path)
+  manpath=($(npm config get manroot 2> /dev/null) $manpath)
 
-  export NODE_PATH=$(npm config get root 2>/dev/null)
+  export NODE_PATH=$(npm config get root 2> /dev/null)
 fi
 
 # vim: filetype=zsh
