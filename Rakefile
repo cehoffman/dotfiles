@@ -22,27 +22,22 @@
 require 'rake'
 require 'erb'
 
-desc "setup submodules and vim plugins before update"
-task :setup do
-  puts "initializing submodules"
-  system %Q{git submodule init}
-  system %Q{git submodule update}
-
-  puts 'making command-t plugin'
-  Dir.chdir 'vim/bundle/vim-command-t/ruby/command-t' do
-    system %Q{rvm use system}
-    system %Q{ruby extconf.rb}
-    system %Q{make}
-    system %Q{rvm use default}
-  end
-  Rake::Task['update'].invoke
-end
-
 desc "update the dot files into user's home directory"
 task :update do
-  system %Q{git submodule init}
-  system %Q{git submodule sync}
-  system %Q{git submodule update}
+  puts 'initializing submodules'
+  system 'git submodule update --init'
+  system 'git submodule sync'
+  system 'git submodule update --init --rebase'
+
+  puts 'making command-t plugin'
+  Dir.chdir 'vim/bundle/vim-command-t' do
+    system 'git clean -fdx'
+    Dir.chdir 'ruby/command-t' do
+      system 'rvm 1.8.7 ruby extconf.rb'
+      system 'make'
+    end
+  end
+
   replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile].include? file
