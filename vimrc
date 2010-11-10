@@ -9,6 +9,7 @@ set backspace=indent,eol,start
 
 set nobackup
 set nowritebackup
+set noswapfile
 set history=100    " keep 50 lines of command line history
 set showcmd        " display incomplete commands
 set incsearch      " do incremental searching
@@ -297,10 +298,6 @@ nmap <Leader>gc :Gcommit<CR>
 nmap <Leader>ga :Gwrite<CR>
 nmap <Leader>gl :Glog<CR>
 nmap <Leader>gd :Gdiff<CR>
-
-" Store swap files outside of the project direcotry if possible or in
-" tmp directory of project
-set directory=~/.vim/swap,tmp
 
 " Ask me what to do when quiting or saving fails
 set confirm
