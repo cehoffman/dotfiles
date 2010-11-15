@@ -109,3 +109,6 @@
 [submodule "vim/bundle/vim-objj"]
 	path = vim/bundle/vim-objj
 	url = http://github.com/nanki/vim-objj.git
+[submodule "vim/bundle/vim-erlang"]
+	path = vim/bundle/vim-erlang
+	url = https://github.com/oscarh/vimerl.git
