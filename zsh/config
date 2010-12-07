@@ -84,6 +84,18 @@ export GREP_COLOR='1;32'
 
 export EDITOR='vim'
 
+# Add all the local compiled things to the path
+for pkg in $HOME/.local/cellar/*(/); do
+    version=(${pkg}/*(/oc))
+    path=($version[1]/{bin,sbin}(/) $path)
+    manpath=($version[1]/share/man(/) $manpath)
+done
+
+unset pkg
+unset version
+
+path=($HOME/.local/bin(/) $path)
+
 # Load all of your custom configurations from custom/
 for config_file (~/.zsh/envs/*) source $config_file
 unset config_file
