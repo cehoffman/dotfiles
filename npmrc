@@ -1,3 +1,4 @@
-root = ~/.npm/lib
-manroot = ~/.npm/man
 binroot = ~/.npm/bin
+manroot = ~/.npm/man
+recursive = true
+root = ~/.npm/lib
