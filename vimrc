@@ -372,9 +372,6 @@ let g:rubycomplete_classes_in_global = 1
 let g:ruby_buffer_loading = 1
 let g:rubycomplte_include_object = 1
 let g:rubycomplete_include_objectspace = 1
-if executable($rvm_bin_path . '/' . $rvm_ruby_string)
-  let g:ruby_path = $rvm_bin_path . '/' . $rvm_ruby_string
-endif
 
 if has("gui_running")
   set t_Co=256
@@ -424,14 +421,14 @@ let NERDCompactSexyComs=1
 let NERDCommentWholeLinesInVMode=1
 
 " delimitMate settings
-let delimitMate_expand_space = 1
+let delimitMate_expand_space = 0
 let delimitMate_expand_cr = 0
 
 " Allow for quick jumping over delimiters instead of S-Tab
 inoremap ; <C-R>=delimitMate#JumpAny(";")<CR>
 
 " Don't use CR for doing an accept in supertab
-let g:SuperTabCrMapping = 0
+" let g:SuperTabCrMapping = 0
 
 " Recalculate completion string when hitting tab on an open menu
 let g:SuperTabLongestEnhanced = 1
