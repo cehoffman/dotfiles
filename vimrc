@@ -638,7 +638,7 @@ noremap <c-w>P :call <SID>HPasteWindow('here')<cr>
 " Woo, pbcopy from inside vim
 if has('mac')
   function! s:pbcopy()
-    call system("ssh localhost pbcopy", getreg(""))
+    call system("nc localhost 2224", getreg(""))
   endfunction
 
   command! -nargs=0 -bar PBCopy call s:pbcopy()
