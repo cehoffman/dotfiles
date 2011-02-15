@@ -122,13 +122,12 @@ set autoindent    " always set autoindenting on
 set smartindent
 
 if has("folding")
-  set foldenable
-  " set foldmethod=syntax
-  set foldmethod=indent
-  set foldlevel=3 " How far down fold tree to go before folding code on opening file
-  set foldlevelstart=3
-  set foldnestmax=10
-  set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
+  " set foldenable
+  " set foldmethod=indent
+  " set foldlevel=3 " How far down fold tree to go before folding code on opening file
+  " set foldlevelstart=3
+  " set foldnestmax=10
+  " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 endif
 
 " Softtabs, 2 spaces
