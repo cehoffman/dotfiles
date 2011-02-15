@@ -13,13 +13,16 @@
 [alias]
     co = checkout
     reup = pull --rebase
-    st = status --ignore-submodules=untracked
-    df = diff --ignore-submodules=untracked
+    st = status --ignore-submodules=untracked -sb
+    d = diff --ignore-submodules=untracked
+    dc = diff --cached --ignore-submodules=untracked
+    l = log --graph --stat --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    lc = lg ORIG_HEAD.. --no-merges
     ci = commit
     cp = cherry-pick
     br = branch
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     unstage = reset HEAD --
+    prune-all = !git remote | xargs -n 1 git remote prune
 [core]
     whitespace = trailing-space,space-before-tab,-blank-at-eof
     excludesfile = <%= ENV['HOME'] %>/.gitignore
@@ -37,6 +40,7 @@
     requireForce = no
 [status]
     submodulesummary = true
+    relativePaths = false
 [format]
     pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
 [branch]

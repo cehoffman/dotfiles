@@ -2,3 +2,5 @@
 *~
 .svn
 .*.sw[a-z]
+*.py[co]
+doc/tags

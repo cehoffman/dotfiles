@@ -1,6 +1,3 @@
-[submodule "vim/snippets"]
-	path = vim/snippets
-	url = git@github.com:cehoffman/snipmate-snippets.git
 [submodule "vim/bundle/vim-nerdtree"]
 	path = vim/bundle/vim-nerdtree
 	url = http://github.com/scrooloose/nerdtree.git
@@ -37,9 +34,6 @@
 [submodule "vim/bundle/vim-scss-syntax"]
 	path = vim/bundle/vim-scss-syntax
 	url = http://github.com/cakebaker/scss-syntax.vim.git
-[submodule "vim/bundle/vim-snipmate"]
-	path = vim/bundle/vim-snipmate
-	url = git@github.com:cehoffman/snipmate.vim.git
 [submodule "vim/bundle/vim-supertab"]
 	path = vim/bundle/vim-supertab
 	url = http://github.com/ervandew/supertab.git
@@ -112,3 +106,6 @@
 [submodule "vim/bundle/vim-erlang"]
 	path = vim/bundle/vim-erlang
 	url = https://github.com/oscarh/vimerl.git
+[submodule "vim/bundle/vim-ultisnips"]
+	path = vim/bundle/vim-ultisnips
+	url = https://github.com/cehoffman/ultisnips.git

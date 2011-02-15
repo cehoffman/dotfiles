@@ -324,19 +324,6 @@ let g:CommandTMaxHeight=10
 " Mark syntax errors with :signs
 let g:syntastic_enable_signs=1
 
-" snipmate setup
-source ~/.vim/snippets/support_functions.vim
-
-function! s:SetupSnippets()
-  " Enable rails, mostly ActiveSupport based sippets in normal ruby
-  call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
-  call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
-
-  call ExtractSnips("~/.vim/snippets/html", "eruby")
-  call ExtractSnips("~/.vim/snippets/html", "xhtml")
-  call ExtractSnips("~/.vim/snippets/html", "php")
-endfunction
-
 if has("autocmd")
   augroup Snippets
     au!
