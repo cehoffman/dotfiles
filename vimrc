@@ -325,11 +325,6 @@ let g:CommandTMaxHeight=10
 let g:syntastic_enable_signs=1
 
 if has("autocmd")
-  augroup Snippets
-    au!
-    autocmd VimEnter * call s:SetupSnippets()
-  augroup END
-
   augroup MoreCompletions
     au!
     autocmd Filetype *
