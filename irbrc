@@ -136,5 +136,12 @@ extend_console 'pm', true, false do
   end
 end
 
+# Setup pbcopy through nc to allow quick posting to clipboard
+extend_console 'open3' do
+  def pbcopy(str)
+    Open3.popen3('nc localhost 2224') { |i, o| i.print str.to_s }
+  end
+end
+
 # Show results of all extension-loading
 puts "#{ANSI[:GRAY]}~> Console extensions:#{ANSI[:RESET]} #{$console_extensions.join(' ')}#{ANSI[:RESET]}"
