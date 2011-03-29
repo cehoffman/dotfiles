@@ -175,7 +175,7 @@ if has("autocmd")
         \ :Rnavcommand compass app/stylesheets -glob=**/* -suffix=.scss |
         \ map <buffer> <Leader>ro :Robserver |
         \ map <buffer> <Leader>rb :Rjob |
-        \ map <buffer> <Leader>rp :Rcompass
+        \ map <buffer> <Leader>rp :Rcompass |
 
   augroup END
 
