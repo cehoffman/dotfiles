@@ -4,12 +4,12 @@
 
 " ---------------------------------------------------------------------
 " Standard Initialization:
-set bg=light
+set bg=dark
 hi clear
 if exists( "syntax_on")
  syntax reset
 endif
-let g:colors_name="vim/colors/test"
+let colors_name = 'plasticcodewrap'
 
 " ---------------------------------------------------------------------
 " Highlighting Commands:
@@ -17,8 +17,8 @@ hi SpecialKey                   term=bold           ctermfg=59           ctermbg
 hi NonText                      term=bold           ctermfg=238          ctermbg=16      guifg=#485056   guibg=#081015
 hi Directory                    term=bold           ctermfg=204          ctermbg=16      guifg=#ff3a83   guibg=bg
 hi ErrorMsg                     ctermfg=231         ctermbg=124          guifg=#f8f8f8   guibg=#a32411
-hi IncSearch                    cterm=NONE          ctermfg=195          ctermbg=235     guifg=fg        guibg=#5a422c
-hi Search                       cterm=NONE          ctermfg=231          ctermbg=236     guifg=fg        guibg=#5a422c
+hi IncSearch                    ctermfg=254         ctermbg=88           guifg=fg        guibg=#5a422c
+hi Search                       ctermfg=254         ctermbg=88           guifg=fg        guibg=#5a422c
 hi MoreMsg                      term=bold           cterm=bold           ctermfg=29      ctermbg=16      gui=bold           guifg=#2e8b57 guibg=bg
 hi ModeMsg                      term=bold           cterm=bold           ctermfg=231     ctermbg=16      gui=bold           guifg=fg      guibg=bg
 hi LineNr                       ctermfg=238         ctermbg=16           guifg=#82878b   guibg=#0b161d
@@ -27,16 +27,25 @@ hi StatusLine                   cterm=bold          ctermfg=230          ctermbg
 hi StatusLineNC                 cterm=bold          ctermfg=181          ctermbg=236     guifg=#f8f8f8   guibg=#384147
 hi VertSplit                    ctermfg=236         ctermbg=236          guifg=#384147   guibg=#384147
 hi Title                        term=bold           cterm=bold           ctermfg=231     ctermbg=16      gui=bold           guifg=#f8f8f8 guibg=bg
-hi Visual                       term=reverse        ctermfg=231          ctermbg=66      guifg=fg        guibg=#687b83
+hi Visual                       term=reverse        ctermbg=17          guifg=fg             guibg=#687b83
 hi VisualNOS                    term=bold,underline cterm=bold,underline ctermfg=231     ctermbg=16      gui=bold,underline guifg=fg      guibg=bg
 hi WarningMsg                   ctermfg=124         ctermbg=232          guifg=#f8f8f8   guibg=#a32411
 hi WildMenu                     ctermfg=16          ctermbg=226          guifg=#000000   guibg=#ffff00
 hi Folded                       ctermfg=32          ctermbg=16           guifg=#1e9ae0   guibg=#0b161d
 hi FoldColumn                   ctermfg=238         ctermbg=16           guifg=#00ffff   guibg=#bebebe
+
+" Diff mode links
 hi DiffAdd                      ctermfg=231         ctermbg=22           guifg=fg        guibg=#00008b
 hi DiffChange                   ctermfg=231         ctermbg=130          guifg=fg        guibg=#8b008b
 hi DiffDelete                   cterm=bold          ctermfg=254          ctermbg=88      gui=bold        guifg=#0000ff      guibg=#008b8b
 hi DiffText                     cterm=bold          ctermfg=231          ctermbg=232     gui=bold        guifg=fg           guibg=#ff0000
+
+" Diff syntax links
+hi diffAdded                    ctermfg=40          ctermbg=16
+hi diffRemoved                  ctermfg=196         ctermbg=16
+hi diffNewFile                  ctermfg=240         ctermbg=16
+hi diffFile                     ctermfg=240         ctermbg=16
+
 hi SignColumn                   ctermfg=51          ctermbg=250          guifg=#00ffff   guibg=#bebebe
 hi Conceal                      ctermfg=7           ctermbg=242          guifg=LightGrey guibg=DarkGrey
 hi SpellBad                     term=reverse        cterm=undercurl      ctermfg=196     ctermbg=16      gui=undercurl      guifg=fg      guibg=bg      guisp=#ff0000
@@ -56,7 +65,7 @@ hi ColorColumn                  term=reverse        ctermbg=232          guibg=L
 hi MatchParen                   term=reverse        cterm=bold           ctermfg=214     ctermbg=16      gui=bold           guifg=#ffaa00 guibg=bg
 hi Comment                      term=bold           ctermfg=32           ctermbg=16      gui=italic      guifg=#1e9ae0      guibg=bg
 hi Constant                     term=underline      ctermfg=204          ctermbg=16      guifg=#ff3a83   guibg=bg
-hi Special                      term=bold           ctermfg=231          ctermbg=16      guifg=#f8f8f8   guibg=bg
+hi Special                      ctermfg=161          ctermbg=16      guifg=#f8f8f8   guibg=bg
 hi Identifier                   ctermfg=84          ctermbg=16           guifg=#f6f080   guibg=bg
 hi Statement                    term=bold           cterm=bold           ctermfg=214     ctermbg=16      gui=bold           guifg=#ffaa00 guibg=bg
 hi PreProc                      term=underline      cterm=bold           ctermfg=214     ctermbg=16      gui=bold           guifg=#ffaa00 guibg=bg

@@ -73,12 +73,6 @@
 [submodule "vim/bundle/vim-gitolite"]
 	path = vim/bundle/vim-gitolite
 	url = http://github.com/tmatilai/gitolite.vim.git
-[submodule "vim/bundle/vim-matchit"]
-	path = vim/bundle/vim-matchit
-	url = http://github.com/edsono/vim-matchit.git
-[submodule "vim/bundle/vim-session"]
-	path = vim/bundle/vim-session
-	url = http://github.com/xolox/vim-session.git
 [submodule "vim/bundle/vim-rdoc"]
 	path = vim/bundle/vim-rdoc
 	url = http://github.com/hallison/vim-rdoc.git
@@ -112,3 +106,15 @@
 [submodule "vim/bundle/vim-easymotion"]
 	path = vim/bundle/vim-easymotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
+[submodule "vim/bundle/vim-textobj-user"]
+	path = vim/bundle/vim-textobj-user
+	url = https://github.com/kana/vim-textobj-user.git
+[submodule "vim/bundle/vim-textobj-rubyblock"]
+	path = vim/bundle/vim-textobj-rubyblock
+	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
+[submodule "vim/bundle/vim-gundo"]
+	path = vim/bundle/vim-gundo
+	url = http://github.com/sjl/gundo.vim.git
+[submodule "vim/bundle/vim-tabular"]
+	path = vim/bundle/vim-tabular
+	url = https://github.com/godlygeek/tabular.git

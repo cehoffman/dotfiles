@@ -36,6 +36,9 @@ endif
 " Use soft wrapping, and adjust mappings for edit keys
 set wrap linebreak textwidth=0 showbreak=\ \ \ …\  cpoptions+=n
 
+" Include the matchit macro
+runtime macros/matchit.vim
+
 " Allows moving up by screen lines, not file lines
 map j gj
 map k gk
@@ -116,6 +119,11 @@ if has("autocmd")
         \ nnoremap <buffer> <C-j> :m +1<CR> |
         \ nnoremap <buffer> <C-k> :m -2<CR>
   augroup END
+
+  augroup DiffFiles
+    au!
+    autocmd FileType diff setlocal nolist
+  augroup END
 endif " has("autocmd")
 
 set autoindent    " always set autoindenting on
@@ -143,7 +151,7 @@ set laststatus=2
 let mapleader = ","
 
 " Shortcut to edit .vimrc
-noremap <Leader>e :edit $MYVIMRC<CR>
+noremap <Leader>ve :edit $MYVIMRC<CR>
 
 " Edit the README_FOR_APP (makes :R commands work)
 map <Leader>R :e doc/README_FOR_APP<CR>
@@ -453,14 +461,18 @@ if has("persistent_undo")
   set undodir=~/.vim/undo,tmp
 endif
 
+" Setup Gundo key binding
+nnoremap <F5> :GundoToggle<CR>
+
 " Allow inserting just one stupid character
 nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
 
 " Make using lusty juggler and explorer a bit nicer
+" Using built in mappings now because of easymotion
 " nnoremap <Leader>j :LustyJuggler<CR>
-nnoremap <Leader>j :LustyBufferExplorer<CR>
-nnoremap <Leader>f :LustyFilesystemExplorerFromHere<CR>
-let g:loaded_lustyjuggler = 1
+" nnoremap <Leader>j :LustyBufferExplorer<CR>
+" nnoremap <Leader>f :LustyFilesystemExplorerFromHere<CR>
+" let g:loaded_lustyjuggler = 1
 
 " Nerd Tree settings
 let NERDTreeQuitOnOpen = 0
