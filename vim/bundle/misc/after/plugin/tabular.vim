@@ -3,14 +3,14 @@ if !exists(':Tabularize')
 endif
 
 " Align ruby symbol hashes on the hash marker
-AddTabularPattern! rbshash /^[^:]*\zs:\zs
+AddTabularPattern! rbshash /\s\?\w\+:[^:]/l0l0
 AddTabularPattern! rbhash /^[^=]*\zs=>
 
 " Mappings for ruby hash rocket and symbol hashes
 nnoremap <silent> <Leader>ahr :Tabularize rbhash<CR>
 vnoremap <silent> <Leader>ahr :Tabularize rbhash<CR>
-nnoremap <silent> <Leader>as  :Tabularize rbshash<CR>
-vnoremap <silent> <Leader>as  :Tabularize rbshash<CR>
+nnoremap <silent> <Leader>ahs  :Tabularize rbshash<CR>
+vnoremap <silent> <Leader>ahs  :Tabularize rbshash<CR>
 
 " Nice alignment for | based tables
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
