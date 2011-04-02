@@ -124,6 +124,14 @@ if has("autocmd")
     au!
     autocmd FileType diff setlocal nolist
   augroup END
+
+  augroup AutoMkDir
+    au!
+    autocmd BufWritePre,FileWritePre *
+      \ if !isdirectory(expand("<afile>:p:h")) |
+      \   call mkdir(expand("<afile>:p:h"), "p") |
+      \ endif
+  augroup END
 endif " has("autocmd")
 
 set autoindent    " always set autoindenting on
