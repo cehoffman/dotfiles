@@ -14,19 +14,19 @@ IRB.conf[:USE_READLINE] = true
 # They will cause line wrapping to become screwed since
 # readline thinks they are physical characters you can see
 # and thus doesn't know when to wrap the command
-ANSI = {}
-ANSI[:RESET]     = "\e[0m"
-ANSI[:BOLD]      = "\e[1m"
-ANSI[:UNDERLINE] = "\e[4m"
-ANSI[:LGRAY]     = "\e[0;37m"
-ANSI[:GRAY]      = "\e[1;30m"
-ANSI[:RED]       = "\e[31m"
-ANSI[:GREEN]     = "\e[32m"
-ANSI[:YELLOW]    = "\e[33m"
-ANSI[:BLUE]      = "\e[34m"
-ANSI[:MAGENTA]   = "\e[35m"
-ANSI[:CYAN]      = "\e[36m"
-ANSI[:WHITE]     = "\e[37m"
+IRB::ANSI = {}
+IRB::ANSI[:RESET]     = "\e[0m"
+IRB::ANSI[:BOLD]      = "\e[1m"
+IRB::ANSI[:UNDERLINE] = "\e[4m"
+IRB::ANSI[:LGRAY]     = "\e[0;37m"
+IRB::ANSI[:GRAY]      = "\e[1;30m"
+IRB::ANSI[:RED]       = "\e[31m"
+IRB::ANSI[:GREEN]     = "\e[32m"
+IRB::ANSI[:YELLOW]    = "\e[33m"
+IRB::ANSI[:BLUE]      = "\e[34m"
+IRB::ANSI[:MAGENTA]   = "\e[35m"
+IRB::ANSI[:CYAN]      = "\e[36m"
+IRB::ANSI[:WHITE]     = "\e[37m"
 
 # Build a simple colorful IRB prompt
 IRB.conf[:PROMPT][:SIMPLE_COLOR] = {
@@ -34,7 +34,7 @@ IRB.conf[:PROMPT][:SIMPLE_COLOR] = {
   :PROMPT_N => ">> ",
   :PROMPT_C => "?> ",
   :PROMPT_S => "?> ",
-  :RETURN   => "#{ANSI[:GREEN]}=>#{ANSI[:RESET]} %s\n",
+  :RETURN   => "#{IRB::ANSI[:GREEN]}=>#{IRB::ANSI[:RESET]} %s\n",
   :AUTO_INDENT => true }
 IRB.conf[:PROMPT_MODE] = :SIMPLE_COLOR
 
@@ -48,7 +48,7 @@ if defined?(Rails)
     :PROMPT_N => "#{rails_root}>> ",
     :PROMPT_C => "#{rails_root}?> ",
     :PROMPT_S => "#{rails_root}?> ",
-    :RETURN   => "#{ANSI[:GREEN]}=>#{ANSI[:RESET]} %s\n"
+    :RETURN   => "#{IRB::ANSI[:GREEN]}=>#{IRB::ANSI[:RESET]} %s\n"
   }
   IRB.conf[:PROMPT_MODE] = :RAILS
 
@@ -74,12 +74,12 @@ def extend_console(name, care = true, required = true)
   if care
     require name if required
     yield if block_given?
-    $console_extensions << "#{ANSI[:GREEN]}#{name}#{ANSI[:RESET]}"
+    $console_extensions << "#{IRB::ANSI[:GREEN]}#{name}#{IRB::ANSI[:RESET]}"
   else
-    $console_extensions << "#{ANSI[:GRAY]}#{name}#{ANSI[:RESET]}"
+    $console_extensions << "#{IRB::ANSI[:GRAY]}#{name}#{IRB::ANSI[:RESET]}"
   end
 rescue LoadError
-  $console_extensions << "#{ANSI[:RED]}#{name}#{ANSI[:RESET]}"
+  $console_extensions << "#{IRB::ANSI[:RED]}#{name}#{IRB::ANSI[:RESET]}"
 end
 $console_extensions = []
 
@@ -128,9 +128,9 @@ extend_console 'pm', true, false do
     max_name = data.collect {|item| item[0].size}.max
     max_args = data.collect {|item| item[1].size}.max
     data.each do |item|
-      print " #{ANSI[:YELLOW]}#{item[0].to_s.rjust(max_name)}#{ANSI[:RESET]}"
-      print "#{ANSI[:BLUE]}#{ANSI[:BOLD]}#{item[1].ljust(max_args)}#{ANSI[:RESET]}"
-      print "   #{ANSI[:GRAY]}#{item[2]}#{ANSI[:RESET]}\n"
+      print " #{IRB::ANSI[:YELLOW]}#{item[0].to_s.rjust(max_name)}#{IRB::ANSI[:RESET]}"
+      print "#{IRB::ANSI[:BLUE]}#{IRB::ANSI[:BOLD]}#{item[1].ljust(max_args)}#{IRB::ANSI[:RESET]}"
+      print "   #{IRB::ANSI[:GRAY]}#{item[2]}#{IRB::ANSI[:RESET]}\n"
     end
     data.size
   end
@@ -144,4 +144,4 @@ extend_console 'open3' do
 end
 
 # Show results of all extension-loading
-puts "#{ANSI[:GRAY]}~> Console extensions:#{ANSI[:RESET]} #{$console_extensions.join(' ')}#{ANSI[:RESET]}"
+puts "#{IRB::ANSI[:GRAY]}~> Console extensions:#{IRB::ANSI[:RESET]} #{$console_extensions.join(' ')}#{IRB::ANSI[:RESET]}"
