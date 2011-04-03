@@ -31,9 +31,6 @@
 [submodule "vim/bundle/vim-rails"]
 	path = vim/bundle/vim-rails
 	url = http://github.com/tpope/vim-rails.git
-[submodule "vim/bundle/vim-scss-syntax"]
-	path = vim/bundle/vim-scss-syntax
-	url = http://github.com/cakebaker/scss-syntax.vim.git
 [submodule "vim/bundle/vim-supertab"]
 	path = vim/bundle/vim-supertab
 	url = http://github.com/ervandew/supertab.git
