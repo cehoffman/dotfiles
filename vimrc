@@ -485,7 +485,9 @@ nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
 " nnoremap <Leader>j :LustyJuggler<CR>
 " nnoremap <Leader>j :LustyBufferExplorer<CR>
 " nnoremap <Leader>f :LustyFilesystemExplorerFromHere<CR>
-" let g:loaded_lustyjuggler = 1
+" Disable the juggler because it has a terrible bug that causes insert bindings to barf
+" after activitating the juggler and choosing a buffer index that is out of bounds
+let g:loaded_lustyjuggler = 1
 
 " Nerd Tree settings
 let NERDTreeQuitOnOpen = 0
