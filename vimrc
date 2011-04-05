@@ -15,7 +15,7 @@ set showcmd        " display incomplete commands
 set incsearch      " do incremental searching
 
 set cmdheight=3    " Reduce the number of times the hit enter dialog comes up
-set shortmess+=a   " Make messages even shorter
+set shortmess+=aI   " Make messages even shorter
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -161,13 +161,11 @@ let mapleader = ","
 " Shortcut to edit .vimrc
 noremap <Leader>ve :edit $MYVIMRC<CR>
 
-" Edit the README_FOR_APP (makes :R commands work)
-map <Leader>R :e doc/README_FOR_APP<CR>
-
 if has("autocmd")
   " Leader shortcuts for Rails commands
   augroup RailsShortcuts
     au!
+    " For Taglist
     autocmd BufEnter *
           \ if exists("b:rails_root") |
           \   let g:base_dir = b:rails_root |
@@ -188,7 +186,7 @@ if has("autocmd")
         \ map <buffer> <Leader>rh :Rhelper |
         \ :Rnavcommand observer app/observers -glob=**/* -suffix=_observer.rb |
         \ :Rnavcommand job app/jobs -glob=**/* |
-        \ :Rnavcommand compass app/stylesheets -glob=**/* -suffix=.scss |
+        \ :Rnavcommand compass app/stylesheets -glob=**/* -suffix=.s?ss |
         \ map <buffer> <Leader>ro :Robserver |
         \ map <buffer> <Leader>rb :Rjob |
         \ map <buffer> <Leader>rp :Rcompass |
@@ -504,10 +502,10 @@ nnoremap <silent> <Leader>D :NERDTreeFind<CR>
 
 " Allow a method to delete without updating paste buffer
 " Use dlp to do the same as what xp used to do
-nnoremap x "_x
-nnoremap X "_x
-vnoremap x "_x
-vnoremap X "_X
+" nnoremap x "_x
+" nnoremap X "_x
+" vnoremap x "_x
+" vnoremap X "_X
 
 " Don't move the cursosr after pasting
 " noremap p p`[
@@ -515,13 +513,6 @@ vnoremap X "_X
 
 " Select just pasted text in last used visual mode
 nnoremap <expr> gp '`[' . visualmode() . '`]'
-
-" Use ^L to exit modes and keep cursor where it was
-" Commented out for now since ^C does essentially the same
-" inoremap <C-l> <ESC>`^
-" vnoremap <C-l> <ESC>`^
-" snoremap <C-l> <ESC>`^
-" onoremap <C-l> <ESC>`^
 
 " Make exiting insert mode not move the cursor to right
 " Also makes ^C now trigger abbreviations and InsertLeave autocmd
@@ -605,10 +596,6 @@ endfunction
 " Search for the current word from visual mode
 vmap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vmap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
-
-" Make shifting in highlight mode reselect text
-vnoremap < <gv
-vnoremap > >gv
 
 " Shortcut to redraw screen
 noremap <Leader><C-l> :redraw!<CR>
