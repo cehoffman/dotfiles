@@ -271,9 +271,9 @@ set numberwidth=5
 
 " Tab completion options
 " (only complete to the longest unambiguous match, and show a menu)
-set completeopt=longest,menu
+set completeopt=longest,menuone,preview
 set wildmode=list:longest,list:full
-set complete=.,t,i
+set complete=.,t,i,b,w
 
 " case only matters with mixed case expressions
 set ignorecase
@@ -365,6 +365,7 @@ endif
 " Ruby completion settings
 let ruby_minlines = 200
 let g:rubycomplete_rails = 1
+let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
 let g:ruby_buffer_loading = 1
 let g:rubycomplte_include_object = 1
@@ -425,12 +426,14 @@ let delimitMate_expand_cr = 0
 inoremap ; <C-R>=delimitMate#JumpAny(";")<CR>
 
 " Don't use CR for doing an accept in supertab
-" let g:SuperTabCrMapping = 0
+let g:SuperTabCrMapping = 1
 
 " Recalculate completion string when hitting tab on an open menu
 let g:SuperTabLongestEnhanced = 1
-let g:SuperTabRetainCompletionDuration = 'session'
-let g:SuperTabMidWordCompletion = 0
+let g:SuperTabLongestHighlight = 1
+
+" Use Omnicomplete function
+let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
 
 " TList settings for ctags
 if executable($HOME . "/.homebrew/bin/ctags")
