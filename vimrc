@@ -257,8 +257,8 @@ if (&t_Co > 2 || has("gui_running"))
 endif
 
 " Edit routes
-command! Rroutes :e config/routes.rb
-command! Rschema :e db/schema.rb
+command! Rroutes :Redit config/routes.rb
+command! Rschema :Redit db/schema.rb
 
 " Local config
 if filereadable(".vimrc.local")
