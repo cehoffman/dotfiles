@@ -36,9 +36,6 @@ endif
 " Use soft wrapping, and adjust mappings for edit keys
 set wrap linebreak textwidth=0 showbreak=\ \ \ …\  cpoptions+=n
 
-" Include the matchit macro
-runtime macros/matchit.vim
-
 " Allows moving up by screen lines, not file lines
 map j gj
 map k gk
@@ -54,6 +51,9 @@ call pathogen#runtime_append_all_bundles()
 
 " Custom status line using to show git branch info, has ruler set
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%{rvm#statusline()}\ %-14.(%c%V,%l/%L%)\ %P\ %y
+
+" Include the matchit macro
+runtime! macros/matchit.vim
 
 " Enable the :Man command
 runtime! ftplugin/man.vim
