@@ -334,6 +334,7 @@ nnoremap ` '
 set formatoptions-=o
 
 " Command-T configuration
+nnoremap <Leader>p :CommandT<CR>
 let g:CommandTMaxHeight=10
 
 " Mark syntax errors with :signs
