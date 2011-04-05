@@ -360,6 +360,8 @@ if has("autocmd")
     autocmd FileType vim,ruby setlocal formatoptions-=o
     autocmd FileType nerdtree,taglist setlocal nolist nowrap
     autocmd FileType taglist setlocal foldnestmax=0
+
+    autocmd BufRead,BufNewFile {Thorfile,config.ru,Guardfile} set ft=ruby
   augroup END
 endif
 
@@ -368,7 +370,6 @@ let ruby_minlines = 200
 let g:rubycomplete_rails = 1
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
-let g:ruby_buffer_loading = 1
 let g:rubycomplte_include_object = 1
 let g:rubycomplete_include_objectspace = 1
 
