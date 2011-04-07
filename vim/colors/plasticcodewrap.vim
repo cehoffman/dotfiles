@@ -17,7 +17,7 @@ hi SpecialKey                   term=bold           ctermfg=59           ctermbg
 hi NonText                      term=bold           ctermfg=238          ctermbg=16      guifg=#485056   guibg=#081015
 hi Directory                    term=bold           ctermfg=204          ctermbg=16      guifg=#ff3a83   guibg=bg
 hi ErrorMsg                     ctermfg=231         ctermbg=124          guifg=#f8f8f8   guibg=#a32411
-hi IncSearch                    ctermfg=254         ctermbg=88           guifg=fg        guibg=#5a422c
+hi IncSearch                    ctermfg=88          ctermbg=254          guifg=fg        guibg=#5a422c
 hi Search                       ctermfg=254         ctermbg=88           guifg=fg        guibg=#5a422c
 hi MoreMsg                      term=bold           cterm=bold           ctermfg=29      ctermbg=16      gui=bold           guifg=#2e8b57 guibg=bg
 hi ModeMsg                      term=bold           cterm=bold           ctermfg=231     ctermbg=16      gui=bold           guifg=fg      guibg=bg
