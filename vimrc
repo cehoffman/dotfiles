@@ -360,6 +360,7 @@ if has("autocmd")
     autocmd FileType taglist setlocal foldnestmax=0
 
     autocmd BufRead,BufNewFile {Thorfile,config.ru,Guardfile} set ft=ruby
+    autocmd BufEnter,BufWinEnter,CursorHold,CursorHoldI,CursorMoved,CursorMovedI *.log :checktime
   augroup END
 endif
 
@@ -474,6 +475,8 @@ endif
 
 " Setup Gundo key binding
 nnoremap <F5> :GundoToggle<CR>
+let g:gundo_right = 1
+let g:gundo_preview_bottom = 1
 
 " Allow inserting just one stupid character
 nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
@@ -654,3 +657,20 @@ function! s:pbcopy()
 endfunction
 
 command! -nargs=0 -bar PBCopy call s:pbcopy()
+
+let g:ConqueTerm_CloseOnEnd = 1
+let g:ConqueTerm_TERM = &term
+let g:ConqueTerm_SendVisKey = '<Leader>cq'
+function! s:rconsole()
+  :ConqueTermSplit rails console
+  setlocal scrolloff=0
+  setlocal sidescrolloff=0
+  setlocal sidescroll=0
+  syn include @rubyTop syntax/ruby.vim
+  unlet b:current_syntax
+  syn region rubyCommandLine start="^\w\+[>?*]>" end="$" contains=@rubyTop keepend
+endfunction
+
+command! -nargs=0 -bar Rconsole call s:rconsole()
+" set makeprg=script/testdrb\ -Itest\ %
+" set efm=%-G%*\\wTest:,%-GLoaded\ %.%#,%-GStarted,%-G,%-GFinished\ in%.%#,%-G%*\\d\ tests%.%#,\ %*\\d\ assertions%.%#,%-GCoverage\ report%.%#,%-G[32m%*\\sPASS[0m\ %m,%E[31m%*\\sFAIL[0m\ %.%#,%Z%*\\s%f:%l:%.%#,%C%*\\s%m%#
