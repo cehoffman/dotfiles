@@ -10,12 +10,12 @@ set backspace=indent,eol,start
 set nobackup
 set nowritebackup
 set noswapfile
-set history=100    " keep 50 lines of command line history
+set history=100    " keep 100 lines of command line history
 set showcmd        " display incomplete commands
 set incsearch      " do incremental searching
 
 set cmdheight=3    " Reduce the number of times the hit enter dialog comes up
-set shortmess+=aI   " Make messages even shorter
+set shortmess+=aI  " Make messages even shorter
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
