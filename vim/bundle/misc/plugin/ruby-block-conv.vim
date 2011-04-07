@@ -92,6 +92,5 @@ function! <SID>RubyBlockSwitchDelimiters() range
   "execute 'normal v5j'
 endfunction
 
-nnoremap <Leader>B :call <SID>RubyBlockBraceToDoEnd(line('.'))<CR>
-command! -range B <line1>,<line2>call <SID>RubyBlockSwitchDelimiters()
-vmap <Leader>B :call <SID>RubyBlockSwitchDelimiters()<cr>
+nnoremap <Leader>rb :call <SID>RubyBlockBraceToDoEnd(line('.'))<CR>
+vmap <Leader>rb :call <SID>RubyBlockSwitchDelimiters()<cr>
