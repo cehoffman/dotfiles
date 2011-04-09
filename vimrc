@@ -308,7 +308,7 @@ set hidden
 " Mappings for fugitive
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gc :Gcommit<CR>
-nmap <Leader>ga :Gwrite<CR>
+nmap <Leader>ga :Gwrite<CR>:redraw!<CR>
 nmap <Leader>gl :Glog<CR>
 nmap <Leader>gd :Gdiff<CR>
 
@@ -658,7 +658,8 @@ endfunction
 
 command! -nargs=0 -bar PBCopy call s:pbcopy()
 
-let g:ConqueTerm_CloseOnEnd = 1
+let g:ConqueTerm_CloseOnEnd = 0
+let g:ConqueTerm_Color = 1
 let g:ConqueTerm_TERM = &term
 let g:ConqueTerm_SendVisKey = '<Leader>cq'
 function! s:rconsole()
@@ -669,6 +670,8 @@ function! s:rconsole()
   syn include @rubyTop syntax/ruby.vim
   unlet b:current_syntax
   syn region rubyCommandLine start="^\w\+[>?*]>" end="$" contains=@rubyTop keepend
+  syn match rubyEndofBlock /^\s\+end\s\+$/
+  hi link rubyEndofBlock Keyword
 endfunction
 
 command! -nargs=0 -bar Rconsole call s:rconsole()
