@@ -38,6 +38,8 @@ task :update do
     end
   end
 
+  system 'git', 'clean', '-df'
+
   replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile].include? file
@@ -65,6 +67,8 @@ task :update do
       link_file(file)
     end
   end
+
+  system 'vim', '-c', ':call pathogen#helptags()', '-c', ':q!'
 end
 
 def replace_file(file)
