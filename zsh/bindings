@@ -43,6 +43,11 @@ bindkey -a 'Y' vi-yank-eol
 # Expansion of history
 bindkey ' ' magic-space
 
+# Allow editing a command inside the editor
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
 # Better movement on the line
 # bindkey '^b' backward-word
 # bindkey '^f' forward-word
