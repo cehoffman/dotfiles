@@ -713,6 +713,10 @@ endif
   " Find in NerdTree!
   nnoremap <silent> <Leader>D :NERDTreeFind<CR>
 " }}}
+" UltiSnips settings {{{
+   let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" }}}
 
 " Window Management {{{
   " Open a yanked window {{{
