@@ -717,6 +717,14 @@ endif
    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " }}}
+" Parameter Object settings {{{
+  let g:no_parameter_object_maps = 1
+  " Must not use noremap because other functionality must be triggered
+  vmap <silent> ia <Plug>ParameterObjectI
+  omap <silent> ia <Plug>ParameterObjectI
+  vmap <silent> aa <Plug>ParameterObjectA
+  omap <silent> aa <Plug>ParameterObjectA
+" }}}
 
 " Window Management {{{
   " Open a yanked window {{{
