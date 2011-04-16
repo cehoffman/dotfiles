@@ -30,9 +30,9 @@
     whitespace= fix
 [merge]
     conflictstyle = diff3
-    tool = mvim
-[merge "mvim"]
-    cmd = mvim -d
+    tool = mvimdiff3
+[mergetool "mvimdiff3"]
+    cmd = mvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 [github]
     user = cehoffman
     token = 5fcd01635ed8dd4479556c6ade2fb5e
