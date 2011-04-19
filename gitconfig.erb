@@ -31,8 +31,11 @@
 [merge]
     conflictstyle = diff3
     tool = mvimdiff3
+[mergetool]
+    keepBackup = false
 [mergetool "mvimdiff3"]
     cmd = mvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+    trustExitCode = false
 [github]
     user = cehoffman
     token = 5fcd01635ed8dd4479556c6ade2fb5e
