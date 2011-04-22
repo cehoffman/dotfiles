@@ -47,7 +47,8 @@ setopt HIST_VERIFY # Don't immediately execute a command from history, let me ed
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE # don't records commands that the first character is a space
-setopt HIST_NO_STORE # Don't save the history command (fc -1) in history
+setopt HIST_NO_STORE # Don't save the history command (fc -l) in history
+setopt HIST_LEX_WORDS
 
 setopt LONG_LIST_JOBS
 setopt AUTO_CD

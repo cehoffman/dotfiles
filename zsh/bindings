@@ -54,3 +54,7 @@ bindkey '^X^E' edit-command-line
 # bindkey '^d' delete-word
 # bindkey '^u' kill-whole-line
 
+# Make it really simple to forground that last suspended process before last
+# This makes it real simple to suspend vim, resume something else, suspend it and resume vim
+bindkey -s '^f' ' fg %-'
+
