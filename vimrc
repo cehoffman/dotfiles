@@ -677,7 +677,7 @@ endif
   nnoremap <Leader>sd :call Svndiff()<CR>
   augroup SvnDiffFugitive
     au!
-    autocmd User Fugitive if fugitive#buffer().type('file') && &filetype != 'help' && !&diff | :call Svndiff('next') | endif
+    " autocmd User Fugitive if fugitive#buffer().type('file') && &filetype != 'help' && !&diff | :call Svndiff('next') | endif
   augroup END
 " }}}
 " Gundo settings {{{
