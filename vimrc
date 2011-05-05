@@ -280,6 +280,7 @@ if has("autocmd")
 
         autocmd BufWinEnter <buffer> call <SID>SetupHelpWindow()
         nnoremap <buffer> <Space> <C-]>
+        nnoremap <buffer> <CR> <C-]>
         nnoremap <buffer> <BS> <C-T>
       endfunction
 
@@ -604,6 +605,9 @@ endif
   nnoremap <Leader>gd :Gdiff<CR>
   nnoremap <Leader>gD :call <SID>GdiffClose()<cr>
 
+  " Make running git easier
+  cabbrev git Git
+
   function! s:GdiffClose() "{{{
     if (&diff == 0 || getbufvar('#', '&diff') == 0) && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
       echom "Not in diff view."
@@ -622,6 +626,11 @@ endif
       bd #
     endif
   endfunction " }}}
+" }}}
+" Gitv settings {{{
+  let g:Gitv_WipeAllOnClose = 1
+  nnoremap <Leader>gv :Gitv --all<CR>
+  nnoremap <Leader>gV :Gitv! --all<CR>
 " }}}
 " Syntastic settings {{{
   let g:syntastic_enable_signs = 1
@@ -810,12 +819,6 @@ endif
     endfunction
     nnoremap <Leader>x :call <SID>TrimTrailingWhitespace()<CR>
     nnoremap <Leader>xw :call <SID>TrimTrailingWhitespace()<CR>:w<CR>
-    if has('autocmd')
-      augroup TrailingWhitespaceRemoval
-        au!
-        autocmd BufWritePre *.rb,*.vim,*.py,*.sass,*.scss,*.coffee,*.js,.vimrc,vimrc :call <SID>TrimTrailingWhitespace()
-      augroup END
-    endif
   " }}}
   " Paste using pbcopy {{{
     function! s:pbcopy()
@@ -833,6 +836,7 @@ endif
     endfunction
 
     command! -nargs=0 -bar Bundle call s:bundle()
+    cabbrev bundle Bundle
   " }}}
   " Open url from current line {{{
     function! s:OpenURL()
