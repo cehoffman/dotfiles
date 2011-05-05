@@ -1,8 +1,6 @@
 if [[ -a $HOME/.npm/bin/npm ]]; then
   path=($HOME/.npm/bin $path)
-  manpath=($(npm config get manroot 2> /dev/null) $manpath)
-
-  export NODE_PATH=$(npm config get root 2> /dev/null)
+  export NODE_PATH=$(npm root -g 2> /dev/null)
 fi
 
 # vim: filetype=zsh
