@@ -22,7 +22,7 @@ if [[ -r /Applications/MacVim.app ]]; then
   function mvim() {
     local files; files=()
     local skip; skip=false
-    local no_fork; no_fork=true
+    local no_fork; no_fork=false
 
     # Convert all filenames to absolute paths because the cwd is lost using open
     for file; do
