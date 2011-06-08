@@ -1,4 +1,4 @@
-typeset -TUg LS_COLORS ls_colors
+typeset -Ug LS_COLORS ls_colors
 
 # Effects
 # 00  Default colour
