@@ -1,0 +1,1 @@
+export SSH_AUTH_SOCK=$(ps axe | ruby -e "print STDIN.read[/\bssh-agent\b.*?\bSSH_AUTH_SOCK=([^ ]+)/, 1]")
