@@ -70,9 +70,6 @@
 [submodule "vim/bundle/vim-gitolite"]
 	path = vim/bundle/vim-gitolite
 	url = http://github.com/tmatilai/gitolite.vim.git
-[submodule "vim/bundle/vim-rdoc"]
-	path = vim/bundle/vim-rdoc
-	url = http://github.com/hallison/vim-rdoc.git
 [submodule "vim/bundle/vim-fakeclip"]
 	path = vim/bundle/vim-fakeclip
 	url = http://github.com/kana/vim-fakeclip.git
