@@ -668,7 +668,8 @@ endif
   let g:SuperTabCrMapping = 1
   let g:SuperTabLongestEnhanced = 1
   let g:SuperTabLongestHighlight = 1
-  let g:SuperTabDefaultCompletionType = '<c-n>'
+  let g:SuperTabDefaultCompletionType = 'context'
+  let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
 " }}}
 " Tagbar - the better taglist {{{
   let g:tagbar_width = 40
@@ -874,6 +875,8 @@ endif
 if filereadable(".vimrc.local")
   source .vimrc.local
 endif
+
+set secure " must be last line in vimrc to have desired effect
 
 " set makeprg=script/testdrb\ -Itest\ %
 " set efm=%-G%*\\wTest:,%-GLoaded\ %.%#,%-GStarted,%-G,%-GFinished\ in%.%#,%-G%*\\d\ tests%.%#,\ %*\\d\ assertions%.%#,%-GCoverage\ report%.%#,%-G[32m%*\\sPASS[0m\ %m,%E[31m%*\\sFAIL[0m\ %.%#,%Z%*\\s%f:%l:%.%#,%C%*\\s%m%#
