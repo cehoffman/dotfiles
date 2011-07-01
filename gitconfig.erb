@@ -24,17 +24,21 @@
     unstage = reset HEAD --
     prune-all = !git remote | xargs -n 1 git remote prune
 [core]
+    eol = lf
+    compression = 9
+    pager = less
     whitespace = trailing-space,space-before-tab,-blank-at-eof
     excludesfile = <%= ENV['HOME'] %>/.gitignore
+    preloadindex = true
 [apply]
     whitespace= fix
 [merge]
-    conflictstyle = diff3
+    conflictstyle = merge
     tool = mvimdiff3
 [mergetool]
     keepBackup = false
 [mergetool "mvimdiff3"]
-    cmd = mvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+    cmd = mvim -f -c \"Gdiff\" \"$MERGED\"
     trustExitCode = false
 [github]
     user = cehoffman
