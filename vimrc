@@ -53,7 +53,10 @@ set nocompatible
   set termencoding=utf-8   " Make default termainl encoding utf-8
   set cryptmethod=blowfish " use a strong encryption method for instead of weak one
 
-  set clipboard=unnamed,unnamedplus,autoselect " make copying put on the system clipboard and pasting get from it
+  if $TMUX == ''
+    set clipboard=unnamed,unnamedplus,autoselect " make copying put on the system clipboard and pasting get from it
+  endif
+
   if has("gui_running")
     set lazyredraw     " don't redraw the screen during macros
   endif
