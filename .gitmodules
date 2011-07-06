@@ -73,9 +73,6 @@
 [submodule "vim/bundle/vim-fakeclip"]
 	path = vim/bundle/vim-fakeclip
 	url = http://github.com/kana/vim-fakeclip.git
-[submodule "vim/bundle/vim-speeddating"]
-	path = vim/bundle/vim-speeddating
-	url = http://github.com/tpope/vim-speeddating.git
 [submodule "vim/bundle/vim-lusty"]
 	path = vim/bundle/vim-lusty
 	url = http://github.com/sjbach/lusty.git
