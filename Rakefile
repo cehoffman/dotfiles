@@ -32,10 +32,7 @@ task :update do
   puts 'making command-t plugin'
   Dir.chdir 'vim/bundle/vim-command-t' do
     system 'git clean -fdx'
-    Dir.chdir 'ruby/command-t' do
-      system 'rvm 1.8.7 ruby extconf.rb'
-      system 'make'
-    end
+    system 'rvm use 1.8.7 rake make'
   end
 
   system 'git', 'clean', '-df'
