@@ -53,7 +53,7 @@ set nocompatible
   set termencoding=utf-8   " Make default termainl encoding utf-8
   set cryptmethod=blowfish " use a strong encryption method for instead of weak one
 
-  if $TMUX == ''
+  if has('gui_running') || $TMUX == ''
     set clipboard=unnamed,unnamedplus,autoselect " make copying put on the system clipboard and pasting get from it
   endif
 
