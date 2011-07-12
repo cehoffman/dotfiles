@@ -1,0 +1,114 @@
+colorizer: [Paint]
+
+# container
+open_hash:
+- :white
+close_hash:
+- :white
+open_array:
+- :white
+close_array:
+- :white
+open_set:
+- :white
+close_set:
+- :white
+
+# delimiter
+comma: :white
+
+refers: :white
+
+# class
+class:
+- [157, 243, 159]
+class_separator:
+- :white
+object_class:
+- [157, 243, 159]
+
+# object
+open_object:
+- :white
+object_description_prefix:
+- :green
+object_description:
+- :yellow
+object_address_prefix:
+- :yellow
+object_address:
+- :yellow
+object_line_prefix:
+- :yellow
+object_line:
+- :yellow
+object_line_number:
+- :brown
+object_variable_prefix:
+- [0, 191, 255]
+object_variable:
+- [0, 191, 255]
+close_object:
+- :white
+
+# symbol
+symbol_prefix:
+- [255, 58, 131]
+symbol:
+- [255, 58, 131]
+open_symbol_string:
+- [255, 58, 131]
+symbol_string:
+- [255, 58, 131]
+close_symbol_string:
+- [255, 58, 131]
+
+# string
+open_string:
+- [95, 215, 95]
+string:
+- [95, 215, 95]
+close_string:
+- [95, 215, 95]
+
+# regexp
+open_regexp:
+- [255, 175, 95]
+regexp:
+- [255, 175, 95]
+close_regexp:
+- [255, 175, 95]
+regexp_flags:
+- [255, 175, 95]
+
+# number
+number:
+- [255, 58, 131]
+range:
+- [255, 58, 131]
+open_rational:
+- :cyan
+- :bright
+rational_separator:
+- :cyan
+- :bright
+close_rational:
+- :cyan
+- :bright
+
+# misc
+#default:
+#keyword:
+time:
+- :magenta
+nil:
+- [251, 154, 75]
+false:
+- [255, 58, 131]
+true:
+- [255, 58, 131]
+gem_requirement_condition:
+- :cyan
+gem_requirement_version:
+- :cyan
+- :bright

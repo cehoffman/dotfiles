@@ -83,11 +83,17 @@ rescue LoadError
 end
 $console_extensions = []
 
-# Wirble is a gem that handles coloring the IRB
-# output and history
-extend_console 'wirble' do
-  Wirble.init
-  Wirble.colorize
+extend_console 'fancy_irb' do
+  FancyIrb.start rocket_prompt: '# => ', colorize: { rocket_prompt: [:green, :bright] }
+end
+
+extend_console 'sketches' do
+  Sketches.config(editor: ENV['EDITOR'], background: true, terminal: -> cmd { "tmux new-window #{cmd.dump}" })
+end
+
+extend_console 'wirb' do
+  Wirb.start
+  Wirb.load_schema File.expand_path('~/.irb/plasticcodewrap')
 end
 
 # Hirb makes tables easy.
