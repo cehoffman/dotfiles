@@ -52,7 +52,14 @@ hi diffNewFile                                                                  
 hi diffFile                                                                      ctermfg=240 ctermbg=16                            guifg=#00cc00
 hi diffLine                                                                      ctermfg=240 ctermbg=16                            guifg=#585858
 
-hi Conceal                                                                       ctermfg=7   ctermbg=242                           guifg=LightGrey guibg=DarkGrey
+hi Conceal                                                                       ctermfg=214 ctermbg=16                           guifg=#ffaa00 guibg=#000000
+
+hi CSVColumnEven                                    cterm=none                   ctermfg=231 ctermbg=16  gui=none                 guifg=#e0e0e0 guibg=#000000
+hi CSVColumnHeaderEven                              cterm=underline,bold         ctermfg=214 ctermbg=16  gui=underline,bold       guifg=#ffaa00 guibg=#000000
+hi CSVColumnOdd                                     cterm=none                   ctermfg=231 ctermbg=16  gui=none                 guifg=#e0e0e0 guibg=#000000
+hi CSVColumnHeaderOdd                               cterm=underline,bold         ctermfg=214 ctermbg=16  gui=underline,bold       guifg=#ffaa00 guibg=#000000
+hi CSVHiColumn                                      cterm=none                   ctermfg=220 ctermbg=16  gui=none                 guifg=#ffd700 guibg=#000000
+hi CSVHiColumnHeader                                cterm=underline,bold         ctermfg=214 ctermbg=16  gui=underline,bold       guifg=#ffaa00 guibg=#000000
 
 " When correcting spellings
 hi SpellBad                     term=reverse        cterm=undercurl              ctermfg=196 ctermbg=16  gui=undercurl
