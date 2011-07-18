@@ -496,7 +496,7 @@ if has("autocmd")
       " if has("gui_running")
         let g:default_stl .= "đ"
       " endif
-      let g:default_stl .= " %l#[LineColumn]:%c%V " " Line/column/virtual column, Line percentage
+      let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage
     " }}}
     call <SID>StatusLineColors(s:statuscolors) " Make the status line become colorful on sourcing after startup
   " }}}
@@ -737,6 +737,10 @@ endif
   omap <silent> ia <Plug>ParameterObjectI
   vmap <silent> aa <Plug>ParameterObjectA
   omap <silent> aa <Plug>ParameterObjectA
+" }}}
+" CSV settings {{{
+  let g:csv_hiHeader = 'CSVHiColumnHeader'
+  let g:csv_hiGroup = 'CSVHiColumn'
 " }}}
 
 " Window Management {{{

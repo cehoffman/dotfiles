@@ -124,3 +124,6 @@
 [submodule "vim/bundle/vim-gitv"]
 	path = vim/bundle/vim-gitv
 	url = https://github.com/gregsexton/gitv.git
+[submodule "vim/bundle/vim-csv"]
+	path = vim/bundle/vim-csv
+	url = git@github.com:cehoffman/csv.vim.git
