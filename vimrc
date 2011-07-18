@@ -286,6 +286,7 @@ if has("autocmd")
         nnoremap <buffer> <Space> <C-]>
         nnoremap <buffer> <CR> <C-]>
         nnoremap <buffer> <BS> <C-T>
+        nnoremap <buffer> q :bd<CR>
       endfunction
 
       autocmd FileType help call <SID>SetupHelpWindow()
