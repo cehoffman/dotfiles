@@ -1,7 +1,6 @@
 --- 
 :update_sources: true
 :sources: 
-- http://gems.rubyforge.org/
 - http://rubygems.org
 :bulk_threshold: 1000
 :verbose: true
