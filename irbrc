@@ -1,15 +1,3 @@
-require 'irb/completion'
-require 'irb/ext/save-history'
-
-IRB.conf[:SAVE_HISTORY] = 500
-IRB.conf[:PROMPT_MODE]  = :SIMPLE
-
-# Auto indent code
-IRB.conf[:AUTO_INDENT] = true
-
-# Readline support
-IRB.conf[:USE_READLINE] = true
-
 # DON'T USE THESE IN AN INTERACTIVE PROMPT
 # They will cause line wrapping to become screwed since
 # readline thinks they are physical characters you can see
@@ -28,45 +16,6 @@ IRB::ANSI[:MAGENTA]   = "\e[35m"
 IRB::ANSI[:CYAN]      = "\e[36m"
 IRB::ANSI[:WHITE]     = "\e[37m"
 
-# Build a simple colorful IRB prompt
-IRB.conf[:PROMPT][:SIMPLE_COLOR] = {
-  :PROMPT_I => ">> ",
-  :PROMPT_N => ">> ",
-  :PROMPT_C => "?> ",
-  :PROMPT_S => "?> ",
-  :RETURN   => "#{IRB::ANSI[:GREEN]}=>#{IRB::ANSI[:RESET]} %s\n",
-  :AUTO_INDENT => true }
-IRB.conf[:PROMPT_MODE] = :SIMPLE_COLOR
-
-
-# Just for Rails...
-if defined?(Rails)
-  rails_root = File.basename(Rails.root)
-  IRB.conf[:PROMPT] ||= {}
-  IRB.conf[:PROMPT][:RAILS] = {
-    :PROMPT_I => "#{rails_root}>> ",
-    :PROMPT_N => "#{rails_root}>> ",
-    :PROMPT_C => "#{rails_root}?> ",
-    :PROMPT_S => "#{rails_root}?> ",
-    :RETURN   => "#{IRB::ANSI[:GREEN]}=>#{IRB::ANSI[:RESET]} %s\n"
-  }
-  IRB.conf[:PROMPT_MODE] = :RAILS
-
-  # Called after the irb session is initialized and Rails has
-  # been loaded (props: Mike Clark).
-  IRB.conf[:IRB_RC] = Proc.new do |context|
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
-    ActiveRecord::Base.instance_eval { alias :[] :find }
-  end
-end
-
-# Nice alias to just see the methods specific to this object
-class Object
-  def local_methods
-    (methods - Object.instance_methods).sort
-  end
-end
-
 # Loading extensions of the console. This is wrapped
 # because some might not be included in your Gemfile
 # and errors will be raised
@@ -83,17 +32,26 @@ rescue LoadError
 end
 $console_extensions = []
 
+case IRB.version
+when /dietrb/i
+  require File.expand_path('../.irb/dietrb', __FILE__)
+else
+  require File.expand_path('../.irb/irb', __FILE__)
+end
+
+# Nice alias to just see the methods specific to this object
+class Object
+  def local_methods
+    (methods - Object.instance_methods).sort
+  end
+end
+
 extend_console 'fancy_irb' do
   FancyIrb.start rocket_prompt: '# => ', colorize: { rocket_prompt: [:green, :bright] }
 end
 
 extend_console 'sketches' do
   Sketches.config(editor: ENV['EDITOR'], background: true, terminal: -> cmd { "tmux new-window #{cmd.dump}" })
-end
-
-extend_console 'wirb' do
-  Wirb.start
-  Wirb.load_schema File.expand_path('~/.irb/plasticcodewrap')
 end
 
 # Hirb makes tables easy.
