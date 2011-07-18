@@ -178,7 +178,8 @@ let mapleader = "," " \ is the default leader character
     if has("gui_mac") || has("gui_macvim")
       " set guifont=Akkurat-Mono:h12
       " set guifont=DejaVuSansMono:h12
-      set guifont=MesloLGS:h12
+      set guifont=MesloLGS:h11
+      set linespace=1
     endif
 
     if has("gui_gnome")
