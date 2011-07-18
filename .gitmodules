@@ -97,9 +97,6 @@
 [submodule "vim/bundle/vim-easymotion"]
 	path = vim/bundle/vim-easymotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
-[submodule "vim/bundle/vim-textobj-user"]
-	path = vim/bundle/vim-textobj-user
-	url = https://github.com/kana/vim-textobj-user.git
 [submodule "vim/bundle/vim-textobj-rubyblock"]
 	path = vim/bundle/vim-textobj-rubyblock
 	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
@@ -127,3 +124,6 @@
 [submodule "vim/bundle/vim-csv"]
 	path = vim/bundle/vim-csv
 	url = git@github.com:cehoffman/csv.vim.git
+[submodule "vim/bundle/vim-textobj-user"]
+	path = vim/bundle/vim-textobj-user
+	url = git@github.com:cehoffman/vim-textobj-user.git
