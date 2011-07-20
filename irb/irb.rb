@@ -37,7 +37,7 @@ if defined?(Rails)
   # been loaded (props: Mike Clark).
   IRB.conf[:IRB_RC] = Proc.new do |context|
     ActiveRecord::Base.logger = Logger.new(STDOUT)
-  end
+  end if defined?(ActiveRecord)
 end
 
 extend_console 'wirb' do
