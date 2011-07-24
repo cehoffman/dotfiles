@@ -18,13 +18,13 @@ hi NonText                      term=bold                                       
 hi Directory                    term=bold                                        ctermfg=204 ctermbg=16                            guifg=#ff3a83   guibg=bg
 hi ErrorMsg                                                                      ctermfg=231 ctermbg=124                           guifg=#f8f8f8   guibg=#a32411
 hi IncSearch                                                                     ctermfg=88  ctermbg=254                           guifg=#efe900   guibg=#000000
-hi Search                                           cterm=underline,bold,italic, ctermfg=254 ctermbg=88  gui=underline,bold,italic guifg=#efe900   guibg=bg
+hi Search                                           cterm=underline,bold         ctermfg=254 ctermbg=88  gui=underline,bold,italic guifg=#efe900   guibg=bg
 hi MoreMsg                      term=bold           cterm=bold                   ctermfg=29  ctermbg=16  gui=bold                  guifg=#2e8b57   guibg=bg
 hi ModeMsg                      term=bold           cterm=bold                   ctermfg=231 ctermbg=16  gui=bold                  guifg=fg        guibg=bg
 hi LineNr                                                                        ctermfg=238 ctermbg=16                            guifg=#82878b   guibg=bg
 hi Question                                         cterm=bold                   ctermfg=39  ctermbg=16  gui=bold                  guifg=#00ff00   guibg=bg
-hi StatusLine                                       cterm=bold                   ctermfg=230 ctermbg=236                           guifg=#303030   guibg=#ffffd7
-hi StatusLineNC                                     cterm=bold                   ctermfg=181 ctermbg=236                           guifg=#303030   guibg=#d7afaf
+hi StatusLine                                       cterm=bold                   ctermfg=230 ctermbg=236 gui=bold                  guifg=#303030   guibg=#ffffd7
+hi StatusLineNC                                     cterm=bold                   ctermfg=181 ctermbg=236 gui=bold                  guifg=#303030   guibg=#d7afaf
 hi VertSplit                                                                     ctermfg=236 ctermbg=236                           guifg=#303030   guibg=#303030
 hi Title                        term=bold           cterm=bold                   ctermfg=231 ctermbg=16  gui=bold                  guifg=#f8f8f8   guibg=bg
 hi Visual                       term=reverse                                                 ctermbg=17                                            guibg=#00005f
@@ -37,8 +37,8 @@ hi FoldColumn                                                                   
 " Diff mode links
 hi DiffAdd                                                                       ctermfg=231 ctermbg=22                            guifg=fg        guibg=#004400
 hi DiffChange                                                                    ctermfg=231 ctermbg=130 gui=NONE                  guifg=bg        guibg=#d8dc42
-hi DiffDelete                                       cterm=bold                   ctermfg=254 ctermbg=88  gui=NONE                  guifg=fg        guibg=#660000
-hi DiffText                                         cterm=bold                   ctermfg=231 ctermbg=232 gui=NONE                                  guibg=#660000
+hi DiffDelete                                       cterm=bold                   ctermfg=254 ctermbg=88  gui=bold                  guifg=fg        guibg=#660000
+hi DiffText                                         cterm=bold                   ctermfg=231 ctermbg=232 gui=bold                                  guibg=#660000
 
 " SvnDiff plugin
 hi svnDiffAdd                                                                    ctermfg=22  ctermbg=22                            guifg=#004400   guibg=#004400
@@ -69,14 +69,14 @@ hi SpellLocal                   term=underline      cterm=undercurl             
 
 " Popup autocompletion menu
 hi Pmenu                                                                         ctermfg=236 ctermbg=230                           guifg=#efe900   guibg=#0b161d
-hi PmenuSel                                         cterm=bold                   ctermfg=231 ctermbg=66                            guifg=#efe900   guibg=#2b5670
+hi PmenuSel                                         cterm=bold                   ctermfg=231 ctermbg=66  gui=bold                  guifg=#efe900   guibg=#2b5670
 hi PmenuSbar                                                                     ctermfg=241 ctermbg=158                                           guibg=#666666
 hi PmenuThumb                                       cterm=reverse                ctermfg=231 ctermbg=16  gui=reverse               guifg=fg        guibg=bg
 
 " Tab bar in console
 hi TabLine                      term=underline      cterm=underline              ctermfg=249 ctermbg=16  gui=underline             guifg=fg        guibg=#a9a9a9
-hi TabLineSel                   term=bold           cterm=bold,underline         ctermfg=226 ctermbg=16  gui=bold                  guifg=fg        guibg=bg
-hi TabLineFill                  term=reverse        cterm=underline              ctermfg=249 ctermbg=16  gui=reverse               guifg=fg        guibg=bg
+hi TabLineSel                   term=bold           cterm=bold,underline         ctermfg=226 ctermbg=16  gui=bold,underline        guifg=fg        guibg=bg
+hi TabLineFill                  term=reverse        cterm=underline              ctermfg=249 ctermbg=16  gui=underline             guifg=fg        guibg=bg
 
 hi SignColumn                                                                    ctermfg=238 ctermbg=16                            guifg=#82878b   guibg=bg
 hi ColorColumn                  term=reverse                                                 ctermbg=232                                           guibg=#0f0f0f
@@ -89,10 +89,10 @@ hi Comment                      term=bold                                       
 hi Constant                     term=underline                                   ctermfg=204 ctermbg=16                            guifg=#ff3a83   guibg=bg
 hi Special                                                                       ctermfg=161 ctermbg=16                            guifg=#d7005f   guibg=bg
 hi Identifier                                                                    ctermfg=84  ctermbg=16                            guifg=#f6f080   guibg=bg
-hi Statement                    term=bold           cterm=bold                   ctermfg=214 ctermbg=16  gui=NONE                  guifg=#ffaa00   guibg=bg
-hi PreProc                      term=underline      cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
-hi Type                         term=underline      cterm=bold                   ctermfg=220 ctermbg=16                            guifg=#efe900   guibg=bg
-hi Underlined                   term=underline      cterm=underline              ctermfg=231 ctermbg=16                                            guibg=#1c1c1c
+hi Statement                    term=bold           cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
+hi PreProc                      term=underline      cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
+hi Type                         term=underline      cterm=bold                   ctermfg=220 ctermbg=16  gui=bold                  guifg=#efe900   guibg=bg
+hi Underlined                   term=underline      cterm=underline              ctermfg=231 ctermbg=16  gui=underline                             guibg=#1c1c1c
 hi Ignore                                                                        ctermfg=16  ctermbg=16                            guifg=#0b161d   guibg=bg
 hi Error                        term=reverse                                     ctermfg=231 ctermbg=196                           guifg=#ffffff   guibg=#ff0000
 hi Todo                                             cterm=bold                   ctermfg=220 ctermbg=16  gui=bold,italic           guifg=#ffd700   guibg=bg
@@ -101,35 +101,35 @@ hi Character                                                                    
 hi Number                                                                        ctermfg=204 ctermbg=16                            guifg=#ff3a83
 hi Boolean                                                                       ctermfg=204 ctermbg=16                            guifg=#ff3a83
 hi Float                                                                         ctermfg=204 ctermbg=16                            guifg=#ff3a83
-hi Function                                         cterm=bold                   ctermfg=220 ctermbg=16                            guifg=#efe900   guibg=bg
-hi Conditional                                      cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
+hi Function                                         cterm=bold                   ctermfg=220 ctermbg=16  gui=bold                  guifg=#efe900   guibg=bg
+hi Conditional                                      cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
 hi Label                                                                         ctermfg=77  ctermbg=16                            guifg=#55e439   guibg=bg
-hi Operator                                         cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
-hi Keyword                                          cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
-hi Define                                           cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
+hi Operator                                         cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
+hi Keyword                                          cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
+hi Define                                           cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
 hi StorageClass                                                                  ctermfg=228 ctermbg=16                            guifg=#f6f080   guibg=bg
-hi Tag                                              cterm=bold                   ctermfg=220 ctermbg=16                            guifg=#efe900   guibg=bg
+hi Tag                                              cterm=bold                   ctermfg=220 ctermbg=16  gui=bold                  guifg=#efe900   guibg=bg
 hi Normal                                                                        ctermfg=231 ctermbg=16                            guifg=#e0e0e0   guibg=#000000
 
 " Ruby
 hi rubyRegexp                                                                    ctermfg=215 ctermbg=16                            guifg=#ffb454   guibg=bg
 hi rubyRegexpDelimiter                                                           ctermfg=215 ctermbg=16                            guifg=#ffb454   guibg=bg
-hi rubyControl                                      cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
-hi rubyException                                    cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
-hi rubyClass                                        cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
+hi rubyControl                                      cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
+hi rubyException                                    cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
+hi rubyClass                                        cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
 hi rubyPseudoVariable                                                            ctermfg=209 ctermbg=16                            guifg=#fb9a4b   guibg=bg
-hi rubyOperator                                     cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
+hi rubyOperator                                     cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
 hi rubyConstant                                                                  ctermfg=157 ctermbg=16                            guifg=#9df39f   guibg=bg
 hi rubyInstanceVariable                                                          ctermfg=45  ctermbg=16                            guifg=#00bfff   guibg=bg
 hi rubyClassVariable                                                             ctermfg=209 ctermbg=16                            guifg=#fb9a4b   guibg=bg
 hi rubySymbol                                                                    ctermfg=204 ctermbg=16                            guifg=#ff3a83   guibg=bg
 hi rubyEscape                                                                    ctermfg=204 ctermbg=16                            guifg=#ff3a83   guibg=bg
 hi rubyInterpolation                                                             ctermfg=231 ctermbg=16                            guifg=fg        guibg=bg
-hi rubyFunction                                     cterm=bold                   ctermfg=220 ctermbg=16                            guifg=#efe900   guibg=bg
+hi rubyFunction                                     cterm=bold                   ctermfg=220 ctermbg=16  gui=bold                  guifg=#efe900   guibg=bg
 hi rubyInterpolationDelimiter                                                    ctermfg=231 ctermbg=16                            guifg=fg        guibg=bg
 hi rubyStringDelimiter                                                           ctermfg=77  ctermbg=16                            guifg=#55e439   guibg=bg
 hi rubyBlockParameter                                                            ctermfg=209 ctermbg=16                            guifg=#fb9a4b   guibg=bg
-hi rubyInclude                                      cterm=bold                   ctermfg=214 ctermbg=16                            guifg=#ffaa00   guibg=bg
+hi rubyInclude                                      cterm=bold                   ctermfg=214 ctermbg=16  gui=bold                  guifg=#ffaa00   guibg=bg
 hi rubyGlobalVariable                                                            ctermfg=209 ctermbg=16                            guifg=#fb9a4b   guibg=bg
 hi rubyTestMethod                                                                ctermfg=160 ctermbg=16                            guifg=#d40c00   guibg=bg
 hi erubyDelimiter                                                                ctermfg=231 ctermbg=16                            guifg=fg        guibg=bg
@@ -161,9 +161,9 @@ hi htmlEndTag                                                                   
 hi htmlTagName                                                                   ctermfg=159 ctermbg=16                            guifg=#9effff   guibg=bg
 hi htmlArg                                                                       ctermfg=159 ctermbg=16                            guifg=#9effff   guibg=bg
 hi htmlSpecialChar                                                               ctermfg=204 ctermbg=16                            guifg=#ff3a83   guibg=bg
-hi htmlItalic                                                                                            gui=italic
-hi htmlBold                                                                                              gui=bold
-hi htmlBoldItalic                                                                                        gui=italic,bold
+hi htmlItalic                                       cterm=italic                                         gui=italic
+hi htmlBold                                         cterm=bold                                           gui=bold
+hi htmlBoldItalic                                   cterm=bold                                           gui=italic,bold
 
 " XML
 hi xmlTagName                                                                    ctermfg=231 ctermbg=16                            guifg=fg        guibg=bg
@@ -176,19 +176,19 @@ hi javaScriptBraces                                                             
 hi javaScriptFunction                                                            ctermfg=228 ctermbg=16                            guifg=#f6f080   guibg=bg
 
 " YAML
-hi yamlKey                                          cterm=bold                   ctermfg=220 ctermbg=16                            guifg=#efe900   guibg=bg
+hi yamlKey                                          cterm=bold                   ctermfg=220 ctermbg=16  gui=bold                  guifg=#efe900   guibg=bg
 hi yamlAnchor                                                                    ctermfg=209 ctermbg=16                            guifg=#fb9a4b   guibg=bg
 hi yamlAlias                                                                     ctermfg=209 ctermbg=16                            guifg=#fb9a4b   guibg=bg
 hi yamlDocumentHeader                                                            ctermfg=77  ctermbg=16                            guifg=#55e439   guibg=bg
 
 " CSS
-hi cssClassName                                     cterm=bold                   ctermfg=220 ctermbg=16                            guifg=#efe900   guibg=bg
+hi cssClassName                                     cterm=bold                   ctermfg=220 ctermbg=16  gui=bold                  guifg=#efe900   guibg=bg
 hi cssBraces                                                                     ctermfg=231 ctermbg=16                            guifg=fg        guibg=bg
 hi cssCommonAttr                                                                 ctermfg=174 ctermbg=16                            guifg=#eb939a   guibg=bg
 hi cssURL                                                                        ctermfg=209 ctermbg=16                            guifg=#fb9a4b   guibg=bg
 hi cssFunctionName                                                               ctermfg=160 ctermbg=16                            guifg=#d40c00   guibg=bg
 hi cssColor                                                                      ctermfg=204 ctermbg=16                            guifg=#ff3a83   guibg=bg
-hi cssPseudoClassId                                 cterm=bold                   ctermfg=220 ctermbg=16                            guifg=#efe900   guibg=bg
+hi cssPseudoClassId                                 cterm=bold                   ctermfg=220 ctermbg=16  gui=bold                  guifg=#efe900   guibg=bg
 hi netrwCmdNote                                                                  ctermfg=231 ctermbg=16                            guifg=fg        guibg=bg
 hi cssValueLength                                                                ctermfg=204 ctermbg=16                            guifg=#ff3a83   guibg=bg
 
