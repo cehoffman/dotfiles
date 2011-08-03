@@ -130,3 +130,9 @@
 [submodule "vim/bundle/vim-gnupg"]
 	path = vim/bundle/vim-gnupg
 	url = git://gitorious.org/vim-gnupg/vim-gnupg.git
+[submodule "vim/bundle/vim-eregex"]
+	path = vim/bundle/vim-eregex
+	url = https://github.com/othree/eregex.vim.git
+[submodule "vim/bundle/vim-slurper"]
+	path = vim/bundle/vim-slurper
+	url = https://github.com/vim-scripts/slurper.vim.git
