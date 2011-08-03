@@ -138,6 +138,9 @@ let mapleader = "," " \ is the default leader character
   " noremap p p`[
   " noremap P P`[
 
+  " Open an edit path relative to current file
+  nnoremap <Leader>le :e <C-r>=expand('%:p:h')<CR>
+
   " Select just pasted text in last used visual mode
   nnoremap <expr> gp '`[' . visualmode() . '`]'
 
@@ -722,7 +725,7 @@ endif
   let NERDTreeWinPos = 'left'
   let NERDTreeWinSize = 30
   let NERDTreeMouseMode = 3 " Don't require double click to open file
-  let NERDTreeIgnore=['\~$', '^\.git$', '^\.svn$', '^\.bundle$']
+  let NERDTreeIgnore=['\~$', '^\.git$', '^\.svn$', '^\.bundle$', '^\.gitkeep$']
   nmap <Leader>d :NERDTreeToggle<CR>
 
   " Find in NerdTree!
@@ -743,6 +746,9 @@ endif
 " CSV settings {{{
   let g:csv_hiHeader = 'CSVHiColumnHeader'
   let g:csv_hiGroup = 'CSVHiColumn'
+" }}}
+" Markdown setting {{{
+  nnoremap <Leader>M :call system('open -g -F -a Marked "'.expand('%:p').'"')<CR>
 " }}}
 
 " Window Management {{{
@@ -838,14 +844,14 @@ endif
     command! -nargs=0 -bar PBCopy call s:pbcopy()
   " }}}
   " Execute bundle for the current project {{{
-    function! s:bundle()
+    function! s:bundle(args)
       if !filereadable('.rvmrc')
         echoerr 'No .rvmrc present to determine environment'
       endif
-      exec '!'.system("rvm tools path-identifier .")." -S bundle"
+      exec '!'.system("rvm tools path-identifier .")." -S bundle ".a:args
     endfunction
 
-    command! -nargs=0 -bar Bundle call s:bundle()
+    command! -nargs=0 -bar -nargs=? Bundle :execute s:bundle(<q-args>)
     cabbrev bundle Bundle
   " }}}
   " Open url from current line {{{
