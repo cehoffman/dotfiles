@@ -20,32 +20,7 @@ if [[ -f /Library/Application\ Support/VMware\ Fusion/vmrun ]]; then
 fi
 
 if [[ -r /Applications/MacVim.app ]]; then
-  function mvim() {
-    local files; files=()
-    local skip; skip=false
-    local no_fork; no_fork=false
-
-    # Convert all filenames to absolute paths because the cwd is lost using open
-    for file; do
-      if [[ $skip == true ]]; then
-        skip = false
-      else
-        case "$file" in
-          (-c|+) files+=($file); skip=true;;
-          (-f|--no-fork) files+=($file); no_fork=true;;
-          -*) files+=($file);;
-          (/*|-d) files+=($file);;
-          *) files+=("$PWD/$file");;
-        esac
-      fi
-    done
-
-    if [[ $no_fork == true ]]; then
-      /Applications/MacVim.app/Contents/MacOS/Vim -g $files
-    else
-      open -a /Applications/MacVim.app $files
-    fi
-  }
+  alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 fi
 
 # Create a tmux session if there isn't one to attach to
