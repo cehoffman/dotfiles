@@ -25,14 +25,14 @@ require 'erb'
 desc "update the dot files into user's home directory"
 task :update do
   puts 'initializing submodules'
-  system 'git submodule update --init'
-  system 'git submodule sync'
-  system 'git submodule update --init --rebase'
+  system 'git', 'submodule', 'update', '--init'
+  system 'git', 'submodule', 'sync'
+  system 'git', 'submodule', 'update', '--init', '--rebase'
 
   puts 'making command-t plugin'
   Dir.chdir 'vim/bundle/vim-command-t' do
-    system 'git clean -fdx'
-    system 'rvm use 1.8.7 rake make'
+    system 'git', 'clean', '-fdx'
+    system 'rake', 'make'
   end
 
   system 'git', 'clean', '-df'
