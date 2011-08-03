@@ -1,11 +1,6 @@
 alias l='ls -lAh'
 alias less='less -R'
 
-# Rails
-alias rconsole='script/rails console'
-alias rmigrate='rake db:migrate db:test:clone'
-alias rdevlog='tail -f log/development.log'
-
 # show and hide files from Finder
 alias hide="SetFile -a V"
 alias show="SetFile -a v"
