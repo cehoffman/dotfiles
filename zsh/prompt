@@ -45,8 +45,6 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_no_bold[red]%}✗"
 # rvm theming
 ZSH_THEME_RVM_PROMPT_PREFIX="%{$fg_no_bold[blue]%}[%{$fg_no_bold[red]%}"
 ZSH_THEME_RVM_PROMPT_SUFFIX="%{$fg_no_bold[blue]%}]%{$reset_color%}"
-# TODO: This doesn't work
-# ZSH_THEME_RVM_PROMPT_OPTIONS="i v"
 
 # virtualenv themening
 ZSH_THEME_VENV_PROMPT_PREFIX="%{$fg_no_bold[blue]%}[%{$fg_no_bold[cyan]%}"
