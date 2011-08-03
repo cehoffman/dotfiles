@@ -53,8 +53,8 @@ set nocompatible
   set termencoding=utf-8   " Make default termainl encoding utf-8
   set cryptmethod=blowfish " use a strong encryption method for instead of weak one
 
-  if has('gui_running') || $TMUX == ''
-    set clipboard=unnamed,unnamedplus,autoselect " make copying put on the system clipboard and pasting get from it
+  if has('gui_running') || $TMUX == '' || $REATTACHED
+    set clipboard=unnamed,unnamedplus,autoselectml " make copying put on the system clipboard and pasting get from it
   endif
 
   if has("gui_running")
@@ -165,6 +165,12 @@ let mapleader = "," " \ is the default leader character
   cnoremap <C-E> <End>
   cnoremap <C-P> <Up>
   cnoremap <C-N> <Down>
+
+  " Easy abbreviation to get path to current file mine file
+  cabbrev %% <C-R>=expand('%:p:h').'/'<cr>
+
+  " Easy jump between last file
+  nnoremap <Leader><Leader> <C-^>
 " }}}
 
 " Terminal/GUI Setup {{{
@@ -175,7 +181,7 @@ let mapleader = "," " \ is the default leader character
     set guioptions-=r
     set guioptions-=L
     set guioptions+=c
-    colorscheme plasticcodewrap
+    colorscheme plasticcodewrap2
     set guitablabel=%N\ %t%q\ %m[%{tabpagewinnr(tabpagenr())}]
 
     if has("gui_mac") || has("gui_macvim")
@@ -561,25 +567,25 @@ if has("autocmd")
   augroup RailsShortcuts " {{{
     au!
     autocmd User Rails
-        \ map <buffer> <Leader>rm :Rmodel |
-        \ map <buffer> <Leader>rc :Rcontroller |
-        \ map <buffer> <Leader>rv :Rview |
-        \ map <buffer> <Leader>ru :Runittest |
-        \ map <buffer> <Leader>rd :Rmigration |
-        \ map <buffer> <Leader>rf :Rintegrationtest |
-        \ map <buffer> <Leader>rs :Rspec |
-        \ map <buffer> <Leader>re :Renvironment |
-        \ map <buffer> <Leader>rr :Rtask |
-        \ map <buffer> <Leader>rj :Rjavascript |
-        \ map <buffer> <Leader>ri :Rinitializer |
-        \ map <buffer> <Leader>rl :Rlocale |
-        \ map <buffer> <Leader>rh :Rhelper |
-        \ :Rnavcommand observer app/observers -glob=**/* -suffix=_observer.rb |
+        \ map <buffer> <Leader>gm :Rmodel |
+        \ map <buffer> <Leader>gc :Rcontroller |
+        \ map <buffer> <Leader>gv :Rview |
+        \ map <buffer> <Leader>gvl :Rlayout |
+        \ map <buffer> <Leader>gll :Rlib |
+        \ map <buffer> <Leader>gut :Runittest |
+        \ map <buffer> <Leader>gdb :Rmigration |
+        \ map <buffer> <Leader>gft :Rfunctionaltest |
+        \ map <buffer> <Leader>git :Rintegrationtest |
+        \ map <buffer> <Leader>gs :Rspec |
+        \ map <buffer> <Leader>ge :Renvironment |
+        \ map <buffer> <Leader>gr :Rtask |
+        \ map <buffer> <Leader>gj :Rjavascript |
+        \ map <buffer> <Leader>gi :Rinitializer |
+        \ map <buffer> <Leader>gl :Rlocale |
+        \ map <buffer> <Leader>gh :Rhelper |
+        \ map <buffer> <Leader>gam :Rmailer |
         \ :Rnavcommand job app/jobs -glob=**/* |
-        \ :Rnavcommand compass app/stylesheets -glob=**/* -suffix=.s?ss |
-        \ map <buffer> <Leader>ro :Robserver |
-        \ map <buffer> <Leader>rb :Rjob |
-        \ map <buffer> <Leader>rp :Rcompass |
+        \ map <buffer> <Leader>gbj :Rjob |
 
     " automatically make the current working directory be the repo root
     autocmd BufEnter,BufWinEnter * if exists("b:git_dir") | Gcd | endif
