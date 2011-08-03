@@ -4,7 +4,33 @@ function collapse_pwd {
     echo ${${(s./.)${PWD/$HOME/\~}}[-1]}/
 }
 
-PROMPT='%{$fg_no_bold[red]%}%m%{$reset_color%}:%{$fg_no_bold[green]%}$(collapse_pwd)%{$reset_color%}$(git_prompt_info)$NCOLOR%(!.#.$)%{$reset_color%} '
+PROMPT_MODE="%{$fg_bold[white]%}i%{$reset_color%} "
+function zle-keymap-select {
+  if [[ "$KEYMAP" == 'vicmd' || "$KEYMAP" == 'cmd' ]]; then
+    PROMPT_MODE="%{$fg_bold[white]%}n%{$reset_color%} "
+  else
+    PROMPT_MODE="%{$fg_bold[white]%}i%{$reset_color%} "
+  fi
+  zle reset-prompt
+}
+
+function zle-line-init {
+  zle-keymap-select
+}
+
+function my-accept-line {
+  PROMPT_MODE="%{$fg_bold[white]%}i%{$reset_color%} "
+  zle .accept-line
+  zle reset-prompt
+}
+
+bindkey -M vicmd '^M' my-accept-line
+bindkey -M vicmd '^J' my-accept-line
+zle -N my-accept-line
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+PROMPT='$PROMPT_MODE%{$fg_no_bold[red]%}%m%{$reset_color%}:%{$fg_no_bold[green]%}$(collapse_pwd)%{$reset_color%}$(git_prompt_info)$NCOLOR%(!.#.$)%{$reset_color%} '
 RPROMPT='$(virtualenv_prompt_info)$(rvm_prompt_info)%{$fg_no_bold[blue]%}[%{$fg_no_bold[white]%}%*%{$fg_no_bold[blue]%}]%{$reset_color%}'
 
 # git theming
@@ -26,4 +52,4 @@ ZSH_THEME_RVM_PROMPT_SUFFIX="%{$fg_no_bold[blue]%}]%{$reset_color%}"
 ZSH_THEME_VENV_PROMPT_PREFIX="%{$fg_no_bold[blue]%}[%{$fg_no_bold[cyan]%}"
 ZSH_THEME_VENV_PROMT_SUFFIX="%{$fg_no_bold[blue]%}]%{$reset_color%}"
 
-# vim: filetype=zsh
+# vim: ft=zsh

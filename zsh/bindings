@@ -5,40 +5,34 @@ bindkey -v
 bindkey '^?' backward-delete-char
 bindkey '^H' backward-delete-char
 
-# Make sure that C-a and C-e do the appropriate things
+# Setup undo redo in cmd
+bindkey -M vicmd '^r' redo
+bindkey -M vicmd 'u' undo
+
+# Make sure that C-M vicmd and C-e do the appropriate things
 # Discovered this when using zsh inside a tmux that was inside
 # another tmux. It would just print ^A or ^E instead of doing
 # the action
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 
-# Make C-e and C-a goto insert mode from command
-bindkey -a '^A' vi-insert-bol
-bindkey -a '^E' vi-add-eol
-
-# Look in history for a line that matches the current up
-# to where the cursor currently is, uses up/down arrow keys
-bindkey '^[[A' history-beginning-search-backward
-bindkey '^[[B' history-beginning-search-forward
-
-# Search in history for a command that begins with the first
-# word of the current line, uses up/down arrow keys
-# bindkey '^[[A' up-line-or-search
-# bindkey '^[[B' down-line-or-search
+# Make C-e and C-M vicmd goto insert mode from command
+bindkey -M vicmd '^A' vi-insert-bol
+bindkey -M vicmd '^E' vi-add-eol
 
 # Alias C-n and C-p to up and down arrow
-bindkey -s '^P' '^[[A'
-bindkey -s '^N' '^[[B'
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
 
 # Make autocomplete cycling work like in vim
 bindkey -M menuselect '^N' reverse-menu-complete
 bindkey -M menuselect '^P' menu-complete
 
 # Make G go to the end of history
-bindkey -a 'G' end-of-history
+bindkey -M vicmd 'G' end-of-history
 
 # Make Y like D and C
-bindkey -a 'Y' vi-yank-eol
+bindkey -M vicmd 'Y' vi-yank-eol
 
 # Expansion of history
 bindkey ' ' magic-space
@@ -54,7 +48,16 @@ bindkey '^X^E' edit-command-line
 # bindkey '^d' delete-word
 # bindkey '^u' kill-whole-line
 
+# Insert literal characters
+bindkey -M viins '^v' vi-quoted-insert
+bindkey -M vicmd 'cru' up-case-word
+
 # Make it really simple to forground that last suspended process before last
 # This makes it real simple to suspend vim, resume something else, suspend it and resume vim
 bindkey -s '^f' ' fg %-'
 
+# Much quicker switch to vicmd mode
+# It will remove all bindings that start with  except the one that is 
+bindkey -rpM viins '^['
+
+# vim: ft=zsh
