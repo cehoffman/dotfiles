@@ -107,6 +107,12 @@ path=($HOME/.local/bin(/) $path)
 for config_file (~/.zsh/envs/*) source $config_file
 unset config_file
 
+source ~/.zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_STYLES[path]=none
+
+source ~/.zsh/vendor/opp.zsh/opp.zsh
+source ~/.zsh/vendor/opp.zsh/opp/surround.zsh
+
 if [[ $(uname) =~ Darwin ]]; then
   export __CF_USER_TEXT_ENCODING="$(printf '0x%X' $(id -u)):0x08000100:0"
 fi

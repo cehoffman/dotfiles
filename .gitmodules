@@ -136,3 +136,9 @@
 [submodule "vim/bundle/vim-slurper"]
 	path = vim/bundle/vim-slurper
 	url = https://github.com/vim-scripts/slurper.vim.git
+[submodule "zsh/vendor/zsh-syntax-highlighting"]
+	path = zsh/vendor/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "zsh/vendor/opp.zsh"]
+	path = zsh/vendor/opp.zsh
+	url = https://github.com/hchbaw/opp.zsh.git
