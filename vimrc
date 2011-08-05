@@ -890,6 +890,10 @@ endif
     vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
     vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
   " }}}
+  " Easy insertion of iso8601 timeformat {{{
+    command! Insert8601 :normal a'<C-R>=strftime('%Y-%m-%dT%H:%M:%S%z')<CR>'
+    nnoremap <Leader>it :Insert8601<CR>
+  " }}}
 " }}}
 
 " Local config
