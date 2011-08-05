@@ -1,26 +1,26 @@
 case "$TERM" in
   xterm*|rxvt*)
-    function preexec () {
-      print -Pn "\e]0;%n@%m: $1\a"  # xterm
-    }
+    # function preexec () {
+    #   print -Pn "\e]0;%n@%m: $1\a"  # xterm
+    # }
     function precmd () {
       print -Pn "\e]0;%n@%m: %~\a"  # xterm
     }
     ;;
 
-  screen*)
-    function preexec () {
-      local -a exe;
-      exe=(${(z)1})
+  # screen*)
+  #   function preexec () {
+  #     local -a exe;
+  #     exe=(${(z)1})
 
-      print -Pn "\e]0;[%~] $1\a"
-      print -Pn  "\ek%n@%m $exe[1]:t\e\\"
-    }
-    function precmd () {
-      print -Pn "\e]0;[%~] $SHELL:t\a"
-      print -Pn "\ek%n@%m $SHELL:t\e\\"
-    }
-    ;;
+  #     print -Pn "\e]0;[%~] $1\a"
+  #     print -Pn  "\ek%n@%m $exe[1]:t\e\\"
+  #   }
+  #   function precmd () {
+  #     print -Pn "\e]0;[%~] $SHELL:t\a"
+  #     print -Pn "\ek%n@%m $SHELL:t\e\\"
+  #   }
+  #   ;;
 esac
 
 # vim: filetype=zsh
