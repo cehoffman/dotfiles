@@ -54,7 +54,7 @@ bindkey -M vicmd 'cru' up-case-word
 
 # Make it really simple to forground that last suspended process before last
 # This makes it real simple to suspend vim, resume something else, suspend it and resume vim
-bindkey -s '^f' ' fg %-'
+bindkey -s '^f' ' fg %-'
 
 # Much quicker switch to vicmd mode
 # It will remove all bindings that start with  except the one that is 
