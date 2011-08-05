@@ -2,8 +2,8 @@ alias l='ls -lAh'
 alias less='less -R'
 alias ql="qlmanage -p 2>/dev/null"
 alias s_smtp="python -m smtpd -n -c DebuggingServer localhost:1025"
-alias lst="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 
+function lst() { ls -R "${1-.}" | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/' }
 function mcd() { mkdir -p "$1" && cd "$1" }
 function md5() { echo -n $1 | openssl md5 /dev/stdin }
 function sha1() { echo -n $1 | openssl sha1 /dev/stdin }
