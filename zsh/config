@@ -23,8 +23,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 REPORTTIME=60 # print elapsed time when more than 10 seconds
 
-setopt NO_BG_NICE # don't nice background tasks
-setopt NO_HUP
 setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS # allow functions to have local options
 setopt LOCAL_TRAPS # allow functions to have local traps
@@ -34,7 +32,7 @@ setopt CORRECT_ALL
 setopt COMPLETE_ALIASES # Treat aliases as unique entities viable for completion
 setopt AUTO_MENU
 setopt LIST_ROWS_FIRST # Order completion by row instead of column
-setopt IGNORE_EOF
+# setopt IGNORE_EOF
 setopt RC_EXPAND_PARAM # Expand `foo${xx}bar', where the parameter xx is set to (a b c), are substituted with `fooabar foobbar foocbar' instead  of the default `fooa  b foocbar`
 # setopt WARN_CREATE_GLOBAL # Warn when creating a global variable accidentally in a function
 setopt CLOBBER # allow traditional bash like functionality where > clobbers a file and >> can create a file if none exists
@@ -50,7 +48,15 @@ setopt HIST_IGNORE_SPACE # don't records commands that the first character is a 
 setopt HIST_NO_STORE # Don't save the history command (fc -l) in history
 setopt HIST_LEX_WORDS
 
+setopt CHECK_JOBS
+setopt AUTO_CONTINUE
 setopt LONG_LIST_JOBS
+setopt NOTIFY
+setopt NO_AUTO_RESUME
+setopt NO_POSIX_JOBS
+setopt NO_BG_NICE # don't nice background tasks
+setopt NO_HUP
+
 setopt AUTO_CD
 setopt AUTO_PUSHD # every cd pushs onto the stack
 setopt PUSHD_SILENT # Don't print out the pushd stack after a pushd or popd
@@ -114,4 +120,4 @@ fi
 # Remove duplicates in paths
 typeset -gU path cdpath manpath fpath
 
-# vim: filetype=zsh
+# vim: ft=zsh
