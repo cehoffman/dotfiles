@@ -6,12 +6,11 @@ function _run-with-bundler() {
       check_path="$(dirname $check_path)"
     done
     if [ -f "$check_path/Gemfile" ]; then
-      echo 'running bundle' && bundle exec $@
+      bundle exec $@
     else
       $@
     fi
   else
-    echo 'Running normally'
     $@
   fi
 }
