@@ -578,9 +578,9 @@ if has("autocmd")
         \ map <buffer> <Leader>git :Rintegrationtest |
         \ map <buffer> <Leader>gs :Rspec |
         \ map <buffer> <Leader>ge :Renvironment |
-        \ map <buffer> <Leader>gr :Rtask |
+        \ map <buffer> <Leader>grt :Rtask |
         \ map <buffer> <Leader>gj :Rjavascript |
-        \ map <buffer> <Leader>gi :Rinitializer |
+        \ map <buffer> <Leader>gri :Rinitializer |
         \ map <buffer> <Leader>gl :Rlocale |
         \ map <buffer> <Leader>gh :Rhelper |
         \ map <buffer> <Leader>gam :Rmailer |
