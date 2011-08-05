@@ -181,7 +181,7 @@ let mapleader = "," " \ is the default leader character
     set guioptions-=r
     set guioptions-=L
     set guioptions+=c
-    colorscheme plasticcodewrap2
+    colorscheme plasticcodewrap
     set guitablabel=%N\ %t%q\ %m[%{tabpagewinnr(tabpagenr())}]
 
     if has("gui_mac") || has("gui_macvim")
