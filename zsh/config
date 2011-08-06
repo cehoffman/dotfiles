@@ -89,8 +89,12 @@ export LANG='en_US.UTF-8'
 export LC_CTYPE='en_US.UTF-8'
 
 ## grep
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;32'
+if [[ -o interactive ]]; then
+  export GREP_OPTIONS='--color=auto'
+  export GREP_COLOR='1;32'
+else
+  export GREP_OPTIONS='--color=never'
+fi
 
 export EDITOR='vim'
 
@@ -110,12 +114,6 @@ path=($HOME/.local/bin(/) $path)
 for config_file (~/.zsh/envs/*) source $config_file
 unset config_file
 
-source ~/.zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-ZSH_HIGHLIGHT_STYLES[path]=none
-
-source ~/.zsh/vendor/opp.zsh/opp.zsh
-source ~/.zsh/vendor/opp.zsh/opp/surround.zsh
-
 if [[ $(uname) =~ Darwin ]]; then
   export __CF_USER_TEXT_ENCODING="$(printf '0x%X' $(id -u)):0x08000100:0"
 fi
@@ -129,8 +127,16 @@ fi
 # Remove duplicates in paths
 typeset -gU path cdpath manpath fpath
 
-# Color all stderr lines yellow only when interactive
 if [[ -o interactive ]]; then
+  # Make a nice colored interactive prompt
+  source ~/.zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  ZSH_HIGHLIGHT_STYLES[path]=none
+
+  # Add nice shortcuts like ci" to standard vi mode
+  source ~/.zsh/vendor/opp.zsh/opp.zsh
+  source ~/.zsh/vendor/opp.zsh/opp/surround.zsh
+
+  # Color all stderr lines yellow only when interactive
   exec 2>>(while read line; do
     print ${fg[yellow]}$line$reset_color > /dev/tty; print -n $'\0'; done &)
 fi
