@@ -1,58 +1,62 @@
 if [[ -o interactive ]]; then
-  case $TERM in
-    xterm*|rxvt*)
-      function preexec () {
-        emulate -L zsh
-        local -a cmd; cmd=(${(z)1})
+  function set_title() {
+    case $TERM in
+      xterm*|rxvt*)
+        print -Pn "\e]0;%n@%m:$*\a"
+        ;;
+      screen*)
+        print -Pn "\e]0;$2\a"
+        print -Pn "\ek%n@%m $1\e\\"
+        ;;
+    esac
+  }
 
-        case $cmd[1] in
-          fg)
-            if (( $#cmd == 1 )); then
-              # No arguments, need to find the job
-              cmd=(builtin jobs -l %+)
-            else
-              # Find the specified job
-              cmd=(builtin jobs -l ${(Q)cmd[2]})
-            fi
-            ;;
-          %*)
-            # Same as else above
-            cmd=(builtin jobs -l ${(Q)cmd[1]})
-            ;;
-          exec)
-            # doing an exec so bring it off the list
-            shift cmd;&
-          *)
-            print -Pn "\e]0;%n@%m:${cmd[1]:t} ${cmd[2,-1]}\a"
-            return
-            ;;
-        esac
+  function title_preexec () {
+    local -a cmd; cmd=(${(z)1})
+    local exe=${cmd[(r)^(*=*|sudo)]}
+    local exei=${cmd[(i)^(*=*|sudo)]}
+    local -a extra; extra=(${cmd[$exei+1,-1]})
 
-        local -A jt; jt=(${(kv)jobtexts})
+    case $exe in
+      fg|%*)
+        if [[ $exe == 'fg' && (($#cmd == 1))]]; then
+          # No arguments, need to find the job
+          cmd=(builtin jobs -l %+)
+        elif [[ $exe == 'fg' ]]; then
+          # Find the specified job
+          cmd=(builtin jobs -l ${(Q)extra[1]})
+        else
+          cmd=(builtin jobs -l ${(Q)exe})
+        fi
 
+        local -A jt; jt=(${(kv)jobtexts}) # make a copy of jobtexts for subshell
+
+        # Run the saved command from above for job lookup
+        # This is easier than trying to parse $rest manually
         $cmd >>(read num rest
                 cmd=(${(z)${(e):-\$jt$num}})
-                print -Pn "\e]0;%n@%m:${cmd[1]:t} ${cmd[2,-1]}\a") 2>/dev/null
-      }
-      function precmd () {
-        print -Pn "\e]0;%n@%m: %~\a"  # xterm
-      }
-      ;;
+                exe=${cmd[(r)^(*=*|sudo)]}
+                exei=${cmd[(i)^(*=*|sudo)]}
+                extra=(${cmd[$exei+1,-1]})
+                set_title $exe $extra) 2>/dev/null
+        ;;
+      exec)
+        # doing an exec so bring it off the list
+        exe=$extra[1]:t
+        shift extra
+        ;& # Fall through
+      *)
+        set_title $exe $extra
+        ;;
+    esac
+  }
 
-    # screen*)
-    #   function preexec () {
-    #     local -a exe;
-    #     exe=(${(z)1})
+  function title_precmd () {
+    set_title %~
+  }
 
-    #     print -Pn "\e]0;[%~] $1\a"
-    #     print -Pn  "\ek%n@%m $exe[1]:t\e\\"
-    #   }
-    #   function precmd () {
-    #     print -Pn "\e]0;[%~] $SHELL:t\a"
-    #     print -Pn "\ek%n@%m $SHELL:t\e\\"
-    #   }
-    #   ;;
-  esac
+  preexec_functions+=title_preexec
+  precmd_functions+=title_precmd
 fi
 
 # vim: ft=zsh
