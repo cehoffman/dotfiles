@@ -129,8 +129,10 @@ fi
 # Remove duplicates in paths
 typeset -gU path cdpath manpath fpath
 
-# Color all stderr lines yellow
-exec 2>>(while read line; do
-  print ${fg[yellow]}$line$reset_color > /dev/tty; print -n $'\0'; done &)
+# Color all stderr lines yellow only when interactive
+if [[ -o interactive ]]; then
+  exec 2>>(while read line; do
+    print ${fg[yellow]}$line$reset_color > /dev/tty; print -n $'\0'; done &)
+fi
 
 # vim: ft=zsh
