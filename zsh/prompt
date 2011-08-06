@@ -23,6 +23,7 @@ zle -N zle-keymap-select
 
 function setup_prompt() {
   local red="%{$fg_no_bold[red]%}"
+  local blue="%{$fg_no_bold[blue]%}"
   local bold_black="%{$fg_bold[black]%}"
   local yellow="%{$fg_no_bold[yellow]%}"
   local bold_yellow="%{$fg_bold[yellow]%}"
@@ -34,7 +35,7 @@ function setup_prompt() {
   local open="%(!.${red}─[.${yellow}─()"
   local close="%(!.$red].$yellow%))─"
 
-  PROMPT="$red┌$open%(!.${cyan}root$magenta@.)$red%m$white:$green%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth$open\$_pr_extras$close$red┐
+  PROMPT="$red┌$open%(!.$blue.$magenta)%n$blue@$red%m$white:$green%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth$open\$_pr_extras$close$red┐
 └$open${bold_yellow}%(?..E:%? )\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close$reset "
   RPROMPT=" $open$white%D{%H:%M} ${bold_black}on %D{%a %b %d}$close$red┘$reset"
 }
@@ -121,7 +122,7 @@ function _prompt_precmd {
 
   # Calculate how much the fill size will need to be or if the path will
   # need to be truncated to fit the first line of prompt
-  local promptsize=${#${(e%%):---(%(!.root@.)%m:)---(${(j: :)infos})--}}
+  local promptsize=${#${(e%%):---(%n@%m:)---(${(j: :)infos})--}}
   local pwdsize=${#${(%):-%~}}
 
   if [[ "$promptsize + $pwdsize" -gt $COLUMNS ]]; then
