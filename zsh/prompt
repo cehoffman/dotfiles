@@ -31,11 +31,12 @@ function setup_prompt() {
   local cyan="%{$fg_no_bold[cyan]%}"
   local green="%{$fg_no_bold[green]%}"
   local reset="%{$reset_color%}"
-  local phash='%(!.%{$fg_no_bold[red]%}#.$)'
+  local open="%(!.${red}─[.${yellow}─()"
+  local close="%(!.$red].$yellow%))─"
 
-  PROMPT="$red┌$yellow─(%(!.${cyan}root$magenta@.)$red%m$white:$green%\$_pr_pwdlen<…<\$_pr_pwd%<<$yellow)─$red\$_pr_fillwidth$yellow─(\$_pr_extras$yellow)─$red┐
-└%(!.${red}─[.${yellow}─()${bold_yellow}%(?..E:%? )\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode%(!.$red].$yellow%))─$reset "
-  RPROMPT=" $yellow─($white%D{%H:%M} ${bold_black}on %D{%a %b %d}$yellow)─$red┘$reset"
+  PROMPT="$red┌$open%(!.${cyan}root$magenta@.)$red%m$white:$green%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth$open\$_pr_extras$close$red┐
+└$open${bold_yellow}%(?..E:%? )\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close$reset "
+  RPROMPT=" $open$white%D{%H:%M} ${bold_black}on %D{%a %b %d}$close$red┘$reset"
 }
 setup_prompt
 unfunction setup_prompt
