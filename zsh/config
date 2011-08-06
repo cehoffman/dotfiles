@@ -41,7 +41,7 @@ setopt RC_EXPAND_PARAM # Expand `foo${xx}bar', where the parameter xx is set to 
 setopt CLOBBER # allow traditional bash like functionality where > clobbers a file and >> can create a file if none exists
 
 setopt INTERACTIVE_COMMENTS # Allow comments when in an interactive shell
-setopt PRINT_EXIT_VALUE # If the command exits with non zero, tell me
+setopt NO_PRINT_EXIT_VALUE # If the command exits with non zero, tell me
 
 setopt SHARE_HISTORY # share history between sessions, it implies incremental history sharing
 setopt HIST_VERIFY # Don't immediately execute a command from history, let me edit it first

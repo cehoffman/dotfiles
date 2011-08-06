@@ -75,9 +75,11 @@ function _prompt_precmd {
   fi
 
   if [[ $(jobs | wc -l) > 0 ]]; then
-    teminfo="J:%j"
+    tempinfo="J:%j"
     infos+=$tempinfo
-    colorinfos+="%{$fg_no_bold[cyan]%}$tempinfo"
+    tempinfo="%{$fg_no_bold[cyan]%}$tempinfo"
+    colorinfos+=$tempinfo
+    _pr_short_extras+=$tempinfo
   fi
 
   if [[ $IS_MAC = 1 ]]; then
