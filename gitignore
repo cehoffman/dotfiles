@@ -7,3 +7,4 @@ doc/tags
 .pt
 .bundle
 slurper_config.yml
+*.zwc

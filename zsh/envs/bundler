@@ -18,3 +18,5 @@ function _run-with-bundler() {
 for cmd in cap heroku rails rake spork; do
   alias $cmd="_run-with-bundler $cmd"
 done
+
+# vim: ft=zsh

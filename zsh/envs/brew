@@ -1,11 +1,14 @@
 if [[ -a ~/.homebrew/bin/brew ]]; then
-  path=($HOME/.homebrew/bin $path)
-  path=($(brew --prefix)/sbin $path)
-  manpath=($(brew --prefix)/share/man $manpath)
+  function {
+    local brew_prefix="$HOME/.homebrew"
+    path=($brew_prefix/bin $path)
+    path=($brew_prefix/sbin $path)
+    manpath=($brew_prefix/share/man $manpath)
 
-  # Homebrew Python setup
-  path=($(python -c "from sys import prefix; print prefix")/bin $path)
-  path=($HOME/.homebrew/share/python $path)
+    # Homebrew Python setup
+    path=($(python -c "from sys import prefix; print prefix")/bin $path)
+    path=($brew_prefix/share/python $path)
+  }
 fi
 
 # vim: filetype=zsh

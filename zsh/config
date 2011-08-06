@@ -31,6 +31,7 @@ setopt LOCAL_OPTIONS # allow functions to have local options
 setopt LOCAL_TRAPS # allow functions to have local traps
 setopt CORRECT
 setopt COMPLETE_IN_WORD
+setopt NO_ALWAYS_TO_END
 setopt CORRECT_ALL
 setopt COMPLETE_ALIASES # Treat aliases as unique entities viable for completion
 setopt AUTO_MENU
@@ -132,9 +133,10 @@ if [[ -o interactive ]]; then
   source ~/.zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ZSH_HIGHLIGHT_STYLES[path]=none
 
-  # Add nice shortcuts like ci" to standard vi mode
-  source ~/.zsh/vendor/opp.zsh/opp.zsh
-  source ~/.zsh/vendor/opp.zsh/opp/surround.zsh
+  # # Add nice shortcuts like ci" to standard vi mode
+  autoload opp
+  . ~/.zsh/functions/opp-install
+  opp-install
 
   # Color all stderr lines yellow only when interactive
   exec 2>>(while read line; do

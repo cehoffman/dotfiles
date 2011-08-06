@@ -1,6 +1,7 @@
 if [[ -a $HOME/.npm/bin/npm ]]; then
   path=($HOME/.npm/bin $path)
-  export NODE_PATH=$(npm root -g 2> /dev/null)
+  NODE_PATH="$HOME/.npm/lib/node_modules"
+  # $(npm root -g 2> /dev/null)
 fi
 
 # vim: filetype=zsh

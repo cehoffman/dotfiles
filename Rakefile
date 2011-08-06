@@ -37,6 +37,9 @@ task :update do
 
   system 'git', 'clean', '-df'
 
+  puts 'updaing opp.zsh'
+  system 'zsh', '-c', 'for O in zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.zsh/vendor/opp.zsh ~/.zsh/functions'
+
   replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile].include? file

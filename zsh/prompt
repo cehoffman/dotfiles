@@ -21,7 +21,7 @@ bindkey -M vicmd '^J' my-accept-line
 zle -N my-accept-line
 zle -N zle-keymap-select
 
-function setup_prompt() {
+function {
   local red="%{$fg_no_bold[red]%}"
   local bold_red="%{$fg_bold[red]%}"
   local blue="%{$fg_no_bold[blue]%}"
@@ -51,8 +51,6 @@ $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mo
   RPROMPT=" $open$reset%D{%H:%M} ${bold_black}on $reset%D{%a %b %d}$close\${_pr_extras:+${(qqq)lr}}$reset"
   PS2="(!.$red.$bold_black)├$open$bold_cyan%_$close$reset "
 }
-setup_prompt
-unfunction setup_prompt
 
 function _prompt_precmd {
   # These arrays hold each piece of information that will be displayed

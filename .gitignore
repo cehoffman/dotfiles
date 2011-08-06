@@ -8,3 +8,5 @@ weechat/logs
 weechat/xfer
 weechat/*.log
 weechat/weeget
+zsh/functions/opp
+zsh/functions/opp-install

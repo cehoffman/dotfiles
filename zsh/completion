@@ -9,18 +9,28 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
 
+# use caching
+zstyle ':completion::complete:*' use-cache
+zstyle ':completion::complete:*' cachepath ./cache/
+
 # Use a menu for completion
 zstyle ':completion:*:*:*:*:*' menu select
 
 # Make the process selection a little nicer
-zstyle ':completion:*:*:kill:*:processes' list-colors  '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;36=0=01;32'
+zstyle ':completion:*:*:kill:*:processes' list-colors  '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 zstyle ':completion:*:*:*:*:processes' command "ps -au $USER -o pid,user,comm -w -w"
 
 # Load known hosts file for auto-completion with ssh and scp commands
-if [ -f ~/.ssh/known_hosts ]; then
-  zstyle ':completion:*' hosts $( sed 's/[, ].*$//' $HOME/.ssh/known_hosts )
-  zstyle ':completion:*:*:(ssh|scp):*:*' hosts $(sed 's/^\([^ ,]*\).*$/\1/' ~/.ssh/known_hosts)
-fi
+function {
+  local -a _ssh_hosts
+  local -a _etc_hosts
+  local -a hosts
+  [ -r ~/.ssh/known_hosts ] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+  [ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+  hosts=("$_ssh_hosts[@]" "$_etc_hosts[@]" $(hostname) localhost)
+  zstyle ':completion:*:hosts' hosts $hosts
+  zstyle ':completion:*:*:(ssh|scp):*:*' hosts $hosts
+}
 
 # Don't ever select the parent directory, e.g. cd ../<TAB> won't select your current dir
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
