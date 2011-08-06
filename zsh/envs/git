@@ -1,16 +1,13 @@
-# get the name of the branch we are on
-function git_prompt_info() {
-  if [[ -z $__GIT_PROMPT_STATUS ]]; then return; fi
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${__GIT_PROMPT_STATUS}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-}
-
 function parse_git_dirty () {
   # if [[ -n $(git status -s 2> /dev/null) ]]; then
   #   echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
   # else
   #   echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
   # fi
-  typeset -g __GIT_PROMPT_STATUS=""
+  typeset -g __pr_git_branch=""
+  typeset -g __pr_git_status=""
+  typeset -g __pr_git_clean=""
+  typeset -g __pr_git_dirty=""
 
   local st="$(git status --ignore-submodules=untracked 2>/dev/null)"
   if [[ -n "$st" ]]; then
@@ -18,23 +15,23 @@ function parse_git_dirty () {
     arr=(${(f)st})
 
     if [[ ! $arr[1] =~ 'Not currently on any branch.' ]]; then
-      __GIT_PROMPT_STATUS+="${arr[1][(w)4]}"
+      __pr_git_branch="${arr[1][(w)4]}"
     fi
 
     if [[ $arr[2] =~ 'Your branch' ]]; then
       if [[ $arr[2] =~ 'ahead' ]]; then
-        __GIT_PROMPT_STATUS+="$ZSH_THEME_GIT_PROMPT_AHEAD"
+        __pr_git_status="$ZSH_THEME_GIT_PROMPT_AHEAD"
       elif [[ $arr[2] =~ 'diverged' ]]; then
-        __GIT_PROMPT_STATUS+="$ZSH_THEME_GIT_PROMPT_DIVERGED"
+        __pr_git_status="$ZSH_THEME_GIT_PROMPT_DIVERGED"
       else
-        __GIT_PROMPT_STATUS+="$ZSH_THEME_GIT_PROMPT_BEHIND"
+        __pr_git_status="$ZSH_THEME_GIT_PROMPT_BEHIND"
       fi
     fi
 
     if [[ $st =~ 'nothing to commit' ]]; then
-      __GIT_PROMPT_STATUS+="$ZSH_THEME_GIT_PROMPT_CLEAN"
+      __pr_git_clean="$ZSH_THEME_GIT_PROMPT_CLEAN"
     else
-      __GIT_PROMPT_STATUS+="$ZSH_THEME_GIT_PROMPT_DIRTY"
+      __pr_git_dirty="$ZSH_THEME_GIT_PROMPT_DIRTY"
     fi
   fi
 }
@@ -54,9 +51,9 @@ function preexec_update_git_vars() {
   esac
 }
 
-preexec_functions+='preexec_update_git_vars'
-precmd_functions+='precmd_update_git_vars'
-chpwd_functions+='parse_git_dirty'
+preexec_functions+=preexec_update_git_vars
+precmd_functions+=precmd_update_git_vars
+chpwd_functions+=parse_git_dirty
 
 # Suggested completion style from _git completion
 zstyle ':completion::*:git-{name-rev,add,rm}:*' ignore-line true

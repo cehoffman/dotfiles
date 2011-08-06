@@ -1,25 +1,17 @@
-if [ "$(whoami)" = "root" ]; then NCOLOR="%{$fg_no_bold[red]%}"; else NCOLOR="%{$fg_no_bold[white]%}"; fi
-
-function collapse_pwd {
-    echo ${${(s./.)${PWD/$HOME/\~}}[-1]}/
-}
-
-PROMPT_MODE="%{$fg_bold[white]%}i%{$reset_color%} "
+__prompt_mode_insert="%{$fg_bold[white]%}i%{$reset_color%}"
+__prompt_mode_cmd="%{$fg_bold[white]%}n%{$reset_color%}"
+__prompt_mode=$__prompt_mode_insert
 function zle-keymap-select {
   if [[ "$KEYMAP" == 'vicmd' || "$KEYMAP" == 'cmd' ]]; then
-    PROMPT_MODE="%{$fg_bold[white]%}n%{$reset_color%} "
+    __prompt_mode=$__prompt_mode_cmd
   else
-    PROMPT_MODE="%{$fg_bold[white]%}i%{$reset_color%} "
+    __prompt_mode=$__prompt_mode_insert
   fi
   zle reset-prompt
 }
 
-function zle-line-init {
-  zle-keymap-select
-}
-
 function my-accept-line {
-  PROMPT_MODE="%{$fg_bold[white]%}i%{$reset_color%} "
+    __prompt_mode=$__prompt_mode_insert
   zle .accept-line
   zle reset-prompt
 }
@@ -27,27 +19,130 @@ function my-accept-line {
 bindkey -M vicmd '^M' my-accept-line
 bindkey -M vicmd '^J' my-accept-line
 zle -N my-accept-line
-zle -N zle-line-init
 zle -N zle-keymap-select
 
-PROMPT='$PROMPT_MODE%{$fg_no_bold[red]%}%m%{$reset_color%}:%{$fg_no_bold[green]%}$(collapse_pwd)%{$reset_color%}$(git_prompt_info)$NCOLOR%(!.#.$)%{$reset_color%} '
-RPROMPT='$(virtualenv_prompt_info)$(rvm_prompt_info)%{$fg_no_bold[blue]%}[%{$fg_no_bold[white]%}%*%{$fg_no_bold[blue]%}]%{$reset_color%}'
+function setup_prompt() {
+  local red="%{$fg_no_bold[red]%}"
+  local bold_black="%{$fg_bold[black]%}"
+  local yellow="%{$fg_no_bold[yellow]%}"
+  local bold_yellow="%{$fg_bold[yellow]%}"
+  local white="%{$fg_no_bold[white]%}"
+  local magenta="%{$fg_no_bold[magenta]%}"
+  local cyan="%{$fg_no_bold[cyan]%}"
+  local green="%{$fg_no_bold[green]%}"
+  local reset="%{$reset_color%}"
+  local phash='%(!.%{$fg_no_bold[red]%}#.$)'
+
+  PROMPT="$red┌$yellow─(%(!.${cyan}root$magenta@.)$red%m$white:$green%\$_pr_pwdlen<…<\$_pr_pwd%<<$yellow)─$red\$_pr_fillwidth$yellow─(\$_pr_extras$yellow)─$red┐
+└%(!.${red}─[.${yellow}─()${bold_yellow}%(?..E:%? )\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode%(!.$red].$yellow%))─$reset "
+  RPROMPT=" $yellow─($white%D{%H:%M} ${bold_black}on %D{%a %b %d}$yellow)─$red┘$reset"
+}
+setup_prompt
+unfunction setup_prompt
+
+function _prompt_precmd {
+  # These arrays hold each piece of information that will be displayed
+  # in the top right prompt. Because the width calculation is confused
+  # by the colors in the prompt the infos array stores an uncolored version
+  # to use when calculation the fill width
+  local -a infos
+  local -a colorinfos
+  local tempinfo
+
+  # Reinitialize the global variables that will be substitued into the
+  # prompt when it is displayed. _pr_short_extras is like the infos
+  # above and holds a list of extra information to be put into the lower
+  # left of the prompt when calculating each piece of extra info in this setup
+  typeset -ga _pr_short_extras
+  typeset -g _pr_pwd=''
+  typeset -g _pr_pwdlen=''
+  typeset -g _pr_fillwidth=''
+
+  _pr_short_extras=()
+
+  if [[ -n $__pr_git_branch ]]; then
+    tempinfo="±:$__pr_git_branch"
+    infos+=$tempinfo
+    colorinfos+="%{$fg_bold[black]%}$tempinfo"
+    _pr_short_extras+="%{$fg_bold[black]%}±:%{$fg_no_bold[magenta]%}$__pr_git_status%{$fg_no_bold[red]%}$__pr_git_dirty%{$fg_no_bold[green]%}$__pr_git_clean"
+  fi
+
+  if [[ -n $rvm_version ]]; then
+    tempinfo="R:$(rvm-prompt v g)"
+    infos+=$tempinfo
+    colorinfos+="%{$fg_no_bold[red]%}$tempinfo"
+  fi
+
+  if [[ $(jobs | wc -l) > 0 ]]; then
+    teminfo="J:%j"
+    infos+=$tempinfo
+    colorinfos+="%{$fg_no_bold[cyan]%}$tempinfo"
+  fi
+
+  if [[ $IS_MAC = 1 ]]; then
+    local output; output=$(ioreg -rc AppleSmartBattery)
+    local batcolor
+    local batmax
+
+    [[ $output =~ "MaxCapacity.*?(\d+)" ]]
+    batmax=$match[1]
+    [[ $output =~ "CurrentCapacity.*?(\d+)" ]]
+    ((tempinfo = ($match[1] * 100) / $batmax + 1))
+
+    if [[ $tempinfo -gt 85 ]]; then
+      batcolor="%{$fg_bold[green]%}"
+    elif [[ $tempinfo -gt 65 ]]; then
+      batcolor="%{$fg_no_bold[green]%}"
+    elif [[ $tempinfo -gt 45 ]]; then
+      batcolor="%{$fg_no_bold[yellow]%}"
+    elif [[ $tempinfo -gt 25 ]]; then
+      batcolor="%{$fg_bold[yellow]%}"
+    elif [[ $tempinfo -gt 10 ]]; then
+      batcolor="%{$fg_no_bold[red]%}"
+    else
+      batcolor="%{$fg_bold[red]%}"
+    fi
+
+    [[ $output =~ "TimeRemaining.*?(\d+)" ]]
+    tempinfo="⚡:$tempinfo%%($(printf "%02i:%02i" $(($match[1] / 60)) $(($match[1] - ($match[1] / 60 ) * 60))))"
+
+    if [[ $output =~ "IsCharging.*?Yes" ]]; then
+      _pr_short_extras+="$batcolor⚡:↑%{$reset_color%}"
+    elif [[ $output =~ "ExternalConnected.*?No" ]]; then
+      _pr_short_extras+="$batcolor⚡:↓%{$reset_color%}"
+    fi
+
+    infos+=$tempinfo
+    colorinfos+="$batcolor$tempinfo"
+  fi
+
+  # Calculate how much the fill size will need to be or if the path will
+  # need to be truncated to fit the first line of prompt
+  local promptsize=${#${(e%%):---(%(!.root@.)%m:)---(${(j: :)infos})--}}
+  local pwdsize=${#${(%):-%~}}
+
+  if [[ "$promptsize + $pwdsize" -gt $COLUMNS ]]; then
+    ((_pr_pwdlen = $COLUMNS - $promptsize - 1))
+  else
+    _pr_fillwidth="${(l.(($COLUMNS - ($promptsize + $pwdsize))).. .)}"
+  fi
+
+  # Color the path differently when the current directory is/isn't writeable
+  if [[ -w $PWD ]]; then
+    _pr_pwd="%{$fg_no_bold[green]%}${(%):-%~}%{$reset_color%}"
+  else
+    _pr_pwd="%{$fg_bold[black]%}${(%):-%~}%{$reset_color%}"
+  fi
+
+  _pr_extras="${(j: :)colorinfos}%{$reset_color%}"
+}
+precmd_functions+=_prompt_precmd
 
 # git theming
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_no_bold[blue]%}(%{$fg_bold[black]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_no_bold[blue]%})%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="%{${fg_no_bold[magenta]}%}↑"
-ZSH_THEME_GIT_PROMPT_DIVERGED="%{${fg_no_bold[magenta]}%}↕"
-ZSH_THEME_GIT_PROMPT_BEHIND="%{${fg_no_bold[magenta]}%}↓"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_no_bold[red]%}✗"
-
-# rvm theming
-ZSH_THEME_RVM_PROMPT_PREFIX="%{$fg_no_bold[blue]%}[%{$fg_no_bold[red]%}"
-ZSH_THEME_RVM_PROMPT_SUFFIX="%{$fg_no_bold[blue]%}]%{$reset_color%}"
-
-# virtualenv themening
-ZSH_THEME_VENV_PROMPT_PREFIX="%{$fg_no_bold[blue]%}[%{$fg_no_bold[cyan]%}"
-ZSH_THEME_VENV_PROMT_SUFFIX="%{$fg_no_bold[blue]%}]%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="↑"
+ZSH_THEME_GIT_PROMPT_DIVERGED="⬍"
+ZSH_THEME_GIT_PROMPT_BEHIND="↓"
+ZSH_THEME_GIT_PROMPT_CLEAN="✔"
+ZSH_THEME_GIT_PROMPT_DIRTY="✘"
 
 # vim: ft=zsh
