@@ -44,7 +44,7 @@ function setup_prompt() {
   local close="%(!.$red].$bold_black%))─"
 
   local name="%(!.$bold_magenta.$blue)%n$bold_black"
-  local lastexit="${magenta}%(?..E:%? )"
+  local last_exit="${bold_red}%(?..E:%? )"
 
   PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth$open\$_pr_extras$close$ur
 $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close$reset "
@@ -78,7 +78,7 @@ function _prompt_precmd {
     tempinfo="±:$__pr_git_branch"
     infos+=$tempinfo
     colorinfos+="%{$fg_no_bold[cyan]%}$tempinfo"
-    _pr_short_extras+="%{$fg_no_bold[cyan]%}±:%{$fg_no_bold[magenta]%}$__pr_git_status%{$fg_no_bold[red]%}$__pr_git_dirty%{$fg_no_bold[green]%}$__pr_git_clean"
+    _pr_short_extras+="%{$fg_no_bold[cyan]%}±:%{$fg_bold[magenta]%}$__pr_git_status%{$fg_no_bold[red]%}$__pr_git_dirty%{$fg_no_bold[green]%}$__pr_git_clean"
   fi
 
   if [[ -n $rvm_version ]]; then
@@ -152,9 +152,9 @@ function _prompt_precmd {
 
   # Color the path differently when the current directory is/isn't writeable
   if [[ -w $PWD ]]; then
-    _pr_pwd="%{$fg_no_bold[green]%}${(%):-%~}%{$reset_color%}"
+    _pr_pwd="%{$reset_color%}${(%):-%~}"
   else
-    _pr_pwd="%{$fg_no_bold[magenta]%}${(%):-%~}%{$reset_color%}"
+    _pr_pwd="%{$fg_bold[black]%}${(%):-%~}%{$reset_color%}"
   fi
 
   _pr_extras="${(j: :)colorinfos}%{$reset_color%}"
