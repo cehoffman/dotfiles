@@ -96,46 +96,48 @@ function _prompt_precmd {
 
   if [[ $IS_MAC = 1 ]]; then
     local output; output=$(ioreg -rc AppleSmartBattery)
-    local batcolor
-    local batmax
+    if [[ -n $output ]]; then
+      local batcolor
+      local batmax
 
-    [[ $output =~ "MaxCapacity.*?(\d+)" ]]
-    batmax=$match[1]
-    [[ $output =~ "CurrentCapacity.*?(\d+)" ]]
-    ((tempinfo = ($match[1] * 100) / $batmax))
-    [[ $match[1] -lt $batmax ]] && ((tempinfo = $tempinfo + 1))
+      [[ $output =~ "MaxCapacity.*?(\d+)" ]]
+      batmax=$match[1]
+      [[ $output =~ "CurrentCapacity.*?(\d+)" ]]
+      ((tempinfo = ($match[1] * 100) / $batmax))
+      [[ $match[1] -lt $batmax ]] && ((tempinfo = $tempinfo + 1))
 
-    if [[ $tempinfo -gt 85 ]]; then
-      batcolor="%{$fg_bold[green]%}"
-    elif [[ $tempinfo -gt 65 ]]; then
-      batcolor="%{$fg_no_bold[green]%}"
-    elif [[ $tempinfo -gt 45 ]]; then
-      batcolor="%{$fg_no_bold[yellow]%}"
-    elif [[ $tempinfo -gt 25 ]]; then
-      batcolor="%{$fg_bold[yellow]%}"
-    elif [[ $tempinfo -gt 10 ]]; then
-      batcolor="%{$fg_no_bold[red]%}"
-    else
-      batcolor="%{$fg_bold[red]%}"
+      if [[ $tempinfo -gt 85 ]]; then
+        batcolor="%{$fg_bold[green]%}"
+      elif [[ $tempinfo -gt 65 ]]; then
+        batcolor="%{$fg_no_bold[green]%}"
+      elif [[ $tempinfo -gt 45 ]]; then
+        batcolor="%{$fg_no_bold[yellow]%}"
+      elif [[ $tempinfo -gt 25 ]]; then
+        batcolor="%{$fg_bold[yellow]%}"
+      elif [[ $tempinfo -gt 10 ]]; then
+        batcolor="%{$fg_no_bold[red]%}"
+      else
+        batcolor="%{$fg_bold[red]%}"
+      fi
+
+      if [[ $tempinfo -eq 100 ]]; then
+        tempinfo="⚡:$tempinfo%%"
+      else
+        tempinfo="⚡:$tempinfo%%"
+
+        [[ $output =~ "TimeRemaining.*?(\d+)" ]]
+        tempinfo="$tempinfo($(printf "%02i:%02i" $(($match[1] / 60)) $(($match[1] - ($match[1] / 60 ) * 60))))"
+      fi
+
+      if [[ $output =~ "IsCharging.*?Yes" ]]; then
+        _pr_short_extras+="$batcolor⚡:↑%{$reset_color%}"
+      elif [[ $output =~ "ExternalConnected.*?No" ]]; then
+        _pr_short_extras+="$batcolor⚡:↓%{$reset_color%}"
+      fi
+
+      infos+=$tempinfo
+      colorinfos+="$batcolor$tempinfo"
     fi
-
-    if [[ $tempinfo -eq 100 ]]; then
-      tempinfo="⚡:$tempinfo%%"
-    else
-      tempinfo="⚡:$tempinfo%%"
-
-      [[ $output =~ "TimeRemaining.*?(\d+)" ]]
-      tempinfo="$tempinfo($(printf "%02i:%02i" $(($match[1] / 60)) $(($match[1] - ($match[1] / 60 ) * 60))))"
-    fi
-
-    if [[ $output =~ "IsCharging.*?Yes" ]]; then
-      _pr_short_extras+="$batcolor⚡:↑%{$reset_color%}"
-    elif [[ $output =~ "ExternalConnected.*?No" ]]; then
-      _pr_short_extras+="$batcolor⚡:↓%{$reset_color%}"
-    fi
-
-    infos+=$tempinfo
-    colorinfos+="$batcolor$tempinfo"
   fi
 
   # Color the path differently when the current directory is/isn't writeable
