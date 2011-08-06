@@ -15,6 +15,13 @@ if [[ $IS_MAC -eq 1 ]]; then
   # show and hide files from Finder
   alias hide="chflags hidden"
   alias show="chflags nohidden"
+  function vol() {
+    if [[ -n $1 ]]; then
+      osascript -e "set volume output volume $1"
+    else
+      osascript -e "output volume of (get volume settings)"
+    fi
+  }
 fi
 
 # Show full history
