@@ -48,7 +48,7 @@ function setup_prompt() {
 
   PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth\${_pr_extras:+${(qqq)open}\$_pr_extras${(qqq)close}${(qqq)ur}}
 $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close$reset "
-  RPROMPT=" $open$reset%D{%H:%M} ${bold_black}on $reset%D{%a %b %d}$close$lr$reset"
+  RPROMPT=" $open$reset%D{%H:%M} ${bold_black}on $reset%D{%a %b %d}$close\${_pr_extras:+${(qqq)lr}}\$([[ ! -n \$_pr_extras ]] && echo -n ─)$reset"
   PS2="(!.$red.$bold_black)├$open$bold_cyan%_$close$reset "
 }
 setup_prompt
@@ -164,7 +164,7 @@ function _prompt_precmd {
     fi
   done
 
-  if [[ "$promptsize + $pwdsize" -gt $COLUMNS ]]; then
+  if (($promptsize + $pwdsize > $COLUMNS)); then
     ((_pr_pwdlen = $COLUMNS - $promptsize - 1))
   else
     _pr_fillwidth="${(l.(($COLUMNS - ($promptsize + $pwdsize))).. .)}"
