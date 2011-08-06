@@ -40,8 +40,8 @@ function setup_prompt() {
   local ur="%(!.$red.$bold_black)┐"
   local ll="%(!.$red.$bold_black)└"
   local lr="%(!.$red.$bold_black)┘"
-  local open="%(!.$red─[.$bold_black─()"
-  local close="%(!.$red].$bold_black%))─"
+  local open="%(!.$red─❰.$bold_black─⎨)"
+  local close="%(!.$red❱.$bold_black⎬)─"
 
   local name="%(!.$bold_magenta.$blue)%n$bold_black"
   local last_exit="${bold_red}%(?..E:%? )"
