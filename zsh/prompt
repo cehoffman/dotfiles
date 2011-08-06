@@ -93,7 +93,8 @@ function _prompt_precmd {
     [[ $output =~ "MaxCapacity.*?(\d+)" ]]
     batmax=$match[1]
     [[ $output =~ "CurrentCapacity.*?(\d+)" ]]
-    ((tempinfo = ($match[1] * 100) / $batmax + 1))
+    ((tempinfo = ($match[1] * 100) / $batmax))
+    [[ $match[1] -lt $batmax ]] && ((tempinfo = $tempinfo + 1))
 
     if [[ $tempinfo -gt 85 ]]; then
       batcolor="%{$fg_bold[green]%}"
