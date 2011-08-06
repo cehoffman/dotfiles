@@ -11,9 +11,11 @@ function sha256() { echo -n $1 | openssl dgst -sha256 /dev/stdin }
 function sha512() { echo -n $1 | openssl dgst -sha512 /dev/stdin }
 function 256c() { echo -n "\e[38;5;${1}m${${(z)*}[2,-1]}" }
 
-# show and hide files from Finder
-alias hide="chflags hidden"
-alias show="chflags nohidden"
+if [[ $IS_MAC -eq 1 ]]; then
+  # show and hide files from Finder
+  alias hide="chflags hidden"
+  alias show="chflags nohidden"
+fi
 
 # Show full history
 alias history='fc -l 1'
