@@ -30,6 +30,7 @@ function setup_prompt() {
   local white="%{$fg_no_bold[white]%}"
   local magenta="%{$fg_no_bold[magenta]%}"
   local cyan="%{$fg_no_bold[cyan]%}"
+  local bold_cyan="%{$fg_bold[cyan]%}"
   local green="%{$fg_no_bold[green]%}"
   local reset="%{$reset_color%}"
   local open="%(!.${red}─[.${yellow}─()"
@@ -38,6 +39,7 @@ function setup_prompt() {
   PROMPT="$red┌$open%(!.$blue.$magenta)%n$blue@$red%m$white:$green%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth$open\$_pr_extras$close$red┐
 └$open${bold_yellow}%(?..E:%? )\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close$reset "
   RPROMPT=" $open$white%D{%H:%M} ${bold_black}on %D{%a %b %d}$close$red┘$reset"
+  PS2="$red├$open$bold_cyan%_$close$reset "
 }
 setup_prompt
 unfunction setup_prompt
