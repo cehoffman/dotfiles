@@ -52,7 +52,7 @@ if [[ -o interactive ]]; then
   }
 
   function title_precmd () {
-    set_title %~
+    set_title %~ $(basename $SHELL)
   }
 
   preexec_functions+=title_preexec
