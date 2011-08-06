@@ -117,12 +117,12 @@ function _prompt_precmd {
 
       [[ $output =~ "TimeRemaining.*?(\d+)" ]]
       tempinfo="$tempinfo($(printf "%02i:%02i" $(($match[1] / 60)) $(($match[1] - ($match[1] / 60 ) * 60))))"
+    fi
 
-      if [[ $output =~ "IsCharging.*?Yes" ]]; then
-        _pr_short_extras+="$batcolor⚡:↑%{$reset_color%}"
-      elif [[ $output =~ "ExternalConnected.*?No" ]]; then
-        _pr_short_extras+="$batcolor⚡:↓%{$reset_color%}"
-      fi
+    if [[ $output =~ "IsCharging.*?Yes" ]]; then
+      _pr_short_extras+="$batcolor⚡:↑%{$reset_color%}"
+    elif [[ $output =~ "ExternalConnected.*?No" ]]; then
+      _pr_short_extras+="$batcolor⚡:↓%{$reset_color%}"
     fi
 
     infos+=$tempinfo
