@@ -46,7 +46,7 @@ function setup_prompt() {
   local name="%(!.$bold_magenta.$blue)%n$bold_black"
   local last_exit="${bold_red}%(?..E:%? )"
 
-  PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth$open\$_pr_extras$close$ur
+  PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth\${_pr_extras:+${(qqq)open}\$_pr_extras${(qqq)close}${(qqq)ur}}
 $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close$reset "
   RPROMPT=" $open$reset%D{%H:%M} ${bold_black}on $reset%D{%a %b %d}$close$lr$reset"
   PS2="(!.$red.$bold_black)├$open$bold_cyan%_$close$reset "
@@ -71,6 +71,7 @@ function _prompt_precmd {
   typeset -g _pr_pwd=''
   typeset -g _pr_pwdlen=''
   typeset -g _pr_fillwidth=''
+  typeset -g _pr_extras=''
 
   _pr_short_extras=()
 
@@ -139,17 +140,6 @@ function _prompt_precmd {
     colorinfos+="$batcolor$tempinfo"
   fi
 
-  # Calculate how much the fill size will need to be or if the path will
-  # need to be truncated to fit the first line of prompt
-  local promptsize=${#${(e%%):---(%n@%m:)---(${(j: :)infos})--}}
-  local pwdsize=${#${(%):-%~}}
-
-  if [[ "$promptsize + $pwdsize" -gt $COLUMNS ]]; then
-    ((_pr_pwdlen = $COLUMNS - $promptsize - 1))
-  else
-    _pr_fillwidth="${(l.(($COLUMNS - ($promptsize + $pwdsize))).. .)}"
-  fi
-
   # Color the path differently when the current directory is/isn't writeable
   if [[ -w $PWD ]]; then
     _pr_pwd="%{$reset_color%}${(%):-%~}"
@@ -157,7 +147,30 @@ function _prompt_precmd {
     _pr_pwd="%{$fg_bold[black]%}${(%):-%~}%{$reset_color%}"
   fi
 
-  _pr_extras="${(j: :)colorinfos}%{$reset_color%}"
+  # Calculate how much the fill size will need to be or if the path will
+  # need to be truncated to fit the first line of prompt
+  local promptsize=${#${(%):---(%n@%m:)---(${(j: :)infos})--}}
+  local pwdsize=${#${(%):-%~}}
+
+  for tempinfo in {1..$#infos}; do
+    if (($COLUMNS - $promptsize > 5)); then
+      break
+    else
+      # Assumes that the last item put on the list is the most imporant
+      # one to try and keep so shifts the earlier ones out
+      infos=($infos[1,-2])
+      colorinfos=($colorinfos[1,-2])
+      promptsize=${#${(%):---(%n@%m:)---(${(j: :)infos})--}}
+    fi
+  done
+
+  if [[ "$promptsize + $pwdsize" -gt $COLUMNS ]]; then
+    ((_pr_pwdlen = $COLUMNS - $promptsize - 1))
+  else
+    _pr_fillwidth="${(l.(($COLUMNS - ($promptsize + $pwdsize))).. .)}"
+  fi
+
+  (($#infos > 0)) && _pr_extras="${(j: :)colorinfos}%{$reset_color%}"
 }
 precmd_functions+=_prompt_precmd
 
