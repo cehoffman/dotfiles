@@ -9,6 +9,7 @@ function md5() { echo -n $1 | openssl md5 /dev/stdin }
 function sha1() { echo -n $1 | openssl sha1 /dev/stdin }
 function sha256() { echo -n $1 | openssl dgst -sha256 /dev/stdin }
 function sha512() { echo -n $1 | openssl dgst -sha512 /dev/stdin }
+function 256c() { echo -n "\e[38;5;${1}m${${(z)*}[2,-1]}" }
 
 # show and hide files from Finder
 alias hide="SetFile -a V"
