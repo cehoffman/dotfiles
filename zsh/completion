@@ -78,4 +78,8 @@ zstyle ':completion:*:functions' ignored-patterns '_*'
 # Make approximate allow more errors as the length increases
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 
+# Suggested completion style from _git completion
+zstyle ':completion::*:git-{name-rev,add,rm}:*' ignore-line true
+zstyle ':completion:*:*:git:*' user-commands 'submodule:initialize, update or inspect submodules'
+
 # vim: filetype=zsh
