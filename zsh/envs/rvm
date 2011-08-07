@@ -1,17 +1,7 @@
-if [[ -s $HOME/.rvm/scripts/rvm || -s /usr/local/lib/rvm ]]; then
-    if [[ -s $HOME/.rvm/scripts/rvm ]]; then
-      source $HOME/.rvm/scripts/rvm
-    else
-      source /usr/local/lib/rvm
-    fi
-
-    # get the name of the branch we are on
-    function rvm_prompt_info() {
-      local ruby_version=$(rvm-prompt i v g 2> /dev/null) || return
-      echo "$ZSH_THEME_RVM_PROMPT_PREFIX${ruby_version}$ZSH_THEME_RVM_PROMPT_SUFFIX"
-    }
-else
-  function rvm_prompt_info() {}
+if [[ -s $HOME/.rvm/scripts/rvm ]]; then
+  source $HOME/.rvm/scripts/rvm
+elif [[ -s /usr/local/lib/rvm ]]; then
+  source /usr/local/lib/rvm
 fi
 
 # vim: filetype=zsh

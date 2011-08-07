@@ -105,7 +105,7 @@ function +vi-git_message {
       fi
 
       # Mark how the status of untracked files is fairing
-      [[ $user_data[untracked] -eq 1 ]] && hook_com[message]+='%F{red}x' || hook_com[message]+='%F{green}✔'
+      [[ $user_data[untracked] -eq 1 ]] && hook_com[message]+='%F{red}x' || hook_com[message]+='%F{green}☼'
 
       # Make the new message take effect
       ret=1
