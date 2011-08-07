@@ -1,5 +1,6 @@
 # Some basic env setup used throughout config
 IS_MAC=$([[ $(uname) != Darwin ]]; echo -n $?)
+IS_LINUX=$([[ $(uname) != Linux ]]; echo -n $?)
 
 path=($HOME/.bin $path)
 fpath=(~/.zsh/functions $fpath)
