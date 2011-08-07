@@ -1,6 +1,5 @@
 alias l='ls -lAh'
 alias less='less -R'
-alias ql="qlmanage -p 2>/dev/null"
 alias s_smtp="python -m smtpd -n -c DebuggingServer localhost:1025"
 
 function lst() { ls -R "${1-.}" | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/' }
@@ -15,6 +14,7 @@ if [[ $IS_MAC -eq 1 ]]; then
   # show and hide files from Finder
   alias hide="chflags hidden"
   alias show="chflags nohidden"
+  alias ql="qlmanage -p 2>/dev/null"
   function vol() {
     if [[ -n $1 ]]; then
       osascript -e "set volume output volume $1"

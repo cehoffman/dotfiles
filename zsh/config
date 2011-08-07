@@ -32,8 +32,11 @@ setopt LOCAL_TRAPS # allow functions to have local traps
 setopt CORRECT
 setopt COMPLETE_IN_WORD
 setopt NO_ALWAYS_TO_END
-setopt CORRECT_ALL
+setopt NO_LIST_AMBIGUOUS # Don't auto complete until ambiguous
 setopt COMPLETE_ALIASES # Treat aliases as unique entities viable for completion
+setopt REC_EXACT # Recgonize exact completions even if ambiguous
+
+setopt CORRECT_ALL
 setopt AUTO_MENU
 setopt LIST_ROWS_FIRST # Order completion by row instead of column
 # setopt IGNORE_EOF
@@ -139,8 +142,12 @@ if [[ -o interactive ]]; then
   opp-install
 
   # Color all stderr lines yellow only when interactive
-  exec 2>>(while read line; do
-    print ${fg[yellow]}$line$reset_color > /dev/tty; print -n $'\0'; done &)
+  if command -v colorize >& /dev/null; then
+    exec 2>>(colorize $fg[yellow] $reset_color > /dev/tty &)
+  else
+    exec 2>>(while read line; do
+      print ${fg[yellow]}$line$reset_color > /dev/tty; print -n $'\0'; done &)
+  fi
 fi
 
 # vim: ft=zsh
