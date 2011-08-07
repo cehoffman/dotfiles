@@ -567,22 +567,22 @@ if has("autocmd")
   augroup RailsShortcuts " {{{
     au!
     autocmd User Rails
-        \ map <buffer> <Leader>gm :Rmodel |
-        \ map <buffer> <Leader>gc :Rcontroller |
-        \ map <buffer> <Leader>gv :Rview |
+        \ map <buffer> <Leader>grm :Rmodel |
+        \ map <buffer> <Leader>grc :Rcontroller |
+        \ map <buffer> <Leader>grv :Rview |
         \ map <buffer> <Leader>gvl :Rlayout |
         \ map <buffer> <Leader>gll :Rlib |
         \ map <buffer> <Leader>gut :Runittest |
         \ map <buffer> <Leader>gdb :Rmigration |
         \ map <buffer> <Leader>gft :Rfunctionaltest |
         \ map <buffer> <Leader>git :Rintegrationtest |
-        \ map <buffer> <Leader>gs :Rspec |
-        \ map <buffer> <Leader>ge :Renvironment |
+        \ map <buffer> <Leader>grs :Rspec |
+        \ map <buffer> <Leader>gre :Renvironment |
         \ map <buffer> <Leader>grt :Rtask |
-        \ map <buffer> <Leader>gj :Rjavascript |
+        \ map <buffer> <Leader>grj :Rjavascript |
         \ map <buffer> <Leader>gri :Rinitializer |
-        \ map <buffer> <Leader>gl :Rlocale |
-        \ map <buffer> <Leader>gh :Rhelper |
+        \ map <buffer> <Leader>grl :Rlocale |
+        \ map <buffer> <Leader>grh :Rhelper |
         \ map <buffer> <Leader>gam :Rmailer |
         \ :Rnavcommand job app/jobs -glob=**/* |
         \ map <buffer> <Leader>gbj :Rjob |
@@ -598,7 +598,7 @@ if has("autocmd")
   augroup END "}}}
 else
   " Custom status line using to show git branch info, has ruler set
-  set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%{rvm#statusline()}\ %-14.(%c%V,%l/%L%)\ %P\ %y
+  set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%c%V,%l/%L%)\ %P\ %y
 endif
 
 if has("folding")
@@ -614,7 +614,7 @@ endif
 " Git Fugitive settings {{{
   nnoremap <Leader>gs :Gstatus<CR>
   nnoremap <Leader>gc :Gcommit<CR>
-  nnoremap <Leader>ga :Gwrite<CR>:redraw!<CR>
+  nnoremap <Leader>gw :Gwrite<CR>:redraw!<CR>
   nnoremap <Leader>gl :Glog<CR>
   nnoremap <Leader>gd :Gdiff<CR>
   nnoremap <Leader>gD :call <SID>GdiffClose()<cr>
@@ -698,11 +698,11 @@ endif
 " Svndiff config {{{
   let g:svndiff_autoupdate = 1
   let g:svndiff_one_sign_delete = 1
-  nnoremap <Leader>sd :call Svndiff()<CR>
-  augroup SvnDiffFugitive
-    au!
-    " autocmd User Fugitive if fugitive#buffer().type('file') && &filetype != 'help' && !&diff | :call Svndiff('next') | endif
-  augroup END
+  nnoremap <Leader>dd :call Svndiff()<CR>
+  " augroup SvnDiffFugitive
+  "   au!
+  "   autocmd User Fugitive if fugitive#buffer().type('file') && &filetype != 'help' && !&diff | :call Svndiff('next') | endif
+  " augroup END
 " }}}
 " Gundo settings {{{
   nnoremap <F5> :GundoToggle<CR>
