@@ -10,6 +10,12 @@ function sha256() { echo -n $1 | openssl dgst -sha256 /dev/stdin }
 function sha512() { echo -n $1 | openssl dgst -sha512 /dev/stdin }
 function 256c() { echo -n "\e[38;5;${1}m${${(z)*}[2,-1]}" }
 
+# Create a tmux session if there isn't one to attach to
+alias tmux="tmux attach-session"
+
+# Show full history
+alias history='fc -l 1'
+
 if [[ $IS_MAC -eq 1 ]]; then
   # show and hide files from Finder
   alias hide="chflags hidden"
@@ -22,22 +28,18 @@ if [[ $IS_MAC -eq 1 ]]; then
       osascript -e "output volume of (get volume settings)"
     fi
   }
+
+  if [[ -r /Applications/MacVim.app ]]; then
+    alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+    EDITOR=${=aliases[vim]}
+    VISUAL=$EDITOR
+  fi
+
+  if [[ -f /Library/Application\ Support/VMware\ Fusion/vmrun ]]; then
+    function fusion () {
+      /Library/Application\ Support/VMware\ Fusion/vmrun -T fusion $@ nogui
+    }
+  fi
 fi
-
-# Show full history
-alias history='fc -l 1'
-
-if [[ -f /Library/Application\ Support/VMware\ Fusion/vmrun ]]; then
-  function fusion () {
-    /Library/Application\ Support/VMware\ Fusion/vmrun -T fusion $@ nogui
-  }
-fi
-
-if [[ -r /Applications/MacVim.app ]]; then
-  alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
-fi
-
-# Create a tmux session if there isn't one to attach to
-alias tmux="tmux attach-session"
 
 # vim: filetype=zsh
