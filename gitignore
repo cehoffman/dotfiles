@@ -4,6 +4,7 @@
 .*.sw[a-z]
 *.py[co]
 doc/tags
+doc/tags-ja
 .pt
 .bundle
 slurper_config.yml
