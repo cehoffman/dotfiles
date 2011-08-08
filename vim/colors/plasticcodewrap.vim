@@ -31,8 +31,8 @@ hi Visual                       cterm=NONE           ctermfg=NONE ctermbg=17   g
 hi VisualNOS                    cterm=bold,underline ctermfg=251  ctermbg=NONE gui=bold,underline        guifg=NONE    guibg=NONE
 hi WarningMsg                   cterm=NONE           ctermfg=124  ctermbg=232  gui=NONE                  guifg=#f8f8f8 guibg=#a32411
 hi WildMenu                     cterm=NONE           ctermfg=16   ctermbg=226  gui=NONE                  guifg=#000000 guibg=#ffff00
-hi Folded                       cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#00ffff guibg=#0b161d
-hi FoldColumn                   cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#00ffff guibg=#bebebe
+hi Folded                       cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#82878b guibg=#0b161d
+hi FoldColumn                   cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#82878b guibg=#0b161d
 hi DiffAdd                      cterm=NONE           ctermfg=251  ctermbg=22   gui=NONE                  guifg=NONE    guibg=#004400
 hi DiffChange                   cterm=NONE           ctermfg=251  ctermbg=130  gui=NONE                  guifg=NONE    guibg=#d8dc42
 hi DiffDelete                   cterm=bold           ctermfg=254  ctermbg=88   gui=bold                  guifg=NONE    guibg=#660000
