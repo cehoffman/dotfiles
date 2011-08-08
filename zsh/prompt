@@ -99,9 +99,9 @@ function +vi-git_message {
       if [[ $user_data[diverged] -eq 1 ]]; then
         hook_com[message]+='⬍%b' # ⬥
       elif [[ -n $user_data[ahead] ]]; then
-        hook_com[message]+="↑%b${#${(f)user_data[ahead]}}" # ▲
+        hook_com[message]+="↑%b${(w)#user_data[ahead]}" # ▲
       elif [[ -n $user_data[behind] ]]; then
-        hook_com[message]+="↓%b${#${(f)user_data[behind]}}" # ▼
+        hook_com[message]+="↓%b${(w)#user_data[behind]}" # ▼
       fi
 
       # Mark how the status of untracked files is fairing
