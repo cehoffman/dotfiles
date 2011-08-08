@@ -207,16 +207,17 @@ function _prompt_precmd {
   fi
 
   # Color the path differently when the current directory is/isn't writeable
+  local collapsed_path=${PWD/$HOME/\~}
   if [[ -w $PWD ]]; then
-    _pr_pwd="%{$reset_color%}${(%):-%~}"
+    _pr_pwd="%{$reset_color%}${collapsed_path}"
   else
-    _pr_pwd="%{$fg_bold[black]%}${(%):-%~}%{$reset_color%}"
+    _pr_pwd="%{$fg_bold[black]%}${collapsed_path}%{$reset_color%}"
   fi
 
   # Calculate how much the fill size will need to be or if the path will
   # need to be truncated to fit the first line of prompt
   local promptsize=${#${(%):---(%n@%m:)---(${(j: :)infos})--}}
-  local pwdsize=${#${(%):-%~}}
+  local pwdsize=${#${collapsed_path}}
 
   for tempinfo in {1..$#infos}; do
     if (($COLUMNS - $promptsize > 5)); then
