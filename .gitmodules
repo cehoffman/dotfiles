@@ -76,9 +76,6 @@
 [submodule "vim/bundle/vim-lusty"]
 	path = vim/bundle/vim-lusty
 	url = http://github.com/sjbach/lusty.git
-[submodule "vim/bundle/vim-csapprox"]
-	path = vim/bundle/vim-csapprox
-	url = http://github.com/godlygeek/csapprox.git
 [submodule "vim/bundle/vim-rake"]
 	path = vim/bundle/vim-rake
 	url = http://github.com/tpope/vim-rake.git
@@ -142,3 +139,15 @@
 [submodule "zsh/vendor/opp.zsh"]
 	path = zsh/vendor/opp.zsh
 	url = https://github.com/hchbaw/opp.zsh.git
+[submodule "vim/bundle/vim-yankring"]
+	path = vim/bundle/vim-yankring
+	url = https://github.com/vim-scripts/YankRing.vim.git
+[submodule "vim/bundle/vim-scratch"]
+	path = vim/bundle/vim-scratch
+	url = https://github.com/vim-scripts/scratch.vim.git
+[submodule "vim/bundle/vim-rainbow-parenthsis-bundle"]
+	path = vim/bundle/vim-rainbow-parenthsis-bundle
+	url = https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle.git
+[submodule "vim/bundle/vim-threesome"]
+	path = vim/bundle/vim-threesome
+	url = https://github.com/sjl/threesome.vim.git

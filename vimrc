@@ -7,10 +7,7 @@ set nocompatible
 " }}}
 
 " General settings {{{
-  set backup
-  set backupdir=~/.vim/backup
-  set nowritebackup
-  set noswapfile
+  set writeany             " Try and write without requiring !
   set history=1000         " keep 1000 lines of command line history
   set showcmd              " display incomplete commands
   set incsearch            " do incremental searching
@@ -23,7 +20,6 @@ set nocompatible
   set visualbell t_vb=     " disable the stupid bell
   set cmdheight=1          " Reduce the number of times the hit enter dialog comes up
   set shortmess+=aI        " Make messages even shorter
-  " set colorcolumn=80       " Always be aware of the best file width
   set laststatus=2         " Always display the status line
   set autoindent           " always set auto indenting on
   set smartindent          " automatically adjust the level of indentation with language constructs
@@ -34,37 +30,44 @@ set nocompatible
   set shiftround           " when at an odd number of spaces and using >>/<< go to correct multiple
   set smarttab             " Insert the shiftwidth number of space at start of non empty line when using <Tab>
   set number               " show line numbers
-  set numberwidth=5        " and always show room for 5
+  set numberwidth=2        " and always show room for 2 numbers since it is only relative numbers
   set ignorecase           " don't use case when searching
   set smartcase            " unless I type an uppercase letter, then care
   set hidden               " Make Vim more accepting of hidden buffer
   set confirm              " Ask me what to do when quiting or saving fails
   set autoread             " Automatically reload files that change on disk
   set showmatch            " Jump to matching }] briefly when typing
+  set matchtime=3          " Tenths of a second to show matching paren
+  " set splitbelow           " Where to make splits by default
+  " set splitright           " Where to make splits by default
+  set fillchars=diff:\     " Don't put annoying - in deleted diff lines
   set nostartofline        " Don't jump to start of line as side effect, e.g. <<
   set updatetime=1500      " Make man auto command macros fire quicker, more often
   set pumheight=10         " control how many options are shown before scrolling on auto completion
   set mouse=a              " Turn on mouse support
   set cpoptions+=y         " allow yank commands to be repeated with '.'
-  " set gdefault             " make substitutions default to replacing all on line, might break plug-ins not designed well
+  set gdefault             " make substitutions default to replacing all on line
   set pastetoggle=<F2>     " Paste mode to turn off autoindention
   set fileformats=unix,dos " Make the default fileformat be unix line endings
   set encoding=utf-8       " Make default text encoding utf-8
   set termencoding=utf-8   " Make default termainl encoding utf-8
-  set cryptmethod=blowfish " use a strong encryption method for instead of weak one
+  set cryptmethod=blowfish " use a strong encryption method instead of weak one
+  set relativenumber       " Make line numbers relative to my cursor for easy jumping
+  set lazyredraw           " don't redraw the screen during macros
 
   if has('gui_running') || $TMUX == '' || $REATTACHED
-    set clipboard=unnamed,unnamedplus,autoselectml " make copying put on the system clipboard and pasting get from it
-  endif
-
-  if has("gui_running")
-    set lazyredraw     " don't redraw the screen during macros
+    " This does not work with YankRing
+    " set clipboard=unnamedplus,autoselectml " make copying put on the system clipboard and pasting get from it
   endif
 
   if has("persistent_undo")
     set undofile
     set undodir=~/.vim/undo,tmp
   endif
+  set backupdir=~/.vim/backup
+  set backup
+  set nowritebackup
+  set noswapfile
 
   if has("spell")
     set spellfile=~/.vim/spell/common.utf-8.add  " store common correct/incorrect works in a shared place
@@ -74,13 +77,14 @@ set nocompatible
   " (only complete to the longest unambiguous match, and show a menu)
   set completeopt=longest,menuone,preview
   set wildmode=list:longest,list:full
-  set wildignore=*.o,*.rbc,*.obj,*.pyc,.git,CVS,.svn,tags
+  set wildignore=*.o,*.rbc,*.obj,*.pyc,.git,CVS,.svn,tags,.hg
   set complete=.,t,i,b,w
 
   set backspace=indent,eol,start " allow backspacing over everything in insert mode
-  set formatoptions=cq1lnr
-  set textwidth=78
-  set wrap linebreak textwidth=0 showbreak=\ \ \ …\  cpoptions+=n " Use soft wrapping, and adjust mappings for edit keys
+  set formatoptions=cq1nr
+  set colorcolumn=+1       " Always be aware of the best file width
+  set textwidth=79
+  set wrap linebreak showbreak=\ …\  cpoptions+=n " Use soft wrapping, and adjust mappings for edit keys
   set list listchars=tab:▸\ ,eol:¬,precedes:<,extends:>,nbsp:· " Display extra whitespace
 
   " Enable file type detection.
@@ -100,18 +104,32 @@ let mapleader = "," " \ is the default leader character
   " Allows moving up by screen lines, not file lines
   map j gj
   map k gk
-  map <Up> gk
-  map <Down> gj
 
   " Make for some better autocompletion
-  inoremap <C-]> <C-X><C-]>
-  inoremap <C-F> <C-X><C-F>
+  " inoremap <C-]> <C-X><C-]>
+  " inoremap <C-F> <C-X><C-F>
+
+  " Make going to beginning and end of line easier, uh oh emacs
+  inoremap <C-E> <C-O>$
+  inoremap <C-A> <C-O>^
 
   " Don't use Ex mode, use Q for formatting
   map Q gq
 
   " Make Y consistent with C and D
   nnoremap Y y$
+
+  " Keep searches in middle of screen
+  nnoremap * *zzzv
+  nnoremap # #zzzv
+  nnoremap n nzzzv
+  nnoremap N Nzzzv
+
+  " Make it easier to select []
+  onoremap id i[
+  onoremap ad a[
+  vnoremap id i[
+  vnoremap ad a[
 
   " Mode Toggles {{{
     " Toggle spell checking
@@ -132,33 +150,31 @@ let mapleader = "," " \ is the default leader character
   " }}}
 
   " Allow inserting just one stupid character
-  nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
+  " nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
 
   " Don't move the cursosr after pasting
   " noremap p p`[
   " noremap P P`[
 
   " Open an edit path relative to current file
-  nnoremap <Leader>le :e <C-r>=expand('%:p:h')<CR>
+  nnoremap <Leader>el :e <C-r>=expand('%:p:h')<CR>/
 
   " Select just pasted text in last used visual mode
-  nnoremap <expr> gp '`[' . visualmode() . '`]'
+  nnoremap <Leader>v V`]
+  " nnoremap <expr> gp '`[' . visualmode() . '`]'
 
   " Shortcut to edit .vimrc
-  noremap <Leader>ve :edit $MYVIMRC<CR>
-
-  " New Windows {{{
-  " }}}
+  noremap <Leader>ev :edit $MYVIMRC<CR>
 
   " Simplistic buffer removal but keeping window
   nnoremap <Leader>bd :bp<BAR>bd #<CR>
   nnoremap <Leader>bw :bp<BAR>bw #<CR>
 
   " Paste without losing the item being pasted
-  vnoremap P p :call setreg(&clipboard =~# 'unnamed' ? '*' : '"', getreg('0')) <CR>
+  " vnoremap P p :call setreg(&clipboard =~# 'unnamed' ? '*' : '"', getreg('0')) <CR>
 
-  " Duplicate a selection
-  vnoremap D y'>p
+  " Screw the manual searching on shift K
+  nnoremap K <nop>
 
   " Better movement in command line
   cnoremap <C-A> <Home>
@@ -206,9 +222,6 @@ let mapleader = "," " \ is the default leader character
     elseif $TERM == 'screen-256color'
       set term=xterm-256color
     end
-
-    " Shut CSApprox up so we don't hear any warnings
-    let g:CSApprox_verbose_level = 0
 
     " Color scheme
     set background=dark
@@ -274,10 +287,13 @@ let mapleader = "," " \ is the default leader character
 if has("autocmd")
   augroup GeneralSettings " {{{
     au!
+    " Equalize windows when resized
+    au VimResized * exec "normal! \<C-W>="
+
     " Reload vimrc after editing
     autocmd BufWritePost .vimrc source $MYVIMRC
     autocmd BufNewFile,BufRead *.txt setfiletype text
-    autocmd FileType diff setlocal nolist
+    autocmd FileType diff setlocal nolist nospell
 
     " Ruby functions can have these in thier names
     autocmd FileType eruby,ruby setlocal iskeyword+=!,?
@@ -286,7 +302,7 @@ if has("autocmd")
     " Help Window Customization {{{
       function! s:SetupHelpWindow()
         wincmd L
-        vertical resize 80
+        vertical resize 82
         setlocal nonumber winfixwidth colorcolumn=
 
         let b:stl = "#[Branch] HELP#[BranchS] [>] #[FileNameS][>>]%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
@@ -310,7 +326,7 @@ if has("autocmd")
     " Manpages inside vim  {{{
       runtime! ftplugin/man.vim
       autocmd FileType man
-            \ setlocal nolist nofoldenable |
+            \ setlocal nolist nofoldenable nospell |
             \ map <buffer> q <ESC>:q!<CR>
     " }}}
     " Highighlight cursor row {{{
@@ -350,6 +366,7 @@ if has("autocmd")
 
 
     autocmd FileType vim,ruby setlocal formatoptions-=o
+    autocmd FileType vim setlocal foldmethod=marker foldmarker={{{,}}}
     autocmd FileType nerdtree setlocal nolist nowrap
 
     " autocmd BufEnter,BufWinEnter,CursorHold,CursorHoldI,CursorMoved,CursorMovedI *.log :checktime
@@ -515,32 +532,37 @@ if has("autocmd")
     au!
     " Custom Status Lines {{{
       " Lusty buffer list {{{
-        au BufEnter * if bufname("%") == "[LustyExplorer-Buffers]"
+        au BufEnter * if !exists('b:stl') && bufname("%") == "[LustyExplorer-Buffers]"
           \ | let b:stl = "#[FileName] LustyExplorer#[FileNameS] [>>]#[FunctionName] Buffer List%<%* %=#[LinePercentS][<<]#[LinePercent] %p%%: "
           \ | endif
       " }}}
       " Command-T find {{{
-        au BufEnter * if bufname("%") == "GoToFile"
+        au BufEnter * if !exists('b:stl') && bufname("%") == "GoToFile"
           \ | let b:stl = "#[FileName] Find File#[FileNameS] [>>]%<%* %="
           \ | endif
       " }}}
       " Tagbar {{{
-        au BufEnter * if bufname("%") == "__Tagbar__"
+        au BufEnter * if !exists('b:stl') && bufname("%") == "__Tagbar__"
           \ | set statusline=
           \ | let b:stl = "#[FileName] Tagbar#[FileNameS] [>>]#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
           \ | endif
       " }}}
       " Gundo {{{
-        au BufEnter * if bufname("%") == "__Gundo__"
+        au BufEnter * if !exists('b:stl') && bufname("%") == "__Gundo__"
           \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Undo tree%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
           \ | endif
 
-        au BufEnter * if bufname("%") == "__Gundo_Preview__"
+        au BufEnter * if !exists('b:stl') && bufname("%") == "__Gundo_Preview__"
           \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Diff preview%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
           \ | endif
       " }}}
+      " Scratch {{{
+        au BufEnter * if !exists('b:stl') && bufname("%") == "__Scratch__"
+          \ |  let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber]đ %l#[LineColumn]:%c%V"
+          \ |  endif
+      " }}}
       " Syntastic location list {{{
-        au BufEnter * if bufname("%") == "[Location List]"
+        au BufEnter * if !exists('b:stl') && bufname("%") == "[Location List]"
           \ | let b:stl = "#[FileName]%< Location List #[FileNameS][>>]%* %="
           \ | endif
       " }}}
@@ -601,16 +623,41 @@ else
   set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%c%V,%l/%L%)\ %P\ %y
 endif
 
-if has("folding")
-  " Folding Config {{{
-    " set foldenable
-    " set foldmethod=syntax
-    " set foldlevelstart=99 " How far down fold tree to go before folding code on opening file
-    " set foldnestmax=10
-    " set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
-  " }}}
-endif
+" Folding Config {{{
+  if has("folding")
+    function! SimpleFold() " {{{
+      let line = getline(v:foldstart)
 
+      let nucolwidth = &foldcolumn + (&number + &relativenumber) * &numberwidth
+      let windowwidth = winwidth(0) - nucolwidth - 3
+      let foldedlinecount = v:foldend - v:foldstart
+
+      " expand tabs into spaces
+      let onetab = strpart('          ', 0, &tabstop)
+      let line = substitute(line, '\t', onetab, 'g')
+
+      let line = strpart(line, 0, windowwidth - 1 - len(foldedlinecount))
+      let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+      return line . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+    endfunction " }}}
+    set foldtext=SimpleFold()
+    set foldcolumn=3
+    set foldenable
+    set foldmethod=syntax
+    set foldlevelstart=99 " How far down fold tree to go before folding code on opening file
+    set foldnestmax=10
+
+    nnoremap <Space> za
+    vnoremap <Space> za
+  endif
+" }}}
+
+" HTML5 Vim Settings {{{
+  let g:event_handler_attributes_complete = 0
+  let g:rdfa_attributes_complete = 0
+  let g:microdata_attributes_complete = 0
+  let g:atia_attributes_complete = 0
+" }}}
 " Git Fugitive settings {{{
   nnoremap <Leader>gs :Gstatus<CR>
   nnoremap <Leader>gc :Gcommit<CR>
@@ -707,7 +754,7 @@ endif
 " Gundo settings {{{
   nnoremap <F5> :GundoToggle<CR>
   " let g:gundo_right = 1
-  " let g:gundo_preview_bottom = 1
+  let g:gundo_preview_bottom = 1
 " }}}
 " EasyMotion settings {{{
   let g:EasyMotion_leader_key = '<Leader>e'
@@ -753,8 +800,35 @@ endif
   let g:csv_hiHeader = 'CSVHiColumnHeader'
   let g:csv_hiGroup = 'CSVHiColumn'
 " }}}
-" Markdown setting {{{
+" Markdown settings {{{
   nnoremap <Leader>M :call system('open -g -F -a Marked "'.expand('%:p').'"')<CR>
+" }}}
+" Yank Ring settings {{{
+  let g:yankring_manage_numbered_reg = 1
+  let g:yankring_default_menu_mode = 0
+" }}}
+" Scratch buffer mapping {{{
+  function! s:ScratchToggle() " {{{
+    if bufname('%') == '__Scratch__'
+      exec 'q'
+    else
+      exec "normal! :Sscratch\<CR>\<C-W>J:resize 13\<CR>"
+    endif
+  endfunction
+  " }}}
+  noremap <Leader><Tab> :call <SID>ScratchToggle()<CR>
+" }}}
+" Threesome configuration {{{
+  let g:threesome_initial_mode = "compare"
+  let g:threesome_initial_diff_grid = 1
+  let g:threesome_initial_diff_compare = 1
+  let g:threesome_initial_diff_path = 4
+  let g:threesome_initial_layout_grid = 0
+  let g:threesome_initial_layout_compare = 1
+  let g:threesome_initial_layout_path = 1
+  let g:threesome_initial_scrollbind_loupe = 1
+  let g:threesome_initial_scrollbind_compare = 1
+  let g:threesome_initial_scrollbind_path = 1
 " }}}
 
 " Window Management {{{
@@ -882,6 +956,7 @@ endif
         norm! gvy
         let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
         let @@ = temp
+        execute "normal! zzzv"
       finally
         let &clipboard = clipboard
       endtry
@@ -891,8 +966,22 @@ endif
     vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
   " }}}
   " Easy insertion of iso8601 timeformat {{{
-    command! Insert8601 :normal a'<C-R>=strftime('%Y-%m-%dT%H:%M:%S%z')<CR>'
-    nnoremap <Leader>it :Insert8601<CR>
+    iab i8601 <C-R>=strftime('%Y-%m-%dT%H:%M:%S%z')<CR>
+  " }}}
+  " Persisten echo {{{
+    " http://vim.wikia.com/wiki/Make_echo_seen_when_it_would_otherwise_disappear_and_go_unseen
+
+    " Useful for debugging mappings
+    " let s:Pecho=''
+    " fu! s:Pecho(msg)
+    "   let s:hold_ut=&ut | if &ut>1|let &ut=1|en
+    "   let s:Pecho=a:msg
+    "   aug Pecho
+    "     au CursorHold * if s:Pecho!=''|echo s:Pecho
+    "           \|let s:Pecho=''|if s:hold_ut > &ut |let &ut=s:hold_ut|en|en
+    "           \|aug Pecho|exe 'au!'|aug END|aug! Pecho
+    "   aug END
+    " endf
   " }}}
 " }}}
 
@@ -906,4 +995,4 @@ set secure " must be last line in vimrc to have desired effect
 " set makeprg=script/testdrb\ -Itest\ %
 " set efm=%-G%*\\wTest:,%-GLoaded\ %.%#,%-GStarted,%-G,%-GFinished\ in%.%#,%-G%*\\d\ tests%.%#,\ %*\\d\ assertions%.%#,%-GCoverage\ report%.%#,%-G[32m%*\\sPASS[0m\ %m,%E[31m%*\\sFAIL[0m\ %.%#,%Z%*\\s%f:%l:%.%#,%C%*\\s%m%#
 
-" vim: foldmethod=marker foldmarker={{{,}}}
+" vim: foldmethod=marker foldmarker={{{,}}} relativenumber

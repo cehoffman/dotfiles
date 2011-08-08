@@ -17,7 +17,7 @@ hi SpecialKey                   cterm=NONE           ctermfg=59   ctermbg=NONE g
 hi NonText                      cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#485056 guibg=NONE
 hi Directory                    cterm=NONE           ctermfg=185  ctermbg=NONE gui=NONE                  guifg=#e4e46f guibg=NONE
 hi ErrorMsg                     cterm=NONE           ctermfg=251  ctermbg=124  gui=NONE                  guifg=#f8f8f8 guibg=#a32411
-hi IncSearch                    cterm=bold           ctermfg=39   ctermbg=NONE gui=bold                  guifg=#00c2ff guibg=NONE   
+hi IncSearch                    cterm=bold           ctermfg=39   ctermbg=NONE gui=bold                  guifg=#00c2ff guibg=NONE
 hi Search                       cterm=bold           ctermfg=39   ctermbg=NONE gui=bold,italic           guifg=#00c2ff guibg=NONE
 hi MoreMsg                      cterm=bold           ctermfg=29   ctermbg=NONE gui=bold                  guifg=#2e8b57 guibg=NONE
 hi ModeMsg                      cterm=bold           ctermfg=251  ctermbg=NONE gui=bold                  guifg=NONE    guibg=NONE
@@ -31,7 +31,7 @@ hi Visual                       cterm=NONE           ctermfg=NONE ctermbg=17   g
 hi VisualNOS                    cterm=bold,underline ctermfg=251  ctermbg=NONE gui=bold,underline        guifg=NONE    guibg=NONE
 hi WarningMsg                   cterm=NONE           ctermfg=124  ctermbg=232  gui=NONE                  guifg=#f8f8f8 guibg=#a32411
 hi WildMenu                     cterm=NONE           ctermfg=16   ctermbg=226  gui=NONE                  guifg=#000000 guibg=#ffff00
-hi Folded                       cterm=NONE           ctermfg=32   ctermbg=NONE gui=NONE                  guifg=#1e9ae0 guibg=#0b161d
+hi Folded                       cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#00ffff guibg=#0b161d
 hi FoldColumn                   cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#00ffff guibg=#bebebe
 hi DiffAdd                      cterm=NONE           ctermfg=251  ctermbg=22   gui=NONE                  guifg=NONE    guibg=#004400
 hi DiffChange                   cterm=NONE           ctermfg=251  ctermbg=130  gui=NONE                  guifg=NONE    guibg=#d8dc42
@@ -80,7 +80,7 @@ hi Type                         cterm=bold           ctermfg=184  ctermbg=NONE g
 hi Underlined                   cterm=underline      ctermfg=251  ctermbg=NONE gui=underline             guifg=NONE    guibg=#1c1c1c
 hi Ignore                       cterm=NONE           ctermfg=16   ctermbg=NONE gui=NONE                  guifg=#0b161d guibg=NONE
 hi Error                        cterm=NONE           ctermfg=251  ctermbg=196  gui=NONE                  guifg=#ffffff guibg=#ff0000
-hi Todo                         cterm=bold,italic    ctermfg=32   ctermbg=NONE gui=bold,italic           guifg=#1e9ae0 guibg=NONE
+hi Todo                         cterm=bold           ctermfg=32   ctermbg=NONE gui=bold,italic           guifg=#1e9ae0 guibg=NONE
 hi String                       cterm=NONE           ctermfg=77   ctermbg=NONE gui=NONE                  guifg=#55e439 guibg=NONE
 hi Character                    cterm=NONE           ctermfg=77   ctermbg=NONE gui=NONE                  guifg=#55e439 guibg=NONE
 hi Number                       cterm=NONE           ctermfg=185  ctermbg=NONE gui=NONE                  guifg=#e4e46f guibg=NONE
@@ -122,7 +122,7 @@ hi rubyTestMethod               cterm=NONE           ctermfg=160  ctermbg=NONE g
 " hi erubyDelimiter               cterm=NONE           ctermfg=251  ctermbg=NONE gui=NONE                  guifg=NONE    guibg=NONE
 " hi erubyComment                 cterm=italic         ctermfg=32   ctermbg=NONE gui=italic                guifg=#1e9ae0 guibg=NONE
 " hi rubyRailsMethod              cterm=NONE           ctermfg=160  ctermbg=NONE gui=NONE                  guifg=#d40c00 guibg=NONE
-hi rubyRailsUserClass           cterm=NONE           ctermfg=157  ctermbg=NONE gui=NONE                  guifg=#9df39f guibg=NONE
+" hi rubyRailsUserClass           cterm=NONE           ctermfg=157  ctermbg=NONE gui=NONE                  guifg=#9df39f guibg=NONE
 " hi rubyRailsRenderMethod        cterm=NONE           ctermfg=160  ctermbg=NONE gui=NONE                  guifg=#d40c00 guibg=NONE
 " hi rubyRailsARAssociationMethod cterm=NONE           ctermfg=160  ctermbg=NONE gui=NONE                  guifg=#d40c00 guibg=NONE
 " hi rubyRailsARMethod            cterm=NONE           ctermfg=160  ctermbg=NONE gui=NONE                  guifg=#d40c00 guibg=NONE
@@ -164,6 +164,24 @@ hi htmlBoldItalic               cterm=italic,bold    ctermfg=NONE ctermbg=NONE g
 hi EasyMotionTarget             cterm=NONE           ctermfg=172  ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
 hi EasyMotionShade              cterm=NONE           ctermfg=NONE ctermbg=NONE gui=NONE                  guifg=#303030 guibg=NONE
 
+" Raindow Parenthsis
+hi level1c  ctermbg=NONE ctermfg=brown        guibg=NONE guifg=RoyalBlue3
+hi level2c  ctermbg=NONE ctermfg=Darkblue     guibg=NONE guifg=SeaGreen3
+hi level3c  ctermbg=NONE ctermfg=darkgray     guibg=NONE guifg=DarkOrchid3
+hi level4c  ctermbg=NONE ctermfg=darkgreen    guibg=NONE guifg=firebrick3
+hi level5c  ctermbg=NONE ctermfg=darkcyan     guibg=NONE guifg=RoyalBlue3
+hi level6c  ctermbg=NONE ctermfg=darkred      guibg=NONE guifg=SeaGreen3
+hi level7c  ctermbg=NONE ctermfg=darkmagenta  guibg=NONE guifg=DarkOrchid3
+hi level8c  ctermbg=NONE ctermfg=brown        guibg=NONE guifg=firebrick3
+hi level9c  ctermbg=NONE ctermfg=gray         guibg=NONE guifg=RoyalBlue3
+hi level10c ctermbg=NONE ctermfg=black        guibg=NONE guifg=SeaGreen3
+hi level11c ctermbg=NONE ctermfg=darkmagenta  guibg=NONE guifg=DarkOrchid3
+hi level12c ctermbg=NONE ctermfg=Darkblue     guibg=NONE guifg=firebrick3
+hi level13c ctermbg=NONE ctermfg=darkgreen    guibg=NONE guifg=RoyalBlue3
+hi level14c ctermbg=NONE ctermfg=darkcyan     guibg=NONE guifg=SeaGreen3
+hi level15c ctermbg=NONE ctermfg=darkred      guibg=NONE guifg=DarkOrchid3
+hi level16c ctermbg=NONE ctermfg=red          guibg=NONE guifg=firebrick3
+
 " ruby << RUBY
 "   his = {:name => [], :term => [], :cterm => [], :ctermfg => [], :ctermbg => [], :gui => [], :guifg => [], :guibg => []}
 "   maxes = {}
@@ -195,3 +213,5 @@ hi EasyMotionShade              cterm=NONE           ctermfg=NONE ctermbg=NONE g
 "     his[:guifg][x].ljust(maxes[:guifg]), his[:guibg][x].ljust(maxes[:guibg])].join(' ').strip
 "   end
 " RUBY
+
+" vim: nowrap relativenumber
