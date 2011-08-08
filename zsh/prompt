@@ -22,6 +22,12 @@ function __reset_prompt_mode_precmd() {
 }
 precmd_functions+=__reset_prompt_mode_precmd
 
+function update_time() {
+  local prompt=${(%%)RPROMPT}
+  echo -ne "\e[A\e[$(( $COLUMNS - 25 ))G$prompt\e[B\e[G"
+}
+preexec_functions+=update_time
+
 zle -N zle-keymap-select
 
 function {
