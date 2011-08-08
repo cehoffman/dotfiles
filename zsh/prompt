@@ -2,23 +2,26 @@ __prompt_mode_insert="%B%F{blue}i%{$reset_color%}"
 __prompt_mode_cmd="%B%F{yellow}n%{$reset_color%}"
 __prompt_mode=$__prompt_mode_insert
 function zle-keymap-select {
-  if [[ "$KEYMAP" == 'vicmd' || "$KEYMAP" == 'cmd' ]]; then
+  local prompt_was=$__prompt_mode
+
+  if [[ "$KEYMAP" == 'vicmd' || "$KEYMAP" == 'opp' ]]; then
     __prompt_mode=$__prompt_mode_cmd
   else
     __prompt_mode=$__prompt_mode_insert
   fi
-  zle reset-prompt
+
+  # Only update the prompt if mode actually changed
+  # This prevents the prompt from jumping up a line when
+  # issuing commands that go through several keymaps, e.g.
+  # cc will go vicmd -> opp -> main
+  [[ $__prompt_mode != $prompt_was ]] && zle .reset-prompt
 }
 
-function my-accept-line {
-    __prompt_mode=$__prompt_mode_insert
-  zle .accept-line
-  zle reset-prompt
+function __reset_prompt_mode_precmd() {
+  __prompt_mode=$__prompt_mode_insert
 }
+precmd_functions+=__reset_prompt_mode_precmd
 
-bindkey -M vicmd '^M' my-accept-line
-bindkey -M vicmd '^J' my-accept-line
-zle -N my-accept-line
 zle -N zle-keymap-select
 
 function {
