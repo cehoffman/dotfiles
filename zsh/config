@@ -116,8 +116,10 @@ unset version
 path=($HOME/.local/bin(/) $path)
 
 # Load all of your custom configurations from custom/
-for config_file (~/.zsh/envs/*) source $config_file
-unset config_file
+function {
+  local config_file
+  for config_file (~/.zsh/envs/*) source $config_file
+}
 
 if [[ $IS_MAC -eq 1 ]]; then
   fignore+='.DS_Store'
