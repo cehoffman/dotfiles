@@ -24,13 +24,8 @@ precmd_functions+=__reset_prompt_mode_precmd
 
 autoload -Uz regexp-replace
 
-function update_prompt() {
-  # Rerun the functions that prepare a prompt
-  local func
-  for func ($precmd_functions) $func
-
+function update_rprompt() {
   # Prepare to reprint the prompt
-  local prompt=${(%%)PROMPT}
   local rprompt=${(%%)RPROMPT}
   local rpromptsize=$rprompt
 
@@ -39,10 +34,9 @@ function update_prompt() {
   regexp-replace rpromptsize "\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]"
 
   # Go back to the start of current prompt and reprint it
-  echo -ne "\e[$(( ${#${(%%f)prompt}} ))A\e[G$prompt"
-  echo -ne "\e[$(( $COLUMNS - $#rpromptsize ))G$rprompt\e[B\e[G"
+  echo -ne "\e[A\e[$(( $COLUMNS - $#rpromptsize ))G$rprompt\e[B\e[G"
 }
-preexec_functions+=update_prompt
+preexec_functions+=update_rprompt
 
 zle -N zle-keymap-select
 
