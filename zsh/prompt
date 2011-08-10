@@ -107,7 +107,7 @@ function +vi-git-untracked() {
   user_data[ahead]=$(git rev-list HEAD@{upstream}..HEAD 2> /dev/null)
   user_data[behind]=$(git rev-list HEAD..HEAD@{upstream} 2> /dev/null)
   [[ -z $user_data[ahead] || -z $user_data[behind] ]]; user_data[diverged]=$?
-  user_data[untracked]=$(git status --porcelain | grep "^??" &> /dev/null ; echo $(( ! $? )) )
+  user_data[untracked]=$(git status --porcelain 2> /dev/null | grep "^??" &> /dev/null ; echo $(( ! $? )) )
 }
 
 function +vi-git-message {
