@@ -86,6 +86,7 @@ zstyle ':vcs_info:git+set-message:*' hooks git_message
 # The first prompt info is for width calculation so no colors, 2nd is like first but with colors
 # and the 3rd is the short display of vcs state - it is overridden in the git_message hook
 zstyle ':vcs_info:git:*' formats '±:%b' '%%b%F{cyan}±:%b' "%%b%F{cyan}±:%F{green}%c%F{yellow}%u"
+zstyle ':vcs_info:git:*' actionformats '±:%b(%a)' '%%b%F{cyan}±:%b%F{white}(%B%a%%b)' "%%b%F{cyan}±:%F{green}%c%F{yellow}%u%F{white}(%B%a%%b)"
 
 function +vi-git_untracked() {
   # To get if there are any staged changes
@@ -106,6 +107,10 @@ function +vi-git_message {
     #   hook_com[misc]='T✘'⎏⎐⎑⎒⏅⑂◉●▲▼⑂↕⇕⇳⬍⥌⥍⥏⥑⥮⬥
     #   ;;
     2)
+      [[ -n $hook_com[staged] ]] && hook_com[message]+="%F{green}$hook_com[staged]"
+      [[ -n $hook_com[unstaged] ]] && hook_com[message]+="%B%F{yellow}$hook_com[unstaged]%b"
+      [[ $user_data[divered] -eq 1 || -n $user_data[ahead] || -n $user_data[behind] ]] && hook_com[message]+="%B%F{magenta}"
+
       # Setup the marker for how local repo compares to upstream
       if [[ $user_data[diverged] -eq 1 ]]; then
         hook_com[message]+='⬍%b' # ⬥
@@ -118,11 +123,10 @@ function +vi-git_message {
       # Mark how the status of untracked files is fairing
       [[ $user_data[untracked] -eq 1 ]] && hook_com[message]+='%F{red}x'
 
-      if [[ -n $hook_com[staged] || -n $hook_com[unstaged] || -n $hook_com[message] ]]; then
-        hook_com[message]=":%F{green}$hook_com[staged]%B%F{yellow}$hook_com[unstaged]%F{magenta}$hook_com[message]"
-      fi
+      # Add an action if it exists
+      [[ -n $hook_com[action] ]] && hook_com[message]+="%b%F{white}(%B$hook_com[action]%b)"
 
-      hook_com[message]="%b%F{cyan}±$hook_com[message]"
+      hook_com[message]="%b%F{cyan}±${hook_com[message]:+:}$hook_com[message]"
 
       # Make the new message take effect
       ret=1
