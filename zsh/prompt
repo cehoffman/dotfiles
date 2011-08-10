@@ -22,6 +22,8 @@ function __reset_prompt_mode_precmd() {
 }
 precmd_functions+=__reset_prompt_mode_precmd
 
+zle -N zle-keymap-select
+
 autoload -Uz regexp-replace
 
 function update_rprompt() {
@@ -37,8 +39,6 @@ function update_rprompt() {
   echo -ne "\e[A\e[$(( $COLUMNS - $#rpromptsize ))G$rprompt\e[B\e[G"
 }
 preexec_functions+=update_rprompt
-
-zle -N zle-keymap-select
 
 function {
   local red="%b%F{red}"
