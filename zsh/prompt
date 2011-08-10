@@ -23,15 +23,26 @@ function __reset_prompt_mode_precmd() {
 precmd_functions+=__reset_prompt_mode_precmd
 
 autoload -Uz regexp-replace
-function update_time() {
-  local colorprompt=${(%%)RPROMPT}
-  local prompt=$colorprompt
-  setopt norematchpcre
-  regexp-replace prompt "\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]"
 
-  echo -ne "\e[A\e[$(( $COLUMNS - $#prompt ))G$colorprompt\e[B\e[G"
+function update_prompt() {
+  # Rerun the functions that prepare a prompt
+  local func
+  for func ($precmd_functions) $func
+
+  # Prepare to reprint the prompt
+  local prompt=${(%%)PROMPT}
+  local rprompt=${(%%)RPROMPT}
+  local rpromptsize=$rprompt
+
+  # Strip color codes from prompt to get real size
+  unsetopt RE_MATCH_PCRE
+  regexp-replace rpromptsize "\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]"
+
+  # Go back to the start of current prompt and reprint it
+  echo -ne "\e[$(( ${#${(%%f)prompt}} ))A\e[G$prompt"
+  echo -ne "\e[$(( $COLUMNS - $#rpromptsize ))G$rprompt\e[B\e[G"
 }
-preexec_functions+=update_time
+preexec_functions+=update_prompt
 
 zle -N zle-keymap-select
 
@@ -243,10 +254,7 @@ function _prompt_precmd {
   # local promptsize=${#${(%):---(%n@%m:)---(${(j: :)infos})--}}
   local promptsize
   function calc_promptsize() {
-    unsetopt RE_MATCH_PCRE
-
     _pr_fillwidth=''
-
     promptsize=${(S%%)${(e)PROMPT}//(\%([KF1]|)\{*\}|\%[Bbkf])}
     promptsize=${${(f)promptsize}[1]}
     promptsize=$(( $#promptsize - $pwdsize + 1 ))
