@@ -70,25 +70,31 @@ $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mo
 
 autoload -Uz vcs_info
 
-zstyle ':vcs_info:*' stagedstr '✤'
-zstyle ':vcs_info:*' unstagedstr '𝝙'
+zstyle ':vcs_info:*' stagedstr '%F{green}✤'
+zstyle ':vcs_info:*' unstagedstr '%F{yellow}𝝙'
+zstyle ':vcs_info:*' untrackedstr '%F{red}x'
+zstyle ':vcs_info:*' aheadstr '↑'
+zstyle ':vcs_info:*' behindstr '↓'
+zstyle ':vcs_info:*' divergedstr '⬍'
 zstyle ':vcs_info:*' check-for-changes true
 # zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%%b%F{black}%b:%F{magenta}%r'
 # zstyle ':vcs_info:git:*' branchformat '%F{cyan}%b'
 zstyle ':vcs_info:*' use-prompt-escapes true
-zstyle ':vcs_info:*' max-exports 3
+zstyle ':vcs_info:*' max-exports 2
 zstyle ':vcs_info:*' enable git
 
 # Define some hooks for the git backend to collect some more information on the repo
-zstyle ':vcs_info:git+pre-get-data:*' hooks git_untracked
-zstyle ':vcs_info:git+set-message:*' hooks git_message
+# zstyle ':vcs_info:*+*:*' debug true
+zstyle ':vcs_info:git+pre-get-data:*' hooks git-untracked
+zstyle ':vcs_info:git+set-message:*' hooks git-message
 
 # The first prompt info is for width calculation so no colors, 2nd is like first but with colors
 # and the 3rd is the short display of vcs state - it is overridden in the git_message hook
-zstyle ':vcs_info:git:*' formats '±:%b' '%%b%F{cyan}±:%b' "%%b%F{cyan}±:%F{green}%c%F{yellow}%u"
-zstyle ':vcs_info:git:*' actionformats '±:%b(%a)' '%%b%F{cyan}±:%b%F{white}(%B%a%%b)' "%%b%F{cyan}±:%F{green}%c%F{yellow}%u%F{white}(%B%a%%b)"
+zstyle ':vcs_info:git:*' symbol '%F{cyan}±'
+zstyle ':vcs_info:git:*' formats '%%b%v:%b' '%%b%v:%c%u%F{magenata}%w%y%d'
+zstyle ':vcs_info:git:*' actionformats '%%b%v:%b%F{white}(%B%a%%b)' '%%b%v:%c%u%F{magenta}%w%y%d%F{white}(%B%a%%b)'
 
-function +vi-git_untracked() {
+function +vi-git-untracked() {
   # To get if there are any staged changes
   # $(git diff-index --quite --cached HEAD)
   # To get if there are any unstaged changes (0 == no difference, 1 == difference)
@@ -96,42 +102,52 @@ function +vi-git_untracked() {
   user_data[ahead]=$(git rev-list HEAD@{upstream}..HEAD 2> /dev/null)
   user_data[behind]=$(git rev-list HEAD..HEAD@{upstream} 2> /dev/null)
   [[ -z $user_data[ahead] || -z $user_data[behind] ]]; user_data[diverged]=$?
-  [[ $(git status --porcelain) =~ "^[?]{2}" ]]; user_data[untracked]=$(( ! $? ))
+  user_data[untracked]=$(git status --porcelain | grep "^??" &> /dev/null ; echo $(( ! $? )) )
 }
 
-function +vi-git_message {
-  case $1 in
-    # 0)
-    #   hook_com[message]="±:$hook_com[branch]$hook_com[staged]$hook_com[unstaged]"
-    #   hook_com[message]="${user_data[diverged]}"
-    #   hook_com[misc]='T✘'⎏⎐⎑⎒⏅⑂◉●▲▼⑂↕⇕⇳⬍⥌⥍⥏⥑⥮⬥
-    #   ;;
-    2)
-      [[ -n $hook_com[staged] ]] && hook_com[message]+="%F{green}$hook_com[staged]"
-      [[ -n $hook_com[unstaged] ]] && hook_com[message]+="%B%F{yellow}$hook_com[unstaged]%b"
-      [[ $user_data[divered] -eq 1 || -n $user_data[ahead] || -n $user_data[behind] ]] && hook_com[message]+="%B%F{magenta}"
+function +vi-git-message {
+  local symbmol
+  local format
+  local -A map
+  map=(upstream_dir '%w' upstream_count '%y' untracked '%d' vcs_symbol '%v'
+       branch '%b' action '%a' base '%R' base-name '%r' subdir '%S' staged '%c'
+       unstaged '%u' revision '%i' misc '%m' vcs '%s')
 
-      # Setup the marker for how local repo compares to upstream
-      if [[ $user_data[diverged] -eq 1 ]]; then
-        hook_com[message]+='⬍%b' # ⬥
-      elif [[ -n $user_data[ahead] ]]; then
-        hook_com[message]+="↑%b${(w)#user_data[ahead]}" # ▲
-      elif [[ -n $user_data[behind] ]]; then
-        hook_com[message]+="↓%b${(w)#user_data[behind]}" # ▼
-      fi
+  # Get the custom symbol to represent this vcs system
+  zstyle -s ":vcs_info:$hook_com[vcs]:*" symbol 'hook_com[vcs_symbol]'
 
-      # Mark how the status of untracked files is fairing
-      [[ $user_data[untracked] -eq 1 ]] && hook_com[message]+='%F{red}x'
+  # Only load the untracked string if needed
+  if [[ $user_data[untracked] -eq 1 ]]; then
+    zstyle -s ":vcs_info:$hook_com[vcs]:*" untrackedstr 'hook_com[untracked]'
+  fi
 
-      # Add an action if it exists
-      [[ -n $hook_com[action] ]] && hook_com[message]+="%b%F{white}(%B$hook_com[action]%b)"
+  # Pick which format string is needed
+  if [[ -n $hook_com[action] ]]; then
+    zstyle -a ":vcs_info:$hook_com[vcs]:*" actionformats format
+  else
+    zstyle -a ":vcs_info:$hook_com[vcs]:*" formats format
+  fi
+  format=$format[$(( $1 + 1))]
 
-      hook_com[message]="%b%F{cyan}±${hook_com[message]:+:}$hook_com[message]"
+  # Load the correct upstream status
+  if [[ $user_data[diverged] -eq 1 ]]; then
+    zstyle -s ":vcs_info:$hook_com[vcs]:*" divergedstr 'hook_com[upstream_dir]'
+  elif [[ -n $user_data[ahead] ]]; then
+    zstyle -s ":vcs_info:$hook_com[vcs]:*" aheadstr 'hook_com[upstream_dir]'
+    hook_com[upstream_count]=${(w)#user_data[ahead]}
+  elif [[ -n $user_data[behind] ]]; then
+    zstyle -s ":vcs_info:$hook_com[vcs]:*" behindstr 'hook_com[upstream_dir]'
+    hook_com[upstream_count]=${(w)#user_data[behind]}
+  fi
 
-      # Make the new message take effect
-      ret=1
-      ;;
-  esac
+  # Build the replacement message ourself
+  hook_com[message]=$format
+  for symbol in ${(k)map}; do
+    hook_com[message]=${hook_com[message]//(#b)([^\%])$map[$symbol]/$match[1]$hook_com[$symbol]}
+  done
+  hook_com[message]=${hook_com[message]//\%\%/\%}
+
+  ret=1
 }
 
 # Initialize the vcs information on each prompt
