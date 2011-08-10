@@ -7,9 +7,9 @@ fpath=(~/.zsh/functions $fpath)
 manpath=(/usr/local/share/man /usr/share/man $manpath)
 
 # Enable hooks
-typeset -ga preexec_functions
-typeset -ga precmd_functions
-typeset -ga chpwd_functions
+typeset -gUa preexec_functions
+typeset -gUa precmd_functions
+typeset -gUa chpwd_functions
 
 autoload -U ~/.zsh/functions/*(:t)
 
