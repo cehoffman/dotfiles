@@ -83,7 +83,7 @@ autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' stagedstr '%F{green}✤'
 zstyle ':vcs_info:*' unstagedstr '%F{yellow}𝝙'
-zstyle ':vcs_info:*' untrackedstr '%F{red}x'
+zstyle ':vcs_info:*' untrackedstr '%B%F{red}⚛%%b'
 zstyle ':vcs_info:*' aheadstr '↑'
 zstyle ':vcs_info:*' behindstr '↓'
 zstyle ':vcs_info:*' divergedstr '⬍'
