@@ -111,8 +111,18 @@ function +vi-git-untracked() {
 }
 
 function +vi-git-message {
-  local symbmol
   local format
+  # Pick which format string is needed
+  if [[ -n $hook_com[action] ]]; then
+    zstyle -a ":vcs_info:$hook_com[vcs]:*" actionformats format
+  else
+    zstyle -a ":vcs_info:$hook_com[vcs]:*" formats format
+  fi
+  format=$format[$(( $1 + 1))]
+
+  [[ -z $format ]] && return
+
+  local symbmol
   local -A map
   map=(upstream_dir '%w' upstream_count '%y' untracked '%d' vcs_symbol '%v'
        branch '%b' action '%a' base '%R' base-name '%r' subdir '%S' staged '%c'
@@ -125,14 +135,6 @@ function +vi-git-message {
   if [[ $user_data[untracked] -eq 1 ]]; then
     zstyle -s ":vcs_info:$hook_com[vcs]:*" untrackedstr 'hook_com[untracked]'
   fi
-
-  # Pick which format string is needed
-  if [[ -n $hook_com[action] ]]; then
-    zstyle -a ":vcs_info:$hook_com[vcs]:*" actionformats format
-  else
-    zstyle -a ":vcs_info:$hook_com[vcs]:*" formats format
-  fi
-  format=$format[$(( $1 + 1))]
 
   # Load the correct upstream status
   if [[ $user_data[diverged] -eq 1 ]]; then
