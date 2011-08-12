@@ -42,8 +42,9 @@ if [[ -o interactive ]]; then
         ;;
       exec)
         # doing an exec so bring it off the list
-        exe=$extra[1]:t
-        shift extra
+        exe=${extra[(r)^(*=*|sudo|-*)]}
+        exei=${extra[(i)^(*=*|sudo|-*)]}
+        extra=(${extra[$exei+1,-1]})
         ;& # Fall through
       *)
         set_title $exe $extra
