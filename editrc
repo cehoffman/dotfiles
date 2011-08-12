@@ -1,0 +1,11 @@
+bind -v
+bind ^L ed-clear-screen
+bind ^P ed-search-prev-history
+bind ^N ed-search-next-history
+bind ^E vi-add-at-eol
+bind ^A vi-insert-at-bol
+bind \\t rl_complete
+bind -a ^P ed-search-prev-history
+bind -a ^N ed-search-next-history
+bind -a ^E vi-add-at-eol
+bind -a ^A vi-insert-at-bol
