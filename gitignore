@@ -9,3 +9,4 @@ doc/tags-ja
 .bundle
 slurper_config.yml
 *.zwc
+vendor/ruby
