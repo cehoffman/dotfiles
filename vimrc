@@ -604,7 +604,11 @@ endif
       let line = getline(v:foldstart)
 
       let nucolwidth = &foldcolumn + (&number + &relativenumber) * &numberwidth
-      let windowwidth = winwidth(0) - nucolwidth - 3
+      if &textwidth != 0 && winwidth(0) > &textwidth
+        let windowwidth = &textwidth
+      else
+        let windowwidth = winwidth(0) - nucolwidth - 3
+      endif
       let foldedlinecount = v:foldend - v:foldstart
 
       " expand tabs into spaces
