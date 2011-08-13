@@ -33,7 +33,7 @@ function update_rprompt() {
 
   # Strip color codes from prompt to get real size
   unsetopt RE_MATCH_PCRE
-  regexp-replace rpromptsize "\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]"
+  regexp-replace rpromptsize "\[([0-9]{1,2}(;[0-9]{1,2}(;[0-9]{1,3})?)?)?[m|K]"
 
   # Go back to the start of current prompt and reprint it
   echo -ne "\e[A\e[$(( $COLUMNS - $#rpromptsize ))G$rprompt\e[B\e[G"
@@ -44,6 +44,7 @@ function {
   local red="%b%F{red}"
   local bold_red="%B%F{red}"
   local blue="%b%F{blue}"
+  local black="%b%F{237}"
   local bold_black="%B%F{black}"
   local yellow="%b%F{yellow}"
   local bold_yellow="%B%F{yellow}"
@@ -53,16 +54,16 @@ function {
   local cyan="%b%F{cyan}"
   local bold_cyan="%B%F{cyan}"
   local green="%b%F{green}"
-  local reset="%{$reset_color%}"
+  local reset="%s%b%k%f"
 
-  local ul="%(!.$red.$bold_black)┌"
-  local ur="%(!.$red.$bold_black)┐"
-  local ll="%(!.$red.$bold_black)└"
-  local lr="%(!.$red.$bold_black)┘"
-  local open="%(!.$red─❰.$bold_black─⎨)"
-  local close="%(!.$red❱.$bold_black⎬)─"
+  local ul="%(!.$red.$black)┌"
+  local ll="%(!.$red.$black)└"
+  local ur="%(!.$red.$black)┐"
+  local lr="%(!.$red.$black)┘"
+  local open="%(!.$red─❰.$black─⦅"
+  local close="%(!.$red❱.$black⦆─"
 
-  local name="%(!.$bold_magenta.$blue)%n$bold_black"
+  local name="%(!.$bold_magenta.$blue)%n$black"
   local last_exit="${bold_red}%(?..E:%? )"
 
   PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth\${_pr_extras:+${(qqq)open}\${(j: :)_pr_extras}${(qqq)close}${(qqq)ur}}
@@ -70,7 +71,6 @@ $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mo
   RPROMPT=" $open$reset%D{%H:%M} ${bold_black}on $reset%D{%a %b %d}$close\${_pr_extras:+${(qqq)lr}}$reset"
   PS2="(!.$red.$bold_black)├$open$bold_cyan%_$close$reset "
   PROMPT_EOL_MARK="%b%F{77}§$reset"
-
 }
 
 autoload -Uz vcs_info
@@ -251,7 +251,7 @@ function _prompt_precmd {
   local promptsize
   function calc_promptsize() {
     _pr_fillwidth=''
-    promptsize=${(S%%)${(e)PROMPT}//(\%([KF1]|)\{*\}|\%[Bbkf])}
+    promptsize=${(S%%)${(e)PROMPT}//(\%([KF1]|)\{*\}|\%[BbkfsS])}
     promptsize=${${(f)promptsize}[1]}
     promptsize=$(( $#promptsize - $pwdsize + 1 ))
   }
