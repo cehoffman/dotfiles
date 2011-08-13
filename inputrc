@@ -13,8 +13,6 @@ set keymap vi-command
 "G": end-of-history
 "\C-e": vi-append-eol
 "\C-a": vi-insert-beg
-"\C-[[A": history-search-backward
-"\C-[[B": history-search-forward
 "\C-p": history-search-backward
 "\C-n": history-search-forward
 "'": vi-goto-mark
@@ -22,8 +20,6 @@ set keymap vi-command
 set keymap vi-insert
 "\C-e": end-of-line
 "\C-a": beginning-of-line
-"\C-[[A": history-search-backward
-"\C-[[B": history-search-forward
 "\C-p": history-search-backward
 "\C-n": history-search-forward
 "\C-l": clear-screen
