@@ -196,6 +196,7 @@ function _prompt_precmd {
     if [[ -n $output ]]; then
       local batcolor
       local batmax
+      local batshort
 
       [[ $output =~ "MaxCapacity.*?(\d+)" ]]
       batmax=$match[1]
@@ -217,7 +218,13 @@ function _prompt_precmd {
         batcolor="%{$fg_bold[red]%}"
       fi
 
-      if [[ $tempinfo -eq 100 ]]; then
+      if [[ $output =~ "IsCharging.*?Yes" ]]; then
+        batshort="$batcolor⚡:↑%{$reset_color%}"
+      elif [[ $output =~ "ExternalConnected.*?No" ]]; then
+        batshort="$batcolor⚡:↓%{$reset_color%}"
+      fi
+
+      if [[ -z $batshort ]]; then
         tempinfo="⚡:$tempinfo%%"
       else
         tempinfo="⚡:$tempinfo%%"
@@ -226,13 +233,8 @@ function _prompt_precmd {
         tempinfo="$tempinfo($(printf "%02i:%02i" $(($match[1] / 60)) $(($match[1] - ($match[1] / 60 ) * 60))))"
       fi
 
-      if [[ $output =~ "IsCharging.*?Yes" ]]; then
-        _pr_short_extras+="$batcolor⚡:↑%{$reset_color%}"
-      elif [[ $output =~ "ExternalConnected.*?No" ]]; then
-        _pr_short_extras+="$batcolor⚡:↓%{$reset_color%}"
-      fi
-
       _pr_extras+="$batcolor$tempinfo"
+      [[ -n $batshort ]] && _pr_short_extras+=$batshort
     fi
   fi
 
