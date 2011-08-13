@@ -190,32 +190,8 @@ let mapleader = "," " \ is the default leader character
 " }}}
 
 " Terminal/GUI Setup {{{
-  if has("gui_running")
-    set t_Co=256
-    " Remove the toolbar
-    set guioptions-=T
-    set guioptions-=r
-    set guioptions-=L
-    set guioptions+=c
-    colorscheme plasticcodewrap
-    set guitablabel=%N\ %t%q\ %m[%{tabpagewinnr(tabpagenr())}]
-
-    if has("gui_mac") || has("gui_macvim")
-      " set guifont=Akkurat-Mono:h12
-      " set guifont=DejaVuSansMono:h12
-      set guifont=MesloLGS:h11
-      set linespace=1
-    endif
-
-    if has("gui_gnome")
-      set term=gnome-256color
-      set guifont=Inconsolata\ Medium\ 12
-    endif
-
-    if has("gui_win32") || has("gui_win32s")
-      set guifont=Consolas:h12
-    endif
-  else
+  set background=dark
+  if !has("gui_running")
     " Workaround for making things like arrow keys work under screen
     if $TERM == 'screen*'
       set term=xterm
@@ -224,7 +200,6 @@ let mapleader = "," " \ is the default leader character
     end
 
     " Color scheme
-    set background=dark
     if &t_Co > 255
       colorscheme plasticcodewrap
     else
