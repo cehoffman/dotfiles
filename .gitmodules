@@ -139,9 +139,6 @@
 [submodule "zsh/vendor/opp.zsh"]
 	path = zsh/vendor/opp.zsh
 	url = https://github.com/hchbaw/opp.zsh.git
-[submodule "vim/bundle/vim-yankring"]
-	path = vim/bundle/vim-yankring
-	url = https://github.com/vim-scripts/YankRing.vim.git
 [submodule "vim/bundle/vim-scratch"]
 	path = vim/bundle/vim-scratch
 	url = https://github.com/vim-scripts/scratch.vim.git
