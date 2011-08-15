@@ -60,8 +60,8 @@ function {
   local ll="%(!.$red.$black)└"
   local ur="%(!.$red.$black)┐"
   local lr="%(!.$red.$black)┘"
-  local open="%(!.$red─❰.$black─⦅"
-  local close="%(!.$red❱.$black⦆─"
+  local open="%(!.$red─❰.$black─⦅)"
+  local close="%(!.$red❱.$black⦆)─"
 
   local name="%(!.$bold_magenta.$blue)%n$black"
   local last_exit="${bold_red}%(?..E:%? )"
@@ -76,7 +76,7 @@ $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mo
 autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' stagedstr '%F{green}✤'
-zstyle ':vcs_info:*' unstagedstr '%F{yellow}𝝙'
+zstyle ':vcs_info:*' unstagedstr '%F{yellow}∆'
 zstyle ':vcs_info:*' untrackedstr '%B%F{red}⚛%%b'
 zstyle ':vcs_info:*' aheadstr '↑'
 zstyle ':vcs_info:*' behindstr '↓'
