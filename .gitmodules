@@ -52,9 +52,6 @@
 [submodule "vim/bundle/vim-command-t"]
 	path = vim/bundle/vim-command-t
 	url = git://git.wincent.com/command-t.git
-[submodule "vim/bundle/vim-cocoa"]
-	path = vim/bundle/vim-cocoa
-	url = http://github.com/msanders/cocoa.vim.git
 [submodule "vim/bundle/vim-javascript"]
 	path = vim/bundle/vim-javascript
 	url = http://github.com/pangloss/vim-javascript.git
@@ -70,9 +67,6 @@
 [submodule "vim/bundle/vim-gitolite"]
 	path = vim/bundle/vim-gitolite
 	url = http://github.com/tmatilai/gitolite.vim.git
-[submodule "vim/bundle/vim-fakeclip"]
-	path = vim/bundle/vim-fakeclip
-	url = http://github.com/kana/vim-fakeclip.git
 [submodule "vim/bundle/vim-lusty"]
 	path = vim/bundle/vim-lusty
 	url = http://github.com/sjbach/lusty.git
@@ -82,9 +76,6 @@
 [submodule "vim/bundle/vim-html5"]
 	path = vim/bundle/vim-html5
 	url = http://github.com/othree/html5.vim.git
-[submodule "vim/bundle/vim-objj"]
-	path = vim/bundle/vim-objj
-	url = http://github.com/nanki/vim-objj.git
 [submodule "vim/bundle/vim-erlang"]
 	path = vim/bundle/vim-erlang
 	url = https://github.com/oscarh/vimerl.git
@@ -148,3 +139,6 @@
 [submodule "vim/bundle/vim-threesome"]
 	path = vim/bundle/vim-threesome
 	url = https://github.com/sjl/threesome.vim.git
+[submodule "vim/bundle/vim-objc"]
+	path = vim/bundle/vim-objc
+	url = https://github.com/b4winckler/vim-objc.git
