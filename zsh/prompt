@@ -78,9 +78,9 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' stagedstr '%F{green}✤'
 zstyle ':vcs_info:*' unstagedstr '%F{yellow}∆'
 zstyle ':vcs_info:*' untrackedstr '%B%F{red}⚛%%b'
-zstyle ':vcs_info:*' aheadstr '↑'
-zstyle ':vcs_info:*' behindstr '↓'
-zstyle ':vcs_info:*' divergedstr '⬍'
+zstyle ':vcs_info:*' aheadstr '%B%F{green}↑%x'
+zstyle ':vcs_info:*' behindstr '%B%F{red}↓%z'
+zstyle ':vcs_info:*' divergedstr '%B%F{magenta}↓%x↑%z'
 zstyle ':vcs_info:*' check-for-changes true
 # zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%%b%F{black}%b:%F{magenta}%r'
 # zstyle ':vcs_info:git:*' branchformat '%F{cyan}%b'
@@ -96,8 +96,8 @@ zstyle ':vcs_info:git+set-message:*' hooks git-message
 # The first prompt info is for width calculation so no colors, 2nd is like first but with colors
 # and the 3rd is the short display of vcs state - it is overridden in the git_message hook
 zstyle ':vcs_info:git:*' symbol '%F{cyan}±'
-zstyle ':vcs_info:git:*' formats '%%b%v:%b' '%%b%v:%c%u%F{magenata}%w%y%d'
-zstyle ':vcs_info:git:*' actionformats '%%b%v:%b%F{white}(%B%a%%b)' '%%b%v:%c%u%F{magenta}%w%y%d%F{white}(%B%a%%b)'
+zstyle ':vcs_info:git:*' formats '%%b%v:%b' '%%b%v:%c%u%o%w%y%d'
+zstyle ':vcs_info:git:*' actionformats '%%b%v:%b%F{white}(%B%a%%b)' '%%b%v:%c%u%o%w%y%d%F{white}(%B%a%%b)'
 
 function +vi-git-untracked() {
   # To get if there are any staged changes
@@ -122,11 +122,13 @@ function +vi-git-message {
 
   [[ -z $format ]] && return
 
-  local symbmol
+  local -a escapes
   local -A map
-  map=(upstream_dir '%w' upstream_count '%y' untracked '%d' vcs_symbol '%v'
-       branch '%b' action '%a' base '%R' base-name '%r' subdir '%S' staged '%c'
-       unstaged '%u' revision '%i' misc '%m' vcs '%s')
+  map=('o' diverged 'w' ahead 'x' ahead_count 'y' behind 'z' behind_count
+       'd' untracked 'v' vcs_symbol 'b' branch 'a' action 'R' base 'r'
+       base-name 'S' subdir 'c' staged 'u' unstaged 'i' revision 'm' misc
+       's' vcs)
+  escapes=${(j::)${(k)map[*]}}
 
   # Get the custom symbol to represent this vcs system
   zstyle -s ":vcs_info:$hook_com[vcs]:*" symbol 'hook_com[vcs_symbol]'
@@ -136,21 +138,38 @@ function +vi-git-message {
     zstyle -s ":vcs_info:$hook_com[vcs]:*" untrackedstr 'hook_com[untracked]'
   fi
 
-  # Load the correct upstream status
+  # Load upstream statuses
+  if [[ -n $user_data[ahead] ]]; then
+    zstyle -s ":vcs_info:$hook_com[vcs]:*" aheadstr 'hook_com[ahead]'
+    hook_com[ahead_count]=${(w)#user_data[ahead]}
+  fi
+  if [[ -n $user_data[behind] ]]; then
+    zstyle -s ":vcs_info:$hook_com[vcs]:*" behindstr 'hook_com[behind]'
+    hook_com[behind_count]=${(w)#user_data[behind]}
+  fi
+
+  # When diverged remove the behind and ahead strings because diverged
+  # will take precedence
   if [[ $user_data[diverged] -eq 1 ]]; then
-    zstyle -s ":vcs_info:$hook_com[vcs]:*" divergedstr 'hook_com[upstream_dir]'
-  elif [[ -n $user_data[ahead] ]]; then
-    zstyle -s ":vcs_info:$hook_com[vcs]:*" aheadstr 'hook_com[upstream_dir]'
-    hook_com[upstream_count]=${(w)#user_data[ahead]}
-  elif [[ -n $user_data[behind] ]]; then
-    zstyle -s ":vcs_info:$hook_com[vcs]:*" behindstr 'hook_com[upstream_dir]'
-    hook_com[upstream_count]=${(w)#user_data[behind]}
+    zstyle -s ":vcs_info:$hook_com[vcs]:*" divergedstr 'hook_com[diverged]'
+    unset "hook_com[ahead]"
+    unset "hook_com[behind]"
   fi
 
   # Build the replacement message ourself
   hook_com[message]=$format
-  for symbol in ${(k)map}; do
-    hook_com[message]=${hook_com[message]//(#b)([^\%])$map[$symbol]/$match[1]$hook_com[$symbol]}
+  local temp
+  while true; do
+    # Store a temp copy of message to allow early breakout of loop
+    temp=$hook_com[message]
+
+    # Replace all escapes with actuall values
+    hook_com[message]=${hook_com[message]//(#b)([^\%])\%([$escapes])/$match[1]$hook_com[$map[$match[2]]]}
+    # For if the pcre extension ever supports uft-8 chars...
+    # regexp-replace "hook_com[message]" "(?<!%)%([${(j::)${(k)map[*]}}])" '$hook_com[$map[$match[1]]]'
+
+    # Exit early if not changes occuring
+    [[ $hook_com[message] = $temp ]] && break
   done
   hook_com[message]=${hook_com[message]//\%\%/\%}
 
