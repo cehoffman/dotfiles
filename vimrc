@@ -577,25 +577,25 @@ if has("autocmd")
   augroup RailsShortcuts " {{{
     au!
     autocmd User Rails
-        \ map <buffer> <Leader>grm :Rmodel |
-        \ map <buffer> <Leader>grc :Rcontroller |
-        \ map <buffer> <Leader>grv :Rview |
-        \ map <buffer> <Leader>gvl :Rlayout |
-        \ map <buffer> <Leader>gll :Rlib |
-        \ map <buffer> <Leader>gut :Runittest |
-        \ map <buffer> <Leader>grd :Rmigration |
-        \ map <buffer> <Leader>gft :Rfunctionaltest |
-        \ map <buffer> <Leader>git :Rintegrationtest |
-        \ map <buffer> <Leader>grs :Rspec |
-        \ map <buffer> <Leader>gre :Renvironment |
-        \ map <buffer> <Leader>grt :Rtask |
-        \ map <buffer> <Leader>grj :Rjavascript |
-        \ map <buffer> <Leader>gri :Rinitializer |
-        \ map <buffer> <Leader>grl :Rlocale |
-        \ map <buffer> <Leader>grh :Rhelper |
-        \ map <buffer> <Leader>gam :Rmailer |
-        \ :Rnavcommand job app/jobs -glob=**/* |
-        \ map <buffer> <Leader>gbj :Rjob |
+          \ map <buffer> <Leader>grm :Rmodel |
+          \ map <buffer> <Leader>grc :Rcontroller |
+          \ map <buffer> <Leader>grv :Rview |
+          \ map <buffer> <Leader>gvl :Rlayout |
+          \ map <buffer> <Leader>gll :Rlib |
+          \ map <buffer> <Leader>gut :Runittest |
+          \ map <buffer> <Leader>grd :Rmigration |
+          \ map <buffer> <Leader>gft :Rfunctionaltest |
+          \ map <buffer> <Leader>git :Rintegrationtest |
+          \ map <buffer> <Leader>grs :Rspec |
+          \ map <buffer> <Leader>gre :Renvironment |
+          \ map <buffer> <Leader>grt :Rtask |
+          \ map <buffer> <Leader>grj :Rjavascript |
+          \ map <buffer> <Leader>gri :Rinitializer |
+          \ map <buffer> <Leader>grl :Rlocale |
+          \ map <buffer> <Leader>grh :Rhelper |
+          \ map <buffer> <Leader>gam :Rmailer |
+          \ :Rnavcommand job app/jobs -glob=**/* |
+          \ map <buffer> <Leader>gbj :Rjob |
 
     " automatically make the current working directory be the repo root
     autocmd BufEnter,BufWinEnter * if exists("b:git_dir") | Gcd | endif
