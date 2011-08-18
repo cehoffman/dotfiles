@@ -142,3 +142,6 @@
 [submodule "vim/bundle/vim-objc"]
 	path = vim/bundle/vim-objc
 	url = https://github.com/b4winckler/vim-objc.git
+[submodule "vim/bundle/vim-splitjoin"]
+	path = vim/bundle/vim-splitjoin
+	url = https://github.com/AndrewRadev/splitjoin.vim.git

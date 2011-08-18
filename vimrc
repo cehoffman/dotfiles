@@ -782,9 +782,11 @@ endif
 " Markdown settings {{{
   nnoremap <Leader>M :call system('open -g -F -a Marked "'.expand('%:p').'"')<CR>
 " }}}
-" Yank Ring settings {{{
-  let g:yankring_manage_numbered_reg = 1
-  let g:yankring_default_menu_mode = 0
+" Split Join settings {{{
+  nnoremap <Leader>s :SplitjoinSplit<CR>
+  nnoremap <Leader>j :SplitjoinJoin<CR>
+  let g:splitjoin_align = 1
+  let g:splitjoin_normalize_whitespace = 1
 " }}}
 " Scratch buffer mapping {{{
   function! s:ScratchToggle() " {{{
