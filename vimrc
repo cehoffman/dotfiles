@@ -899,7 +899,7 @@ endif
       %s/\s*$//
       ''
     endfunction
-    nnoremap <Leader>x :call <SID>TrimTrailingWhitespace()<CR>
+    nnoremap <Leader>xx :call <SID>TrimTrailingWhitespace()<CR>
     nnoremap <Leader>xw :call <SID>TrimTrailingWhitespace()<CR>:w<CR>
   " }}}
   " Paste using pbcopy {{{
