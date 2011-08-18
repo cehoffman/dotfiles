@@ -740,14 +740,10 @@ endif
   let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 " }}}
 " LusyExplorer/Jugler Settings {{{
-  " Make using lusty juggler and explorer a bit nicer
-  " Using built in mappings now because of easymotion
-  " nnoremap <Leader>j :LustyJuggler<CR>
-  " nnoremap <Leader>j :LustyBufferExplorer<CR>
-  " nnoremap <Leader>f :LustyFilesystemExplorerFromHere<CR>
-  " Disable the juggler because it has a terrible bug that causes insert bindings to barf
-  " after activitating the juggler and choosing a buffer index that is out of bounds
   let g:loaded_lustyjuggler = 1
+  " Dont complain about ruby, it is annoying
+  let g:LustyExplorerSuppressRubyWarning = 1
+" }}}
 " ZoomWin mapings {{{
   " Remove default zoomwin mapping
   if mapcheck('<C-W>o') =~ '<Plug>ZoomWin'
