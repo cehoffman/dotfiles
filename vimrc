@@ -29,7 +29,6 @@ set nocompatible
   set expandtab            " expand tabs into spaces
   set shiftround           " when at an odd number of spaces and using >>/<< go to correct multiple
   set smarttab             " Insert the shiftwidth number of space at start of non empty line when using <Tab>
-  set number               " show line numbers
   set numberwidth=2        " and always show room for 2 numbers since it is only relative numbers
   set ignorecase           " don't use case when searching
   set smartcase            " unless I type an uppercase letter, then care
