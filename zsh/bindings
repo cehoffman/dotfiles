@@ -60,4 +60,56 @@ bindkey -s '^f' ' fg %-'
 # It will remove all bindings that start with  except the one that is 
 bindkey -rpM viins '^['
 
+# run command line as user root via sudo:
+function sudo-command-line() {
+  [[ -z $BUFFER ]] && zle up-history
+  if [[ $BUFFER != sudo\ * ]]; then
+      BUFFER="sudo $BUFFER"
+      CURSOR=$(( CURSOR+5 ))
+  fi
+}
+zle -N sudo-command-line
+
+bindkey "^Xs" sudo-command-line
+
+# Make it easy to remove directory components when deleting words
+function slash-backward-kill-word() {
+  local WORDCHARS="${WORDCHARS:s@/@}"
+  zle .vi-backward-kill-word
+}
+zle -N slash-backward-kill-word
+
+bindkey '^W' slash-backward-kill-word
+
+# Create path at cursor or in visual selection
+function inplace-mkdirs() {
+  local PATHTOMKDIR
+  if ((REGION_ACTIVE==1)); then
+    local F=$MARK T=$CURSOR
+    if [[ $F -gt $T ]]; then
+      F=${CURSOR}
+      T=${MARK}
+    fi
+    # get marked area from buffer and eliminate whitespace
+    PATHTOMKDIR=${BUFFER[F+1,T]%%[[:space:]]##}
+    PATHTOMKDIR=${PATHTOMKDIR##[[:space:]]##}
+  else
+    local bufwords iword
+    bufwords=(${(z)LBUFFER})
+    iword=${#bufwords}
+    bufwords=(${(z)BUFFER})
+    PATHTOMKDIR="$bufwords[iword]"
+  fi
+  [[ -z "${PATHTOMKDIR}" ]] && return 1
+  if [[ -e "${PATHTOMKDIR}" ]]; then
+    zle -M " path already exists, doing nothing"
+  else
+    zle -M "$(mkdir -p -v "${PATHTOMKDIR}")"
+    zle end-of-line
+  fi
+}
+
+zle -N inplace-mkdirs
+bindkey '^XM' inplace-mkdirs
+
 # vim: ft=zsh
