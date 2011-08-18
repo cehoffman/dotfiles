@@ -506,10 +506,15 @@ if has("autocmd")
   augroup CustomStatusLines " {{{
     au!
     " Custom Status Lines {{{
-      " Lusty buffer list {{{
+      " Lusty list {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "[LustyExplorer-Buffers]"
-          \ | let b:stl = "#[FileName] LustyExplorer#[FileNameS] [>>]#[FunctionName] Buffer List%<%* %=#[LinePercentS][<<]#[LinePercent] %p%%: "
-          \ | endif
+              \ | setlocal norelativenumber
+              \ | let b:stl = "#[FileName] LustyExplorer#[FileNameS] [>>]#[FunctionName] Buffer List%<%* %=#[LinePercentS][<<]#[LinePercent] %p%%: "
+              \ | endif
+        au BufEnter * if !exists('b:stl') && bufname("%") == "[LustyExplorer-Files]"
+              \ | setlocal norelativenumber
+              \ | let b:stl = "#[FileName] LustyFiles#[FileNameS] [>>]#[FunctionName] File List%<%* %=#[LinePercentS][<<]#[LinePercent] %p%%: "
+              \ | endif
       " }}}
       " Command-T find {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "GoToFile"
