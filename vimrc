@@ -748,6 +748,12 @@ endif
   " Disable the juggler because it has a terrible bug that causes insert bindings to barf
   " after activitating the juggler and choosing a buffer index that is out of bounds
   let g:loaded_lustyjuggler = 1
+" ZoomWin mapings {{{
+  " Remove default zoomwin mapping
+  if mapcheck('<C-W>o') =~ '<Plug>ZoomWin'
+    unmap <C-W>o
+    noremap <Leader>wo :ZoomWin<CR>
+  endif
 " }}}
 " NerdTree settings {{{
   let NERDChristmasTree = 1
@@ -824,7 +830,7 @@ endif
       end
 
       if a:dir == 'down' || a:dir == 'right'
-        exec "normal! \<c-w>\<c-w>"
+        exec "normal! \<C-W>\<C-W>"
       end
 
       if type == 'buffer'
@@ -858,20 +864,20 @@ endif
     " }}}
   " Key Mappings {{{
     " Copy/Pasting buffers to windows around
-    noremap <c-w>d :call <SID>HDeleteWindow()<cr>
-    noremap <c-w>y :call <SID>HYankWindow()<cr>
-    noremap <c-w>pk :call <SID>HPasteWindow('up')<cr>
-    noremap <c-w>pj :call <SID>HPasteWindow('down')<cr>
-    noremap <c-w>ph :call <SID>HPasteWindow('left')<cr>
-    noremap <c-w>pl :call <SID>HPasteWindow('right')<cr>
-    noremap <c-w>pp :call <SID>HPasteWindow('here')<cr>
-    noremap <c-w>P :call <SID>HPasteWindow('here')<cr>
+    noremap <Leader>wd :call <SID>HDeleteWindow()<cr>
+    noremap <Leader>wy :call <SID>HYankWindow()<cr>
+    noremap <Leader>wpk :call <SID>HPasteWindow('up')<cr>
+    noremap <Leader>wpj :call <SID>HPasteWindow('down')<cr>
+    noremap <Leader>wph :call <SID>HPasteWindow('left')<cr>
+    noremap <Leader>wpl :call <SID>HPasteWindow('right')<cr>
+    noremap <Leader>wpp :call <SID>HPasteWindow('here')<cr>
+    noremap <Leader>wP :call <SID>HPasteWindow('here')<cr>
 
     " Make moving between windows easy
-    noremap <C-j> <C-w>j
-    noremap <C-h> <C-w>h
-    noremap <C-k> <C-w>k
-    noremap <C-l> <C-w>l
+    noremap <C-J> <C-W>j
+    noremap <C-H> <C-W>h
+    noremap <C-K> <C-W>k
+    noremap <C-L> <C-W>l
 
     " Opens a vertical window and moves to it
     nnoremap <Leader>nv :vsplit<CR><C-w><C-w>
