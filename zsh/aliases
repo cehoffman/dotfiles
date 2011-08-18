@@ -3,11 +3,24 @@ alias less='less -R'
 alias s_smtp="python -m smtpd -n -c DebuggingServer localhost:1025"
 
 function lst() { ls -R "${1-.}" | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/' }
+
 function mcd() { mkdir -p "$1" && cd "$1" }
-function md5() { echo -n $1 | openssl md5 /dev/stdin }
-function sha1() { echo -n $1 | openssl sha1 /dev/stdin }
-function sha256() { echo -n $1 | openssl dgst -sha256 /dev/stdin }
-function sha512() { echo -n $1 | openssl dgst -sha512 /dev/stdin }
+
+function {
+  emulate -L zsh
+  local hash
+  for hash in md5 sha1 sha256 sha512; do
+    eval 'function '${hash}'() {
+      emulate -L zsh
+      if [[ -z $1 ]]; then
+        echo '\''usage: '${hash}' <file>\n'\''
+        return 1
+      fi
+      openssl dgst -'${hash}' "$1"
+    }'
+  done
+}
+
 function 256c() { echo -n "\e[38;5;${1}m${${(z)*}[2,-1]}" }
 
 # Create a tmux session if there isn't one to attach to
