@@ -570,7 +570,7 @@ if has("autocmd")
         \ map <buffer> <Leader>gvl :Rlayout |
         \ map <buffer> <Leader>gll :Rlib |
         \ map <buffer> <Leader>gut :Runittest |
-        \ map <buffer> <Leader>gdb :Rmigration |
+        \ map <buffer> <Leader>grd :Rmigration |
         \ map <buffer> <Leader>gft :Rfunctionaltest |
         \ map <buffer> <Leader>git :Rintegrationtest |
         \ map <buffer> <Leader>grs :Rspec |
