@@ -712,7 +712,7 @@ endif
   let g:SuperTabLongestEnhanced = 1
   let g:SuperTabLongestHighlight = 1
   let g:SuperTabDefaultCompletionType = 'context'
-  let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
+  let g:SuperTabContextDefaultCompletionType = '<C-X><C-O>'
 " }}}
 " Tagbar - the better taglist {{{
   let g:tagbar_width = 40
@@ -879,16 +879,16 @@ endif
     noremap <C-L> <C-W>l
 
     " Opens a vertical window and moves to it
-    nnoremap <Leader>nv :vsplit<CR><C-w><C-w>
+    nnoremap <Leader>nv :vsplit<CR><C-W><C-W>
 
     " Opens a horizontal split window and moves to it
-    nnoremap <Leader>ns :split<CR><C-w><C-w>
+    nnoremap <Leader>ns :split<CR><C-W><C-W>
 
     " Open a new blank tab
     nnoremap <Leader>nt :tabnew<CR>
 
     " Open current window in new tab
-    nnoremap <Leader>nT <C-w>T
+    nnoremap <Leader>nT <C-W>T
   " }}}
 " }}}
 
