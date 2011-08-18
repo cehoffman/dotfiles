@@ -556,13 +556,23 @@ if has("autocmd")
   augroup GitShortcuts " {{{
     au!
     autocmd FileType gitrebase
-        \ nnoremap <buffer> p :Pick<CR> |
-        \ nnoremap <buffer> s :Squash<CR> |
-        \ nnoremap <buffer> e :Edit<CR> |
-        \ nnoremap <buffer> r :Reword<CR> |
-        \ nnoremap <buffer> f :Fixup<CR> |
-        \ nnoremap <buffer> <C-j> :m +1<CR> |
-        \ nnoremap <buffer> <C-k> :m -2<CR>
+          \ nnoremap <buffer> p :Pick<CR> |
+          \ nnoremap <buffer> s :Squash<CR> |
+          \ nnoremap <buffer> e :Edit<CR> |
+          \ nnoremap <buffer> r :Reword<CR> |
+          \ nnoremap <buffer> f :Fixup<CR> |
+          \ nnoremap <buffer> <C-j> :m +1<CR> |
+          \ nnoremap <buffer> <C-k> :m -2<CR>
+    autocmd User Fugitive
+          \ nnoremap <buffer> <Leader>gs :Gstatus<CR> |
+          \ nnoremap <buffer> <Leader>gc :Gcommit<CR> |
+          \ nnoremap <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR> |
+          \ nnoremap <buffer> <Leader>gl :Glog<CR> |
+          \ nnoremap <buffer> <expr> <Leader>gd !&diff ? ':Gdiff<CR>' : ':bd<CR>' |
+          \ nnoremap <Leader>gv :Gitv --all<CR> |
+          \ nnoremap <Leader>gV :Gitv! --all<CR>
+    " Make running git easier
+    cabbrev git Git
   augroup END " }}}
   augroup RailsShortcuts " {{{
     au!
@@ -640,26 +650,8 @@ endif
   let g:microdata_attributes_complete = 0
   let g:atia_attributes_complete = 0
 " }}}
-" Git Fugitive settings {{{
-  if has('autocmd')
-    augroup GitMappings
-      au!
-      autocmd User Fugitive
-            \ nnoremap <buffer> <Leader>gs :Gstatus<CR> |
-            \ nnoremap <buffer> <Leader>gc :Gcommit<CR> |
-            \ nnoremap <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR> |
-            \ nnoremap <buffer> <Leader>gl :Glog<CR> |
-            \ nnoremap <buffer> <expr> <Leader>gd !&diff ? ':Gdiff<CR>' : ':bd<CR>'
-    augroup END
-  endif
-
-  " Make running git easier
-  cabbrev git Git
-" }}}
 " Gitv settings {{{
   let g:Gitv_WipeAllOnClose = 1
-  nnoremap <Leader>gv :Gitv --all<CR>
-  nnoremap <Leader>gV :Gitv! --all<CR>
 " }}}
 " Syntastic settings {{{
   let g:syntastic_enable_signs = 1
