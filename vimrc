@@ -641,34 +641,20 @@ endif
   let g:atia_attributes_complete = 0
 " }}}
 " Git Fugitive settings {{{
-  nnoremap <Leader>gs :Gstatus<CR>
-  nnoremap <Leader>gc :Gcommit<CR>
-  nnoremap <Leader>gw :Gwrite<CR>:redraw!<CR>
-  nnoremap <Leader>gl :Glog<CR>
-  nnoremap <Leader>gd :Gdiff<CR>
-  nnoremap <Leader>gD :call <SID>GdiffClose()<cr>
+  if has('autocmd')
+    augroup GitMappings
+      au!
+      autocmd User Fugitive
+            \ nnoremap <buffer> <Leader>gs :Gstatus<CR> |
+            \ nnoremap <buffer> <Leader>gc :Gcommit<CR> |
+            \ nnoremap <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR> |
+            \ nnoremap <buffer> <Leader>gl :Glog<CR> |
+            \ nnoremap <buffer> <expr> <Leader>gd !&diff ? ':Gdiff<CR>' : ':bd<CR>'
+    augroup END
+  endif
 
   " Make running git easier
   cabbrev git Git
-
-  function! s:GdiffClose() "{{{
-    if (&diff == 0 || getbufvar('#', '&diff') == 0) && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
-      echom "Not in diff view."
-      return
-    endif
-
-    " close current buffer if alternate is not fugitive but current one is
-    if bufname('#') !~ '^fugitive:' && bufname('%') =~ '^fugitive:'
-      if bufwinnr("#") == -1
-        b #
-        bd #
-      else
-        bd
-      endif
-    else
-      bd #
-    endif
-  endfunction " }}}
 " }}}
 " Gitv settings {{{
   let g:Gitv_WipeAllOnClose = 1
