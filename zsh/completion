@@ -90,4 +90,10 @@ zstyle ':chpwd:*' recent-dirs-default true
 zstyle ':completion:*' recent-dirs-insert both
 zstyle ':chpwd:*' recent-dirs-prune parent
 
+function {
+  emulate -L zsh
+  local hash
+  for hash in md5 sha1 sha256 sha512; compdef _files $hash
+}
+
 # vim: filetype=zsh
