@@ -433,8 +433,8 @@ if has("autocmd")
           \   'NONE'         : [[ 236, 231, 'bold', '#303030', '#ffffff'], [ 232, 244, 'none', '#080808', '#808080']]
         \ }
         \ , 'Normal': {
-          \   'Mode'         : [[ 214, 235, 'bold', '#ffaf00', '#262626'], [                 ]]
-          \ , 'ModeS'        : [[ 214, 240, 'bold', '#ffaf00', '#585858'], [                 ]]
+          \   'Mode'         : [[ 214, 235, 'bold', '#ffaf00', '#262626'], []]
+          \ , 'ModeS'        : [[ 214, 240, 'bold', '#ffaf00', '#585858'], []]
           \ , 'Branch'       : [[ 240, 250, 'none', '#585858', '#bcbcbc'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e']]
           \ , 'BranchS'      : [[ 240, 246, 'bold', '#585858', '#949494'], [ 234, 239, 'bold', '#1c1c1c', '#4e4e4e']]
           \ , 'FileName'     : [[ 240, 231, 'none', '#585858', '#ffffff'], [ 234, 244, 'none', '#1c1c1c', '#808080']]
@@ -454,25 +454,25 @@ if has("autocmd")
           \ , 'LineColumn'   : [[ 252, 240, 'none', '#d0d0d0', '#585858'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e']]
         \ }
         \ , 'Insert': {
-          \   'Mode'         : [[ 153,  23, 'bold', '#afd7ff', '#005f5f'], [                 ]]
-          \ , 'ModeS'        : [[ 153,  31, 'bold', '#afd7ff', '#0087af'], [                 ]]
-          \ , 'Branch'       : [[  31, 117, 'none', '#0087af', '#87d7ff'], [                 ]]
-          \ , 'BranchS'      : [[  31, 117, 'bold', '#0087af', '#87d7ff'], [                 ]]
-          \ , 'FileName'     : [[  31, 231, 'bold', '#0087af', '#ffffff'], [                 ]]
-          \ , 'FileNameS'    : [[  31,  24, 'bold', '#0087af', '#005f87'], [                 ]]
-          \ , 'Error'        : [[  31, 202, 'bold', '#0087af', '#ff5f00'], [                 ]]
-          \ , 'ModFlag'      : [[  31, 196, 'bold', '#0087af', '#ff0000'], [                 ]]
-          \ , 'BufFlag'      : [[  31,  75, 'none', '#0087af', '#5fafff'], [                 ]]
-          \ , 'FunctionName' : [[  24, 117, 'none', '#005f87', '#87d7ff'], [                 ]]
-          \ , 'FileFormat'   : [[  24,  75, 'none', '#005f87', '#5fafff'], [                 ]]
-          \ , 'FileEncoding' : [[  24,  75, 'none', '#005f87', '#5fafff'], [                 ]]
-          \ , 'Separator'    : [[  24,  37, 'bold', '#005f87', '#00afaf'], [                 ]]
-          \ , 'FileType'     : [[  24,  81, 'none', '#005f87', '#5fd7ff'], [                 ]]
-          \ , 'LinePercentS' : [[  31,  24, 'bold', '#0087af', '#005f87'], [                 ]]
-          \ , 'LinePercent'  : [[  31, 117, 'none', '#0087af', '#87d7ff'], [                 ]]
-          \ , 'LineNumberS'  : [[ 117,  31, 'bold', '#87d7ff', '#0087af'], [                 ]]
-          \ , 'LineNumber'   : [[ 117,  23, 'bold', '#87d7ff', '#005f5f'], [                 ]]
-          \ , 'LineColumn'   : [[ 117,  31, 'none', '#87d7ff', '#0087af'], [                 ]]
+          \   'Mode'         : [[ 153,  23, 'bold', '#afd7ff', '#005f5f'], []]
+          \ , 'ModeS'        : [[ 153,  31, 'bold', '#afd7ff', '#0087af'], []]
+          \ , 'Branch'       : [[  31, 117, 'none', '#0087af', '#87d7ff'], []]
+          \ , 'BranchS'      : [[  31, 117, 'bold', '#0087af', '#87d7ff'], []]
+          \ , 'FileName'     : [[  31, 231, 'bold', '#0087af', '#ffffff'], []]
+          \ , 'FileNameS'    : [[  31,  24, 'bold', '#0087af', '#005f87'], []]
+          \ , 'Error'        : [[  31, 202, 'bold', '#0087af', '#ff5f00'], []]
+          \ , 'ModFlag'      : [[  31, 196, 'bold', '#0087af', '#ff0000'], []]
+          \ , 'BufFlag'      : [[  31,  75, 'none', '#0087af', '#5fafff'], []]
+          \ , 'FunctionName' : [[  24, 117, 'none', '#005f87', '#87d7ff'], []]
+          \ , 'FileFormat'   : [[  24,  75, 'none', '#005f87', '#5fafff'], []]
+          \ , 'FileEncoding' : [[  24,  75, 'none', '#005f87', '#5fafff'], []]
+          \ , 'Separator'    : [[  24,  37, 'bold', '#005f87', '#00afaf'], []]
+          \ , 'FileType'     : [[  24,  81, 'none', '#005f87', '#5fd7ff'], []]
+          \ , 'LinePercentS' : [[  31,  24, 'bold', '#0087af', '#005f87'], []]
+          \ , 'LinePercent'  : [[  31, 117, 'none', '#0087af', '#87d7ff'], []]
+          \ , 'LineNumberS'  : [[ 117,  31, 'bold', '#87d7ff', '#0087af'], []]
+          \ , 'LineNumber'   : [[ 117,  23, 'bold', '#87d7ff', '#005f5f'], []]
+          \ , 'LineColumn'   : [[ 117,  31, 'none', '#87d7ff', '#0087af'], []]
         \ }
       \ }
     " }}}
@@ -516,33 +516,33 @@ if has("autocmd")
       " }}}
       " Command-T find {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "GoToFile"
-          \ | let b:stl = "#[FileName] Find File#[FileNameS] [>>]%<%* %="
-          \ | endif
+              \ | let b:stl = "#[FileName] Find File#[FileNameS] [>>]%<%* %="
+              \ | endif
       " }}}
       " Tagbar {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "__Tagbar__"
-          \ | set statusline=
-          \ | let b:stl = "#[FileName] Tagbar#[FileNameS] [>>]#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
-          \ | endif
+              \ | set statusline=
+              \ | let b:stl = "#[FileName] Tagbar#[FileNameS] [>>]#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
+              \ | endif
       " }}}
       " Gundo {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "__Gundo__"
-          \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Undo tree%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
-          \ | endif
+              \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Undo tree%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
+              \ | endif
 
         au BufEnter * if !exists('b:stl') && bufname("%") == "__Gundo_Preview__"
-          \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Diff preview%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
-          \ | endif
+              \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Diff preview%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
+              \ | endif
       " }}}
       " Scratch {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "__Scratch__"
-          \ |  let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber]đ %l#[LineColumn]:%c%V"
-          \ |  endif
+              \ |  let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber]đ %l#[LineColumn]:%c%V"
+              \ |  endif
       " }}}
       " Syntastic location list {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "[Location List]"
-          \ | let b:stl = "#[FileName]%< Location List #[FileNameS][>>]%* %="
-          \ | endif
+              \ | let b:stl = "#[FileName]%< Location List #[FileNameS][>>]%* %="
+              \ | endif
       " }}}
     " }}}
     " Main Statusline Highlighting {{{
