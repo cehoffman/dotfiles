@@ -55,8 +55,7 @@ set nocompatible
   set lazyredraw           " don't redraw the screen during macros
 
   if has('gui_running') || $TMUX == '' || $REATTACHED
-    " This does not work with YankRing
-    " set clipboard=unnamedplus,autoselectml " make copying put on the system clipboard and pasting get from it
+    set clipboard=unnamed,unnamedplus " make copying put on the system clipboard and pasting get from it
   endif
 
   if has("persistent_undo")
