@@ -131,16 +131,16 @@ let mapleader = "," " \ is the default leader character
 
   " Mode Toggles {{{
     " Toggle spell checking
-    nnoremap <Leader>s :set spell!<CR>
-    vnoremap <Leader>s :set spell!<CR>
+    nnoremap <Leader>ts :set spell!<CR>
+    vnoremap <Leader>ts :set spell!<CR>
 
     " Toggle showing whitespace
-    nnoremap <Leader>z :set list!<CR>
-    vnoremap <Leader>z :set list!<CR>
+    nnoremap <Leader>tz :set list!<CR>
+    vnoremap <Leader>tz :set list!<CR>
 
     " Toggle search highlighting
-    nnoremap <Leader>h :set hlsearch!<CR>
-    vnoremap <Leader>h :set hlsearch!<CR>
+    nnoremap <Leader>th :set hlsearch!<CR>
+    vnoremap <Leader>th :set hlsearch!<CR>
 
     " Shortcut to redraw screen
     nnoremap <Leader><C-l> :redraw!<CR>
