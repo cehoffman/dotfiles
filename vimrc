@@ -506,7 +506,7 @@ if has("autocmd")
     " Custom Status Lines {{{
       " Lusty list {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "[LustyExplorer-Buffers]"
-              \ | setlocal norelativenumber
+              \ | setlocal nonumber norelativenumber
               \ | let b:stl = "#[FileName] LustyExplorer#[FileNameS] [>>]#[FunctionName] Buffer List%<%* %=#[LinePercentS][<<]#[LinePercent] %p%%: "
               \ | endif
         au BufEnter * if !exists('b:stl') && bufname("%") == "[LustyExplorer-Files]"
@@ -516,6 +516,7 @@ if has("autocmd")
       " }}}
       " Command-T find {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "GoToFile"
+              \ | setlocal nonumber norelativenumber
               \ | let b:stl = "#[FileName] Find File#[FileNameS] [>>]%<%* %="
               \ | endif
       " }}}
