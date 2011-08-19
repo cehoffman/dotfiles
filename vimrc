@@ -402,7 +402,7 @@ if has("autocmd")
             return
           endif
 
-          " No custom statusline is set, use net_stl
+          " No custom statusline is set, use new_stl
           let &l:statusline = new_stl
         endif
       endfunction
