@@ -568,9 +568,20 @@ if has("autocmd")
           \ nnoremap <buffer> <Leader>gc :Gcommit<CR> |
           \ nnoremap <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR> |
           \ nnoremap <buffer> <Leader>gl :Glog<CR> |
-          \ nnoremap <buffer> <expr> <Leader>gd !&diff ? ':Gdiff<CR>' : ':bd<CR>' |
+          \ nnoremap <buffer> <Leader>gd :call <SID>GdiffToggle()<CR> |
           \ nnoremap <Leader>gv :Gitv --all<CR> |
           \ nnoremap <Leader>gV :Gitv! --all<CR>
+
+    function! s:GdiffToggle()
+      if !&diff
+        Gdiff
+      else
+        if bufname('#') =~ '^fugitive:'
+          exec bufwinnr('#').'wincmd w'
+        endif
+        bd
+      endif
+    endfunction
     " Make running git easier
     cabbrev git Git
   augroup END " }}}
