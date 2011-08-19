@@ -290,11 +290,10 @@ if has("autocmd")
       autocmd FileType help call <SID>SetupHelpWindow()
     " }}}
     " Fast escape from insert {{{
-      set notimeout
+      set timeout
       set ttimeout
-      set timeoutlen=10
-      autocmd InsertEnter * set timeout
-      autocmd InsertLeave * set notimeout
+      autocmd InsertEnter * set timeoutlen=300
+      autocmd InsertLeave * set timeoutlen=1000
     " }}}
     " Manpages inside vim  {{{
       runtime! ftplugin/man.vim
