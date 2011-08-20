@@ -131,20 +131,20 @@ let mapleader = "," " \ is the default leader character
 
   " Mode Toggles {{{
     " Toggle spell checking
-    nnoremap <Leader>ts :set spell!<CR>
-    vnoremap <Leader>ts :set spell!<CR>
+    nnoremap <silent> <Leader>ts :set spell!<CR>
+    vnoremap <silent> <Leader>ts :set spell!<CR>
 
     " Toggle showing whitespace
-    nnoremap <Leader>tz :set list!<CR>
-    vnoremap <Leader>tz :set list!<CR>
+    nnoremap <silent> <Leader>tz :set list!<CR>
+    vnoremap <silent> <Leader>tz :set list!<CR>
 
     " Toggle search highlighting
-    nnoremap <Leader>th :set hlsearch!<CR>
-    vnoremap <Leader>th :set hlsearch!<CR>
+    nnoremap <silent> <Leader>th :set hlsearch!<CR>
+    vnoremap <silent> <Leader>th :set hlsearch!<CR>
 
     " Shortcut to redraw screen
-    nnoremap <Leader><C-l> :redraw!<CR>
-    vnoremap <Leader><C-l> :redraw!<CR>
+    nnoremap <silent> <Leader><C-l> :redraw!<CR>
+    vnoremap <silent> <Leader><C-l> :redraw!<CR>
   " }}}
 
   " Allow inserting just one stupid character
@@ -563,14 +563,15 @@ if has("autocmd")
           \ nnoremap <buffer> f :Fixup<CR> |
           \ nnoremap <buffer> <C-j> :m +1<CR> |
           \ nnoremap <buffer> <C-k> :m -2<CR>
+
     autocmd User Fugitive
-          \ nnoremap <buffer> <Leader>gs :Gstatus<CR> |
-          \ nnoremap <buffer> <Leader>gc :Gcommit<CR> |
-          \ nnoremap <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR> |
-          \ nnoremap <buffer> <Leader>gl :Glog<CR> |
-          \ nnoremap <buffer> <Leader>gd :call <SID>GdiffToggle()<CR> |
-          \ nnoremap <Leader>gv :Gitv --all<CR> |
-          \ nnoremap <Leader>gV :Gitv! --all<CR>
+          \ nnoremap <silent> <buffer> <Leader>gs :Gstatus<CR> |
+          \ nnoremap <silent> <buffer> <Leader>gc :Gcommit<CR>gg |
+          \ nnoremap <silent> <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR> |
+          \ nnoremap <silent> <buffer> <Leader>gl :Glog<CR> |
+          \ nnoremap <silent> <buffer> <Leader>gd :call <SID>GdiffToggle()<CR> |
+          \ nnoremap <silent> <Leader>gv :Gitv --all<CR> |
+          \ nnoremap <silent> <Leader>gV :Gitv! --all<CR>
 
     function! s:GdiffToggle()
       if !&diff
@@ -711,19 +712,19 @@ endif
   set tags=./tags,tags
 
   " Make accessing the taglist easier
-  nnoremap <Leader>ll :TagbarToggle<CR>
+  nnoremap <silent> <Leader>ll :TagbarToggle<CR>
 " }}}
 " Svndiff config {{{
   let g:svndiff_autoupdate = 1
   let g:svndiff_one_sign_delete = 1
-  nnoremap <Leader>dd :call Svndiff()<CR>
+  nnoremap <silent> <Leader>dd :call Svndiff()<CR>
   " augroup SvnDiffFugitive
   "   au!
   "   autocmd User Fugitive if fugitive#buffer().type('file') && &filetype != 'help' && !&diff | :call Svndiff('next') | endif
   " augroup END
 " }}}
 " Gundo settings {{{
-  nnoremap <F5> :GundoToggle<CR>
+  nnoremap <silent> <F5> :GundoToggle<CR>
   " let g:gundo_right = 1
   let g:gundo_preview_bottom = 1
 " }}}
@@ -740,7 +741,7 @@ endif
   " Remove default zoomwin mapping
   if mapcheck('<C-W>o') =~ '<Plug>ZoomWin'
     unmap <C-W>o
-    noremap <Leader>wo :ZoomWin<CR>
+    noremap <silent> <Leader>wo :ZoomWin<CR>
   endif
 " }}}
 " NerdTree settings {{{
@@ -752,7 +753,7 @@ endif
   let NERDTreeWinSize = 30
   let NERDTreeMouseMode = 3 " Don't require double click to open file
   let NERDTreeIgnore=['\~$', '^\.git$', '^\.svn$', '^\.bundle$', '^\.gitkeep$']
-  nmap <Leader>d :NERDTreeToggle<CR>
+  nmap <silent> <Leader>d :NERDTreeToggle<CR>
 
   " Find in NerdTree!
   nnoremap <silent> <Leader>D :NERDTreeFind<CR>
@@ -774,11 +775,11 @@ endif
   let g:csv_hiGroup = 'CSVHiColumn'
 " }}}
 " Markdown settings {{{
-  nnoremap <Leader>M :call system('open -g -F -a Marked "'.expand('%:p').'"')<CR>
+  nnoremap <silent> <Leader>M :call system('open -g -F -a Marked "'.expand('%:p').'"')<CR>
 " }}}
 " Split Join settings {{{
-  nnoremap <Leader>s :SplitjoinSplit<CR>
-  nnoremap <Leader>j :SplitjoinJoin<CR>
+  nnoremap <silent> <Leader>s :SplitjoinSplit<CR>
+  nnoremap <silent> <Leader>j :SplitjoinJoin<CR>
   let g:splitjoin_align = 1
   let g:splitjoin_normalize_whitespace = 1
 " }}}
@@ -791,7 +792,7 @@ endif
     endif
   endfunction
   " }}}
-  noremap <Leader><Tab> :call <SID>ScratchToggle()<CR>
+  noremap <silent> <Leader><Tab> :call <SID>ScratchToggle()<CR>
 " }}}
 " Threesome configuration {{{
   let g:threesome_initial_mode = "grid"
@@ -852,14 +853,14 @@ endif
     " }}}
   " Key Mappings {{{
     " Copy/Pasting buffers to windows around
-    noremap <Leader>wd :call <SID>HDeleteWindow()<cr>
-    noremap <Leader>wy :call <SID>HYankWindow()<cr>
-    noremap <Leader>wpk :call <SID>HPasteWindow('up')<cr>
-    noremap <Leader>wpj :call <SID>HPasteWindow('down')<cr>
-    noremap <Leader>wph :call <SID>HPasteWindow('left')<cr>
-    noremap <Leader>wpl :call <SID>HPasteWindow('right')<cr>
-    noremap <Leader>wpp :call <SID>HPasteWindow('here')<cr>
-    noremap <Leader>wP :call <SID>HPasteWindow('here')<cr>
+    noremap <silent> <Leader>wd :call <SID>HDeleteWindow()<cr>
+    noremap <silent> <Leader>wy :call <SID>HYankWindow()<cr>
+    noremap <silent> <Leader>wpk :call <SID>HPasteWindow('up')<cr>
+    noremap <silent> <Leader>wpj :call <SID>HPasteWindow('down')<cr>
+    noremap <silent> <Leader>wph :call <SID>HPasteWindow('left')<cr>
+    noremap <silent> <Leader>wpl :call <SID>HPasteWindow('right')<cr>
+    noremap <silent> <Leader>wpp :call <SID>HPasteWindow('here')<cr>
+    noremap <silent> <Leader>wP :call <SID>HPasteWindow('here')<cr>
 
     " Make moving between windows easy
     noremap <C-J> <C-W>j
@@ -868,13 +869,13 @@ endif
     noremap <C-L> <C-W>l
 
     " Opens a vertical window and moves to it
-    nnoremap <Leader>nv :vsplit<CR><C-W><C-W>
+    nnoremap <silent> <Leader>nv :vsplit<CR><C-W><C-W>
 
     " Opens a horizontal split window and moves to it
-    nnoremap <Leader>ns :split<CR><C-W><C-W>
+    nnoremap <silent> <Leader>ns :split<CR><C-W><C-W>
 
     " Open a new blank tab
-    nnoremap <Leader>nt :tabnew<CR>
+    nnoremap <silent> <Leader>nt :tabnew<CR>
 
     " Open current window in new tab
     nnoremap <Leader>nT <C-W>T
@@ -888,8 +889,8 @@ endif
       %s/\s*$//
       ''
     endfunction
-    nnoremap <Leader>xx :call <SID>TrimTrailingWhitespace()<CR>
-    nnoremap <Leader>xw :call <SID>TrimTrailingWhitespace()<CR>:w<CR>
+    nnoremap <silent> <Leader>xx :call <SID>TrimTrailingWhitespace()<CR>
+    nnoremap <silent> <Leader>xw :call <SID>TrimTrailingWhitespace()<CR>:w<CR>
   " }}}
   " Paste using pbcopy {{{
     function! s:pbcopy()
@@ -919,7 +920,7 @@ endif
         echo "No URI found in line."
       endif
     endfunction
-    map <Leader>w :call <SID>OpenURL()<CR>
+    map <silent> <Leader>w :call <SID>OpenURL()<CR>
   " }}}
   " */# search in visual mode {{{
     " http://got-ravings.blogspot.com/2008/07/vim-pr0n-visual-search-mappings.html
