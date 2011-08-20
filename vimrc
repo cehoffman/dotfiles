@@ -180,6 +180,9 @@ let mapleader = "," " \ is the default leader character
   cnoremap <C-P> <Up>
   cnoremap <C-N> <Down>
 
+  " Easy sudo writing
+  cnoremap <silent> w!! w !sudo tee % >/dev/null
+
   " Easy abbreviation to get path to current file mine file
   cabbrev %% <C-R>=expand('%:p:h').'/'<cr>
 
