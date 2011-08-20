@@ -264,7 +264,7 @@ if has("autocmd")
   augroup GeneralSettings " {{{
     au!
     " Equalize windows when resized
-    au VimResized * exec "normal! \<C-W>="
+    au VimResized * wimcmd =
 
     " Reload vimrc after editing
     autocmd BufWritePost .vimrc source $MYVIMRC
