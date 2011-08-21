@@ -26,10 +26,8 @@ if !exists('g:sparkupNextMapping')
   let g:sparkupNextMapping = '<c-n>'
 endif
 
-exec 'nmap <buffer> ' . g:sparkupExecuteMapping . ' :call <SID>Sparkup()<cr>'
-exec 'imap <buffer> ' . g:sparkupExecuteMapping . ' <c-g>u<Esc>:call <SID>Sparkup()<cr>'
-exec 'nmap <buffer> ' . g:sparkupNextMapping . ' :call <SID>SparkupNext()<cr>'
-exec 'imap <buffer> ' . g:sparkupNextMapping . ' <c-g>u<Esc>:call <SID>SparkupNext()<cr>'
+exec 'inoremap <buffer> ' . g:sparkupExecuteMapping . ' <c-g>u<Esc>:call <SID>Sparkup()<cr>'
+exec 'inoremap <buffer> ' . g:sparkupNextMapping . ' <c-g>u<Esc>:call <SID>SparkupNext()<cr>'
 
 if exists('*s:Sparkup')
     finish
@@ -64,7 +62,7 @@ endfunction
 
 function! s:SparkupNext()
     " 1: empty tag, 2: empty attribute, 3: empty line
-    let n = search('><\/\|\(""\)\|^\s*$', 'Wp')
+    let n = search('><\/\|\(""\)\|\(^\s*$\)', 'Wp')
     if n == 3
         startinsert!
     else
