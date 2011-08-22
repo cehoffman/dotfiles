@@ -509,45 +509,45 @@ if has("autocmd")
     au!
     " Custom Status Lines {{{
       " Lusty list {{{
-        au BufEnter * if !exists('b:stl') && bufname("%") == "[LustyExplorer-Buffers]"
+        au BufEnter \[LustyExplorer-Buffers] if !exists('b:stl')
               \ | setlocal nonumber norelativenumber
               \ | let b:stl = "#[FileName] LustyExplorer#[FileNameS] [>>]#[FunctionName] Buffer List%<%* %=#[LinePercentS][<<]#[LinePercent] %p%%: "
               \ | endif
-        au BufEnter * if !exists('b:stl') && bufname("%") == "[LustyExplorer-Files]"
+        au BufEnter \[LustyExplorer-Files] if !exists('b:stl')
               \ | setlocal norelativenumber
               \ | let b:stl = "#[FileName] LustyFiles#[FileNameS] [>>]#[FunctionName] File List%<%* %=#[LinePercentS][<<]#[LinePercent] %p%%: "
               \ | endif
       " }}}
       " Command-T find {{{
-        au BufEnter * if !exists('b:stl') && bufname("%") == "GoToFile"
+        au BufEnter GoToFile if !exists('b:stl')
               \ | setlocal nonumber norelativenumber
               \ | let b:stl = "#[FileName] Find File#[FileNameS] [>>]%<%* %="
               \ | endif
       " }}}
       " Tagbar {{{
-        au BufEnter * if !exists('b:stl') && bufname("%") == "__Tagbar__"
-              \ | set statusline=
+        au BufEnter __Tagbar__ if !exists('b:stl')
+              \ | setlocal foldcolumn=1
               \ | let b:stl = "#[FileName] Tagbar#[FileNameS] [>>]#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
               \ | endif
         " Override for sure the custom statusline from tagbar
         au BufEnter __Tagbar__ setlocal statusline=
       " }}}
       " Gundo {{{
-        au BufEnter * if !exists('b:stl') && bufname("%") == "__Gundo__"
+        au BufEnter __Gundo__ if !exists('b:stl')
               \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Undo tree%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
               \ | endif
 
-        au BufEnter * if !exists('b:stl') && bufname("%") == "__Gundo_Preview__"
+        au BufEnter __Gundo_Preview__ if !exists('b:stl')
               \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Diff preview%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
               \ | endif
       " }}}
       " Scratch {{{
-        au BufEnter * if !exists('b:stl') && bufname("%") == "__Scratch__"
+        au BufEnter __Scratch__ if !exists('b:stl')
               \ |  let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber]đ %l#[LineColumn]:%c%V"
               \ |  endif
       " }}}
       " Syntastic location list {{{
-        au BufEnter * if !exists('b:stl') && bufname("%") == "[Location List]"
+        au BufEnter \[Location List] if !exists('b:stl')
               \ | let b:stl = "#[FileName]%< Location List #[FileNameS][>>]%* %="
               \ | endif
       " }}}
