@@ -142,3 +142,6 @@
 [submodule "vim/bundle/vim-splitjoin"]
 	path = vim/bundle/vim-splitjoin
 	url = https://github.com/AndrewRadev/splitjoin.vim.git
+[submodule "vim/bundle/vim-bundler"]
+	path = vim/bundle/vim-bundler
+	url = https://github.com/tpope/vim-bundler.git

@@ -527,6 +527,8 @@ if has("autocmd")
               \ | set statusline=
               \ | let b:stl = "#[FileName] Tagbar#[FileNameS] [>>]#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
               \ | endif
+        " Override for sure the custom statusline from tagbar
+        au BufEnter __Tagbar__ setlocal statusline=
       " }}}
       " Gundo {{{
         au BufEnter * if !exists('b:stl') && bufname("%") == "__Gundo__"
