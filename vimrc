@@ -661,6 +661,10 @@ endif
     " Make folding not effect insert by disabling it in insert mode
     augroup FoldingInsert
       autocmd!
+      " Start with all fold open and foldlevel set to max for file
+      autocmd Syntax * normal zR
+
+      " Make folding not effect insert by disabling it in insert mode
       autocmd InsertEnter *
             \ if !exists('w:last_fdm') |
             \   let w:last_fdm = &foldmethod |
