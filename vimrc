@@ -925,7 +925,7 @@ endif
       exec '!'.system("rvm tools path-identifier .")." -S bundle ".a:args
     endfunction
 
-    command! -nargs=0 -bar -nargs=? Bundle :execute s:bundle(<q-args>)
+    command! -nargs=0 -bar -nargs=? Bundle :call s:bundle(<q-args>)
     cabbrev bundle Bundle
   " }}}
   " Rename a file {{{
