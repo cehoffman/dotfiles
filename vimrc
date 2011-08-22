@@ -926,12 +926,13 @@ endif
     command! -nargs=0 -bar PBCopy call s:pbcopy()
   " }}}
   " Execute bundle for the current project {{{
-    function! s:bundle(args)
-      if !filereadable('.rvmrc')
-        echoerr 'No .rvmrc present to determine environment'
-      endif
-      exec '!'.system("rvm tools path-identifier .")." -S bundle ".a:args
-    endfunction
+    " function! s:bundle(args)
+    "   if !filereadable('.rvmrc')
+    "     echoerr 'No .rvmrc present to determine environment'
+    "   endif
+    "   " exec '!'.system("rvm tools path-identifier .")." -S bundle ".a:args
+    "   exec '!bundle '.a:args
+    " endfunction
 
     command! -nargs=0 -bar -nargs=? Bundle :call s:bundle(<q-args>)
     cabbrev bundle Bundle
