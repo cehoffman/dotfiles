@@ -278,8 +278,10 @@ if has("autocmd")
     " Help Window Customization {{{
       function! s:SetupHelpWindow()
         wincmd L
-        vertical resize 82
+        vertical resize 80
         setlocal nonumber winfixwidth colorcolumn=
+        setlocal norelativenumber nolist nospell
+        setlocal foldexpr& nofoldenable foldmethod& foldcolumn=0
 
         let b:stl = "#[Branch] HELP#[BranchS] [>] #[FileNameS][>>]%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
 
