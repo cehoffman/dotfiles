@@ -342,7 +342,7 @@ if has("autocmd")
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 
-    autocmd FileType vim,ruby setlocal formatoptions-=o
+    autocmd FileType vim,ruby setlocal formatoptions-=o formatoptions-=r
     autocmd FileType vim setlocal foldmethod=marker foldmarker={{{,}}}
     autocmd FileType nerdtree setlocal nolist nowrap
 
