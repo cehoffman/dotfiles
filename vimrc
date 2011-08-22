@@ -928,6 +928,14 @@ endif
     command! -nargs=0 -bar -nargs=? Bundle :execute s:bundle(<q-args>)
     cabbrev bundle Bundle
   " }}}
+  " Rename a file {{{
+    function! s:RenameFile(file)
+      let old_file = expand('%:p')
+      exec 'keepalt saveas ' . fnamemodify(a:file, ':p')
+      call system('rm ' . shellescape(old_file))
+    endfunction
+    command! -nargs=1 -bar -complete=file Rename :call s:RenameFile(<f-args>)
+  " }}}
   " Open url from current line {{{
     function! s:OpenURL()
       let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
