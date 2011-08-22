@@ -12,7 +12,7 @@ set nocompatible
   set showcmd              " display incomplete commands
   set incsearch            " do incremental searching
   set virtualedit=block    " allows editing inside of characters that may not actually exist
-  set noshowmode           " The must improved statusline makes it trivial to know your mode
+  set noshowmode           " The much improved statusline makes it trivial to know your mode
   set scrolljump=10        " make the window jump 10 lines when reaching an edge, helpful to prevent slow scrolling
   set scrolloff=10         " Don't put the cursor so close to a windows edge
   set sidescrolloff=7      " sides can be a little more forgiving
