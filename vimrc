@@ -704,9 +704,9 @@ endif
   let g:CommandTMaxHeight=10
 " }}}
 " Nerd Commenter settings {{{
-  let NERDSpaceDelims=1
-  let NERDCompactSexyComs=1
-  let NERDCommentWholeLinesInVMode=1
+  let NERDSpaceDelims = 1
+  let NERDCompactSexyComs = 1
+  let NERDCommentWholeLinesInVMode = 1
 " }}}
 " delimitMate settings {{{
   let delimitMate_expand_space = 0
