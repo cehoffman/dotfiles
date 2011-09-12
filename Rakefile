@@ -76,6 +76,12 @@ def replace_file(file)
   link_file(file)
 end
 
+if RUBY_PLATFORM =~ /[mswin|mingw]32/
+  require 'rubygems'
+  require 'win32/dir'
+  require 'fileutils'
+end
+
 def link_file(file)
   if file =~ /.erb$/
     puts "generating ~/.#{file.sub('.erb', '')}"
@@ -84,6 +90,15 @@ def link_file(file)
     end
   else
     puts "linking ~/.#{file}"
-    system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+    if RUBY_PLATFORM =~ /[mswin|mingw]32/
+      if File.directory?(file)
+        Dir.create_junction(File.join(ENV['HOME'], ".#{file}"), File.join(Dir.pwd, file))
+      else
+        File.unlink(File.join(ENV['HOME'], ".#{file}")) rescue nil
+        FileUtils.cp(File.join(Dir.pwd, file), File.join(ENV['HOME'], ".#{file}") )
+      end
+    else
+      File.symlink(File.join(Dir.pwd, file), File.join(ENV['HOME'], ".#{file}"))
+    end
   end
 end

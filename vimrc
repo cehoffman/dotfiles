@@ -1,5 +1,6 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
 
 " Pathogen initialization {{{
   filetype off
