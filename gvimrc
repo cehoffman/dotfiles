@@ -24,5 +24,6 @@ if has("gui_gnome")
 endif
 
 if has("gui_win32") || has("gui_win32s")
-  set guifont=Consolas:h12
+  set guifont=Meslo_LG_S:h10
+  set linespace=-2
 endif
