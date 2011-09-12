@@ -265,7 +265,7 @@ if has("autocmd")
   augroup GeneralSettings " {{{
     au!
     " Equalize windows when resized
-    au VimResized * wimcmd =
+    au VimResized * wincmd =
 
     " Reload vimrc after editing
     autocmd BufWritePost .vimrc source $MYVIMRC
@@ -298,8 +298,9 @@ if has("autocmd")
     " Fast escape from insert {{{
       set timeout
       set ttimeout
-      autocmd InsertEnter * set timeoutlen=300
-      autocmd InsertLeave * set timeoutlen=1000
+      set timeoutlen=300
+      " autocmd InsertEnter * set timeoutlen=300
+      " autocmd InsertLeave * set timeoutlen=600
     " }}}
     " Manpages inside vim  {{{
       runtime! ftplugin/man.vim
@@ -927,15 +928,6 @@ endif
     command! -nargs=0 -bar PBCopy call s:pbcopy()
   " }}}
   " Execute bundle for the current project {{{
-    " function! s:bundle(args)
-    "   if !filereadable('.rvmrc')
-    "     echoerr 'No .rvmrc present to determine environment'
-    "   endif
-    "   " exec '!'.system("rvm tools path-identifier .")." -S bundle ".a:args
-    "   exec '!bundle '.a:args
-    " endfunction
-
-    command! -nargs=0 -bar -nargs=? Bundle :call s:bundle(<q-args>)
     cabbrev bundle Bundle
   " }}}
   " Rename a file {{{
