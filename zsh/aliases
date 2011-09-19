@@ -51,7 +51,7 @@ if [[ $IS_MAC -eq 1 ]]; then
 
   if [[ -f /Library/Application\ Support/VMware\ Fusion/vmrun ]]; then
     function fusion () {
-      /Library/Application\ Support/VMware\ Fusion/vmrun -T fusion $@ nogui
+      /Library/Application\ Support/VMware\ Fusion/vmrun -T fusion "$@" nogui
     }
   fi
 fi
