@@ -8,6 +8,10 @@ set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
 " }}}
 
 " General settings {{{
+  set timeout
+  set ttimeout
+  set timeoutlen=300
+  set title
   set writeany             " Try and write without requiring !
   set history=1000         " keep 1000 lines of command line history
   set showcmd              " display incomplete commands
@@ -52,7 +56,8 @@ set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
   set encoding=utf-8       " Make default text encoding utf-8
   set termencoding=utf-8   " Make default termainl encoding utf-8
   set cryptmethod=blowfish " use a strong encryption method instead of weak one
-  set relativenumber       " Make line numbers relative to my cursor for easy jumping
+  set number               " Use number for now because relative is slow
+"   set relativenumber       " Make line numbers relative to my cursor for easy jumping
   set lazyredraw           " don't redraw the screen during macros
 
   if has('gui_running') || $TMUX == '' || $REATTACHED
@@ -296,9 +301,6 @@ if has("autocmd")
       autocmd FileType help call <SID>SetupHelpWindow()
     " }}}
     " Fast escape from insert {{{
-      set timeout
-      set ttimeout
-      set timeoutlen=300
       " autocmd InsertEnter * set timeoutlen=300
       " autocmd InsertLeave * set timeoutlen=600
     " }}}
@@ -309,12 +311,10 @@ if has("autocmd")
             \ map <buffer> q <ESC>:q!<CR>
     " }}}
     " Highighlight cursor row {{{
-      set cursorline
-      autocmd WinEnter * setlocal cursorline
-      autocmd WinLeave * setlocal nocursorline
-    " }}}
+      autocmd WinEnter,InsertLeave * setlocal cursorline
+      autocmd WinLeave,InsertEnter * setlocal nocursorline " }}}
     " Restore last cursor position {{{
-      autocmd BufReadPost *
+      autocmd BufWinEnter *
            \ if &filetype !~ 'commit\c' |
            \   if line("'\"") > 1 && line("'\"") <= line("$") |
            \     exe "normal! g`\"" |
