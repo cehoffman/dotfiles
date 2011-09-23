@@ -565,21 +565,21 @@ if has("autocmd")
   augroup GitShortcuts " {{{
     au!
     autocmd FileType gitrebase
-          \ nnoremap <buffer> p :Pick<CR> |
-          \ nnoremap <buffer> s :Squash<CR> |
-          \ nnoremap <buffer> e :Edit<CR> |
-          \ nnoremap <buffer> r :Reword<CR> |
-          \ nnoremap <buffer> f :Fixup<CR> |
-          \ nnoremap <buffer> <C-j> :m +1<CR> |
+          \ nnoremap <buffer> p :Pick<CR>|
+          \ nnoremap <buffer> s :Squash<CR>|
+          \ nnoremap <buffer> e :Edit<CR>|
+          \ nnoremap <buffer> r :Reword<CR>|
+          \ nnoremap <buffer> f :Fixup<CR>|
+          \ nnoremap <buffer> <C-j> :m +1<CR>|
           \ nnoremap <buffer> <C-k> :m -2<CR>
 
     autocmd User Fugitive
-          \ nnoremap <silent> <buffer> <Leader>gs :Gstatus<CR> |
-          \ nnoremap <silent> <buffer> <Leader>gc :Gcommit<CR>gg |
-          \ nnoremap <silent> <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR> |
-          \ nnoremap <silent> <buffer> <Leader>gl :Glog<CR> |
-          \ nnoremap <silent> <buffer> <Leader>gd :call <SID>GdiffToggle()<CR> |
-          \ nnoremap <silent> <Leader>gv :Gitv --all<CR> |
+          \ nnoremap <silent> <buffer> <Leader>gs :Gstatus<CR>|
+          \ nnoremap <silent> <buffer> <Leader>gc :Gcommit<CR>|
+          \ nnoremap <silent> <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR>|
+          \ nnoremap <silent> <buffer> <Leader>gl :Glog<CR>|
+          \ nnoremap <silent> <buffer> <Leader>gd :call <SID>GdiffToggle()<CR>|
+          \ nnoremap <silent> <Leader>gv :Gitv --all<CR>|
           \ nnoremap <silent> <Leader>gV :Gitv! --all<CR>
 
     function! s:GdiffToggle()
