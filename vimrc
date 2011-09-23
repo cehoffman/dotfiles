@@ -677,6 +677,8 @@ endif
             \   let &l:foldmethod = w:last_fdm |
             \   unlet w:last_fdm |
             \ endif
+
+      autocmd BufNewFile * setlocal foldlevel=99
     augroup END
 
     nnoremap <Space> za
