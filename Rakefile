@@ -22,6 +22,10 @@
 require 'rake'
 require 'erb'
 
+def windows?
+  RUBY_PLATFORM =~ /[mswin|mingw]32/
+end
+
 desc "update the dot files into user's home directory"
 task :update do
   puts 'initializing submodules'
@@ -32,7 +36,16 @@ task :update do
   puts 'making command-t plugin'
   Dir.chdir 'vim/bundle/vim-command-t' do
     system 'git', 'clean', '-fdx'
-    system 'rake', 'make'
+    if windows?
+      Dir.chdir 'ruby/command-t' do
+        ENV['RI_DEVKIT'] = "C:\\DevKit\\"
+        ENV['PATH'] = "#{ENV['RI_DEVKIT']}bin;#{ENV['RI_DEVKIT']}mingw\\bin;#{ENV['PATH']}"
+        system 'ruby', 'extconf.rb'
+        system 'make'
+      end
+    else
+      system 'rake', 'make'
+    end
   end
 
   system 'git', 'clean', '-df'
@@ -40,7 +53,7 @@ task :update do
   puts 'updaing opp.zsh'
   system 'zsh', '-c', 'for O in zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.zsh/vendor/opp.zsh ~/.zsh/functions'
 
-  replace_all = false
+  replace_all = windows?
   Dir['*'].each do |file|
     next if %w[Rakefile].include? file
     
@@ -76,7 +89,7 @@ def replace_file(file)
   link_file(file)
 end
 
-if RUBY_PLATFORM =~ /[mswin|mingw]32/
+if windows?
   require 'rubygems'
   require 'win32/dir'
   require 'fileutils'
@@ -89,15 +102,17 @@ def link_file(file)
       new_file.write ERB.new(File.read(file)).result(binding)
     end
   else
-    puts "linking ~/.#{file}"
-    if RUBY_PLATFORM =~ /[mswin|mingw]32/
+    if windows?
       if File.directory?(file)
+        puts "linking ~/.#{file}"
         Dir.create_junction(File.join(ENV['HOME'], ".#{file}"), File.join(Dir.pwd, file))
       else
+        puts "overwriting ~/.#{file}"
         File.unlink(File.join(ENV['HOME'], ".#{file}")) rescue nil
         FileUtils.cp(File.join(Dir.pwd, file), File.join(ENV['HOME'], ".#{file}") )
       end
     else
+      puts "linking ~/.#{file}"
       File.symlink(File.join(Dir.pwd, file), File.join(ENV['HOME'], ".#{file}"))
     end
   end
