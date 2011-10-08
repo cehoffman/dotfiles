@@ -25,5 +25,5 @@ endif
 
 if has("gui_win32") || has("gui_win32s")
   set guifont=Meslo_LG_S:h10
-  set linespace=-2
+  set linespace=0
 endif
