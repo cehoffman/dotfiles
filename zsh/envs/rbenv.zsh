@@ -1,6 +1,6 @@
 if [[ -d ~/.rbenv ]]; then
-  eval "$(~/.rbenv/bin/rbenv init -)"
-  # path=(~/.rbenv/shims ~/.rbenv/bin $path)
+  path=(~/.rbenv/shims ~/.rbenv/bin $path)
+  source ~/.rbenv/completions/rbenv.zsh
   function gem() {
     command gem "$@"
     case "$1" in
