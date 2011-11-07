@@ -59,5 +59,3 @@ if [[ -o interactive ]]; then
   preexec_functions+=title_preexec
   precmd_functions+=title_precmd
 fi
-
-# vim: ft=zsh

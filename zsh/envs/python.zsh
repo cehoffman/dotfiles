@@ -22,5 +22,3 @@ function virtualenv_prompt_info() {
     echo "$ZSH_THEME_VENV_PROMPT_PREFIX$(basename ${(q)VIRTUAL_ENV})$ZSH_THEME_VENV_PROMT_SUFFIX"
   fi
 }
-
-# vim: filetype=zsh

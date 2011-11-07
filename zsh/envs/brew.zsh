@@ -10,5 +10,3 @@ if [[ -a ~/.homebrew/bin/brew ]]; then
     path=($brew_prefix/share/python $path)
   }
 fi
-
-# vim: filetype=zsh

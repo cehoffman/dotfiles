@@ -13,5 +13,3 @@ alias rdbm='rake db:migrate db:test:clone'
 alias rg='_rails_command generate'
 alias rp='_rails_command plugin'
 alias devlog='tail -f log/development.log'
-
-# vim: ft=zsh

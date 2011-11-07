@@ -172,5 +172,3 @@ unset ls_colors
 
 # Colorize ls output
 alias ls="ls --color=always -F"
-
-# vim: filetype=zsh
