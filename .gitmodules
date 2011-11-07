@@ -51,7 +51,7 @@
 	url = http://github.com/vim-ruby/vim-ruby.git
 [submodule "vim/bundle/vim-command-t"]
 	path = vim/bundle/vim-command-t
-	url = git://git.wincent.com/command-t.git
+	url = https://github.com/wincent/Command-T.git
 [submodule "vim/bundle/vim-javascript"]
 	path = vim/bundle/vim-javascript
 	url = http://github.com/pangloss/vim-javascript.git
