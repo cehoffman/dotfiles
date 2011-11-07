@@ -145,3 +145,6 @@
 [submodule "vim/bundle/vim-bundler"]
 	path = vim/bundle/vim-bundler
 	url = https://github.com/tpope/vim-bundler.git
+[submodule "rbenv/plugins/bundler"]
+	path = rbenv/plugins/bundler
+	url = https://github.com/cehoffman/rbenv-bundler.git

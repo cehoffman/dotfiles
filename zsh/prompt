@@ -204,6 +204,10 @@ function _prompt_precmd {
     _pr_extras+="%{$fg_no_bold[red]%}R:$(rvm-prompt v g)"
   fi
 
+  if command -v rbenv > /dev/null; then
+    _pr_extras+="%{$fg_no_bold[red]%}R:$(rbenv version-name)"
+  fi
+
   if [[ $(jobs | wc -l) > 0 ]]; then
     tempinfo="%{$fg_no_bold[cyan]%}J:%j"
     _pr_extras+=$tempinfo

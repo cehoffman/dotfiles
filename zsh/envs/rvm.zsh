@@ -3,5 +3,3 @@ if [[ -s $HOME/.rvm/scripts/rvm ]]; then
 elif [[ -s /usr/local/lib/rvm ]]; then
   source /usr/local/lib/rvm
 fi
-
-# vim: filetype=zsh
