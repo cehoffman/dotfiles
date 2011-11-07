@@ -34,7 +34,7 @@ set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
   set expandtab            " expand tabs into spaces
   set shiftround           " when at an odd number of spaces and using >>/<< go to correct multiple
   set smarttab             " Insert the shiftwidth number of space at start of non empty line when using <Tab>
-  set numberwidth=2        " and always show room for 2 numbers since it is only relative numbers
+  set numberwidth=3        " and always show room for 2 numbers since it is only relative numbers
   set ignorecase           " don't use case when searching
   set smartcase            " unless I type an uppercase letter, then care
   set hidden               " Make Vim more accepting of hidden buffer
@@ -56,8 +56,8 @@ set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
   set encoding=utf-8       " Make default text encoding utf-8
   set termencoding=utf-8   " Make default termainl encoding utf-8
   set cryptmethod=blowfish " use a strong encryption method instead of weak one
-  set number               " Use number for now because relative is slow
-"   set relativenumber       " Make line numbers relative to my cursor for easy jumping
+  " set number               " Use number for now because relative is slow
+  set relativenumber       " Make line numbers relative to my cursor for easy jumping
   set lazyredraw           " don't redraw the screen during macros
 
   if has('gui_running') || $TMUX == '' || $REATTACHED
