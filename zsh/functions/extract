@@ -102,7 +102,7 @@ for ARCHIVE in "${@}"; do
   elif [[ "$ARCHIVE" == (#s)(https|http|ftp)://* ]] ; then
 
     if command -v curl &>/dev/null; then
-      WGET_CMD="curl -k -s -o -"
+      WGET_CMD="curl -L -k -s -o -"
     elif command -v wget &>/dev/null; then
       WGET_CMD="wget -q -O - --no-check-certificate"
     else
