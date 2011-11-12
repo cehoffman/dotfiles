@@ -3,8 +3,8 @@ if [[ -x ~/.rbenv/bin/rbenv ]]; then
 fi
 
 if command -v rbenv > /dev/null; then
-  path=($(which rbenv)/../../shims $path)
-  source $(which rbenv)/../../completions/rbenv.zsh
+  path=(~/.rbenv/shims ~/.rbenv/bin $path)
+  eval "$(rbenv init - | grep completions)"
   function gem() {
     command gem "$@"
     case "$1" in
