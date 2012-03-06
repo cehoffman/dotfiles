@@ -130,9 +130,6 @@
 [submodule "vim/bundle/vim-scratch"]
 	path = vim/bundle/vim-scratch
 	url = https://github.com/vim-scripts/scratch.vim.git
-[submodule "vim/bundle/vim-rainbow-parenthsis-bundle"]
-	path = vim/bundle/vim-rainbow-parenthsis-bundle
-	url = https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle.git
 [submodule "vim/bundle/vim-threesome"]
 	path = vim/bundle/vim-threesome
 	url = https://github.com/sjl/threesome.vim.git
@@ -148,3 +145,6 @@
 [submodule "rbenv/plugins/bundler"]
 	path = rbenv/plugins/bundler
 	url = https://github.com/cehoffman/rbenv-bundler.git
+[submodule "vim/bundle/vim-rainbow_parentheses"]
+	path = vim/bundle/vim-rainbow_parentheses
+	url = https://github.com/kien/rainbow_parentheses.vim.git
