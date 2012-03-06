@@ -71,7 +71,7 @@ syn keyword tmuxOptsSetw main-pane-width main-pane-height monitor-content
 syn keyword tmuxOptsSetw window-status-current-attr window-status-current-bg
 syn keyword tmuxOptsSetw window-status-current-fg mode-mouse synchronize-panes
 syn keyword tmuxOptsSetw window-status-format window-status-current-format
-syn keyword tmuxOptsSetw window-status-alert-bg window-status-alert-fg window-status-alert-attr
+syn keyword tmuxOptsSetw window-status-bell-bg window-status-bell-fg window-status-bell-attr
 syn keyword tmuxOptsSetw word-separators utf8
 
 syn keyword tmuxTodo FIXME NOTE TODO XXX contained
