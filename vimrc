@@ -280,6 +280,7 @@ if has("autocmd")
     " Ruby functions can have these in thier names
     autocmd FileType eruby,ruby setlocal iskeyword+=!,?
     autocmd BufRead,BufNewFile config.ru,Guardfile set ft=ruby
+    autocmd BufRead,BufNewFile *.cjs set ft=javascript
 
     " Help Window Customization {{{
       function! s:SetupHelpWindow()
