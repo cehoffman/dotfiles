@@ -31,13 +31,13 @@ setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS # allow functions to have local options
 setopt LOCAL_TRAPS # allow functions to have local traps
 setopt CORRECT
+setopt CORRECT_ALL
 setopt COMPLETE_IN_WORD
 setopt NO_ALWAYS_TO_END
 setopt NO_LIST_AMBIGUOUS # Don't auto complete until ambiguous
 setopt COMPLETE_ALIASES # Treat aliases as unique entities viable for completion
 setopt REC_EXACT # Recgonize exact completions even if ambiguous
 
-setopt CORRECT_ALL
 setopt AUTO_MENU
 setopt LIST_ROWS_FIRST # Order completion by row instead of column
 # setopt IGNORE_EOF
