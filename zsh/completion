@@ -6,6 +6,9 @@ zmodload -i zsh/complist
 # matches case insensitive for lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+# provide .. as a completion
+zstyle ':completion:*' special-dirs ..
+
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
 
@@ -15,6 +18,10 @@ zstyle ':completion::complete:*' cachepath ./cache/
 
 # Use a menu for completion
 zstyle ':completion:*:*:*:*:*' menu select
+
+# Describe options in full
+zstyle ':completion:*:options' auto-description '%d'
+zstyle ':completion:*:options' description 'yes'
 
 # Make the process selection a little nicer
 zstyle ':completion:*:*:kill:*:processes' list-colors  '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
@@ -45,42 +52,48 @@ function _force_rehash () {
   return 1 # Because we didn't really complete anything
 }
 
+zstyle -e ':completion:*' completer '
+if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]] ; then
+  _last_try="$HISTNO$BUFFER$CURSOR"
+  reply=(_complete _match _ignored _prefix _files)
+else
+  if [[ $words[1] == (rm|mv) ]] ; then
+    reply=(_complete _files)
+  else
+    reply=(_oldlist _expand _force_rehash _complete _ignored _correct _approximate _files)
+  fi
+fi'
+
+# Some completion settings
+# zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+
 # Expand partial paths
-zstyle ':completion:*' expand 'prefix'
-zstyle ':completion:*' _force_rehash
+# zstyle ':completion:*' expand 'prefix'
 zstyle ':completion:*' squeeze-slashes 'yes'
 
-# completion for "man" by Gossamer  980827
-compctl -f -x 'S[1][2][3][4][5][6][7][8][9]' -k '(1 2 3 4 5 6 7 8 9)' \
-  - 'R[[1-9nlo]|[1-9](|[a-z]),^*]' -K 'match-man' \
-  - 's[-M],c[-1,-M]' -g '*(-/)' \
-  - 's[-P],c[-1,-P]' -c \
-  - 's[-S],s[-1,-S]' -k '( )' \
-  - 's[-]' -k '(a d f h k t M P)' \
-  - 'p[1,-1]' -c + -K 'match-man' \
-  -- man
-
 # verbose completion
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*' verbose true
+zstyle ':completion:*:descriptions' format '%F{green}Completions for %B%d%b%f'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*:correct:*' original true
+zstyle ':completion:*:correct:*' insert-unambiguous true
+zstyle ':completion:*:correct:' prompt 'Correct to: %e'
+
+# Separate matches into groups
 zstyle ':completion:*' group-name ''
 
-# Some completion settings
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:match:*' original only
-
 # Ignore completions functions for commands you don't have
-zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
 
 # Make approximate allow more errors as the length increases
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 
 # Suggested completion style from _git completion
 zstyle ':completion::*:git-{name-rev,add,rm}:*' ignore-line true
-zstyle ':completion:*:*:git:*' user-commands 'submodule:initialize, update or inspect submodules'
+# zstyle ':completion:*:*:git:*' user-commands 'submodule:initialize, update or inspect submodules'
 
 # Add a recent director listing completion using the cdr command
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
