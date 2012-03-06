@@ -1,6 +1,7 @@
 alias man='nocorrect man'
 alias mv='nocorrect mv'
 alias mkdir='nocorrect mkdir -p'
+alias heroku='nocorrect heroku'
 
 ## SPROMPT - the spelling prompt
 SPROMPT='zsh: correct '%R' to '%r' ? ([Y]es/[N]o/[E]dit/[A]bort) '
