@@ -544,6 +544,11 @@ if has("autocmd")
               \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Diff preview%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
               \ | endif
       " }}}
+      " Threesome HUD {{{
+        au BufEnter __Threesome_HUD__ if !exists('b:stl')
+              \ |  let b:stl = "#[FileName] Threesome HUD#[FileNameS] [>>]%<%* %="
+              \ |  endif
+      " }}}
       " Scratch {{{
         au BufEnter __Scratch__ if !exists('b:stl')
               \ |  let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber]đ %l#[LineColumn]:%c%V"
@@ -1003,4 +1008,4 @@ set secure " must be last line in vimrc to have desired effect
 " set makeprg=script/testdrb\ -Itest\ %
 " set efm=%-G%*\\wTest:,%-GLoaded\ %.%#,%-GStarted,%-G,%-GFinished\ in%.%#,%-G%*\\d\ tests%.%#,\ %*\\d\ assertions%.%#,%-GCoverage\ report%.%#,%-G[32m%*\\sPASS[0m\ %m,%E[31m%*\\sFAIL[0m\ %.%#,%Z%*\\s%f:%l:%.%#,%C%*\\s%m%#
 
-" vim: foldmethod=marker foldmarker={{{,}}} relativenumber
+" vim: foldminlines=0 foldmethod=marker foldmarker={{{,}}} relativenumber
