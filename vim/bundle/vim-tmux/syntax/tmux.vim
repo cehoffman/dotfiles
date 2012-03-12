@@ -72,6 +72,8 @@ syn keyword tmuxOptsSetw window-status-current-attr window-status-current-bg
 syn keyword tmuxOptsSetw window-status-current-fg mode-mouse synchronize-panes
 syn keyword tmuxOptsSetw window-status-format window-status-current-format
 syn keyword tmuxOptsSetw window-status-bell-bg window-status-bell-fg window-status-bell-attr
+syn keyword tmuxOptsSetw window-status-content-bg window-status-content-fg window-status-content-attr
+syn keyword tmuxOptsSetw window-status-activity-bg window-status-activity-fg window-status-activity-attr
 syn keyword tmuxOptsSetw word-separators utf8
 
 syn keyword tmuxTodo FIXME NOTE TODO XXX contained
