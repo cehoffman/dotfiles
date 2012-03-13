@@ -126,10 +126,12 @@ if [[ $IS_MAC -eq 1 ]]; then
   export __CF_USER_TEXT_ENCODING="$(printf '0x%X' $(id -u)):0x08000100:0"
 fi
 
-if [[ ! $TERM =~ ^screen ]]; then
-  alias screen="screen -dRaA"
-else
-  export TERM="screen-256color"
+if [[ -o interactive ]]; then
+  if [[ ! $TERM =~ ^screen ]]; then
+    alias screen="screen -dRaA"
+  else
+    export TERM="screen-256color"
+  fi
 fi
 
 # Remove duplicates in paths
