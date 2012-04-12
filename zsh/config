@@ -2,7 +2,7 @@
 IS_MAC=$([[ $(uname) != Darwin ]]; echo -n $?)
 IS_LINUX=$([[ $(uname) != Linux ]]; echo -n $?)
 
-path=($HOME/.bin $path)
+path=($HOME/.bin /usr/texbin/(/) $path)
 fpath=(~/.zsh/functions $fpath)
 manpath=(/usr/local/share/man /usr/share/man $manpath)
 

@@ -843,6 +843,12 @@ endif
   let g:threesome_initial_scrollbind_compare = 1
   let g:threesome_initial_scrollbind_path = 1
 " }}}
+" Latex Box {{{
+  let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
+  let g:LatexBox_latexmk_options = '-pvc'
+  let g:LatexBox_no_mappings = 1
+  map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
+" }}}
 
 " Window Management {{{
   " Open a yanked window {{{
