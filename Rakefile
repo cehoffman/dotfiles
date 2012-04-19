@@ -26,6 +26,10 @@ def windows?
   RUBY_PLATFORM =~ /[mswin|mingw]32/
 end
 
+def mac?
+  RUBY_PLATFORM =~ /darwin/
+end
+
 desc "update the dot files into user's home directory"
 task :update do
   puts 'initializing submodules'

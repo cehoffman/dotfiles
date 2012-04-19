@@ -66,3 +66,7 @@
     default = upstream
 [interactive]
     singlekey = true
+<% if mac? %>
+[credential]
+    helper = git-credential-osxkeychain
+<% end %>
