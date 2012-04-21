@@ -100,6 +100,9 @@ function inplace-mkdirs() {
     bufwords=(${(z)BUFFER})
     PATHTOMKDIR="$bufwords[iword]"
   fi
+  # Do file name expansion and globbing as command line
+  # would do when executing it normally
+  PATHTOMKDIR=${~PATHTOMKDIR}
   [[ -z "${PATHTOMKDIR}" ]] && return 1
   if [[ -e "${PATHTOMKDIR}" ]]; then
     zle -M " path already exists, doing nothing"
@@ -110,6 +113,6 @@ function inplace-mkdirs() {
 }
 
 zle -N inplace-mkdirs
-bindkey '^XM' inplace-mkdirs
+bindkey '^Xm' inplace-mkdirs
 
 # vim: ft=zsh
