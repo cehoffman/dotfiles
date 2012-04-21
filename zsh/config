@@ -2,7 +2,7 @@
 IS_MAC=$([[ $(uname) != Darwin ]]; echo -n $?)
 IS_LINUX=$([[ $(uname) != Linux ]]; echo -n $?)
 
-path=($HOME/.bin /usr/texbin/(/) $path)
+path=($HOME/.local/bin(/) $HOME/.bin(/) /usr/texbin/(/) $path)
 fpath=(~/.zsh/functions $fpath)
 manpath=(/usr/local/share/man /usr/share/man $manpath)
 
@@ -102,18 +102,6 @@ else
 fi
 
 export EDITOR='vim'
-
-# Add all the local compiled things to the path
-for pkg in $HOME/.local/cellar/*(/); do
-    version=(${pkg}/*(/oc))
-    path=($version[1]/{bin,sbin}(/) $path)
-    manpath=($version[1]/share/man(/) $manpath)
-done
-
-unset pkg
-unset version
-
-path=($HOME/.local/bin(/) $path)
 
 # Load all of your custom configurations from custom/
 function {
