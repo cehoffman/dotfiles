@@ -987,7 +987,7 @@ endif
   " Easy insertion of iso8601 timeformat {{{
     iab i8601 <C-R>=strftime('%Y-%m-%dT%H:%M:%S%z')<CR>
   " }}}
-  " Persisten echo {{{
+  " Persistent echo {{{
     " http://vim.wikia.com/wiki/Make_echo_seen_when_it_would_otherwise_disappear_and_go_unseen
 
     " Useful for debugging mappings
