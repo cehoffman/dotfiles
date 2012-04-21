@@ -99,7 +99,7 @@ fi
 
 export EDITOR='vim'
 
-path=($HOME/.local/bin(/) $HOME/.bin(/) /usr/texbin/(/) $path)
+path=($HOME/.local/{s,}bin(/) $HOME/.bin(/) /usr/texbin/(/) $path)
 fpath=(~/.zsh/functions $fpath)
 manpath=(/usr/local/share/man /usr/share/man $manpath)
 
