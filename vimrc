@@ -1003,6 +1003,39 @@ endif
     "   aug END
     " endf
   " }}}
+  " Open all quickfix files {{{
+    function! s:QuickFixOpenAll()
+      if empty(getqflist())
+        return
+      endif
+      let s:prev_val = ""
+      for d in getqflist()
+        let s:curr_val = bufname(d.bufnr)
+        if (s:curr_val != s:prev_val)
+          exec "argadd " . s:curr_val
+        endif
+        let s:prev_val = s:curr_val
+      endfor
+    endfunction
+
+    command! -nargs=0 -bar QuickFixOpenAll call s:QuickFixOpenAll()
+  " }}}
+  " Close all hidden buffers {{{
+    function! s:CloseHiddenBuffers()
+      let open_buffers = []
+
+      for i in range(tabpagenr('$'))
+        call extend(open_buffers, tabpagebuflist(i + 1))
+      endfor
+
+      for num in range(1, bufnr("$") + 1)
+        if buflisted(num) && index(open_buffers, num) == -1
+          exec "bdelete ".num
+        endif
+      endfor
+    endfunction
+    command! -nargs=0 -bar CloseHiddenBuffers call s:CloseHiddenBuffers()
+  " }}}
 " }}}
 
 " Local config
