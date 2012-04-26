@@ -1,0 +1,144 @@
+#!/usr/bin/env ruby
+
+module Pkgs extend self
+  def ls(regex = '.*')
+    puts _ls(regex)
+  end
+
+  def _ls(regex = '.*')
+    regex = Regexp.new(regex, 'i')
+    pkgutil('--pkgs').split($/).select { |pkg| pkg =~ regex }.join($/)
+  end
+
+  def files(*pkgs)
+    pkgs = pkgs.map { |p| _ls(p) }.flatten.uniq.reject(&:empty?)
+    pkgs.each do |pkg|
+      puts "Files for #{pkg}"
+      puts _files(pkg).map { |l| "  #{l}" }.join($/)
+    end
+  end
+
+  def _files(pkg)
+    pkgutil('--files', pkg, '--only-files').split($/).map do |file|
+      file[0] == ?/ ? file : "/#{file}"
+    end
+  end
+
+  def dirs(*pkgs)
+    pkgs = pkgs.map { |p| _ls(p) }.flatten.uniq.reject(&:empty?)
+    pkgs.each do |pkg|
+      puts "Directories for #{pkg}"
+      puts _dirs(pkg).map { |l| "  #{l}" }.join($/)
+    end
+  end
+
+  def _dirs(pkg)
+    pkgutil('--files', pkg, '--only-dirs').split($/).map do |dir|
+      dir[0] == ?/ ? dir : "/#{dir}"
+    end
+  end
+
+  def un(*pkg)
+    pkg = pkg.map { |p| _ls(p) }.flatten.uniq.reject(&:empty?)
+    pkg.each do |p|
+      puts "Removing #{p}"
+      _files(p).each { |f| _rm f }
+
+      puts "Removing empty directories left by #{p}"
+      _dirs(p).each { |f| _rmdir f }
+
+      _forget p
+      puts "Removed #{p}"
+    end
+  end
+  alias remove un
+
+  def pkgutil(*args)
+    stdout = IO.popen(['pkgutil', *args]).read
+    Process.wait
+    $?.success? or exit(1)
+    stdout
+  end
+
+  [:rm, :rmdir, :forget].each do |method|
+    class_eval <<-RUBY, __FILE__, __LINE__ + 1
+      def _#{method}(*args)
+        setup_sudo
+        data = Marshal.dump([#{method.to_s.inspect}, args])
+        @sudo.write [data.bytesize, data].pack('Na*')
+      end
+    RUBY
+  end
+
+  # Setups up a ruby process with elevated privelages that will accept
+  # commands to remove files, directories, and issue commands to pkgutil
+  # On setup it will forward through the initial sudo password request
+  # and abort on failure to authenticate.
+  def setup_sudo
+    return if @sudo
+
+    prompt = (1..10).map { rand(255) }.pack('c')
+    code = <<-RUBY
+      $stdout.sync = true
+      $stdout.set_encoding 'ascii-8bit'
+      $stdin.set_encoding 'ascii-8bit'
+      $stdout.write #{prompt.inspect}
+
+      while size = $stdin.read(4)
+        action, args = Marshal.load($stdin.read(size.unpack('N').first))
+
+        case action
+        when 'rm'
+          args.select! { |f| File.file?(f) }
+          File.unlink(*args) unless args.empty?
+        when 'rmdir'
+          args.select! do |f|
+            File.directory?(f) && Dir.entries(f) == ['.', '..']
+          end
+          Dir.unlink(*args) unless args.empty?
+        when 'forget'
+          fork do
+            $stdout.reopen('/dev/null')
+            $stderr.reopen('/dev/null')
+            exec 'pkgutil', '--forget', *args
+          end
+          Process.wait
+        when 'quit' then exit
+        end
+      end
+    RUBY
+
+    @sudo = IO.popen(['sudo', '-p', 'Password: ', RbConfig.ruby, '-e', "eval(#{code.lines.count}.times.to_a.map { $stdin.readline }.join)"], 'w+')
+    @sudo.write code
+
+    @sudo.write gets until @sudo.read(prompt.bytesize) == prompt
+
+    @sudo.sync = true
+    @sudo.set_encoding 'ascii-8bit'
+
+    at_exit do
+      data = Marshal.dump(['quit', []])
+      @sudo.write [data.bytesize, data].pack('Na*')
+    end
+  rescue Errno::ENOENT
+    Process.wait
+    exit 1
+  end
+
+  def method_missing(*args)
+    puts "Usage: #{File.basename($0)} subcommand [options]"
+    puts "      -h, --help            print this help and exit"
+    puts
+    puts "  Subcommands"
+    puts "      ls [pattern]          list installed packages matching pattern"
+    puts "      un pkg1 [pkg2 ...]    uninstall packages matching patterns"
+    puts "      files pkg1 [pkg2 ...] list files for packages matching patterns"
+    puts "      dirs pkg1 [pkg2 ...]  list directores for packages matching patterns"
+    exit 0
+  end
+end
+
+Pkgs.help if ARGV.include?('-h') || ARGV.include?('--help') || ARGV.empty? || ARGV[0][0] == '_'
+Pkgs.send(*ARGV)
+
+# vim: ft=ruby

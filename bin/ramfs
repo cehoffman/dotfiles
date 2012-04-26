@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+module RamFS extend self
+  # Create and mount a ramfs disk
+  def mount(location = 'volatile', size = 1024)
+    size = size.to_i
+    abort "Size needs to be 0 or greater" unless size > 0
+    
+    dev = %x[hdid -nomount ram://#{size * 1024 * 1024 / 512}].strip
+    system 'newfs_hfs', '-v', File.basename(location).capitalize, dev
+    Dir.mkdir File.expand_path(location) unless Dir.exists?(File.expand_path(location))
+    system 'diskutil', 'mount', '-mountPoint', File.expand_path(location), dev
+    system 'mount', '-uo', 'noatime', dev, File.expand_path(location)
+  end
+
+  # Remove a created ramfs disk
+  def unmount(location = 'volatile')
+    location = File.expand_path('volatile')
+    abort "#{location} does not exist" unless File.directory?(location)
+    system 'diskutil', 'eject', location
+    Dir.unlink(location) if Dir.entries(location) == ['.', '..']
+  end
+
+  def method_missing(*args)
+    puts "Usage: #{File.basename($0)} subcommand [options]"
+    puts "      -h, --help            print this help and exit"
+    puts
+    puts "  Subcommands"
+    puts "      mount [path] [size]   create a ramfs disk of size in MB mounted at path"
+    puts "      unmount [path]        unmount ramfs disk at path"
+    exit 0
+  end
+end
+
+RamFS.help if ARGV.include?('-h') || ARGV.include?('--help') || ARGV.empty?
+RamFS.send(*ARGV)
+
