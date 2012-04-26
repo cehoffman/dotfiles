@@ -616,6 +616,7 @@ if has("autocmd")
           \ map <buffer> <Leader>grs :Rspec |
           \ map <buffer> <Leader>gre :Renvironment |
           \ map <buffer> <Leader>grt :Rtask |
+          \ map <buffer> <Leader>gro :Robserver |
           \ map <buffer> <Leader>grj :Rjavascript |
           \ map <buffer> <Leader>gri :Rinitializer |
           \ map <buffer> <Leader>grl :Rlocale |
