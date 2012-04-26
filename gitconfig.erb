@@ -22,7 +22,9 @@
     cp = cherry-pick
     br = branch
     unstage = reset HEAD --
+    amend = commit --amend -c HEAD
     prune-all = !git remote | xargs -n 1 git remote prune
+    subup = !git submodule foreach 'git co master && git reup'
 [core]
     eol = lf
     compression = 9
