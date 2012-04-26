@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+if [ -z "$1" ]; then
+  echo "Usage: $(basename "$0") branch"
+  exit
+fi
+
+git branch -D $1
+git branch -D -r origin/$1
+git push origin :$1

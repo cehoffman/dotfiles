@@ -1,0 +1,4 @@
+#compdev git-expunge
+#description completely remove specified files/path from history
+
+_files

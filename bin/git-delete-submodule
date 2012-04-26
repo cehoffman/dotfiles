@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+if [ -z "$1" ]; then
+  echo "Usage: $(basename "$0") path/to/submodule"
+  exit
+fi
+
+# Remove trailing slash so we don't do the wrong thing
+submodule=$(echo $1 | sed 's/\/$//g')
+root=$(git rev-parse --show-toplevel)
+
+# Make sure the submodule is actually a submodule in this project
+if [ -z $(git config -f "$root/.gitmodules" "submodule.$submodule.url") ]; then
+  echo "submodule $submodule not found"
+  exit
+fi
+
+git config -f "$root/.git/config" --remove-section "submodule.$submodule"
+git config -f "$root/.gitmodules" --remove-section "submodule.$submodule"
+git add "$root/.gitmodules"
+rm -rf "$root/$submodule"
+git rm --cached "$root/$submodule"

@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+if [ -z "$2"]; then
+  echo "Usage: $(basename $0) <good revision> <string> [path]"
+  exit
+fi
+
+git bisect start
+git bisect good $1
+git bisect bad
+git bisect run grep -qRE "$2" "${3:-.}"

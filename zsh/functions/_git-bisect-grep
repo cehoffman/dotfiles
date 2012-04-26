@@ -1,0 +1,3 @@
+#compdef git-bisect-grep
+#description search for the commit specifiec text was removed from a file/path
+

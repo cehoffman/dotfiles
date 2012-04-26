@@ -1,0 +1,5 @@
+#compdef git-delete-submodule
+#description delete submodule from config and working directory
+local expl
+
+_wanted submodules expl submodule compadd - $(git submodule | awk '{ print $2 }')

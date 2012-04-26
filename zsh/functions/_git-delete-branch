@@ -1,0 +1,4 @@
+#compdef git-delete-branch
+#description deletes a local and remote branch
+
+_arguments '::local branch:__git_branch_names'
