@@ -70,7 +70,7 @@ module Pkgs extend self
     RUBY
   end
 
-  # Setups up a ruby process with elevated privelages that will accept
+  # Setups up a ruby process with elevated privileges that will accept
   # commands to remove files, directories, and issue commands to pkgutil
   # On setup it will forward through the initial sudo password request
   # and abort on failure to authenticate.
@@ -133,7 +133,7 @@ module Pkgs extend self
     puts "      ls [pattern]          list installed packages matching pattern"
     puts "      un pkg1 [pkg2 ...]    uninstall packages matching patterns"
     puts "      files pkg1 [pkg2 ...] list files for packages matching patterns"
-    puts "      dirs pkg1 [pkg2 ...]  list directores for packages matching patterns"
+    puts "      dirs pkg1 [pkg2 ...]  list directories for packages matching patterns"
     exit 0
   end
 end
