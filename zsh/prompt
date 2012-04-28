@@ -76,8 +76,8 @@ $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mo
 autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' stagedstr '%F{green}✤'
-zstyle ':vcs_info:*' unstagedstr '%F{yellow}∆'
-zstyle ':vcs_info:*' untrackedstr '%B%F{red}⚛%%b'
+zstyle ':vcs_info:*' unstagedstr '%F{yellow}♺'
+zstyle ':vcs_info:*' untrackedstr '%B%F{red}✽%%b'
 zstyle ':vcs_info:*' aheadstr '%B%F{green}↑%x'
 zstyle ':vcs_info:*' behindstr '%B%F{red}↓%z'
 zstyle ':vcs_info:*' divergedstr '%B%F{magenta}↓%x↑%z'
