@@ -4,6 +4,7 @@ if [[ -a ~/.homebrew/bin/brew ]]; then
     path=($brew_prefix/bin $path)
     path=($(brew --prefix coreutils)/libexec/gnubin $brew_prefix/sbin $path)
     manpath=($brew_prefix/share/man $manpath)
+    fpath=($brew_prefix/share/zsh/functions $fpath)
 
     # Homebrew Python setup
     path=($(python -c "from sys import prefix; print prefix")/bin $path)
