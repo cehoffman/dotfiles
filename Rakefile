@@ -70,7 +70,7 @@ task :update do
     end
   end
 
-  system 'vim', '-c', ':call pathogen#helptags()', '-c', ':q!'
+  system 'vim', '-c', ':Helptags', '-c', ':q!'
 end
 
 def replace_file(file)
