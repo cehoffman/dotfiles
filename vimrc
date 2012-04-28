@@ -60,10 +60,7 @@ set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
   " set number               " Use number for now because relative is slow
   set relativenumber       " Make line numbers relative to my cursor for easy jumping
   set lazyredraw           " don't redraw the screen during macros
-
-  if has('gui_running') || $TMUX == '' || $REATTACHED
-    set clipboard=unnamed,unnamedplus " make copying put on the system clipboard and pasting get from it
-  endif
+  set clipboard=unnamed,unnamedplus " make copying put on the system clipboard and pasting get from it
 
   if has("persistent_undo")
     set undofile
