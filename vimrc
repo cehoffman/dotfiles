@@ -772,6 +772,7 @@ endif
 " }}}
 " LusyExplorer/Jugler Settings {{{
   let g:loaded_lustyjuggler = 1
+  let g:loaded_lustyexplorer = 1
   " Dont complain about ruby, it is annoying
   let g:LustyExplorerSuppressRubyWarning = 1
 " }}}
