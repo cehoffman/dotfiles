@@ -93,7 +93,6 @@ zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX
 
 # Suggested completion style from _git completion
 zstyle ':completion::*:git-{name-rev,add,rm}:*' ignore-line true
-# zstyle ':completion:*:*:git:*' user-commands 'submodule:initialize, update or inspect submodules'
 
 # Add a recent director listing completion using the cdr command
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
