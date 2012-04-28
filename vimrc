@@ -271,7 +271,7 @@ if has("autocmd")
     au VimResized * wincmd =
 
     " Reload vimrc after editing
-    autocmd BufWritePost .vimrc source $MYVIMRC
+    " autocmd BufWritePost .vimrc source $MYVIMRC
     autocmd BufNewFile,BufRead *.txt setfiletype text
     autocmd FileType diff setlocal nolist nospell
 
