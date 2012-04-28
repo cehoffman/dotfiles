@@ -5,7 +5,7 @@ set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
 " Pathogen initialization {{{
   filetype off
   runtime! bundle/vim-pathogen/autoload/pathogen.vim
-  call pathogen#runtime_append_all_bundles()
+  call pathogen#infect()
 " }}}
 
 " General settings {{{
