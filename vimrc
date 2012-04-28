@@ -512,22 +512,6 @@ if has("autocmd")
   augroup CustomStatusLines " {{{
     au!
     " Custom Status Lines {{{
-      " Lusty list {{{
-        au BufEnter \[LustyExplorer-Buffers] if !exists('b:stl')
-              \ | setlocal nonumber norelativenumber
-              \ | let b:stl = "#[FileName] LustyExplorer#[FileNameS] [>>]#[FunctionName] Buffer List%<%* %=#[LinePercentS][<<]#[LinePercent] %p%%: "
-              \ | endif
-        au BufEnter \[LustyExplorer-Files] if !exists('b:stl')
-              \ | setlocal norelativenumber
-              \ | let b:stl = "#[FileName] LustyFiles#[FileNameS] [>>]#[FunctionName] File List%<%* %=#[LinePercentS][<<]#[LinePercent] %p%%: "
-              \ | endif
-      " }}}
-      " Command-T find {{{
-        au BufEnter GoToFile if !exists('b:stl')
-              \ | setlocal nonumber norelativenumber
-              \ | let b:stl = "#[FileName] Find File#[FileNameS] [>>]%<%* %="
-              \ | endif
-      " }}}
       " Tagbar {{{
         au BufEnter __Tagbar__ if !exists('b:stl')
               \ | setlocal foldcolumn=1
@@ -719,11 +703,6 @@ endif
   let g:rubycomplete_include_objectspace = 1
   let g:rails_statusline = 0
 " }}}
-" Command-T configuration {{{
-  let g:peepopen_loaded = 1 " Disable peepopen when not in gui
-  nnoremap <Leader>p :CommandT<CR>
-  let g:CommandTMaxHeight=10
-" }}}
 " Nerd Commenter settings {{{
   let NERDSpaceDelims = 1
   let NERDCompactSexyComs = 1
@@ -771,11 +750,24 @@ endif
   let g:EasyMotion_leader_key = '<Leader>e'
   let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 " }}}
-" LusyExplorer/Jugler Settings {{{
-  let g:loaded_lustyjuggler = 1
-  let g:loaded_lustyexplorer = 1
-  " Dont complain about ruby, it is annoying
-  let g:LustyExplorerSuppressRubyWarning = 1
+" CtrlP Settings {{{
+  " let g:ctrlp_prompt_mappings = { 'MarkToOpen()': ['<c-z>'] }
+
+  " Open files in current window
+  let g:ctrlp_open_new_file = 'r'
+  let g:ctrlp_open_multiple_files = 'vr'
+
+  " Default to searching from current files dir
+  let g:ctrlp_working_path_mode = 1
+  let g:ctrlp_user_command = {
+    \ 'types': {
+      \ 1: ['.git/', 'cd %s && git ls-files'],
+      \ 2: ['.hg/', 'hg --cwd %s locate -I .'],
+    \ }
+  \ }
+  map <silent> <Leader>b :CtrlPBuffer<CR>
+  map <silent> <Leader>m :CtrlPMixed<CR>
+  map <silent> <Leader>p :CtrlP<CR>
 " }}}
 " ZoomWin mapings {{{
   " Remove default zoomwin mapping

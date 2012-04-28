@@ -49,9 +49,6 @@
 [submodule "vim/bundle/vim-ruby"]
 	path = vim/bundle/vim-ruby
 	url = http://github.com/vim-ruby/vim-ruby.git
-[submodule "vim/bundle/vim-command-t"]
-	path = vim/bundle/vim-command-t
-	url = https://github.com/wincent/Command-T.git
 [submodule "vim/bundle/vim-javascript"]
 	path = vim/bundle/vim-javascript
 	url = http://github.com/pangloss/vim-javascript.git
@@ -67,9 +64,6 @@
 [submodule "vim/bundle/vim-gitolite"]
 	path = vim/bundle/vim-gitolite
 	url = http://github.com/tmatilai/gitolite.vim.git
-[submodule "vim/bundle/vim-lusty"]
-	path = vim/bundle/vim-lusty
-	url = http://github.com/sjbach/lusty.git
 [submodule "vim/bundle/vim-rake"]
 	path = vim/bundle/vim-rake
 	url = http://github.com/tpope/vim-rake.git

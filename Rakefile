@@ -37,21 +37,6 @@ task :update do
   system 'git', 'submodule', 'sync'
   system 'git', 'submodule', 'update', '--init', '--rebase'
 
-  puts 'making command-t plugin'
-  Dir.chdir 'vim/bundle/vim-command-t' do
-    system 'git', 'clean', '-fdx'
-    if windows?
-      Dir.chdir 'ruby/command-t' do
-        ENV['RI_DEVKIT'] = "C:\\DevKit\\"
-        ENV['PATH'] = "#{ENV['RI_DEVKIT']}bin;#{ENV['RI_DEVKIT']}mingw\\bin;#{ENV['PATH']}"
-        system 'ruby', 'extconf.rb'
-        system 'make'
-      end
-    else
-      system 'rake', 'make'
-    end
-  end
-
   system 'git', 'clean', '-df'
 
   puts 'updaing opp.zsh'
