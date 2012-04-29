@@ -131,16 +131,22 @@ if [[ -o interactive ]]; then
   ZSH_HIGHLIGHT_STYLES[path]=none
 
   # # Add nice shortcuts like ci" to standard vi mode
-  autoload opp
   . ~/.zsh/functions/opp-install
   opp-install
+  autoload opp
 
   # Color all stderr lines yellow only when interactive
-  if command -v colorize >& /dev/null; then
-    exec 2>>(colorize $fg[yellow] $reset_color > /dev/tty &)
-  else
-    exec 2>>(while read line; do
-      print ${fg[yellow]}$line$reset_color > /dev/tty; print -n $'\0'; done &)
+  # The guard prevent a proliferation of processes when
+  # using exec to replace the current shell with a fresh
+  # instance
+  if [[ "$STDERR_COLORIZE" != $$ ]]; then
+    if command -v colorize >& /dev/null; then
+      exec 2>>(colorize $fg[yellow] $reset_color > /dev/tty &)
+    else
+      exec 2>>(while read line; do
+        print ${fg[yellow]}$line$reset_color > /dev/tty; print -n $'\0'; done &)
+    fi
+    export STDERR_COLORIZE=$$
   fi
 fi
 
