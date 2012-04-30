@@ -139,14 +139,22 @@ if [[ -o interactive ]]; then
   # The guard prevent a proliferation of processes when
   # using exec to replace the current shell with a fresh
   # instance
-  if [[ "$STDERR_COLORIZE" != $$ ]]; then
-    if command -v colorize >& /dev/null; then
-      exec 2>>(colorize $fg[yellow] $reset_color > /dev/tty &)
-    else
-      exec 2>>(while read line; do
-        print ${fg[yellow]}$line$reset_color > /dev/tty; print -n $'\0'; done &)
+  if [[ -f "$HOME/.homebrew/lib/libstderred.dylib" ]]; then
+    export STDERRED_ESC_CODE="$fg[red]"
+    export DYLD_INSERT_LIBRARIES="$HOME"/.homebrew/lib/libstderred.dylib
+  else if [[ -f "$HOME/.local/lib/libstderred.so" ]]; then
+    export STDERRED_ESC_CODE="$fg[red]"
+    export LD_PRELOAD="$HOME"/.local/lib/libstderred.so
+  else
+    if [[ "$STDERR_COLORIZE" != $$ ]]; then
+      if command -v colorize >& /dev/null; then
+        exec 2>>(colorize $fg[yellow] $reset_color > /dev/tty &)
+      else
+        exec 2>>(while read line; do
+          print ${fg[yellow]}$line$reset_color > /dev/tty; print -n $'\0'; done &)
+      fi
+      export STDERR_COLORIZE=$$
     fi
-    export STDERR_COLORIZE=$$
   fi
 fi
 
