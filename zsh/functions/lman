@@ -1,0 +1,6 @@
+set -- $(fc -nl -1)
+while [[ $# > 0 && ( "sudo" == "$1" || "-" == "${1[1]}" ) ]]; do
+  shift
+done
+
+man "$(basename "$1")"
