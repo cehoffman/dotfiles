@@ -66,7 +66,7 @@ function {
   local name="%(!.$bold_magenta.$blue)%n$black"
   local last_exit="${bold_red}%(?..E:%? )"
 
-  PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth\${_pr_extras:+${(qqq)open}\${(j: :)_pr_extras}${(qqq)close}${(qqq)ur}}
+  PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth\${_pr_extras:+${(qqq)open}${(qqq)reset}\${(j: :)_pr_extras}${(qqq)close}${(qqq)ur}}
 $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close$reset "
   RPROMPT=" $open$reset%D{%H:%M} ${bold_black}on $reset%D{%a %b %d}$close\${_pr_extras:+${(qqq)lr}}$reset"
   PS2="(!.$red.$bold_black)├$open$bold_cyan%_$close$reset "
@@ -199,6 +199,8 @@ function _prompt_precmd {
     _pr_extras+=$vcs_info_msg_0_
     _pr_short_extras+=$vcs_info_msg_1_
   fi
+
+  _pr_extras+="%{$fg_no_bold[magenta]%}P:$(process-tree)"
 
   if command -v rvm-prompt > /dev/null; then
     _pr_extras+="%{$fg_no_bold[red]%}R:$(rvm-prompt v g)"
