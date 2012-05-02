@@ -2,9 +2,7 @@ cd $HOME/.dotfiles
 git stash
 git reup
 git stash pop
-git submodule sync
-git submodule update
-rake update
+rake update\[${(j:,:)${(z)*}}\]
 popd
 
 # vim: filetype=zsh

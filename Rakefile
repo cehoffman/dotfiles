@@ -31,11 +31,13 @@ def mac?
 end
 
 desc "update the dot files into user's home directory"
-task :update do
+task :update, :speed do |_, args|
   puts 'initializing submodules'
-  system 'git', 'submodule', 'update', '--init'
-  system 'git', 'submodule', 'sync'
-  system 'git', 'submodule', 'update', '--init', '--rebase'
+  unless args[:speed] == 'fast'
+    system 'git', 'submodule', 'update', '--init'
+    system 'git', 'submodule', 'sync'
+    system 'git', 'submodule', 'update', '--init', '--rebase'
+  end
 
   system 'git', 'clean', '-df'
 
