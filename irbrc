@@ -101,10 +101,22 @@ extend_console 'pm', true, false do
 end
 
 # Setup pbcopy through nc to allow quick posting to clipboard
-extend_console 'open3' do
-  def pbcopy(str)
-    Open3.popen3('nc localhost 2224') { |i, o| i.print str.to_s }
-  end
+require 'socket'
+def pbcopy(str)
+  TCPSocket.open('localhost', 2224) { |io| io.send str.to_s, 0 }
+end
+
+def pbpaste
+  TCPSocket.open('localhost', 2223) { |io| io.read }
+end
+
+# Setup ability to copy the tmux buffer
+def tcopy(str)
+  system 'tmux', 'set-buffer', str.to_s if ENV['TMUX']
+end
+
+def tpaste
+  IO.popen(['tmux', 'show-buffer']) { |io| io.read.chomp } if ENV['TMUX']
 end
 
 # Show results of all extension-loading
