@@ -154,3 +154,9 @@
 [submodule "vim/bundle/vim-vitality"]
 	path = vim/bundle/vim-vitality
 	url = https://github.com/sjl/vitality.vim.git
+[submodule "vim/bundle/vim-vimux"]
+	path = vim/bundle/vim-vimux
+	url = https://github.com/cehoffman/vimux.git
+[submodule "vim/bundle/vim-vimux-ruby-test"]
+	path = vim/bundle/vim-vimux-ruby-test
+	url = https://github.com/pgr0ss/vimux-ruby-test.git
