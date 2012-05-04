@@ -285,7 +285,7 @@ if has("autocmd")
         wincmd L
         vertical resize 80
         setlocal nonumber winfixwidth colorcolumn=
-        setlocal norelativenumber nolist nospell
+        setlocal norelativenumber nolist nospell readonly
         setlocal foldexpr& nofoldenable foldmethod& foldcolumn=0
 
         let b:stl = "#[Branch] HELP#[BranchS] [>] #[FileNameS][>>]%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
@@ -294,7 +294,7 @@ if has("autocmd")
         nnoremap <buffer> <Space> <C-]>
         nnoremap <buffer> <CR> <C-]>
         nnoremap <buffer> <BS> <C-T>
-        nnoremap <buffer> q :bd<CR>
+        nnoremap <buffer> <silent> q :bd<CR>
       endfunction
 
       autocmd FileType help call <SID>SetupHelpWindow()
