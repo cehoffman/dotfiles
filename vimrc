@@ -634,7 +634,7 @@ if has("autocmd")
           \ map <buffer> <Leader>gbj :Rjob |
 
     " automatically make the current working directory be the repo root
-    autocmd BufEnter,BufWinEnter * if exists("b:git_dir") | Gcd | endif
+    autocmd BufEnter,BufWinEnter * if exists("b:git_dir") | Glcd | endif
 
     autocmd FileType cucumber set expandtab
   augroup END " }}}
