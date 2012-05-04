@@ -299,6 +299,32 @@ if has("autocmd")
 
       autocmd FileType help call <SID>SetupHelpWindow()
     " }}}
+    " Man Window Customization {{{
+      function! s:SetupManWindow()
+        wincmd L
+        vertical resize 80
+
+        let l:section = match(expand('%:t:r'), "\\d\\+$")
+        let l:page = expand('%:t:r:r')
+        if !exists('b:reprocessing_manpage')
+          let b:reprocessing_manpage = 1
+          exec ":Man " . l:section . ' ' . l:page
+        endif
+        setlocal nonumber winfixwidth colorcolumn=
+        setlocal norelativenumber nolist nospell readonly
+        setlocal foldexpr& nofoldenable foldmethod& foldcolumn=0
+
+        let b:stl = "#[Branch] MANPAGE#[BranchS] [>] #[Filename]%{expand('%:t:r:r')} #[FileNameS][>>]%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
+
+        autocmd BufWinEnter <buffer> call <SID>SetupManWindow()
+        nmap <buffer> <Space> <C-]>
+        nmap <buffer> <CR> <C-]>
+        nmap <buffer> <BS> <C-T>
+        nnoremap <buffer> <silent> q :bd<CR>
+      endfunction
+
+      autocmd FileType man call <SID>SetupManWindow()
+    " }}}
     " Fast escape from insert {{{
       " autocmd InsertEnter * set timeoutlen=300
       " autocmd InsertLeave * set timeoutlen=600
