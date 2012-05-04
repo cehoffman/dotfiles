@@ -871,12 +871,12 @@ endif
   let g:VimuxOrientation = 'v'
   let g:VimuxResetSequence = 'q Escape cc C-l'
   let g:VimuxUseNearestPane = 1
-  nnoremap <Leader>tp :PromptVimTmuxCommand<CR>
-  nnoremap <Leader>tl :RunLastVimTmuxCommand<CR>
-  nnoremap <Leader>tq :CloseVimTmuxPanes<CR>
-  nnoremap <Leader>ti :InspectVimTmuxRunner<CR>
-  nnoremap <Leader>ts :InterruptVimTmuxRunner<CR>
-  vnoremap <Leader>tr "vy :call RunVimTmuxCommand(@v . "\n", 0)<CR>
+  nnoremap <Leader>vp :PromptVimTmuxCommand<CR>
+  nnoremap <Leader>vl :RunLastVimTmuxCommand<CR>
+  nnoremap <Leader>vq :CloseVimTmuxPanes<CR>
+  nnoremap <Leader>vi :InspectVimTmuxRunner<CR>
+  nnoremap <Leader>vs :InterruptVimTmuxRunner<CR>
+  vnoremap <Leader>vr "vy :call RunVimTmuxCommand(@v . "\n", 0)<CR>
 " }}}
 " Ack {{{
   cabbrev ack Ack!
