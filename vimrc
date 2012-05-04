@@ -878,6 +878,12 @@ endif
   nnoremap <Leader>ts :InterruptVimTmuxRunner<CR>
   vnoremap <Leader>tr "vy :call RunVimTmuxCommand(@v . "\n", 0)<CR>
 " }}}
+" Ack {{{
+  cabbrev ack Ack!
+" }}}
+" Man {{{
+  cabbrev man Man
+" }}}
 
 " Window Management {{{
   " Open a yanked window {{{
