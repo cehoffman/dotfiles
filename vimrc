@@ -841,6 +841,17 @@ endif
   let g:LatexBox_no_mappings = 1
   map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
 " }}}
+" Vimux {{{
+  let g:VimuxOrientation = 'v'
+  let g:VimuxResetSequence = 'q Escape cc C-l'
+  let g:VimuxUseNearestPane = 1
+  nnoremap <Leader>tp :PromptVimTmuxCommand<CR>
+  nnoremap <Leader>tl :RunLastVimTmuxCommand<CR>
+  nnoremap <Leader>tq :CloseVimTmuxPanes<CR>
+  nnoremap <Leader>ti :InspectVimTmuxRunner<CR>
+  nnoremap <Leader>ts :InterruptVimTmuxRunner<CR>
+  vnoremap <Leader>tr "vy :call RunVimTmuxCommand(@v . "\n", 0)<CR>
+" }}}
 
 " Window Management {{{
   " Open a yanked window {{{
