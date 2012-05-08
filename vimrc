@@ -106,6 +106,7 @@ set runtimepath+=~/.vim/after
 runtime! macros/matchit.vim " Include the matchit macro
 
 let mapleader = "," " \ is the default leader character
+let maplocalleader = ',' " \ is the default
 
 " General Mappings {{{
   " Allows moving up by screen lines, not file lines
