@@ -1,0 +1,104 @@
+[general]
+metadata = ~/.offlineimap
+accounts = Gmail, OtherCoders, Apple
+maxsyncaccounts = 3
+
+# The pre-defined options are:
+# Blinkenlights -- A fancy (terminal) interface
+# TTYUI         -- a text-based (terminal) interface
+# Basic         -- Noninteractive interface suitable for cron'ing
+# Quiet         -- Noninteractive interface, generates no output
+#                  except for errors.
+# MachineUI     -- Interactive interface suitable for machine
+#                  parsing.
+#
+# You can override this with a command-line option -u.
+
+ui = TTYUI
+
+pythonfile = ~/.offlineimap/config_helpers.py
+socktimeout = 60
+
+##################################################
+# Mailbox name recorder
+##################################################
+
+[mbnames]
+
+enabled = no
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+
+
+##################################################
+# Accounts
+##################################################
+
+
+[Account Gmail]
+localrepository = GmailLocal
+remoterepository = GmailRemote
+
+########## Advanced settings
+# Do quick updates, e.g. only folders that have changes
+quick = -1
+postsynchook = ~/.homebrew/bin/notmuch new
+status_backend = sqlite
+
+[Repository GmailLocal]
+type = Maildir
+localfolders = ~/Mail/Gmail
+sep = /
+restoreatime = yes
+
+[Repository GmailRemote]
+type = Gmail
+remoteuser = cehoffman@gmail.com
+remotepasseval = get_password('imap.gmail.com', 'cehoffman@gmail.com')
+maxconnections = 2
+sslcacertfile = ~/.cacerts/entrust.crt
+
+[Account OtherCoders]
+localrepository = OtherCodersLocal
+remoterepository = OtherCodersRemote
+quick = -1
+postsynchook = ~/.homebrew/bin/notmuch new
+status_backend = sqlite
+
+[Repository OtherCodersLocal]
+type = Maildir
+localfolders = ~/Mail/OtherCoders
+sep = /
+restoreatime = yes
+
+[Repository OtherCodersRemote]
+type = Gmail
+remoteuser = cehoffman@othercoders.com
+remotepasseval = get_password('imap.gmail.com', 'cehoffman@othercoders.com')
+sslcacertfile = ~/.cacerts/entrust.crt
+maxconnections = 2
+
+[Account Apple]
+localrepository = AppleLocal
+remoterepository = AppleRemote
+quick = -1
+postsynchook = ~/.homebrew/bin/notmuch new
+status_backend = sqlite
+
+[Repository AppleLocal]
+type = Maildir
+localfolders = ~/Mail/Apple
+sep = /
+restoreatime = yes
+
+[Repository AppleRemote]
+type = IMAP
+remotehost = imap.mail.me.com
+remoteuser = cehaderach
+remotepasseval = get_password('imap.mail.me.com', 'cehaderach')
+ssl = yes
+maxconnections = 2
+sslcacertfile = ~/.cacerts/equifax.crt

@@ -11,3 +11,6 @@ weechat/weeget
 zsh/functions/opp
 zsh/functions/opp-install
 rbenv
+offlineimap/pid
+offlineimap/Account-*
+offlineimap/Repository-*
