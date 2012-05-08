@@ -1,6 +1,11 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
+
+set runtimepath=~/.vim,$VIMRUNTIME
+if executable('brew')
+  exe "set runtimepath+=" . substitute(system('brew --prefix'), "\\n", '', 'g') . '/share/vim'
+endif
+set runtimepath+=~/.vim/after
 
 " Pathogen initialization {{{
   filetype off
