@@ -126,6 +126,9 @@ fi
 typeset -gU path cdpath manpath fpath
 
 if [[ -o interactive ]]; then
+  # Turn off the retarded flow control
+  command -v stty &> /dev/null && stty -ixon
+
   # Make a nice colored interactive prompt
   source ~/.zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ZSH_HIGHLIGHT_STYLES[path]=none
