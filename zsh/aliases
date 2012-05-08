@@ -1,3 +1,8 @@
+alias g='git'
+alias gd='git d'
+alias gdc='git dc'
+alias ga='git add -p'
+
 alias l='ls -lAh'
 alias less='less -R'
 alias x='extract -d'
