@@ -329,17 +329,12 @@ if has("autocmd")
         nnoremap <buffer> <silent> q :bd<CR>
       endfunction
 
+      " runtime! ftplugin/man.vim
       autocmd FileType man call <SID>SetupManWindow()
     " }}}
     " Fast escape from insert {{{
       " autocmd InsertEnter * set timeoutlen=300
       " autocmd InsertLeave * set timeoutlen=600
-    " }}}
-    " Manpages inside vim  {{{
-      runtime! ftplugin/man.vim
-      autocmd FileType man
-            \ setlocal nolist nofoldenable nospell |
-            \ map <buffer> q <ESC>:q!<CR>
     " }}}
     " Highighlight cursor row {{{
       autocmd WinEnter,InsertLeave * setlocal cursorline
