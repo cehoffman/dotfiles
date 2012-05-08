@@ -738,8 +738,8 @@ endif
   let NERDCommentWholeLinesInVMode = 1
 " }}}
 " delimitMate settings {{{
-  let delimitMate_expand_space = 0
-  let delimitMate_expand_cr = 0
+  let g:delimitMate_expand_space = 0
+  let g:delimitMate_expand_cr = 0
 
   " Allow for quick jumping over delimiters instead of S-Tab
   inoremap ; <C-R>=delimitMate#JumpAny(";")<CR>
