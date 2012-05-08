@@ -23,10 +23,14 @@ bindkey -M vicmd '^E' vi-add-eol
 # Alias C-n and C-p to up and down arrow
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
+bindkey 'OA' history-beginning-search-backward
+bindkey 'OB' history-beginning-search-forward
 
 # Make autocomplete cycling work like in vim
-bindkey -M menuselect '^N' reverse-menu-complete
-bindkey -M menuselect '^P' menu-complete
+bindkey -M menuselect '^P' reverse-menu-complete
+bindkey -M menuselect '^N' menu-complete
+bindkey -M menuselect 'OA' reverse-menu-complete
+bindkey -M menuselect 'OB' menu-complete
 
 # Make G go to the end of history
 bindkey -M vicmd 'G' end-of-history
