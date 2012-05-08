@@ -78,8 +78,8 @@ bindkey "^Xs" sudo-command-line
 
 # Make it easy to remove directory components when deleting words
 function slash-backward-kill-word() {
-  local WORDCHARS="${WORDCHARS:s@/@}"
-  zle .vi-backward-kill-word
+  local WORDCHARS="${WORDCHARS:s#/#}"
+  zle backward-delete-word
 }
 zle -N slash-backward-kill-word
 
