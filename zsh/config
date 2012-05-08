@@ -27,7 +27,7 @@ setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS # allow functions to have local options
 setopt LOCAL_TRAPS # allow functions to have local traps
 setopt CORRECT
-setopt CORRECT_ALL
+setopt NO_CORRECT_ALL # I hate being asked to correct commands to . file name
 setopt COMPLETE_IN_WORD
 setopt NO_ALWAYS_TO_END
 setopt NO_LIST_AMBIGUOUS # Don't auto complete until ambiguous
