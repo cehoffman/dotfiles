@@ -2,8 +2,8 @@
 set nocompatible
 
 set runtimepath=~/.vim,$VIMRUNTIME
-if executable('brew')
-  exe "set runtimepath+=" . substitute(system('brew --prefix'), "\\n", '', 'g') . '/share/vim'
+if $LPKG_PREFIX
+  exe "set runtimepath+=" . $LPKG_PREFIX . '/share/vim'
 endif
 set runtimepath+=~/.vim/after
 
