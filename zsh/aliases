@@ -1,7 +1,17 @@
 alias l='ls -lAh'
 alias less='less -R'
-alias s_smtp="python -m smtpd -n -c DebuggingServer localhost:1025"
 alias x='extract -d'
+
+# Create a tmux session if there isn't one to attach to
+alias tmux="tmux attach-session"
+
+# Show full history
+alias history='fc -l 1'
+
+function reload() {
+  autoload -U ~/.zsh/functions/*(:t)
+}
+reload
 
 function lst() { ls -R "${1-.}" | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/' }
 
@@ -22,25 +32,26 @@ function {
   done
 }
 
-function 256c() { echo -n "\e[38;5;${1}m${${(z)*}[2,-1]}" }
-
-# Create a tmux session if there isn't one to attach to
-alias tmux="tmux attach-session"
-
-# Show full history
-alias history='fc -l 1'
+function 256c() {
+  echo -n "\e[38;5;${1}m${${(z)*}[2,-1]}"
+}
 
 if [[ $IS_MAC -eq 1 ]]; then
   # show and hide files from Finder
   alias hide="chflags hidden"
   alias show="chflags nohidden"
   alias ql="qlmanage -p 2>/dev/null"
+
   function vol() {
     if [[ -n $1 ]]; then
       osascript -e "set volume output volume $1"
     else
       osascript -e "output volume of (get volume settings)"
     fi
+  }
+
+  function pman() {
+    man -t $* | open -f -a Preview
   }
 
   if [[ -r /Applications/MacVim.app ]]; then

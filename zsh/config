@@ -7,8 +7,6 @@ typeset -gUa preexec_functions
 typeset -gUa precmd_functions
 typeset -gUa chpwd_functions
 
-autoload -U ~/.zsh/functions/*(:t)
-
 ## smart urls
 if [[ -o interactive ]]; then
   autoload -U url-quote-magic
