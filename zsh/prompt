@@ -36,7 +36,7 @@ function update_rprompt() {
   regexp-replace rpromptsize "\[([0-9]{1,2}(;[0-9]{1,2}(;[0-9]{1,3})?)?)?[m|K]"
 
   # Go back to the start of current prompt and reprint it
-  echo -ne "\e[A\e[$(( $COLUMNS - $#rpromptsize + 1))G$rprompt\e[B\e[G"
+  echo -ne "\e[A\e[$(( $COLUMNS - $#rpromptsize ))G$rprompt\e[B\e[G"
 }
 preexec_functions+=update_rprompt
 
@@ -68,9 +68,7 @@ function {
 
   PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth\${_pr_extras:+${(qqq)open}${(qqq)reset}\${(j: :)_pr_extras}${(qqq)close}${(qqq)ur}}
 $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close$reset "
-  # Note that the o in on is made zero width to force full width rprompt usage
-  # Otherwise rprompt is kept 1 space from edge
-  RPROMPT=" $open$reset%D{%H:%M} ${bold_black}%{o%}n $reset%D{%a %b %d}$close\${_pr_extras:+${(qqq)lr}}$reset"
+  RPROMPT=" $open$reset%D{%H:%M} ${bold_black}on $reset%D{%a %b %d}$close\${_pr_extras:+${(qqq)lr}}$reset"
   PS2="%(!.$red.$black)├$open$bold_cyan%_$close$reset "
   PROMPT_EOL_MARK="%b%F{77}§$reset"
 }
@@ -282,7 +280,7 @@ function _prompt_precmd {
     _pr_fillwidth=''
     promptsize=${(S%%)${(e)PROMPT}//(\%([KF1]|)\{*\}|\%[BbkfsS])}
     promptsize=${${(f)promptsize}[1]}
-    promptsize=$(( $#promptsize - $pwdsize ))
+    promptsize=$(( $#promptsize - $pwdsize + 1 ))
   }
   calc_promptsize
 
@@ -298,7 +296,7 @@ function _prompt_precmd {
   done
 
   if (($promptsize + $pwdsize > $COLUMNS)); then
-    (( _pr_pwdlen = $COLUMNS - $promptsize - 1 ))
+    ((_pr_pwdlen = $COLUMNS - $promptsize - 1))
   else
     _pr_fillwidth="${(l.(($COLUMNS - ($promptsize + $pwdsize))).. .)}"
   fi
