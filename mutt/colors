@@ -1,0 +1,50 @@
+color normal color251 default
+color hdrdefault color184 default
+color header color172 default "^(From|Subject):"
+color quoted color241 default
+color quoted1 color84 default
+color quoted3 color84 default
+color quoted5 color84 default
+color quoted2 color241 default
+color quoted4 color241 default
+color quoted6 color241 default
+color signature color172 default
+color indicator default color130
+color search color39 default
+color status  color231 color240
+color tilde  color240 color240
+color tree color161 default
+color underline color43 default
+
+# New and not tagged, flaggged, or to or from me
+# color index black white "~N !~T !~F !~p !~P"
+# Tagged and not flagged, or to/from me
+# color index black cyan "~T !~F !~p !~P"
+# Flagged but not to/from me
+# color index black red "~F !~p !~P"
+
+# Messages to me
+color index color172 default '~N'
+color index color77 default '~P'
+
+# urls in messages
+color body color77 default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+
+# emails in messages
+color body color77 default "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
+
+# bold messages
+color body color43 default "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+
+# underline
+color body color39 default "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+
+# Smilies
+color body color184 default "<[Gg]>"                            # <g>
+color body color184 default "<[Bb][Gg]>"                        # <bg>
+color body color184 default " [;:]-*[})>{(<|]"                  # :-) etc...
+
+# border line
+color body color98 default " *[-+=#*~_]{6,}"
+
+# vim: set ft=muttrc:

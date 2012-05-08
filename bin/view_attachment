@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+exit -1 unless ARGV.size > 1 && File.exists?(ARGV[0])
+
+require 'tempfile'
+path = Tempfile.new(File.basename(ARGV[0])).path
+File.rename(ARGV[0], path = path + File.extname(ARGV[0]))
+exec 'open', path, *ARGV[1..-1]
