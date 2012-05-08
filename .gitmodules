@@ -160,3 +160,6 @@
 [submodule "vim/bundle/vim-vimux-ruby-test"]
 	path = vim/bundle/vim-vimux-ruby-test
 	url = https://github.com/pgr0ss/vimux-ruby-test.git
+[submodule "vim/bundle/vim-lbdbq"]
+	path = vim/bundle/vim-lbdbq
+	url = https://github.com/vim-scripts/lbdbq.git
