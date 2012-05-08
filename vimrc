@@ -873,6 +873,10 @@ endif
   let g:LatexBox_no_mappings = 1
   map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
 " }}}
+" Vitality {{{
+  " This works terribly unless vim is the only thing in iTerm2
+  let g:vitality_fix_focus = 0
+" }}}
 " Vimux {{{
   let g:VimuxOrientation = 'v'
   let g:VimuxResetSequence = 'q Escape cc C-l'
