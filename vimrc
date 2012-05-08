@@ -788,12 +788,12 @@ endif
 
   " Default to searching from current files dir
   let g:ctrlp_working_path_mode = 1
-  let g:ctrlp_user_command = {
-    \ 'types': {
-      \ 1: ['.git/', 'cd %s && git ls-files'],
-      \ 2: ['.hg/', 'hg --cwd %s locate -I .'],
-    \ }
-  \ }
+  " let g:ctrlp_user_command = {
+  "   \ 'types': {
+  "     \ 1: ['.git/', 'cd %s && git ls-files'],
+  "     \ 2: ['.hg/', 'hg --cwd %s locate -I .'],
+  "   \ }
+  " \ }
   map <silent> <Leader>b :CtrlPBuffer<CR>
   map <silent> <Leader>m :CtrlPMixed<CR>
   map <silent> <Leader>p :CtrlP<CR>
