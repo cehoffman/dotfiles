@@ -878,15 +878,16 @@ endif
   let g:vitality_fix_focus = 0
 " }}}
 " Vimux {{{
-  let g:VimuxOrientation = 'v'
-  let g:VimuxResetSequence = 'q Escape cc C-l'
+  let g:VimuxOrientation = 'h'
+  let g:VimuxResetSequence = 'q Escape cc'
   let g:VimuxUseNearestPane = 1
-  nnoremap <Leader>vp :PromptVimTmuxCommand<CR>
+  let g:VimuxHeight = 50
+  nnoremap <Leader>vr :PromptVimTmuxCommand<CR>
   nnoremap <Leader>vl :RunLastVimTmuxCommand<CR>
   nnoremap <Leader>vq :CloseVimTmuxPanes<CR>
   nnoremap <Leader>vi :InspectVimTmuxRunner<CR>
   nnoremap <Leader>vs :InterruptVimTmuxRunner<CR>
-  vnoremap <Leader>vr "vy :call RunVimTmuxCommand(@v . "\n", 0)<CR>
+  vnoremap <Leader>vp "vy :call RunVimTmuxCommand(@v, 0)<CR>
 " }}}
 " Ack {{{
   cabbrev ack Ack!
