@@ -1,6 +1,10 @@
 # Use vi keybindings to edit command line
 bindkey -v
 
+# Let _expand do expansion instead of shell
+bindkey -M viins '	' complete-word
+bindkey -M vicmd '	' complete-word
+
 # Make backspace work
 bindkey '^?' backward-delete-char
 bindkey '^H' backward-delete-char
