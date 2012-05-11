@@ -996,10 +996,10 @@ endif
   " }}}
   " Open url from current line {{{
     function! s:OpenURL()
-      let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
-      echo s:uri
-      if s:uri != ""
-        exec "!open \"" . s:uri . "\""
+      let l:uri = matchstr(getline("."), "[a-zA-Z]\\+:\\/\\/\\([a-zA-Z0-9_-]\\+\\.\\)\\+[a-zA-Z]\\+\\(\\/[\\.a-zA-Z0-9_-]\\+\\)*\\ze[^\\.]\\?")
+      if !empty(l:uri)
+        echo l:uri
+        exec "!open " . shellescape(l:uri)
       else
         echo "No URI found in line."
       endif
