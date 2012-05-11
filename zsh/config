@@ -14,6 +14,9 @@ if [[ -o interactive ]]; then
 
   # Colorize me
   autoload colors; colors;
+
+  # Setup gpg to know what terminal is active for this session
+  GPG_TTY=$(tty)
 fi
 
 HISTFILE=~/.zsh_history
