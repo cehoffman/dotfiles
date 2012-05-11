@@ -1,78 +1,91 @@
 #compdef rake
 
-typeset -A opt_args
-local curcontext="$curcontext" state line cmds ret=1
+function _rake() {
+  typeset -A opt_args
+  local curcontext="$curcontext" state line cmds ret=1
 
-# Generate using rake "--*-completion-zsh=rake"
-_arguments -C -s -S \
-  "-C[Put Task and FileTask in the top level namespace]" \
-  "--classic-namespace[Put Task and FileTask in the top level namespace]" \
-  "-D[Describe the tasks (matching optional PATTERN), then exit.]" \
-  "--describe[Describe the tasks (matching optional PATTERN), then exit.]" \
-  "-n[Do a dry run without executing actions.]" \
-  "--dry-run[Do a dry run without executing actions.]" \
-  "-e[Execute some Ruby code and exit.]" \
-  "--execute[Execute some Ruby code and exit.]" \
-  "-p[Execute some Ruby code, print the result, then exit.]" \
-  "--execute-print[Execute some Ruby code, print the result, then exit.]" \
-  "-E[Execute some Ruby code, then continue with normal task processing.]" \
-  "--execute-continue[Execute some Ruby code, then continue with normal task processing.]" \
-  "-I[Include LIBDIR in the search path for required modules.]" \
-  "--libdir[Include LIBDIR in the search path for required modules.]" \
-  "-N[Do not search parent directories for the Rakefile.]" \
-  "--no-search[Do not search parent directories for the Rakefile.]" \
-  "--nosearch[Do not search parent directories for the Rakefile.]" \
-  "-P[Display the tasks and dependencies, then exit.]" \
-  "--prereqs[Display the tasks and dependencies, then exit.]" \
-  "-q[Do not log messages to standard output.]" \
-  "--quiet[Do not log messages to standard output.]" \
-  "-f[Use FILE as the rakefile.]" \
-  "--rakefile[Use FILE as the rakefile.]" \
-  "-R[Auto-import any .rake files in RAKELIBDIR. (default is 'rakelib')]" \
-  "--rakelibdir[Auto-import any .rake files in RAKELIBDIR. (default is 'rakelib')]" \
-  "--rakelib[Auto-import any .rake files in RAKELIBDIR. (default is 'rakelib')]" \
-  "-r[Require MODULE before executing rakefile.]" \
-  "--require[Require MODULE before executing rakefile.]" \
-  "--rules[Trace the rules resolution.]" \
-  "-s[Like --quiet, but also suppresses the 'in directory' announcement.]" \
-  "--silent[Like --quiet, but also suppresses the 'in directory' announcement.]" \
-  "-g[Using system wide (global) rakefiles (usually '~/.rake/*.rake').]" \
-  "--system[Using system wide (global) rakefiles (usually '~/.rake/*.rake').]" \
-  "-G[Use standard project Rakefile search paths, ignore system wide rakefiles.]" \
-  "--no-system[Use standard project Rakefile search paths, ignore system wide rakefiles.]" \
-  "--nosystem[Use standard project Rakefile search paths, ignore system wide rakefiles.]" \
-  "-T[Display the tasks (matching optional PATTERN) with descriptions, then exit.]" \
-  "--tasks[Display the tasks (matching optional PATTERN) with descriptions, then exit.]" \
-  "-t[Turn on invoke/execute tracing, enable full backtrace.]" \
-  "--trace[Turn on invoke/execute tracing, enable full backtrace.]" \
-  "-v[Log message to standard output.]" \
-  "--verbose[Log message to standard output.]" \
-  "-V[Display the program version.]" \
-  "--version[Display the program version.]" \
-  "-W[Describe the tasks (matching optional PATTERN), then exit.]" \
-  "--where[Describe the tasks (matching optional PATTERN), then exit.]" \
-  "-X[Disable the deprecation warnings.]" \
-  "--no-deprecation-warnings[Disable the deprecation warnings.]" \
-  "-h[Display this help message.]" \
-  "-H[Display this help message.]" \
-  "--help[Display this help message.]" \
-  '*: :->cmds'
+  # Generate using rake "--*-completion-zsh=rake"
+  _arguments -C -s -S \
+    "-C[Put Task and FileTask in the top level namespace]" \
+    "--classic-namespace[Put Task and FileTask in the top level namespace]" \
+    "-D[Describe the tasks (matching optional PATTERN), then exit.]" \
+    "--describe[Describe the tasks (matching optional PATTERN), then exit.]" \
+    "-n[Do a dry run without executing actions.]" \
+    "--dry-run[Do a dry run without executing actions.]" \
+    "-e[Execute some Ruby code and exit.]" \
+    "--execute[Execute some Ruby code and exit.]" \
+    "-p[Execute some Ruby code, print the result, then exit.]" \
+    "--execute-print[Execute some Ruby code, print the result, then exit.]" \
+    "-E[Execute some Ruby code, then continue with normal task processing.]" \
+    "--execute-continue[Execute some Ruby code, then continue with normal task processing.]" \
+    "-I[Include LIBDIR in the search path for required modules.]" \
+    "--libdir[Include LIBDIR in the search path for required modules.]" \
+    "-N[Do not search parent directories for the Rakefile.]" \
+    "--no-search[Do not search parent directories for the Rakefile.]" \
+    "--nosearch[Do not search parent directories for the Rakefile.]" \
+    "-P[Display the tasks and dependencies, then exit.]" \
+    "--prereqs[Display the tasks and dependencies, then exit.]" \
+    "-q[Do not log messages to standard output.]" \
+    "--quiet[Do not log messages to standard output.]" \
+    "-f[Use FILE as the rakefile.]" \
+    "--rakefile[Use FILE as the rakefile.]" \
+    "-R[Auto-import any .rake files in RAKELIBDIR. (default is 'rakelib')]" \
+    "--rakelibdir[Auto-import any .rake files in RAKELIBDIR. (default is 'rakelib')]" \
+    "--rakelib[Auto-import any .rake files in RAKELIBDIR. (default is 'rakelib')]" \
+    "-r[Require MODULE before executing rakefile.]" \
+    "--require[Require MODULE before executing rakefile.]" \
+    "--rules[Trace the rules resolution.]" \
+    "-s[Like --quiet, but also suppresses the 'in directory' announcement.]" \
+    "--silent[Like --quiet, but also suppresses the 'in directory' announcement.]" \
+    "-g[Using system wide (global) rakefiles (usually '~/.rake/*.rake').]" \
+    "--system[Using system wide (global) rakefiles (usually '~/.rake/*.rake').]" \
+    "-G[Use standard project Rakefile search paths, ignore system wide rakefiles.]" \
+    "--no-system[Use standard project Rakefile search paths, ignore system wide rakefiles.]" \
+    "--nosystem[Use standard project Rakefile search paths, ignore system wide rakefiles.]" \
+    "-T[Display the tasks (matching optional PATTERN) with descriptions, then exit.]" \
+    "--tasks[Display the tasks (matching optional PATTERN) with descriptions, then exit.]" \
+    "-t[Turn on invoke/execute tracing, enable full backtrace.]" \
+    "--trace[Turn on invoke/execute tracing, enable full backtrace.]" \
+    "-v[Log message to standard output.]" \
+    "--verbose[Log message to standard output.]" \
+    "-V[Display the program version.]" \
+    "--version[Display the program version.]" \
+    "-W[Describe the tasks (matching optional PATTERN), then exit.]" \
+    "--where[Describe the tasks (matching optional PATTERN), then exit.]" \
+    "-X[Disable the deprecation warnings.]" \
+    "--no-deprecation-warnings[Disable the deprecation warnings.]" \
+    "-h[Display this help message.]" \
+    "-H[Display this help message.]" \
+    "--help[Display this help message.]" \
+    '*: :->cmds'
 
-case $state in
-  cmds)
-    if [ -f Rakefile ]; then
-      local recent=$(ls -t .rake_tasks~ Rakefile 2> /dev/null | head -n 1)
-      if [[ $recent != '.rake_tasks~' ]]; then
-        _call_program commands rake -T 2> /dev/null | sed -e '/ # /!d; s/:/\\:/g; s/rake \([^ ]*\) .*# /\1:/' > .rake_tasks~
+  case $state in
+    cmds)
+      if [ -f Rakefile ]; then
+        local update_policy
+        local unique_name=${PWD//\//-}
+        local -a tasks
+
+        zstyle -s ":completion:$curcontext:" cache-policy update_policy
+        [[ -z "$update_policy" ]] && zstyle ":completion:$curcontext:" cache-policy _rake_cache_policy
+
+        if _cache_invalid  "rake-$unique_name" || ! _retrieve_cache "rake-$unique_name"; then
+          tasks=(${(f)"$(_call_program commands rake -T 2> /dev/null | sed -e '/ # /!d; s/:/\\:/g; s/rake \([^ ]*\) .*# /\1:/')"})
+          _store_cache "rake-$unique_name" tasks
+        fi
+
+        _describe -t commands 'rake command' tasks && ret=0
       fi
-      if [ -f .rake_tasks~ ]; then
-        cmds=(${(f)"$(cat .rake_tasks~)"})
-        _describe -t commands 'rake command' cmds && ret=0
-      fi
-    fi
-    ;;
-esac
+      ;;
+  esac
 
-return ret
+  return ret
+}
+
+function _rake_cache_policy() {
+  [[ -f Rakefile && Rakefile -nt "$1" ]] && return 0
+}
+
+_rake $*
 
 # vim: set filetype zsh
