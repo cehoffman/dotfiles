@@ -17,12 +17,12 @@ bindkey -M vicmd 'u' undo
 # Discovered this when using zsh inside a tmux that was inside
 # another tmux. It would just print ^A or ^E instead of doing
 # the action
-bindkey '^A' beginning-of-line
-bindkey '^E' end-of-line
+bindkey -M viins '^A' beginning-of-line
+bindkey -M viins '^E' end-of-line
 
 # Make C-e and C-M vicmd goto insert mode from command
-bindkey -M vicmd '^A' vi-insert-bol
-bindkey -M vicmd '^E' vi-add-eol
+# bindkey -M vicmd '^A' vi-insert-bol
+# bindkey -M vicmd '^E' vi-add-eol
 
 # Alias C-n and C-p to up and down arrow
 bindkey '^P' history-beginning-search-backward
@@ -59,6 +59,18 @@ bindkey '^X^E' edit-command-line
 # Insert literal characters
 bindkey -M viins '^v' vi-quoted-insert
 bindkey -M vicmd 'cru' up-case-word
+
+# This just want bound right, it sucked
+bindkey -M vicmd '~' vi-swap-case
+
+# Same reason as the cc, zsh seems to have problems with the repeats
+bindkey -M vicmd 'yy' vi-yank-whole-line
+
+# A nice try, but hasn't been useful yet
+bindkey -M vicmd 'z=' spell-word
+
+# Because this sometimes doesn't work as it should with vi-change
+bindkey -M vicmd 'cc' vi-change-whole-line
 
 # Make it really simple to forground that last suspended process before last
 # This makes it real simple to suspend vim, resume something else, suspend it and resume vim
