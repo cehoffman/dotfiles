@@ -727,11 +727,6 @@ endif
   let g:rubycomplete_include_objectspace = 1
   let g:rails_statusline = 0
 " }}}
-" Nerd Commenter settings {{{
-  let NERDSpaceDelims = 1
-  let NERDCompactSexyComs = 1
-  let NERDCommentWholeLinesInVMode = 1
-" }}}
 " delimitMate settings {{{
   let g:delimitMate_expand_space = 0
   let g:delimitMate_expand_cr = 0
@@ -799,20 +794,6 @@ endif
     unmap <C-W>o
     noremap <silent> <Leader>wo :ZoomWin<CR>
   endif
-" }}}
-" NerdTree settings {{{
-  let NERDChristmasTree = 1
-  let NERDTreeQuitOnOpen = 0
-  let NERDTreeShowBookmarks = 1
-  let NERDTreeShowHidden = 1
-  let NERDTreeWinPos = 'left'
-  let NERDTreeWinSize = 30
-  let NERDTreeMouseMode = 3 " Don't require double click to open file
-  let NERDTreeIgnore=['\~$', '^\.git$', '^\.svn$', '^\.bundle$', '^\.gitkeep$']
-  nmap <silent> <Leader>d :NERDTreeToggle<CR>
-
-  " Find in NerdTree!
-  nnoremap <silent> <Leader>D :NERDTreeFind<CR>
 " }}}
 " UltiSnips settings {{{
    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
@@ -985,14 +966,6 @@ endif
   " }}}
   " Execute bundle for the current project {{{
     cabbrev bundle Bundle
-  " }}}
-  " Rename a file {{{
-    function! s:RenameFile(file)
-      let old_file = expand('%:p')
-      exec 'keepalt saveas ' . fnamemodify(a:file, ':p')
-      call system('rm ' . shellescape(old_file))
-    endfunction
-    command! -nargs=1 -bar -complete=file Rename :call s:RenameFile(<f-args>)
   " }}}
   " Open url from current line {{{
     function! s:OpenURL()
