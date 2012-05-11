@@ -69,3 +69,8 @@ to rake task to update all submodules and plugins.
 What my [iTerm2](http://github.com/cehoffman/iTerm2) session looks like.
 
 ![iTerm2 in action](https://github.com/downloads/cehoffman/dotfiles/terminal.png)
+
+For comparison this is what the same file at the same size looks like in
+MacVim.
+
+![MacVim Coding](https://github.com/downloads/cehoffman/dotfiles/macvim.png)
