@@ -34,7 +34,7 @@ I tend to no longer use those tools.
 I have evolved my own color scheme from a TextMate scheme I found long ago on
 some list. In general I don't think it resembles that too much. I do try and
 make it appear in any terminal interfaces I use but many terminal interfaces
-suck at good color interfaces. VIM does not, and hence I usually find a VIM
+suck at good color handling. VIM does not, and hence I usually find a VIM
 based way of doing the task (hence the notmuch interface in VIM). The
 color scheme is called `plasticcodewrap`.
 
@@ -44,14 +44,15 @@ have a tweaked formula in my personal [homebrew
 clone](https://github.com/cehoffman/homebrew). 
 
 I've written a very basic workalike to homebrew for Linux systems as a single
-gem install called [coresys][https://github.com/cehoffman/coresys]. It is
-targeted at Linux and you can find it under my github account.
+gem install called [coresys](https://github.com/cehoffman/coresys). It is
+targeted at Linux and is currently in trial development mode. I use it for my
+virtual machines, but I'm also actively hacking on it.
 
 I have a fork of [iTerm2](http://github.com/cehoffman/iTerm2) that replaces the
 font size estimation engine with one that matches to the best of my perception
-the font estimation engine in [MacVim](http://macvim.org) so my custom font
-with special glyphs for my VIM statusline works the same in the terminal or in
-the GUI.
+the font estimation engine in [MacVim](http://macvim.org). I did this so my
+custom font with special glyphs for my VIM statusline works the same in the
+terminal or in the GUI.
 
 # Using
 
