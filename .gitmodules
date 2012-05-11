@@ -162,4 +162,4 @@
 	url = https://github.com/pgr0ss/vimux-ruby-test.git
 [submodule "vim/bundle/vim-lbdbq"]
 	path = vim/bundle/vim-lbdbq
-	url = https://github.com/vim-scripts/lbdbq.git
+	url = https://github.com/cehoffman/lbdbq.git
