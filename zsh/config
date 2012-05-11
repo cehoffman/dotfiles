@@ -143,6 +143,7 @@ if [[ -o interactive ]]; then
     typeset -TgU DYLD_INSERT_LIBRARIES dyld_insert_libraries
     dyld_insert_libraries=($HOME/.homebrew/lib/libstderred.dylib(-.) $dyld_insert_libraries)
     export DYLD_INSERT_LIBRARIES
+    alias mosh="DYLD_INSERT_LIBRARIES= mosh"
   elif [[ -f "$HOME/.local/lib/libstderred.so" ]]; then
     export STDERRED_ESC_CODE="$fg[red]"
     typeset -TgU LD_PRELOAD ld_preload
