@@ -1,0 +1,15 @@
+set smime_is_default
+set crypt_autosmime
+set crypt_autosign
+set smime_default_key = 0x5012E479
+
+set from = "cehoffman@othercoders.com"
+
+unset record
+set nocopy
+
+set trash = +OtherCoders/[Gmail]/Trash
+set postponed = +OtherCoders/[Gmail]/Drafts
+set signature = ~/.mutt/signature.othercoders
+
+# vim: set ft=muttrc:

@@ -1,6 +1,6 @@
-bind index,pager \CP sidebar-prev
-bind index,pager \CN sidebar-next
-bind index,pager \CO sidebar-open
+# bind index,pager \CP sidebar-prev
+# bind index,pager \CN sidebar-next
+# bind index,pager \CO sidebar-open
 
 bind index zt current-top
 bind index zz current-middle
@@ -75,6 +75,7 @@ bind pager <End> noop # was bottom
 bind pager <BackSpace> noop # was previous-line
 bind pager <Enter> noop # was next-line
 bind pager <F1> noop # was view mutt manual
+bind pager r group-reply
 
 bind browser <Space> noop
 bind browser gg first-entry

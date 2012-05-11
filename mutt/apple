@@ -1,0 +1,14 @@
+set nosmime_is_default
+set nocrypt_autosmime
+set nocrypt_autosign
+
+set from = "cehaderach@me.com"
+
+set copy
+set record = "+Apple/Sent Messages"
+
+set trash = "+Apple/Deleted Messages"
+set postponed = +Apple/Drafts
+set signature = ~/.mutt/signature.personal
+
+# vim: set ft=muttrc:

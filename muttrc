@@ -2,10 +2,12 @@ alternates "^cehoffman+.*@(gmail|othercoders)\.com$" ^khaderach@comcast\.net$
 
 set realname     = "Chris Hoffman"
 set from         = "cehoffman@gmail.com"
-set reverse_name = yes # build From: based on To: field if alternates matches
-set quit = ask-yes
-set noimap_passive # Don't wait to check folder to see if mail exists
-set timeout = 10 # Instead of waiting 10 minutes without to do checks...
+set reverse_name = yes     # build From: based on To: field if alternates matches
+set charset      = 'utf-8'
+set send_charset = 'utf-8'
+set noquit                 # Don't ask me when I try and quit
+set noimap_passive         # Don't wait to check folder to see if mail exists
+set timeout = 10           # Instead of waiting 10 minutes to do checks...
 
 set use_envelope_from = yes
 set query_command     = "lbdbq '%s'"
@@ -13,7 +15,7 @@ set mailcap_path      = "~/.mailcap"
 set editor            = "$EDITOR -c 'norm }o' -c 'set spell' -c 'startinsert'"
 set edit_headers      # Edit the headers when writing the email
 set fast_reply        # Don't ask for receipients on reply or subject on forward
-set autoedit          # Just drop into creating message, I'll set to in editor
+set autoedit          # Just drop into creating message, I'll set To in editor
 set sort              = threads                    # show threaded conversations
 set sort_aux          = reverse-last-date-received # display most recent first
 set header_cache      = ~/.mutt/cache/headers
@@ -27,6 +29,7 @@ set fcc_attach                 # save attachments with body
 set nomime_forward             # forward attachments as part of body
 set forward_format = "Fwd: %s" # Set a standard foward subject
 set include                    # Include messages in replies
+set include_onlyfirst          # Include only first attachment in reply
 set forward_quote              # Include messages in fowards
 set nomark_old                 # Don't mark unread messages as old eventually
 set nomarkers                  # Don't show + for wrapped lines
@@ -48,17 +51,18 @@ hdr_order From: Subject: Date: To: CC: Bcc:
 
 auto_view text/html application/x-gunzip applicaiton/x-tar-gz
 alternative_order text/plain text/html
+set implicit_autoview
 
-set sidebar_width   = 30
-set sidebar_visible = yes
-set sidebar_delim   = '│' # options are ─ ━ ┃
+# set sidebar_width   = 30
+# set sidebar_visible = yes
+# set sidebar_delim   = '│' # options are ─ ━ ┃
 
 set sendmail = msmtpq
 set sendmail_wait = -1
 
-folder-hook +Gmail 'set from="cehoffman@gmail.com"; set trash = +Gmail/[Gmail]/Trash; unset record; set postponed = +Gmail/[Gmail]/Drafts; set nocopy; set signature = ~/.mutt/signature.personal'
-folder-hook +OtherCoders 'set from="cehoffman@othercoders.com"; set trash = +OtherCoders/[Gmail]/Trash; unset record; set nocopy; set postponed = +OtherCoders/[Gmail]/Drafts; set signature = ~/.mutt/signature.othercoders'
-folder-hook +Apple 'set from="cehaderach@me.com"; set trash = "+Apple/Deleted Messages"; set postponed = +Apple/Drafts; set record = "+Apple/Sent Messages"; set copy; set signature = ~/.mutt/signature.personal'
+folder-hook +Gmail/.* 'source ~/.mutt/personal'
+folder-hook +OtherCoders/.* 'source ~/.mutt/othercoders'
+folder-hook +Apple/.* 'source ~/.mutt/apple'
 
 mailboxes +Gmail/INBOX +OtherCoders/INBOX +Apple/INBOX
 set spoolfile = +Gmail/INBOX # Set the initial open mailbox
@@ -72,8 +76,11 @@ source ~/.mutt/aliases
 source ~/.mutt/colors
 source ~/.mutt/bindings
 
-macro pager \Cv |urlview<enter> 'call urlview to extract URLS out of a message'
 macro index \Cv |urlview<enter> 'call urlview to extract URLS out of a message'
+macro pager \Cv |urlview<enter> 'call urlview to extract URLS out of a message'
+
+set crypt_use_gpgme
+set ignore_linear_white_space
 
 # Show version at startup
 push <show-version>
