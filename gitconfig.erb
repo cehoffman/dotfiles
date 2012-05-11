@@ -25,6 +25,7 @@
     amend = commit --amend -C HEAD
     prune-all = !git remote | xargs -n 1 git remote prune
     subup = !git submodule foreach 'git co master && git reup'
+    root = !pwd
 [core]
     eol = lf
     compression = 9
