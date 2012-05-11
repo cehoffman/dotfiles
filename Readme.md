@@ -67,4 +67,4 @@ to rake task to update all submodules and plugins.
 
 What my [iTerm2](http://github.com/cehoffman/iTerm2) session looks like.
 
-!(iTerm2 in action)[https://github.com/downloads/cehoffman/dotfiles/terminal.png]
+![iTerm2 in action](https://github.com/downloads/cehoffman/dotfiles/terminal.png)
