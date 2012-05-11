@@ -190,8 +190,6 @@ let maplocalleader = ',' " \ is the default
   cnoremap <C-P> <Up>
   cnoremap <C-N> <Down>
 
-  " Easy sudo writing
-  cnoremap <silent> w!! w !sudo tee % >/dev/null
 
   " Easy abbreviation to get path to current file mine file
   cabbrev %% <C-R>=expand('%:p:h').'/'<cr>
@@ -331,10 +329,13 @@ if has("autocmd")
 
       " runtime! ftplugin/man.vim
       autocmd FileType man call <SID>SetupManWindow()
+
+      command! -nargs=+ Man delcommand Man | runtime! ftplugin/man.vim | :Man <args><CR>
+      cabbrev man Man
     " }}}
     " Fast escape from insert {{{
-      " autocmd InsertEnter * set timeoutlen=300
-      " autocmd InsertLeave * set timeoutlen=600
+      autocmd InsertEnter * set timeoutlen=100
+      autocmd InsertLeave * set timeoutlen=600
     " }}}
     " Highighlight cursor row {{{
       autocmd WinEnter,InsertLeave * setlocal cursorline
@@ -849,10 +850,6 @@ endif
   let g:LatexBox_no_mappings = 1
   map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
 " }}}
-" Vitality {{{
-  " This works terribly unless vim is the only thing in iTerm2
-  let g:vitality_fix_focus = 0
-" }}}
 " Vimux {{{
   let g:VimuxOrientation = 'h'
   let g:VimuxResetSequence = 'q Escape cc'
@@ -867,9 +864,6 @@ endif
 " }}}
 " Ack {{{
   cabbrev ack Ack!
-" }}}
-" Man {{{
-  cabbrev man Man
 " }}}
 
 " Window Management {{{
@@ -1001,21 +995,6 @@ endif
   " Easy insertion of iso8601 timeformat {{{
     iab i8601 <C-R>=strftime('%Y-%m-%dT%H:%M:%S%z')<CR>
   " }}}
-  " Persistent echo {{{
-    " http://vim.wikia.com/wiki/Make_echo_seen_when_it_would_otherwise_disappear_and_go_unseen
-
-    " Useful for debugging mappings
-    " let s:Pecho=''
-    " fu! s:Pecho(msg)
-    "   let s:hold_ut=&ut | if &ut>1|let &ut=1|en
-    "   let s:Pecho=a:msg
-    "   aug Pecho
-    "     au CursorHold * if s:Pecho!=''|echo s:Pecho
-    "           \|let s:Pecho=''|if s:hold_ut > &ut |let &ut=s:hold_ut|en|en
-    "           \|aug Pecho|exe 'au!'|aug END|aug! Pecho
-    "   aug END
-    " endf
-  " }}}
   " Open all quickfix files {{{
     function! s:QuickFixOpenAll()
       if empty(getqflist())
@@ -1058,7 +1037,4 @@ endif
 
 set secure " must be last line in vimrc to have desired effect
 
-" set makeprg=script/testdrb\ -Itest\ %
-" set efm=%-G%*\\wTest:,%-GLoaded\ %.%#,%-GStarted,%-G,%-GFinished\ in%.%#,%-G%*\\d\ tests%.%#,\ %*\\d\ assertions%.%#,%-GCoverage\ report%.%#,%-G[32m%*\\sPASS[0m\ %m,%E[31m%*\\sFAIL[0m\ %.%#,%Z%*\\s%f:%l:%.%#,%C%*\\s%m%#
-
-" vim: foldminlines=0 foldmethod=marker foldmarker={{{,}}} relativenumber
+" vim: foldminlines=0 foldmethod=marker foldmarker={{{,}}} relativenumber:
