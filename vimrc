@@ -598,6 +598,8 @@ if has("autocmd")
           \ nnoremap <silent> <Leader>gv :Gitv --all<CR>|
           \ nnoremap <silent> <Leader>gV :Gitv! --all<CR>
 
+    autocmd FileType gitcommit setlocal spell
+
     function! s:GdiffToggle()
       if !&diff
         Gdiff
