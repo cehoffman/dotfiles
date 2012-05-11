@@ -22,69 +22,64 @@ fi
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-REPORTTIME=60 # print elapsed time when more than 10 seconds
+REPORTTIME=60               # print elapsed time when more than 10 seconds
 
 setopt NO_LIST_BEEP
-setopt LOCAL_OPTIONS # allow functions to have local options
-setopt LOCAL_TRAPS # allow functions to have local traps
+setopt LOCAL_OPTIONS        # allow functions to have local options
+setopt LOCAL_TRAPS          # allow functions to have local traps
 setopt CORRECT
-setopt NO_CORRECT_ALL # I hate being asked to correct commands to . file name
+setopt NO_CORRECT_ALL       # Prevents asking 'correct git to .git' when at root
 setopt COMPLETE_IN_WORD
-setopt NO_ALWAYS_TO_END
-setopt NO_LIST_AMBIGUOUS # Don't auto complete until ambiguous
-setopt COMPLETE_ALIASES # Treat aliases as unique entities viable for completion
-setopt REC_EXACT # Recgonize exact completions even if ambiguous
+setopt NO_ALWAYS_TO_END     # Don't got to end of word on completion from middle
+setopt NO_LIST_AMBIGUOUS    # Don't auto complete until ambiguous
+setopt COMPLETE_ALIASES     # Aliases as unique entities viable for completion
+setopt NO_REC_EXACT         # Always ask if multiple matches exist with word
 
 setopt AUTO_MENU
-setopt LIST_ROWS_FIRST # Order completion by row instead of column
-# setopt IGNORE_EOF
-setopt RC_EXPAND_PARAM # Expand `foo${xx}bar', where the parameter xx is set to (a b c), are substituted with `fooabar foobbar foocbar' instead  of the default `fooa  b foocbar`
-# setopt WARN_CREATE_GLOBAL # Warn when creating a global variable accidentally in a function
-setopt CLOBBER # allow traditional bash like functionality where > clobbers a file and >> can create a file if none exists
+setopt LIST_ROWS_FIRST      # Order completion by row instead of column
+setopt RC_EXPAND_PARAM      # Use arrays in in params to get multiple versions
+setopt CLOBBER              # allow > to clobber and >> to append/create
 
 setopt INTERACTIVE_COMMENTS # Allow comments when in an interactive shell
-setopt NO_PRINT_EXIT_VALUE # If the command exits with non zero, tell me
+setopt NO_PRINT_EXIT_VALUE  # My zsh prompt tells me what the exit value was
 
-setopt SHARE_HISTORY # share history between sessions, it implies incremental history sharing
-setopt HIST_VERIFY # Don't immediately execute a command from history, let me edit it first
-setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
-setopt HIST_REDUCE_BLANKS
-setopt HIST_IGNORE_SPACE # don't records commands that the first character is a space
-setopt HIST_NO_STORE # Don't save the history command (fc -l) in history
-setopt HIST_LEX_WORDS
+setopt SHARE_HISTORY        # All my shells are like one hive mind, cool
+setopt HIST_VERIFY          # Verity a history command before executing (sanity)
+setopt HIST_IGNORE_ALL_DUPS # Don't record dupes in history
+setopt HIST_REDUCE_BLANKS   # Remove blanks between arguments before saving
+setopt HIST_IGNORE_SPACE    # Insert a space at start to prevent history of cmd
+setopt HIST_NO_STORE        # Don't save the history command (fc -l) in history
+setopt HIST_LEX_WORDS       # Parse history from file like it was on commandline
 
-setopt CHECK_JOBS
-setopt AUTO_CONTINUE
-setopt LONG_LIST_JOBS
-setopt NOTIFY
-setopt NO_AUTO_RESUME
-setopt NO_POSIX_JOBS
-setopt NO_BG_NICE # don't nice background tasks
-setopt NO_HUP
+setopt CHECK_JOBS           # A little nag that jobs exist before quiting
+setopt NO_HUP               # Used in combination with CHECK_JOBS
+setopt AUTO_CONTINUE        # Disowned jobs begin to run again
+setopt LONG_LIST_JOBS       # Obvious, longer list of jobs
+setopt NO_NOTIFY            # For an easier to read terminal, wait till prompt
+setopt NO_AUTO_RESUME       # Bad inference, I don't mean to resume jobs
+setopt NO_POSIX_JOBS        # Sub shells have their own job lists
+setopt NO_BG_NICE           # don't nice background tasks
 
-setopt AUTO_CD
-setopt AUTO_PUSHD # every cd pushs onto the stack
-setopt PUSHD_SILENT # Don't print out the pushd stack after a pushd or popd
-setopt PUSHD_IGNORE_DUPS # Ignore duplicate pushs
-setopt PUSHD_TO_HOME # have an empty `pushd` work like `pushd $HOME`
+setopt AUTO_CD              # Don't require using cd to cd
+setopt AUTO_PUSHD           # every cd pushs onto the stack
+setopt PUSHD_SILENT         # Silent cds since we pushd
+setopt PUSHD_IGNORE_DUPS    # Ignore duplicate pushs
+setopt PUSHD_TO_HOME        # Empty pushd is like cd
 
-setopt NULL_GLOB # If a glob pattern doesn't match a file, return a blank string
-setopt EXTENDED_GLOB # use regex style globing
-setopt REMATCH_PCRE # use perl regex matching for the =~ operator
+setopt NULL_GLOB            # No match return nil, used in $path
+setopt EXTENDED_GLOB        # use regex style globing
+setopt REMATCH_PCRE         # use perl regex matching for the =~ operator
 
-setopt C_BASES # Output hexadecimal and octal values like they are defined in C, e.g. 0xFF or 077
+setopt C_BASES              # Output non base 10 like C
 
-setopt AUTO_PARAM_KEYS # When autocompleting params, if a space is added but something that is supposed to be appened to the param is typed, delete the space
-setopt AUTO_PARAM_SLASH # Add a / to the end of a param if the param contains a directory
+setopt AUTO_PARAM_KEYS      # Neater prompt, deletes spaces after complete
+setopt AUTO_PARAM_SLASH     # Params that a directories get a /
 
-# Allows any unquoted shell argument of the form identifier=expression to be expanded
-# This allows creating configure arguments like --prefix=~nginx to expand to --prefix=/home/nginx
-setopt MAGIC_EQUAL_SUBST
-
-# Allow variable substitution in the prompt
-setopt PROMPT_SUBST
+setopt MAGIC_EQUAL_SUBST    # option=arg can have arg path expanded
+setopt PROMPT_SUBST         # Allow variable substitution in the prompt
 
 ## pager
+export LESS="-Ri"
 export PAGER=less
 export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
@@ -166,4 +161,4 @@ if [[ -o interactive ]]; then
   fi
 fi
 
-# vim: ft=zsh
+# vim: set ft=zsh:
