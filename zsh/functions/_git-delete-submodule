@@ -3,9 +3,9 @@
 
 function _git-delete-submodule() {
   local expl
-  local -a submodules
-  local gitdir=$(git rev-parse --git-dir)
   local update_policy
+  local -a submodules
+  local gitdir=${$(echo $(git rev-parse --git-dir)(:A))//\//-}
 
   zstyle -s ":completion:$curcontext:" cache-policy update_policy
   [[ -z "$update_policy" ]] && zstyle ":completion:$curcontext:" cache-policy _git_delete_submodule_caching_policy
