@@ -7,7 +7,7 @@ master my life.
 
 My dotfiles, without me, are useless. Without my dotfiles I am useless.
 
-# Preferences & About
+# Preferences & Programs
 
 I use [VIM](http://www.VIM.org) and pretty much everything throughout my line
 editing interfaces reflect this. It is a great work in progress as emacs seems
@@ -67,4 +67,4 @@ to rake task to update all submodules and plugins.
 
 What my [iTerm2](http://github.com/cehoffman/iTerm2) session looks like.
 
-![https://github.com/downloads/cehoffman/dotfiles/terminal.png]
+!(iTerm2 in action)[https://github.com/downloads/cehoffman/dotfiles/terminal.png]
