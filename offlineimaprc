@@ -41,11 +41,6 @@ footer = "\n"
 [Account Gmail]
 localrepository = GmailLocal
 remoterepository = GmailRemote
-
-########## Advanced settings
-# Do quick updates, e.g. only folders that have changes
-quick = -1
-postsynchook = ~/.homebrew/bin/notmuch new
 status_backend = sqlite
 
 [Repository GmailLocal]
@@ -64,8 +59,6 @@ sslcacertfile = ~/.cacerts/entrust.crt
 [Account OtherCoders]
 localrepository = OtherCodersLocal
 remoterepository = OtherCodersRemote
-quick = -1
-postsynchook = ~/.homebrew/bin/notmuch new
 status_backend = sqlite
 
 [Repository OtherCodersLocal]
@@ -84,8 +77,6 @@ maxconnections = 2
 [Account Apple]
 localrepository = AppleLocal
 remoterepository = AppleRemote
-quick = -1
-postsynchook = ~/.homebrew/bin/notmuch new
 status_backend = sqlite
 
 [Repository AppleLocal]
