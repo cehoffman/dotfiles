@@ -334,8 +334,8 @@ if has("autocmd")
       cabbrev man Man
     " }}}
     " Fast escape from insert {{{
-      autocmd InsertEnter * set timeoutlen=100
-      autocmd InsertLeave * set timeoutlen=600
+      autocmd InsertEnter * set timeoutlen=350
+      autocmd InsertLeave * set timeoutlen=700
     " }}}
     " Highighlight cursor row {{{
       autocmd WinEnter,InsertLeave * setlocal cursorline
