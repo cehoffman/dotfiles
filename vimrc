@@ -118,8 +118,8 @@ let maplocalleader = ',' " \ is the default
   " inoremap <C-F> <C-X><C-F>
 
   " Make going to beginning and end of line easier, uh oh emacs
-  inoremap <C-E> <C-O>$
-  inoremap <C-A> <C-O>^
+  " inoremap <C-E> <C-O>$
+  " inoremap <C-A> <C-O>^
 
   " Don't use Ex mode, use Q for formatting
   map Q gq
