@@ -1,0 +1,127 @@
+snippet req "Require a library"
+require '${1:gem}'
+endsnippet
+
+snippet reqf "Require file relative to current file"
+require File.expand_path('../${1:filename}', __FILE__)
+endsnippet
+
+snippet ceval "class_eval using a ruby heredoc" w
+class_eval <<-${1:RUBY}${2:, __FILE__, __LINE__ + 1}
+  $0
+$1
+endsnippet
+
+snippet ieval "instance_eval using a ruby heredoc" w
+instance_eval <<-${1:RUBY}${2:, __FILE__, __LINE__ + 1}
+  $0
+$1
+endsnippet
+
+snippet "(?<=[\(\{\s]):" "hash rocket key value" r
+:${1:key} => ${2:"${3:value}"}${4:, }
+endsnippet
+
+snippet desc "specification of behavior"
+describe '${1:class or item}' do
+  ${2:it}$0
+end
+endsnippet
+
+snippet it "specification of behavior"
+it '${1:should do ...}' do
+  $0
+end
+endsnippet
+
+snippet # "Add '# =>' Marker"
+# => 
+endsnippet
+
+snippet as "assert(..)  (as)"
+assert ${1:test}, "${0:Failure message.}"
+endsnippet
+
+snippet ase "assert_equal"
+assert_equal ${1:expected}, ${0:actual}
+endsnippet
+
+snippet asid "assert_in_delta(..)  (asid)"
+assert_in_delta ${1:expected_float}, ${2:actual_float}, ${0:2 ** -20}
+endsnippet
+
+snippet asio "assert_instance_of(..)  (asio)"
+assert_instance_of ${1:ExpectedClass}, ${0:actual_instance}
+endsnippet
+
+snippet asko "assert_kind_of(..)  (asko)"
+assert_kind_of ${1:ExpectedKind}, ${0:actual_instance}
+endsnippet
+
+snippet asm "assert_match(..)  (asm)"
+assert_match /${1:expected_pattern}/, ${0:actual_string}
+endsnippet
+
+snippet asn "assert_nil(..)  (asn)"
+assert_nil ${0:instance}
+endsnippet
+
+snippet asnm "assert_no_match(..)  (asnm)"
+assert_no_match /${1:unexpected_pattern}/, ${0:actual_string}
+endsnippet
+
+snippet asne "assert_not_equal(..)  (asne)"
+assert_not_equal ${1:unexpected}, ${0:actual}
+endsnippet
+
+snippet asnn "assert_not_nil(..)  (asnn)"
+assert_not_nil ${0:instance}
+endsnippet
+
+snippet asns "assert_not_same(..)  (asns)"
+assert_not_same ${1:unexpected}, ${0:actual}
+endsnippet
+
+snippet asnr "assert_nothing_raised(..) { .. }  (asnr)"
+assert_nothing_raised(${1:Exception}) { $0 }
+endsnippet
+
+snippet asnt "assert_nothing_thrown { .. }  (asnt)"
+assert_nothing_thrown { $0 }
+endsnippet
+
+snippet aso "assert_operator(..)  (aso)"
+assert_operator ${1:left}, :${2:operator}, ${0:right}
+endsnippet
+
+snippet asr "assert_raise(..) { .. }  (asr)"
+assert_raise(${1:Exception}) { $0 }
+endsnippet
+
+snippet asrt "assert_respond_to(..)  (asrt)"
+assert_respond_to ${1:object}, :${0:method}
+endsnippet
+
+snippet ass "assert_same(..)  (ass)"
+assert_same ${1:expected}, ${0:actual}
+endsnippet
+
+snippet ass "assert_send(..)  (ass)"
+assert_send [${1:object}, :${2:message}, ${0:args}]
+endsnippet
+
+snippet ast "assert_throws(..) { .. }  (ast)"
+assert_throws(:${1:expected}) { $0 }
+endsnippet
+
+snippet defmm "def method_missing .. end  (mm)"
+def method_missing(method, *args, &block)
+	$0
+end
+endsnippet
+
+snippet defs "def self .. end  (defs)"
+def self.${1:class_method_name}
+	$0
+end
+endsnippet
