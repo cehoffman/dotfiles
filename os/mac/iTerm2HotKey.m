@@ -98,7 +98,18 @@ int main(int argc, char **argv) {
 
                 // The block form apparently has some sort of bug. It does
                 // not work for notifications from the workspace. Nothing is
-                // sent.
+                // sent. It is important to note that notifications are used
+                // to cover the set of actions as follows:
+                //
+                // - User activates hotkey while on web browser
+                // - User activates different application after hotkey
+                // - User manually returns to hotkey window
+                // - User activates hotkey
+                //
+                // In that set of actions the user should end up in the
+                // different application, but that would not happen if the
+                // current active application was lookup only on deactivating
+                // the hotkey application. It would go to the web browser.
                 [[[NSWorkspace sharedWorkspace] notificationCenter]
                   addObserver:[AppListener sharedListener]
                      selector:@selector(notified:)
