@@ -14,7 +14,7 @@ pid_t lastActive = 0;
 @implementation AppListener
 +(AppListener *)sharedListener {
   static __strong AppListener *_shared = nil;
-  if (_shared == nil) _shared = [[self alloc] init];
+  if (!_shared) _shared = [[self alloc] init];
   return _shared;
 }
 
