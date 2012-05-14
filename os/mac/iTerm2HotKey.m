@@ -8,14 +8,14 @@ pid_t lastActive = 0;
 
 @interface AppListener : NSObject
 +(AppListener *)sharedListener;
--(void)notified:(NSNotification *)theNotification;
+-(void)notified:(NSNotification *)aNotification;
 @end
 
 @implementation AppListener
 +(AppListener *)sharedListener {
-  static __strong AppListener *_shared = nil;
-  if (!_shared) _shared = [[self alloc] init];
-  return _shared;
+  static __strong AppListener *shared = nil;
+  if (!shared) shared = [[self alloc] init];
+  return shared;
 }
 
 -(void)notified:(NSNotification *)aNotification {
