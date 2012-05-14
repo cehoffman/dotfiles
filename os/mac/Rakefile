@@ -24,7 +24,7 @@ task :install do
     puts "installing #{plist} to ~/Library/LaunchAgents"
     open(dest , 'w') { |file| file << contents }
 
-    if %x[launchctl list] =~ /#{plist}/
+    if %x[launchctl list] =~ /#{plist.sub(/\.plist/, '')}/
       puts "shutting down #{plist}"
       system 'launchctl', 'unload', '-w', dest
     end
