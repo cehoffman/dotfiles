@@ -48,7 +48,7 @@ OSStatus hotkey_handler(EventHandlerCallRef next, EventRef event, void *data) {
   if (!iTerm2) return noErr;
 
   if ([iTerm2 ownsMenuBar]) {
-    // This guards incase we have not initialized the last active on startup
+    // This guards incase we have not initialized the lastActive yet
     if (lastActive) {
       // Recheck lastActive application to make sure it is still in existence
       NSRunningApplication *lastApp = [NSRunningApplication
@@ -58,7 +58,7 @@ OSStatus hotkey_handler(EventHandlerCallRef next, EventRef event, void *data) {
         [lastApp activateWithOptions:NSApplicationActivateIgnoringOtherApps];
       }
     } else {
-      // Since we don't know who to active, just hide to achieve effect
+      // Since we don't know who to activate, just hide to achieve effect
       [iTerm2 hide];
     }
   } else {
@@ -96,8 +96,9 @@ int main(int argc, char **argv) {
               usingBlock: ^(NSNotification *aNotification) {
                 [[NSNotificationCenter defaultCenter] removeObserver:observer];
 
-                // The block form apparently has some sort of bug, but it does
-                // not work for notification from the workspace
+                // The block form apparently has some sort of bug. It does
+                // not work for notifications from the workspace. Nothing is
+                // sent.
                 [[[NSWorkspace sharedWorkspace] notificationCenter]
                   addObserver:[AppListener sharedListener]
                      selector:@selector(notified:)
