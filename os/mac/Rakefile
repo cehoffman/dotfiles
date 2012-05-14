@@ -1,0 +1,35 @@
+require 'erb'
+
+class Context
+  def self.new
+    super.__get_binding
+  end
+
+  def __get_binding
+    binding
+  end
+end
+
+desc "Install mac specific items"
+task :install do
+  puts "installing iTerm2HotKey"
+  system 'clang', '-Os', '-fobjc-arc', '-framework', 'Carbon', '-framework',
+    'AppKit', 'iTerm2HotKey.m', '-o', File.expand_path('~/.bin/iTerm2HotKey')
+
+  Dir['*.plist.erb'].each do |plist|
+    contents = ERB.new(File.read(plist)).result(Context.new)
+    plist = File.basename(plist).sub(/\.erb$/, '')
+    dest = File.expand_path("~/Library/LaunchAgents/#{plist}")
+
+    puts "installing #{plist} to ~/Library/LaunchAgents"
+    open(dest , 'w') { |file| file << contents }
+
+    if %x[launchctl list] =~ /#{plist}/
+      puts "shutting down #{plist}"
+      system 'launchctl', 'unload', '-w', dest
+    end
+
+    puts "loading #{plist}"
+    system 'launchctl', 'load', '-w', dest
+  end
+end

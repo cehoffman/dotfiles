@@ -46,7 +46,7 @@ task :update, :speed do |_, args|
 
   replace_all = windows?
   Dir['*'].each do |file|
-    next if %w[Rakefile].include? file
+    next if %w[Rakefile os].include? file
     
     if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
       if File.identical? file, File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
@@ -70,6 +70,10 @@ task :update, :speed do |_, args|
     else
       link_file(file)
     end
+  end
+
+  case RUBY_PLATFORM
+  when 'darwin' then Dir.chdir('os/mac') { system 'rake', 'install' }
   end
 
   system 'vim', '-c', ':Helptags', '-c', ':q!'
