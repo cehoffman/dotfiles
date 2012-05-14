@@ -1,0 +1,213 @@
+#compdef launchctl
+
+_launchctl() {
+  integer ret
+
+  if (( CURRENT > 2 )); then
+    (( CURRENT-- ))
+    shift words
+    if (( $+functions[_launchctl-$words[1]] )); then
+      _call_function ret _launchctl-$words[1]
+    else
+      ret=0
+    fi
+  else
+    local context state state_descr line
+    typeset -A val_args
+    _values "launchctl command" \
+      "load[load specified configuration files or directories]" \
+      "unload[unload specified configuration files or directories]" \
+      "submit[submit a program to run without a configuration file]" \
+      "remove[remove a job from launcd by label]" \
+      "start[start a job by label]" \
+      "stop[stop a job by label]" \
+      "list[list status of job or jobs in launchd]" \
+      "setenv[set an environment variable in launchd]" \
+      "unsetenv[unset an environment variable in launchd]" \
+      "getenv[get an environment variable in launchd]" \
+      "export[export all environment variables in launchd suitable for eval]" \
+      "getrusage[get resource utilization stats from launchd]" \
+      "log[get and set the syslog log level mask]" \
+      "limit[get or set resource limits of launchd]" \
+      "shutdown[tell launchd to prepare for shutdown by removing all jobs]" \
+      "umask[get or set the umaks of launchd]" \
+      "bslist[get mach bootstrap services and states]" \
+      "bsexec[execute a command in the same bootstrap namespace as PID]" \
+      "bstree[print hierarchical view of entrie Mach bootstrap tree]" \
+      "managerpid[print the PID of the launchd which manages current bootstrap]" \
+      "manageruid[print the UID of the launchd which manages current bootstrap]" \
+      "managername[print the name of the launchd job manager for current bootstrap]" \
+      "help[print out a quick usage statement]"
+  fi
+
+  return ret
+}
+
+__launchctl_jobs() {
+  local expl
+  local -a jobs
+  integer ret=1
+
+  jobs=${(z)$(launchctl list | awk '$3 !~ /^0x|^\[0x/ { print $3 }')}
+  _wanted jobs expl job compadd - $jobs[2,-1] && ret=0
+
+  return ret
+}
+
+_launchctl-load() {
+  integer ret=1
+  local curcontext=$curcontext state line ret=1
+  declare -A opt_args
+
+  _arguments -w -C -S -s \
+    '-w[override the Disabled key and sets it to false]' \
+    '-F[force the loading of the plist ignoring the Disabled key]' \
+    '-S[look for job in specified session]' \
+    '-D[look for plist files ending in *.plist in the domain given]' \
+    '*: :_files -g \*.plist' && ret=0
+
+  return ret
+}
+
+_launchctl-unload() {
+  local curcontext=$curcontext state line ret=1
+  declare -A opt_args
+
+  _arguments -w -C -S -s \
+    '-w[override the Disabled key and sets it to true]' \
+    '-S[look for job in specified session]' \
+    '-D[look for plist files ending in *.plist in the domain given]' \
+    '*:: :_files'
+}
+
+_launchctl-submit() {
+  local curcontext=$curcontext state line ret=1
+  integer ret=1
+  declare -A opt_args
+
+  _arguments -w -C -S -s \
+    '-l[unique label to assign this job to launchd]' \
+    '-p[program to execute regardless of one given after --]' \
+    '-o[where to send the stdout of the program]:: :_files' \
+    '-e[where to send the stderr of the program]:: :_files' && ret=0
+
+  return ret
+}
+
+_launchctl-remove() {
+  integer ret
+  _call_function ret __launchctl_jobs
+  return ret
+}
+
+_launchctl-start() {
+  integer ret
+  _call_function ret __launchctl_jobs
+  return ret
+}
+
+_launchctl-stop() {
+  integer ret
+  _call_function ret __launchctl_jobs
+  return ret
+}
+
+_launchctl-list() {
+  local curcontext=$curcontext state line ret=1
+  integer ret=1
+  declare -A opt_args
+
+  _arguments -w -C -S -s \
+    '-x[output information in XML property list]' \
+    '*:: :__launchctl_jobs' && ret=0
+
+  return ret
+}
+
+_launchctl-setenv() {
+  integer ret=1
+  local expl
+  local -a vars
+  vars=${(z)$(env 2>&1 | cut -d = -f 1)} && ret=0
+  _wanted vars expl "environment variables" compadd - $vars && ret=0
+  return ret
+}
+
+_launchctl-unsetenv() {
+  integer ret=1
+  local expl
+  local -a vars
+  vars=${(z)$(launchctl export | cut -d = -f 1)}
+  _wanted vars expl "environment variables" compadd - $vars && ret=0
+  return ret
+}
+
+_launchctl-getenv() {
+  integer ret=1
+  _call_function ret _launchctl-unsetenv
+  return ret
+}
+
+_launchctl-getrusage() {
+  integer ret=1
+  local context state state_descr line
+  typeset -A val_args
+
+  _values "target" \
+    "self[launchd itself]" \
+    "children[children of launchd]" && ret=0
+
+  return ret
+}
+
+_launchctl-log() {
+  local curcontext=$curcontext state line ret=1
+  integer ret=1
+  declare -A opt_args
+
+  # Not perfect but it works
+  _arguments \
+    ':action:(level only mask)' \
+    ':log level:(debug info notice warning error critical alert emergency)' \
+    ':log level or mask:(only mask debug info notice warning error critical alert emergency)' \
+    ":log level:(debug info notice warning error critical alert emergency)" && ret=0
+
+  return ret
+}
+
+_launchctl-limit() {
+  integer ret=1
+  local expl
+  local -a opts
+  if (( CURRENT == 2 )); then
+    opts=(cpu filesize data stack core rss memlock maxproc maxfiles) && ret=0
+    _wanted name expl "resource" compadd -a opts && ret=0
+  fi
+  return ret
+}
+
+_launchctl-bslist() {
+  local curcontext=$curcontext state line ret=1
+  integer ret=1
+  declare -A opt_args
+
+  _arguments -w -C -S -s \
+    '-j[add the job which registered each service after each name]' && ret=0
+
+  return ret
+}
+
+_launchctl-bstree() {
+  local curcontext=$curcontext state line ret=1
+  integer ret=1
+  declare -A opt_args
+
+  _arguments -w -C -S -s \
+    '-j[add the job which registered each service after each name]' && ret=0
+
+  return ret
+}
+
+_launchctl
+
+# vim: set ft=zsh:
