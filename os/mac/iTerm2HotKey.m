@@ -18,13 +18,6 @@ pid_t lastActive = 0;
   return _shared;
 }
 
-void shutdown(int signum) {
-  UnregisterEventHotKey(hotKeyRef);
-  [[[NSWorkspace sharedWorkspace] notificationCenter]
-    removeObserver:[AppListener sharedListener]];
-  [[NSApplication sharedApplication] terminate:nil];
-}
-
 -(void)notified:(NSNotification *)aNotification {
   NSRunningApplication *sender;
   NSString *ident;
@@ -37,6 +30,13 @@ void shutdown(int signum) {
   }
 }
 @end
+
+void shutdown(int signum) {
+  UnregisterEventHotKey(hotKeyRef);
+  [[[NSWorkspace sharedWorkspace] notificationCenter]
+    removeObserver:[AppListener sharedListener]];
+  [[NSApplication sharedApplication] terminate:nil];
+}
 
 OSStatus hotkey_handler(EventHandlerCallRef next, EventRef event, void *data) {
   NSRunningApplication *iTerm2;
