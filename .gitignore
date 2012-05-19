@@ -13,3 +13,5 @@ offlineimap/pid
 offlineimap/Account-*
 offlineimap/Repository-*
 msmtp.queue/
+bin/iTerm2HotKey
+offlineimap/*.lock
