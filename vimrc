@@ -2,7 +2,7 @@
 set nocompatible
 
 set runtimepath=~/.vim,$VIMRUNTIME
-if $LPKG_PREFIX
+if $LPKG_PREFIX != ''
   exe "set runtimepath+=" . $LPKG_PREFIX . '/share/vim'
 endif
 set runtimepath+=~/.vim/after
