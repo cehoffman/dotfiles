@@ -870,6 +870,14 @@ endif
 " Ack {{{
   cabbrev ack Ack!
 " }}}
+" Objc {{{
+  let g:clang_use_library = 1
+  " let g:clang_library_path = expand($LPKG_PREFIX . '/lib')
+  let g:clang_complete_macros = 1 " Allow preprocessor directives to complete
+  let g:clang_complete_patterns = 0 " Don't complete clang snippets
+  let g:clang_snippets_engine = 'ultisnips'
+  let g:filetype_m = 'objc' " default to .m files being objc
+" }}}
 
 " Window Management {{{
   " Open a yanked window {{{
