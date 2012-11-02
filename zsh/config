@@ -134,16 +134,14 @@ if [[ -o interactive ]]; then
   opp-install
   autoload opp
 
-  # Color all stderr lines yellow only when interactive
-  # The guard prevent a proliferation of processes when
-  # using exec to replace the current shell with a fresh
-  # instance
+  # Color all stderr lines yellow only when interactive The guard prevent
+  # a proliferation of processes when using exec to replace the current shell
+  # with a fresh instance
   if [[ -f "$HOME/.homebrew/lib/libstderred.dylib" ]]; then
     export STDERRED_ESC_CODE="$fg[red]"
     typeset -TgU DYLD_INSERT_LIBRARIES dyld_insert_libraries
     dyld_insert_libraries=($HOME/.homebrew/lib/libstderred.dylib(-.) $dyld_insert_libraries)
     export DYLD_INSERT_LIBRARIES
-    alias mosh="DYLD_INSERT_LIBRARIES= mosh"
   elif [[ -f "$HOME/.local/lib/libstderred.so" ]]; then
     export STDERRED_ESC_CODE="$fg[red]"
     typeset -TgU LD_PRELOAD ld_preload
@@ -159,6 +157,14 @@ if [[ -o interactive ]]; then
       fi
       export STDERR_COLORIZE=$$
     fi
+  fi
+else
+  # Remove the stderr coloring libs from the env variables to prevent
+  # complaints on setuid/setgid programs
+  if (($#dyld_insert_libraries)); then
+    dyld_insert_libraries=("${(@)dyld_insert_libraries:#$HOME/.homebrew/lib/libstderred.dylib}")
+  elif (($#ld_preload)); then
+    ld_preload=("${(@)ld_preload:#$HOME/.local/lib/libstderred.so}")
   fi
 fi
 
