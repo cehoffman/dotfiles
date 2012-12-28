@@ -3,7 +3,7 @@ if [[ -a ~/.homebrew/bin/brew ]]; then
     export LPKG_PREFIX="$HOME/.homebrew"
     path=($LPKG_PREFIX/bin $path)
     path=($(brew --prefix coreutils)/libexec/gnubin $LPKG_PREFIX/sbin $path)
-    manpath=($LPKG_PREFIX/share/man $manpath)
+    manpath=($(brew --prefix coreutils)/libexec/gnuman $LPKG_PREFIX/share/man $manpath)
     fpath=($LPKG_PREFIX/share/zsh/functions $fpath)
 
     # Homebrew Python setup

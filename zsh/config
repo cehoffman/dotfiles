@@ -128,8 +128,9 @@ if [[ -o interactive ]]; then
   # Make a nice colored interactive prompt
   source ~/.zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ZSH_HIGHLIGHT_STYLES[path]=none
+  ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets) # cursor pattern
 
-  # # Add nice shortcuts like ci" to standard vi mode
+  # Add nice shortcuts like ci" to standard vi mode
   . ~/.zsh/functions/opp-install
   opp-install
   autoload opp
