@@ -153,7 +153,7 @@
 	url = https://github.com/tpope/vim-eunuch.git
 [submodule "dotjs-js"]
 	path = js
-	url = git@fling.mx:cehoffman/dotjs-js
+	url = git@ceh.im:cehoffman/dotjs-js
 [submodule "vim/bundle/vim-objc-match-bracket"]
 	path = vim/bundle/vim-objc-match-bracket
 	url = https://github.com/vim-scripts/Match-Bracket-for-Objective-C.git
