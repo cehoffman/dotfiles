@@ -21,6 +21,7 @@
 
 require 'rake'
 require 'erb'
+require 'fileutils'
 
 def windows?
   RUBY_PLATFORM =~ /[mswin|mingw]32/
@@ -28,6 +29,14 @@ end
 
 def mac?
   RUBY_PLATFORM =~ /darwin/
+end
+
+if ENV['DEBUG']
+  def system(*args)
+    puts *args.join(' ')
+    super
+    puts $?
+  end
 end
 
 desc "update the dot files into user's home directory"
@@ -41,10 +50,13 @@ task :update, :speed do |_, args|
 
   system 'git', 'clean', '-df'
 
-  puts 'updaing opp.zsh'
-  system 'zsh', '-c', 'for O in zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.zsh/vendor/opp.zsh ~/.zsh/functions'
+  if !windows?
+    puts 'updaing opp.zsh'
+    system 'zsh', '-c', 'for O in zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.zsh/vendor/opp.zsh ~/.zsh/functions'
+  end
 
-  replace_all = windows?
+
+  replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile os].include? file
     
@@ -84,12 +96,6 @@ def replace_file(file)
   link_file(file)
 end
 
-if windows?
-  require 'rubygems'
-  require 'win32/dir'
-  require 'fileutils'
-end
-
 def link_file(file)
   if file =~ /.erb$/
     puts "generating ~/.#{file.sub('.erb', '')}"
@@ -97,18 +103,20 @@ def link_file(file)
       new_file.write ERB.new(File.read(file)).result(binding)
     end
   else
-    if windows?
-      if File.directory?(file)
-        puts "linking ~/.#{file}"
-        Dir.create_junction(File.join(ENV['HOME'], ".#{file}"), File.join(Dir.pwd, file))
+    target = File.basename(Dir.pwd) + (File::ALT_SEPARATOR || File::SEPARATOR) + file
+    link = ".#{file}"
+
+    Dir.chdir ENV['HOME'] do
+      puts "linking ~/#{link}"
+
+      if windows?
+        switch = File.directory?(target) && ['/d'] || []
+        switch << [link, target]
+        system 'cmd', '/c', 'mklink', *switch.flatten
+        system 'cmd', '/c', 'attrib', link, '+s', '+h'
       else
-        puts "overwriting ~/.#{file}"
-        File.unlink(File.join(ENV['HOME'], ".#{file}")) rescue nil
-        FileUtils.cp(File.join(Dir.pwd, file), File.join(ENV['HOME'], ".#{file}") )
+        File.symlink(target, link)
       end
-    else
-      puts "linking ~/.#{file}"
-      File.symlink(File.join(Dir.pwd, file), File.join(ENV['HOME'], ".#{file}"))
     end
   end
 end
