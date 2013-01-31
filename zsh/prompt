@@ -118,7 +118,7 @@ function +vi-git-message {
   else
     zstyle -a ":vcs_info:$hook_com[vcs]:*" formats format
   fi
-  format=$format[$(( $1 + 1))]
+  format=$format[$(( $1 + 1 ))]
 
   [[ -z $format ]] && return
 
@@ -163,12 +163,12 @@ function +vi-git-message {
     # Store a temp copy of message to allow early breakout of loop
     temp=$hook_com[message]
 
-    # Replace all escapes with actuall values
+    # Replace all escapes with actual values
     hook_com[message]=${hook_com[message]//(#b)([^\%])\%([$escapes])/$match[1]$hook_com[$map[$match[2]]]}
     # For if the pcre extension ever supports uft-8 chars...
     # regexp-replace "hook_com[message]" "(?<!%)%([${(j::)${(k)map[*]}}])" '$hook_com[$map[$match[1]]]'
 
-    # Exit early if not changes occuring
+    # Exit early if no changes occuring
     [[ $hook_com[message] = $temp ]] && break
   done
   hook_com[message]=${hook_com[message]//\%\%/\%}
