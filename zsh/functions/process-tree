@@ -22,3 +22,5 @@ done
 
 # Print the tree
 echo "${(j:→:)processes}"
+
+# vim: set ft=zsh:
