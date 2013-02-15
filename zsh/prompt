@@ -200,9 +200,7 @@ function _prompt_precmd {
     _pr_short_extras+=$vcs_info_msg_1_
   fi
 
-  if [[ ! $IS_CYGWIN = 1 ]]; then
-    _pr_extras+="%{$fg_no_bold[magenta]%}P:$(process-tree)"
-  fi
+  _pr_extras+="%{$fg_no_bold[magenta]%}P:$(process-tree)"
 
   if command -v rvm-prompt > /dev/null; then
     _pr_extras+="%{$fg_no_bold[red]%}R:$(rvm-prompt v g)"
