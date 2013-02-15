@@ -39,6 +39,8 @@ if ENV['DEBUG']
   end
 end
 
+task :default => :update
+
 desc "update the dot files into user's home directory"
 task :update, :speed do |_, args|
   puts 'initializing submodules'
