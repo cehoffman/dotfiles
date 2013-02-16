@@ -33,7 +33,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int
       }
 
       // find the zoc window
-      if (!(zoc = FindWindow("ZocMainWindow", NULL))) {
+      if (!(zoc = FindWindow("mintty", NULL))) {
         // if it doesn't exist just skip the message
         continue;
       }
