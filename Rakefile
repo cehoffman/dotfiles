@@ -41,22 +41,36 @@ end
 
 task :default => :update
 
+task :opp do
+  if !windows?
+    puts 'updating opp.zsh'
+    system 'zsh', '-c', "for O in #{Dir.pwd}/zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.zsh/vendor/opp.zsh ~/.zsh/functions"
+  end
+end
+
+desc 'update git submodules'
+task :submodule do
+  puts 'initializing submodules'
+  system 'git', 'submodule', 'update', '--init'
+  system 'git', 'submodule', 'sync'
+  system 'git', 'submodule', 'update', '--init', '--rebase'
+end
+
+namespace :submodule do
+  desc 'get the latest versions of submodules from upstream'
+  task :upstream do
+    system 'git', 'submodule', 'foreach', 'git', 'checkout', 'master'
+    system 'git', 'submodule', 'foreach', 'git', 'pull', '--rebase'
+  end
+end
+
 desc "update the dot files into user's home directory"
 task :update, :speed do |_, args|
-  puts 'initializing submodules'
-  unless args[:speed] == 'fast'
-    system 'git', 'submodule', 'update', '--init'
-    system 'git', 'submodule', 'sync'
-    system 'git', 'submodule', 'update', '--init', '--rebase'
-  end
+  Rake::Task['submodule'].invoke unless args[:speed] == 'fast'
 
   system 'git', 'clean', '-df'
 
-  if !windows?
-    puts 'updaing opp.zsh'
-    system 'zsh', '-c', 'for O in zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.zsh/vendor/opp.zsh ~/.zsh/functions'
-  end
-
+  Rake::Task['opp'].invoke
 
   replace_all = false
   Dir['*'].each do |file|
