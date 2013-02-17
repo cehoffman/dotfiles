@@ -157,3 +157,6 @@
 [submodule "vim/bundle/vim-objc-match-bracket"]
 	path = vim/bundle/vim-objc-match-bracket
 	url = https://github.com/vim-scripts/Match-Bracket-for-Objective-C.git
+[submodule "coresys/formula"]
+	path = coresys/formula
+	url = git@github.com:cehoffman/coresys-formula
