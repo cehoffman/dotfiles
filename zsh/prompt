@@ -104,7 +104,7 @@ zstyle ':vcs_info:svn:*' branchformat '%b@%r'
 
 function +vi-svn-changes() {
   if [[ ! -z "$(svn status -q)" ]]; then
-    zstyle -s ":vcs_info:$hook_com[vcs]:*" unstagedstr 'user_data[unstaged]'
+    zstyle -s ":vcs_info:$vcs:*" unstagedstr 'user_data[unstaged]'
     echo $hook_com[unstaged]
   fi
   user_data[untracked]=$(svn status 2> /dev/null | grep '^?' &> /dev/null ; echo $(( ! $? )))
@@ -127,9 +127,9 @@ function +vi-git-message {
   local format
   # Pick which format string is needed
   if [[ -n $hook_com[action] ]]; then
-    zstyle -a ":vcs_info:$hook_com[vcs]:*" actionformats format
+    zstyle -a ":vcs_info:$vcs:*" actionformats format
   else
-    zstyle -a ":vcs_info:$hook_com[vcs]:*" formats format
+    zstyle -a ":vcs_info:$vcs:*" formats format
   fi
   format=$format[$(( $1 + 1 ))]
 
@@ -144,27 +144,27 @@ function +vi-git-message {
   escapes=${(j::)${(k)map[*]}}
 
   # Get the custom symbol to represent this vcs system
-  zstyle -s ":vcs_info:$hook_com[vcs]:*" symbol 'hook_com[vcs_symbol]'
+  zstyle -s ":vcs_info:$vcs:*" symbol 'hook_com[vcs_symbol]'
 
   # Only load the untracked string if needed
   if [[ $user_data[untracked] -eq 1 ]]; then
-    zstyle -s ":vcs_info:$hook_com[vcs]:*" untrackedstr 'hook_com[untracked]'
+    zstyle -s ":vcs_info:$vcs:*" untrackedstr 'hook_com[untracked]'
   fi
 
   # Load upstream statuses
   if [[ -n $user_data[ahead] ]]; then
-    zstyle -s ":vcs_info:$hook_com[vcs]:*" aheadstr 'hook_com[ahead]'
+    zstyle -s ":vcs_info:$vcs:*" aheadstr 'hook_com[ahead]'
     hook_com[ahead_count]=${(w)#user_data[ahead]}
   fi
   if [[ -n $user_data[behind] ]]; then
-    zstyle -s ":vcs_info:$hook_com[vcs]:*" behindstr 'hook_com[behind]'
+    zstyle -s ":vcs_info:$vcs:*" behindstr 'hook_com[behind]'
     hook_com[behind_count]=${(w)#user_data[behind]}
   fi
 
   # When diverged remove the behind and ahead strings because diverged
   # will take precedence
   if [[ $user_data[diverged] -eq 1 ]]; then
-    zstyle -s ":vcs_info:$hook_com[vcs]:*" divergedstr 'hook_com[diverged]'
+    zstyle -s ":vcs_info:$vcs:*" divergedstr 'hook_com[diverged]'
     unset "hook_com[ahead]"
     unset "hook_com[behind]"
   fi
