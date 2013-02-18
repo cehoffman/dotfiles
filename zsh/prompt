@@ -86,18 +86,31 @@ zstyle ':vcs_info:*' check-for-changes true
 # zstyle ':vcs_info:git:*' branchformat '%F{cyan}%b'
 zstyle ':vcs_info:*' use-prompt-escapes true
 zstyle ':vcs_info:*' max-exports 2
-zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' enable git svn
 
 # Define some hooks for the git backend to collect some more information on the repo
 # zstyle ':vcs_info:*+*:*' debug true
-zstyle ':vcs_info:git+pre-get-data:*' hooks git-untracked
-zstyle ':vcs_info:git+set-message:*' hooks git-message
+zstyle ':vcs_info:(git|git-svn)+pre-get-data:*' hooks git-untracked
+zstyle ':vcs_info:*+set-message:*' hooks git-message
 
 # The first prompt info is for width calculation so no colors, 2nd is like first but with colors
 # and the 3rd is the short display of vcs state - it is overridden in the git_message hook
 zstyle ':vcs_info:git:*' symbol '%F{cyan}±'
-zstyle ':vcs_info:git:*' formats '%%b%v:%b' '%%b%v:%c%u%o%w%y%d'
-zstyle ':vcs_info:git:*' actionformats '%%b%v:%b%F{white}(%B%a%%b)' '%%b%v:%c%u%o%w%y%d%F{white}(%B%a%%b)'
+zstyle ':vcs_info:git-svn:*' symbol '%F{blue}ᵻ'
+zstyle ':vcs_info:(git|svn)(|-svn):*' formats '%%b%v:%b' '%%b%v:%c%u%o%w%y%d'
+zstyle ':vcs_info:(git|svn)(|-svn):*' actionformats '%%b%v:%b%F{white}(%B%a%%b)' '%%b%v:%c%u%o%w%y%d%F{white}(%B%a%%b)'
+
+zstyle ':vcs_info:svn+pre-get-data:*' hooks svn-changes
+zstyle ':vcs_info:svn:*' symbol '%F{yellow}ᵻ'
+zstyle ':vcs_info:svn:*' branchformat '%b@%r'
+
+function +vi-svn-changes() {
+  if [[ ! -z "$(svn status -q)" ]]; then
+    zstyle -s ":vcs_info:$hook_com[vcs]:*" unstagedstr 'user_data[unstaged]'
+    echo $hook_com[unstaged]
+  fi
+  user_data[untracked]=$(svn status 2> /dev/null | grep '^?' &> /dev/null ; echo $(( ! $? )))
+}
 
 function +vi-git-untracked() {
   # To get if there are any staged changes
@@ -156,6 +169,10 @@ function +vi-git-message {
     zstyle -s ":vcs_info:$hook_com[vcs]:*" divergedstr 'hook_com[diverged]'
     unset "hook_com[ahead]"
     unset "hook_com[behind]"
+  fi
+
+  if [[ -n $user_data[unstaged] ]]; then
+    hook_com[unstaged]=$user_data[unstaged]
   fi
 
   # Build the replacement message ourself
