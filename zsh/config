@@ -97,8 +97,8 @@ fi
 export EDITOR='vim'
 
 path=($HOME/.local/{s,}bin(/) $HOME/.bin(/) $HOME/.bin(@) /usr/texbin/(/) $path)
-fpath=(~/.zsh/functions $fpath)
-manpath=(/usr/local/share/man /usr/share/man $manpath)
+fpath=(~/.zsh/functions $HOME/.local/share/zsh/site-functions(/) $fpath)
+manpath=($HOME/.local/share/man(/) /usr/local/share/man /usr/share/man $manpath)
 
 # Load all of your custom configurations from custom/
 function {
