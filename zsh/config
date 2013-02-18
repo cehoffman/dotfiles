@@ -147,7 +147,7 @@ if [[ -o interactive ]]; then
   elif [[ -f "$HOME/.local/lib/libstderred.so" ]]; then
     export STDERRED_ESC_CODE="$fg[red]"
     typeset -TgU LD_PRELOAD ld_preload
-    ld_preload=($HOME/.local/lib/libstderred.dylib(-.) $ld_preload)
+    ld_preload=($HOME/.local/lib/libstderred.so(-.) $ld_preload)
     export LD_PRELOAD
   else
     if [[ "$STDERR_COLORIZE" != $$ ]]; then
