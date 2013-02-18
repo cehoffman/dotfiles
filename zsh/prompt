@@ -105,7 +105,6 @@ zstyle ':vcs_info:svn:*' branchformat '%b@%r'
 function +vi-svn-changes() {
   if [[ ! -z "$(svn status -q)" ]]; then
     zstyle -s ":vcs_info:$vcs:*" unstagedstr 'user_data[unstaged]'
-    echo $hook_com[unstaged]
   fi
   user_data[untracked]=$(svn status 2> /dev/null | grep '^?' &> /dev/null ; echo $(( ! $? )))
 }
