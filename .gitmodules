@@ -163,3 +163,6 @@
 [submodule "vim/bundle/vim-scriptease"]
 	path = vim/bundle/vim-scriptease
 	url = https://github.com/tpope/vim-scriptease.git
+[submodule "vim/bundle/vim-bitbake"]
+	path = vim/bundle/vim-bitbake
+	url = https://github.com/kergoth/vim-bitbake.git
