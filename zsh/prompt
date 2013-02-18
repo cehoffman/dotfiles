@@ -82,8 +82,6 @@ zstyle ':vcs_info:*' aheadstr '%B%F{green}↑%x'
 zstyle ':vcs_info:*' behindstr '%B%F{red}↓%z'
 zstyle ':vcs_info:*' divergedstr '%B%F{magenta}↓%x↑%z'
 zstyle ':vcs_info:*' check-for-changes true
-# zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%%b%F{black}%b:%F{magenta}%r'
-# zstyle ':vcs_info:git:*' branchformat '%F{cyan}%b'
 zstyle ':vcs_info:*' use-prompt-escapes true
 zstyle ':vcs_info:*' max-exports 2
 zstyle ':vcs_info:*' enable git svn
@@ -93,8 +91,8 @@ zstyle ':vcs_info:*' enable git svn
 zstyle ':vcs_info:(git|git-svn)+pre-get-data:*' hooks git-untracked
 zstyle ':vcs_info:*+set-message:*' hooks git-message
 
-# The first prompt info is for width calculation so no colors, 2nd is like first but with colors
-# and the 3rd is the short display of vcs state - it is overridden in the git_message hook
+# The first prompt info is for top right prompt info. The second is the bottom
+# left short information for prompt
 zstyle ':vcs_info:git:*' symbol '%F{cyan}±'
 zstyle ':vcs_info:git-svn:*' symbol '%F{blue}ᵻ'
 zstyle ':vcs_info:(git|svn)(|-svn):*' formats '%%b%v:%b' '%%b%v:%c%u%o%w%y%d'
