@@ -8,7 +8,7 @@
 #define MOD_NOREPEAT 0x4000
 #endif
 
-int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int nCmdShow) {
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int nCmdShow) {
   MSG message = {0};
   HWND current, zoc, previous = NULL;
   int hotkey;
@@ -18,7 +18,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int
 
   // Register hotkey
   hotkey = rand();
-  BOOL ret = RegisterHotKey(NULL, hotkey, MOD_NOREPEAT, VK_F1);
+  RegisterHotKey(NULL, hotkey, MOD_NOREPEAT, VK_F1);
 
   // Start the message loop
   while(GetMessage(&message, NULL, 0, 0) > 0) {
