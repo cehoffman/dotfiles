@@ -5451,7 +5451,7 @@ __git_remote_repositories () {
   service= _ssh
 
   if compset -P '*:'; then
-    _remote_files --no-files -- ssh
+    _remote_files -/ -- ssh
   else
     _ssh_hosts -S:
   fi
@@ -6073,7 +6073,7 @@ _git() {
     aliases=(${(f)${${${(f)"$(_call_program aliases git config --get-regexp '\^alias\.')"}#alias.}/ /$'\n'}/(#e)/$'\n'})
     (( $#aliases % 2 == 0 )) && git_aliases=($aliases)
 
-    if (( $+git_aliases[$words[2]] && !$+commands[git-$words[2]] )); then
+    if (( $+git_aliases[$words[2]] && !$+commands[git-$words[2]] && !$+functions[_git-$words[2]] )); then
       local -a tmpwords expalias
       expalias=(${(z)git_aliases[$words[2]]})
       tmpwords=(${words[1]} ${expalias})
