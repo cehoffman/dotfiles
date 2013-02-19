@@ -740,13 +740,6 @@ endif
   " Allow for quick jumping over delimiters instead of S-Tab
   inoremap ; <C-R>=delimitMate#JumpAny(";")<CR>
 " }}}
-" SuperTab settings {{{
-  let g:SuperTabCrMapping = 1
-  let g:SuperTabLongestEnhanced = 1
-  let g:SuperTabLongestHighlight = 1
-  let g:SuperTabDefaultCompletionType = 'context'
-  let g:SuperTabContextDefaultCompletionType = '<C-X><C-O>'
-" }}}
 " Tagbar - the better taglist {{{
   let g:tagbar_width = 40
   let g:tagbar_autoclose = 1
