@@ -157,3 +157,9 @@
 [submodule "coresys/formula"]
 	path = coresys/formula
 	url = git@github.com:cehoffman/coresys-formula
+[submodule "vim/bundle/vim-lua-ftplugin"]
+	path = vim/bundle/vim-lua-ftplugin
+	url = https://github.com/xolox/vim-lua-ftplugin.git
+[submodule "vim/bundle/vim-scriptease"]
+	path = vim/bundle/vim-scriptease
+	url = https://github.com/tpope/vim-scriptease.git
