@@ -166,3 +166,9 @@
 [submodule "vim/bundle/vim-bitbake"]
 	path = vim/bundle/vim-bitbake
 	url = https://github.com/kergoth/vim-bitbake.git
+[submodule "vim/bundle/vim-ctrlp-modified"]
+	path = vim/bundle/vim-ctrlp-modified
+	url = https://github.com/jasoncodes/ctrlp-modified.vim.git
+[submodule "vim/bundle/vim-vdebug"]
+	path = vim/bundle/vim-vdebug
+	url = https://github.com/joonty/vdebug.git
