@@ -465,30 +465,48 @@ if has("autocmd")
       endfunction
     " }}}
     " Color dict {{{
+      let s:gui_yellow = "#af8700"
+      let s:gui_red    = "#d70000"
+      let s:gui_bgbg   = "#1c1c1c"
+      let s:gui_botfg  = "#e4e4e4"
+      let s:gui_darkbg = "#262626"
+      let s:gui_midbg  = "#585858"
+      let s:gui_midfg  = "#ffffd7"
+      let s:gui_topbg  = "#ffffd7"
+
+      let s:yellow = 3
+      let s:red    = 1
+      let s:bgbg   = 8
+      let s:botfg  = 7
+      let s:darkbg = 0
+      let s:midbg  = 10
+      let s:midfg  = 15
+      let s:topbg  = 15
+
       let s:statuscolors = {
         \   'NONE': {
-          \   'NONE'         : [[ 236, 231, 'bold', '#303030', '#ffffff'], [ 232, 244, 'none', '#080808', '#808080']]
+          \   'NONE'         : [[ s:darkbg, s:midbg, 'bold', s:gui_darkbg, s:gui_midbg], [ s:bgbg, s:darkbg, 'none', s:gui_bgbg, s:gui_darkbg]]
         \ }
         \ , 'Normal': {
-          \   'Mode'         : [[ 214, 235, 'bold', '#ffaf00', '#262626'], []]
-          \ , 'ModeS'        : [[ 214, 240, 'bold', '#ffaf00', '#585858'], []]
-          \ , 'Branch'       : [[ 240, 250, 'none', '#585858', '#bcbcbc'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e']]
-          \ , 'BranchS'      : [[ 240, 246, 'bold', '#585858', '#949494'], [ 234, 239, 'bold', '#1c1c1c', '#4e4e4e']]
-          \ , 'FileName'     : [[ 240, 231, 'none', '#585858', '#ffffff'], [ 234, 244, 'none', '#1c1c1c', '#808080']]
-          \ , 'FileNameS'    : [[ 240, 236, 'bold', '#585858', '#303030'], [ 234, 232, 'bold', '#1c1c1c', '#000000']]
-          \ , 'Error'        : [[ 240, 202, 'bold', '#585858', '#ff5f00'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e']]
-          \ , 'ModFlag'      : [[ 240, 196, 'bold', '#585858', '#ff0000'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e']]
-          \ , 'BufFlag'      : [[ 240, 250, 'none', '#585858', '#bcbcbc'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e']]
-          \ , 'FunctionName' : [[ 236, 247, 'none', '#303030', '#9e9e9e'], [ 232, 239, 'none', '#000000', '#4e4e4e']]
-          \ , 'FileFormat'   : [[ 236, 244, 'none', '#303030', '#808080'], [ 232, 239, 'none', '#000000', '#4e4e4e']]
-          \ , 'FileEncoding' : [[ 236, 244, 'none', '#303030', '#808080'], [ 232, 239, 'none', '#000000', '#4e4e4e']]
-          \ , 'Separator'    : [[ 236, 242, 'bold', '#303030', '#6c6c6c'], [ 232, 239, 'none', '#000000', '#4e4e4e']]
-          \ , 'FileType'     : [[ 236, 248, 'none', '#303030', '#a8a8a8'], [ 232, 239, 'none', '#000000', '#4e4e4e']]
-          \ , 'LinePercentS' : [[ 240, 236, 'bold', '#585858', '#303030'], [ 234, 232, 'bold', '#1c1c1c', '#000000']]
-          \ , 'LinePercent'  : [[ 240, 250, 'none', '#585858', '#bcbcbc'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e']]
-          \ , 'LineNumberS'  : [[ 252, 240, 'bold', '#d0d0d0', '#585858'], [ 234, 234, 'bold', '#1c1c1c', '#1c1c1c']]
-          \ , 'LineNumber'   : [[ 252, 236, 'bold', '#d0d0d0', '#303030'], [ 234, 244, 'none', '#1c1c1c', '#808080']]
-          \ , 'LineColumn'   : [[ 252, 240, 'none', '#d0d0d0', '#585858'], [ 234, 239, 'none', '#1c1c1c', '#4e4e4e']]
+          \   'Mode'         : [[ s:yellow,  s:bgbg, 'bold',  s:gui_yellow,  s:gui_bgbg], []]
+          \ , 'ModeS'        : [[ s:yellow, s:midbg, 'bold',  s:gui_yellow, s:gui_midbg], []]
+          \,  'Branch'       : [[ s:midbg,  s:botfg, 'none',  s:gui_midbg,  s:gui_botfg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
+          \,  'BranchS'      : [[ s:midbg,  s:midfg, 'bold',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg]]
+          \,  'FileName'     : [[ s:midbg,  s:midfg, 'bold',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midfg, 'none', s:gui_darkbg,  s:gui_midfg]]
+          \,  'FileNameS'    : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,   s:bgbg, 'bold', s:gui_darkbg,   s:gui_bgbg]]
+          \,  'Error'        : [[ s:midbg,    s:red, 'bold',  s:gui_midbg,    s:gui_red], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
+          \,  'ModFlag'      : [[ s:midbg,    s:red, 'bold',  s:gui_midbg,    s:gui_red], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
+          \,  'BufFlag'      : [[ s:midbg, s:darkbg, 'none',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
+          \, 'FunctionName' : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \, 'FileFormat'   : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \, 'FileEncoding' : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \, 'Separator'    : [[ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \, 'FileType'     : [[ s:darkbg,  s:botfg, 'none', s:gui_darkbg,  s:gui_botfg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \,  'LinePercentS' : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,   s:bgbg, 'bold', s:gui_darkbg,   s:gui_bgbg]]
+          \,  'LinePercent'  : [[ s:midbg,  s:midfg, 'none',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
+          \,  'LineNumberS'  : [[ s:topbg,  s:midbg, 'bold',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg]]
+          \,  'LineNumber'   : [[ s:topbg, s:darkbg, 'bold',  s:gui_topbg, s:gui_darkbg], [ s:darkbg,  s:midfg, 'none', s:gui_darkbg,  s:gui_midfg]]
+          \,  'LineColumn'   : [[ s:topbg,  s:midbg, 'none',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
         \ }
         \ , 'Insert': {
           \   'Mode'         : [[ 153,  23, 'bold', '#afd7ff', '#005f5f'], []]
