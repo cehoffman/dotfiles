@@ -68,6 +68,7 @@ set runtimepath+=~/.vim/after
   " set number               " Use number for now because relative is slow
   set relativenumber       " Make line numbers relative to my cursor for easy jumping
   set lazyredraw           " don't redraw the screen during macros
+  set cursorline           " start with cursor shown
   set clipboard=unnamed,unnamedplus " make copying put on the system clipboard and pasting get from it
 
   if has("persistent_undo")
