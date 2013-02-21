@@ -213,9 +213,12 @@ let maplocalleader = ',' " \ is the default
     end
 
     " Color scheme
+    let g:solarized_underline = 0
     if &t_Co > 255
+      " colorscheme solarized
       colorscheme plasticcodewrap
     else
+      colorscheme solarized
       colorscheme ir_black
     endif
   endif
