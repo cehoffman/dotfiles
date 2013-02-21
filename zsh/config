@@ -1,7 +1,7 @@
 # Some basic env setup used throughout config
 IS_MAC=$([[ $(uname) != Darwin ]]; echo -n $?)
 IS_LINUX=$([[ $(uname) != Linux ]]; echo -n $?)
-IS_CYGWIN=$([[ $(uname -o) != Cygwin ]]; echo -n $?)
+IS_CYGWIN=$([[ $IS_MAC == 1 || $(uname -o) != Cygwin ]]; echo -n $?)
 
 # Enable hooks
 typeset -gUa preexec_functions

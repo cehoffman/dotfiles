@@ -56,20 +56,26 @@ function {
   local green="%b%F{green}"
   local reset="%s%b%k%f"
 
-  local ul="%(!.$red.$black)╒"
-  local ll="%(!.$red.$black)╘"
-  local ur="%(!.$red.$black)╕"
-  local lr="%(!.$red.$black)╛"
-  local open="%(!.$red═╣.$black═╡)"
-  local close="%(!.$red╠.$black╞)═"
+  # local ul="%(!.$red.$black)⎡"
+  # local ll="%(!.$red.$black)⎣"
+  # local ur="%(!.$red.$black)⎤"
+  # local lr="%(!.$red.$black)⎦"
+  local open="%(!.$red⟨.)"
+  local close="%(!.$red⟩.)"
+  # local ul="%(!.$red.$black)┌"
+  # local ll="%(!.$red.$black)└"
+  # local ur="%(!.$red.$black)┐"
+  # local lr="%(!.$red.$black)┘"
+  # local open="%(!.$red─❰.$black─｢)"
+  # local close="%(!.$red❱.$black｣)─"
 
   local name="%(!.$bold_magenta.$blue)%n$black"
   local last_exit="${bold_red}%(?..E:%? )"
 
   PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth\${_pr_extras:+${(qqq)open}${(qqq)reset}\${(j: :)_pr_extras}${(qqq)close}${(qqq)ur}}
-$ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close$reset "
+$ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close%(!.$red.$black)⎬$reset "
   RPROMPT=" $open$reset%D{%H:%M} ${bold_black}on $reset%D{%a %b %d}$close\${_pr_extras:+${(qqq)lr}}$reset"
-  PS2="%(!.$red.$black)├$open$bold_cyan%_$close$reset "
+  PS2="$open$bold_cyan%_$close$reset "
   PROMPT_EOL_MARK="%b%F{77}§$reset"
 }
 
