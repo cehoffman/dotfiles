@@ -11,7 +11,7 @@ function _git-delete-submodule() {
   [[ -z "$update_policy" ]] && zstyle ":completion:$curcontext:" cache-policy _git_delete_submodule_caching_policy
 
   if _cache_invalid  "git-delete-submodules-path-$gitdir" || ! _retrieve_cache "git-delete-submodules-path-$gitdir"; then
-    submodules=${(z)$(git submodule | awk '{ print $2 }')}
+    submodules=${(z)$(git submodule 2> /dev/null | awk '{ print $2 }')}
     _store_cache "git-delete-submodules-path-$gitdir" submodules
   fi
 
