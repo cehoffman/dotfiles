@@ -10,7 +10,8 @@ set guitablabel=%N\ %t%q\ %m[%{tabpagewinnr(tabpagenr())}]
 
 if has("mac")
   " Make ⌘F enter fullscreen
-  set guifont=MesloLGS:h11
+  " set guifont=Meslo\ LG\ M\ DZ:h11
+  set guifont=Meslo\ LG\ M:h11
   set fuopt+=maxhorz
   macmenu Edit.Find.Find\.\.\. key=<nop>
   map <D-f> :set invfu<CR>
@@ -24,6 +25,6 @@ if has("gui_gnome")
 endif
 
 if has("gui_win32") || has("gui_win32s")
-  set guifont=Meslo_LG_S:h10
+  set guifont=Meslo_LG_M:h9
   set linespace=0
 endif
