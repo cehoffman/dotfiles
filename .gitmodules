@@ -67,9 +67,6 @@
 [submodule "vim/bundle/vim-textobj-rubyblock"]
 	path = vim/bundle/vim-textobj-rubyblock
 	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
-[submodule "vim/bundle/vim-gundo"]
-	path = vim/bundle/vim-gundo
-	url = http://github.com/sjl/gundo.vim.git
 [submodule "vim/bundle/vim-tabular"]
 	path = vim/bundle/vim-tabular
 	url = https://github.com/godlygeek/tabular.git
@@ -172,3 +169,6 @@
 [submodule "vim/bundle/vim-vdebug"]
 	path = vim/bundle/vim-vdebug
 	url = https://github.com/joonty/vdebug.git
+[submodule "vim/bundle/vim-undotree"]
+	path = vim/bundle/vim-undotree
+	url = https://github.com/mbbill/undotree.git

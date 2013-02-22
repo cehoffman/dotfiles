@@ -570,15 +570,6 @@ if has("autocmd")
         " Override for sure the custom statusline from tagbar
         au BufEnter __Tagbar__ setlocal statusline=
       " }}}
-      " Gundo {{{
-        au BufEnter __Gundo__ if !exists('b:stl')
-              \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Undo tree%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
-              \ | endif
-
-        au BufEnter __Gundo_Preview__ if !exists('b:stl')
-              \ | let b:stl = "#[FileName] GUNDO#[FileNameS] [>>]#[FunctionName] Diff preview%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
-              \ | endif
-      " }}}
       " Threesome HUD {{{
         au BufEnter __Threesome_HUD__ if !exists('b:stl')
               \ |  let b:stl = "#[FileName] Threesome HUD#[FileNameS] [>>]%<%* %="
@@ -782,9 +773,9 @@ endif
   " augroup END
 " }}}
 " Gundo settings {{{
-  nnoremap <silent> <F5> :GundoToggle<CR>
-  " let g:gundo_right = 1
-  let g:gundo_preview_bottom = 1
+  nnoremap <silent> <F5> :UndotreeToggle<CR>
+  let g:undotree_SplitWidth = 50
+  let g:undotree_SetFocusWhenToggle = 1
 " }}}
 " EasyMotion settings {{{
   let g:EasyMotion_leader_key = '<Leader>e'
