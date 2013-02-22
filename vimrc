@@ -505,10 +505,10 @@ if has("autocmd")
           \, 'FileEncoding' : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
           \, 'Separator'    : [[ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
           \, 'FileType'     : [[ s:darkbg,  s:botfg, 'none', s:gui_darkbg,  s:gui_botfg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \,  'LinePercentS' : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,   s:bgbg, 'bold', s:gui_darkbg,   s:gui_bgbg]]
-          \,  'LinePercent'  : [[ s:midbg,  s:midfg, 'none',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
-          \,  'LineNumberS'  : [[ s:topbg,  s:midbg, 'bold',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg]]
-          \,  'LineNumber'   : [[ s:topbg, s:darkbg, 'bold',  s:gui_topbg, s:gui_darkbg], [ s:darkbg,  s:midfg, 'none', s:gui_darkbg,  s:gui_midfg]]
+          \,  'LinePercentS' : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:bgbg,   s:bgbg, 'bold', s:gui_bgbg,   s:gui_bgbg]]
+          \,  'LinePercent'  : [[ s:midbg,  s:midfg, 'none',  s:gui_midbg,  s:gui_midfg], [ s:bgbg,  s:midbg, 'none', s:gui_bgbg,  s:gui_midbg]]
+          \,  'LineNumberS'  : [[ s:topbg,  s:midbg, 'bold',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:bgbg, 'bold', s:gui_darkbg,  s:gui_bgbg]]
+          \,  'LineNumber'   : [[ s:topbg, s:darkbg, 'bold',  s:gui_topbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
           \,  'LineColumn'   : [[ s:topbg,  s:midbg, 'none',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
         \ }
         \ , 'Insert': {
