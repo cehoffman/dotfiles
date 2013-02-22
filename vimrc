@@ -875,6 +875,10 @@ endif
 " }}}
 " Ack {{{
   cabbrev ack Ack!
+  if executable('ag')
+    cabbrev ag Ack!
+    let g:ackprg = 'ag --nogroup --nocolor --column --smart-case --hidden'
+  endif
 " }}}
 " Objc {{{
   let g:clang_use_library = 1
