@@ -388,10 +388,10 @@ if has("autocmd")
     " Statusline updater {{{
       function! s:StatusLineArrows(stl)
         " if has("gui_running")
-          let stl = substitute(a:stl, '\[>>\]',  'Č', 'g')
-          let stl = substitute(stl, '\[>\]', 'Ċ', 'g')
-          let stl = substitute(stl, '\[<<\]',  'č', 'g')
-          let stl = substitute(stl, '\[<\]', 'ċ', 'g')
+          let stl = substitute(a:stl, '\[>>\]',  '', 'g')
+          let stl = substitute(stl, '\[>\]', '', 'g')
+          let stl = substitute(stl, '\[<<\]',  '', 'g')
+          let stl = substitute(stl, '\[<\]', '', 'g')
         " else
         "   let new_stl = substitute(new_stl, '\(\[>>\]\|\[>\]\|\[<<\]\|\[<\]\)', '', 'g')
         " end
@@ -537,9 +537,9 @@ if has("autocmd")
     " Default statusline {{{
       let g:default_stl  = ""
       let g:default_stl .= "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>"
-      let g:default_stl .= "#[Branch] %(%{substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', 'ĐĔ \\1', 'gi')}#[BranchS] [>] %)" " Git branch
-      let g:default_stl .= "#[ModFlag]%{&readonly ? 'Ē ' : ''}#[FileName]%t " " File name
-      let g:syntastic_stl_format = <SID>StatusLineArrows("[>][>][>] SYNTAX đ %F (%t) [>][>][>]")
+      let g:default_stl .= "#[Branch] %(%{substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', ' \\1', 'gi')}#[BranchS] [>] %)" " Git branch
+      let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName]%t " " File name
+      let g:syntastic_stl_format = <SID>StatusLineArrows("[>][>][>] SYNTAX  %F (%t) [>][>][>]")
       let g:default_stl .= "<CUR>#[Error]%(%{SyntasticStatuslineFlag()} %)</CUR>"
       let g:default_stl .= "#[ModFlag]%(%M %)" " Modified flag
       let g:default_stl .= "#[BufFlag]%(%H%W %)" " HLP,PRV flags
@@ -549,11 +549,11 @@ if has("autocmd")
       let g:default_stl .= "%= " " Right align
       let g:default_stl .= "<CUR>#[FileFormat]%{&fileformat} </CUR>" " File format
       let g:default_stl .= "<CUR>#[FileEncoding]%{(&fenc == '' ? &enc : &fenc)} </CUR>" " File encoding
-      let g:default_stl .= "<CUR>#[Separator][<] Ďď#[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
+      let g:default_stl .= "<CUR>#[Separator][<] #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
       let g:default_stl .= "#[LinePercentS][<<]#[LinePercent] %p%% " " Line/column/virtual column, Line percentage
       let g:default_stl .= "#[LineNumberS][<<]#[LineNumber]"
       " if has("gui_running")
-        let g:default_stl .= "đ"
+        let g:default_stl .= ""
       " endif
       let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage
     " }}}
@@ -577,7 +577,7 @@ if has("autocmd")
       " }}}
       " Scratch {{{
         au BufEnter __Scratch__ if !exists('b:stl')
-              \ |  let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber]đ %l#[LineColumn]:%c%V"
+              \ |  let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber] %l#[LineColumn]:%c%V"
               \ |  endif
       " }}}
       " Syntastic location list {{{
