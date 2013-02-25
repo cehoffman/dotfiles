@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xbel PUBLIC "+//IDN python.org//DTD XML Bookmark Exchange Language 1.0//EN//XML"
+		       "http://www.python.org/topics/xml/dtds/xbel-1.0.dtd">
+
+<xbel>
+
+
+    <folder folded="yes">
+        <title>Auto saved session</title>
+            <bookmark href="https://mail.google.com/mail/u/0/h/qma7rsw17hly/?&#38;v=c&#38;dsqt=1&#38;th=13d091f581f692d9#m_13d091f58ce861f2">
+                <title>Gmail - Re: [cares] Add standard makefile compilation (#1)</title>
+            </bookmark>
+
+    </folder>
+
+    <folder folded="yes">
+        <title>Session snapshot - Feb 25 08:47</title>
+            <bookmark href="http://www.lua.org/pil/20.2.html">
+                <title>Programming in Lua : 20.2</title>
+            </bookmark>
+
+            <bookmark href="https://raw.github.com/creaktive/rainbarf/master/rainbarf">
+                <title>https://raw.github.com/creaktive/rainbarf/master/rainbarf</title>
+            </bookmark>
+
+            <bookmark href="http://www.lua.org/manual/5.1/manual.html#pdf-string.gmatch">
+                <title>Lua 5.1 Reference Manual</title>
+            </bookmark>
+
+            <bookmark href="http://stackoverflow.com/questions/1758991/how-to-remove-a-lua-table-entry-by-its-key">
+                <title>How to remove a lua table entry by its key? - Stack Overflow</title>
+            </bookmark>
+
+    </folder>
+
+
+</xbel>
