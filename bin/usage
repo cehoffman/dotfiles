@@ -153,38 +153,68 @@ local function parseopts(opts)
     os.exit()
   end
 
-  for _, a in ipairs(arg) do
-    for opt, fun in pairs(opts) do
-      opt = opt:match('(.*):') or opt
-      if opt == a then fun(); goto next end
+  local variations, converters = {}, {
+    id = function(_) return _ end,
+    num = tonumber,
+  }
 
-      local variations = {}
-      for opt in opt:split(',') do
-        varopt = opt:match('%b[]')
-        if varopt then
-          variations[opt:gsub("%b[]", varopt:sub(2, -2))] = true
-          variations[opt:gsub("%b[]", '')] = true
+  for opt, fun in pairs(opts) do
+    opt = opt:match('(.*):') or opt
+    if opt == a then fun(); goto next end
+
+    for opt in opt:split(',') do
+      local converter, extra = {'none', fun}
+
+      varopt, extra = opt:match("(.-)=(%b<>)")
+      if varopt then
+        opt = varopt
+        converter[1] = converters[extra:sub(2,-2) or 'id'] or converters.id
+      end
+
+      varopt = opt:match('%b[]')
+      if varopt then
+        variations[opt:gsub("%b[]", varopt:sub(2, -2))] = converter
+        variations[opt:gsub("%b[]", '')] = converter
+      else
+        variations[opt] = converter
+      end
+    end
+
+    ::next::
+  end
+
+
+  local skip = false
+  for i, a in ipairs(arg) do
+    if skip then skip = true; goto next end
+
+    for var, _ in pairs(variations) do
+      local conv, fun = table.unpack(_) 
+
+      if a == var then
+        if conv == 'none' then
+          fun(var)
         else
-          variations[opt] = true
+          if not arg[i + 1] then print(var .. ': missing option argument'); os.exit(1) end
+          skip = true
+          fun(conv(arg[i + 1]), var)
         end
       end
-
-      for var, _ in pairs(variations) do
-        if a == var then fun(var) end
-      end
-
-      ::next::
     end
+
+    -- used when next value is consumed by the current option
+    ::next::
   end
 end
 
-parseopts({
-  ["--[no-]bright:use bright colors for cpu metrics"] = function(opt) opts.bright = opt == "--bright" end,
-  ["--tmux:output using tmux colors"] = function() opts.colors = 'tmux' end
-})
-
 local bars, history, mem, width = {}, {}, memory(), 38
 for i = 1, 8 do table.insert(bars, string.char(226, 150, 128 + i)) end
+
+parseopts({
+  ["--[no-]bright:use bright colors for cpu metrics"] = function(opt) opts.bright = opt == "--bright" end,
+  ["--tmux:output using tmux colors"] = function() opts.colors = 'tmux' end,
+  ["--width=<num>:width of output graph (default " .. width .. ")"] = function(opt) width = opt end
+})
 
 -- Slightly overkill OS Environment access and setting but great for reuse
 local C, ENV = ffi.C, {}
