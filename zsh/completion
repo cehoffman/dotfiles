@@ -1,8 +1,3 @@
-autoload -U compinit
-compinit -i
-
-zmodload -i zsh/complist
-
 # matches case insensitive for lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
@@ -13,11 +8,11 @@ zstyle ':completion:*' special-dirs ..
 zstyle ':completion:*' insert-tab pending
 
 # use caching
-zstyle ':completion::complete:*' use-cache true
+zstyle ':completion:*' use-cache true
 # zstyle ':completion::complete:*' cachepath .zcache
 
 # Use a menu for completion
-zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*' menu select
 
 # Describe options in full
 zstyle ':completion:*:options' auto-description '%d'
@@ -28,16 +23,16 @@ zstyle ':completion:*:*:kill:*:processes' list-colors  '=(#b) #([0-9]#) ([0-9a-z
 zstyle ':completion:*:*:*:*:processes' command "ps -au $USER -o pid,user,comm -w -w"
 
 # Load known hosts file for auto-completion with ssh and scp commands
-function {
-  local -a _ssh_hosts
-  local -a _etc_hosts
-  local -a hosts
-  [ -r ~/.ssh/known_hosts ] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
-  [ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
-  hosts=("$_ssh_hosts[@]" "$_etc_hosts[@]" $(hostname) localhost)
-  zstyle ':completion:*:hosts' hosts $hosts
-  zstyle ':completion:*:*:(ssh|scp):*:*' hosts $hosts
-}
+# function {
+#   local -a _ssh_hosts
+#   local -a _etc_hosts
+#   local -a hosts
+#   [ -r ~/.ssh/known_hosts ] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+#   [ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+#   hosts=("$_ssh_hosts[@]" "$_etc_hosts[@]" $(hostname) localhost)
+#   zstyle ':completion:*:hosts' hosts $hosts
+#   zstyle ':completion:*:*:(ssh|scp):*:*' hosts $hosts
+# }
 
 # Don't ever select the parent directory, e.g. cd ../<TAB> won't select your current dir
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
@@ -49,24 +44,25 @@ zstyle ':completion:*:(rm|cp):*' ignore-line yes
 # Set rehash on failure to find executable
 zstyle ':completion:*' rehash true
 
-zstyle -e ':completion:*' completer '
-if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]] ; then
-  _last_try="$HISTNO$BUFFER$CURSOR"
-  reply=(_complete _match _ignored _prefix _files)
-else
-  if [[ $words[1] == (rm|mv) ]] ; then
-    reply=(_complete _files)
-  else
-    reply=(_oldlist _expand _complete _match _ignored _approximate _files)
-  fi
-fi'
+zstyle -e ':completion:*' completer _oldlist _expand _complete _match _ignored _approximate _list _history _files
+# zstyle -e ':completion:*' completer '
+# if [[ $_last_try != "$HISTNO$BUFFER$CURSOR" ]] ; then
+#   _last_try="$HISTNO$BUFFER$CURSOR"
+#   reply=(_complete _match _ignored _prefix _files)
+# else
+#   if [[ $words[1] == (rm|mv) ]] ; then
+#     reply=(_complete _files)
+#   else
+#     reply=(_oldlist _expand _complete _match _ignored _approximate _files)
+#   fi
+# fi'
 
 # Some completion settings
-zstyle ':completion:*:match:*' match-original only
-zstyle ':completion:*:(match|approximate):*' insert-unambiguous true
+# zstyle ':completion:*:match:*' match-original only
+zstyle ':completion:*' insert-unambiguous true
 
 # Expand partial paths
-zstyle ':completion:*' squeeze-slashes true
+# zstyle ':completion:*' squeeze-slashes true
 
 # verbose completion
 zstyle ':completion:*' verbose true
@@ -78,8 +74,9 @@ zstyle ':completion:*:approximate:*' original true
 zstyle ':completion:*:approximate:*' prompt 'Approximate to: %e'
 
 # Don't autoexpand until nothing else has changed on line
-zstyle ':completion:*:expand:*' keep-prefix changed
-zstyle ':completion:*:expand:*' suffix false
+zstyle ':completion:*' keep-prefix true
+zstyle ':completion:*' expand prefix suffix
+# zstyle ':completion:*' suffix true
 
 # Separate matches into groups because empty string tells system to use name
 # of completion function used as name of group
@@ -101,6 +98,11 @@ zstyle ':completion:*:*:cdr:*:*' menu selection
 zstyle ':chpwd:*' recent-dirs-default true
 zstyle ':completion:*' recent-dirs-insert both
 zstyle ':chpwd:*' recent-dirs-prune parent
+
+autoload -U compinit
+compinit -i
+
+zmodload -i zsh/complist
 
 function {
   emulate -L zsh
