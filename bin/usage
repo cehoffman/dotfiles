@@ -1,0 +1,263 @@
+#!/usr/bin/env luajit
+shell = {}
+
+function shell.escape(...)
+ local command = type(...) == 'table' and ... or { ... }
+ for i, s in ipairs(command) do
+  s = (tostring(s) or ''):gsub('"', '\\"')
+  if s:find '[^A-Za-z0-9_."/-]' then
+   s = '"' .. s .. '"'
+  elseif s == '' then
+   s = '""'
+  end
+  command[i] = s
+ end
+ return table.concat(command, ' ')
+end
+
+function shell.lines(...)
+ return assert(io.popen(shell.escape(...) .. ' 2>&1')):lines()
+end
+
+function string:split(pat)
+  pat = pat or '%s+'
+  local idx, g = 1, self:gmatch("()(" .. pat .. ")")
+  local function next(start, seps, sep)
+    idx = sep and seps + #sep
+    return self:sub(start, (seps or 0) - 1)
+  end
+  return function() if idx then return next(idx, g()) end end
+end
+
+function math.round(val, step)
+  step = step or 1
+  return math.floor(((val + step / 2) / step) * step)
+end
+
+table.unpack = unpack or table.unpack
+local ffi = require "ffi"
+ffi.cdef "uint32_t sleep(uint32_t)"
+
+local function sum(t)
+  local sum = 0
+  for i, val in pairs(t) do sum = sum + val end
+  return sum
+end
+
+local top = {}
+setmetatable(top, {
+  __index = function(self, k)
+    for line in shell.lines{'top', '-R', '-F', '-l1', '-n0', '-s0'} do
+      local key, value = line:match('^([%w%s]+):%s*(.+)')
+      if key then self[key:lower()] = value end
+    end
+
+    setmetatable(self, {})
+
+    return self[k]
+  end
+})
+
+local function usage()
+  local stat = io.open('/proc/stat', 'r')
+  if stat then
+    local diff, prev = {}, {}
+
+    for i = 1, 0, -1 do
+      for line in stat:lines() do
+        local cpu, stats = line:find("^cpu%s+%d+")
+        if not cpu then goto next end
+
+        stats = {}
+        for stat in line:split()do table.insert(stats, tonumber(stat)) end
+
+        diff.idle = stats[4] - (prev.idle or 0)
+        diff.total = sum(stats) - (prev.total or 0)
+        diff.usage = (diff.total - diff.idle) / diff.total
+
+        ::next::
+        break
+      end
+
+      ffi.C.sleep(i)
+    end
+
+    stat:close()
+    return diff.usage
+  else
+    for str in top["cpu usage"]:split("%s*,%s*") do
+      local stat, name = str:match("([%d%.]+)%%%s+(%w+)")
+      if name == "idle" then return 1 - stat / 100 end
+    end
+  end
+end
+
+local function memory()
+  local mem, stat = {}, io.open('/proc/meminfo', 'r')
+  if stat then
+    for line in stat:lines() do
+      local name, size = line:match("(Free|Cached|SwapCached|Active|Inactive):%s*(%d+)")
+      if name then mem[name:sub(0, 1):lower()] = tonumber(size) end
+    end
+
+    mem.c = mem.c - mem.s
+    mems.s = nil
+
+    stat:close()
+  else
+    local units = {
+      K = 1,
+      M = 1024,
+      G = 1024 * 1024
+    }
+
+    for str in top.physmem:split("%s*,%s*") do
+      local val, unit, type = str:match("(%d+)([KMG])%s+(%w)")
+      mem[type] = val * units[unit]
+    end
+
+    mem.u = nil
+  end
+
+  return mem
+end
+
+-- opts = {...}
+-- setmetatable(opts, {
+--   __index = function(self, k)
+--     for _, opt in ipairs(self) do
+--       if
+--     end
+--   end
+-- })
+
+-- print(...)
+-- for k, v in pairs(...) do print(k, v) end
+
+local bars, history, mem, width = {}, {}, memory(), 38
+for i = 1, 8 do table.insert(bars, string.char(226, 150, 128 + i)) end
+
+-- Slightly overkill OS Environment access and setting but great for reuse
+local C, ENV = ffi.C, {}
+ffi.cdef [[
+  char * getenv(const char *);
+  int setenv(const char *, const char *, int);
+]]
+setmetatable(ENV, {
+  __index = function(self, k)
+    return ffi.string(C.getenv(k))
+  end,
+  __newindex = function(self, k, v)
+    if C.setenv(k, v, 1) == 0 then rawset(self, k, v) end
+  end
+})
+
+-- get the saved history
+local file = io.open(ENV.HOME .. '/.usage.dat', 'r')
+for line in file:lines() do table.insert(history, tonumber(line)) end
+file:close()
+
+-- store the new usage value and remove old entries
+history[#history + 1] = usage()
+for i = 1, #history - width do table.remove(history, 1) end
+
+local memscale = #history / sum(mem)
+local norm = (#bars - 1) / 1.0 -- math.max(table.unpack(history))
+
+local ordering, colors, cmap = 'fwaic', {
+  green = {
+    ansi = { bg = 42, fg = 32 },
+    tmux = { },
+  },
+  bright_green = {
+    ansi = { bg = 102, fg = 92 },
+    tmux = { },
+  },
+  red = {
+    ansi = { bg = 41, fg = 31 },
+    tmux = {},
+  },
+  bright_red = {
+    ansi = { bg = 101, fg = 91 },
+    tmux = {},
+  },
+  yellow = {
+    ansi = { bg = 43, fg = 33 },
+    tmux = {},
+  },
+  bright_yellow = {
+    ansi = { bg = 103, fg = 93 },
+    tmux = {},
+  },
+  blue = {
+    ansi = { bg = 44, fg = 34 },
+    tmux = {},
+  },
+  bright_blue = {
+    ansi = { bg = 104, fg = 94 },
+    tmux = {},
+  },
+  cyan = {
+    ansi = { bg = 46, fg = 36 },
+    tmux = {},
+  },
+  bright_cyan = {
+    ansi = { bg = 106, fg = 96 },
+    tmux = {},
+  },
+}, {
+  f = "green",
+  w = "red",
+  a = "yellow",
+  i = "blue",
+  c = "cyan",
+}
+
+for k, v in pairs(colors) do
+  local tmux_color = k:gsub("_", '')
+  colors[k].tmux.bg = "#[bg=" .. tmux_color .. "]"
+  colors[k].tmux.fg = "#[fg=" .. tmux_color .. "]"
+  colors[k].ansi.fg = "\27[" .. colors[k].ansi.fg .. "m"
+  colors[k].ansi.bg = "\27[" .. colors[k].ansi.bg .. "m"
+end
+
+--[[
+  From the end of the graph to be generated calculate the transitions between
+  the colors for each memory slice. The transition point is then inserted into
+  the history line as a table of color and cpu usages which can be detected
+  when printing.
+--]]
+local idx = #history < width and width or #history
+for str in ordering:reverse():gmatch("%w") do
+  -- skip this memory attribute if the platform doesn't support it
+  if not mem[str] then goto next end
+
+  -- caculate the number of cpu usage ticks needed to represent this memory
+  -- slice and jump back on graph to insert starting color point
+  idx = idx - math.round(memscale * mem[str])
+
+  -- ensure we don't go beyond the start of the graph because of rounding
+  if idx < 1 then idx = 1 end
+
+  local bg = colors[cmap[str]].ansi.bg
+  local fg = colors['bright_' .. cmap[str]].ansi.fg
+  history[idx] = {color = fg .. bg, usage = history[idx]}
+
+  ::next::
+end
+
+local tmpfile = os.tmpname()
+file = io.open(tmpfile, 'w')
+
+for i, val in ipairs(history) do
+  if type(val) == 'table' then
+    io.stdout:write(val.color)
+    val = val.usage
+  end
+  file:write(tostring(val) .. "\n")
+  io.stdout:write(bars[math.round(norm * val) + 1])
+end
+file:close()
+os.rename(tmpfile, ENV.HOME .. '/.usage.dat')
+
+-- vim: set ft=lua:
