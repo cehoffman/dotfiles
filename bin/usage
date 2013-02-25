@@ -52,6 +52,7 @@ setmetatable(top, {
       if key then self[key:lower()] = value end
     end
 
+    -- don't call top again by accident
     setmetatable(self, {})
 
     return self[k]
@@ -69,17 +70,20 @@ local function usage()
         if not cpu then goto next end
 
         stats = {}
-        for stat in line:split()do table.insert(stats, tonumber(stat)) end
+        for stat in line:split() do table.insert(stats, tonumber(stat)) end
 
         diff.idle = stats[4] - (prev.idle or 0)
         diff.total = sum(stats) - (prev.total or 0)
         diff.usage = (diff.total - diff.idle) / diff.total
+
+        prev.idle, prev.total = diff.idle, diff.total
 
         ::next::
         break
       end
 
       ffi.C.sleep(i)
+      stat:seek('set', 0)
     end
 
     stat:close()
@@ -95,13 +99,16 @@ end
 local function memory()
   local mem, stat = {}, io.open('/proc/meminfo', 'r')
   if stat then
+    local names = {'MemFree', 'Cached', 'SwapCached', 'Active', 'Inactive'}
     for line in stat:lines() do
-      local name, size = line:match("(Free|Cached|SwapCached|Active|Inactive):%s*(%d+)")
-      if name then mem[name:sub(0, 1):lower()] = tonumber(size) end
+      for _, test in ipairs(names) do
+        local size = line:match('^' .. test .. ":%s*(%d+)")
+        if size then mem[test:sub(0, 1):lower()] = tonumber(size) end
+      end
     end
 
-    mem.c = mem.c - mem.s
-    mems.s = nil
+    mem.c, mem.c = mem.c + mem.s, nil
+    mem.f, mem.m = mem.m, nil
 
     stat:close()
   else
@@ -122,17 +129,59 @@ local function memory()
   return mem
 end
 
--- opts = {...}
--- setmetatable(opts, {
---   __index = function(self, k)
---     for _, opt in ipairs(self) do
---       if
---     end
---   end
--- })
+opts = {
+  bright = true,
+  colors = 'ansi'
+}
 
--- print(...)
--- for k, v in pairs(...) do print(k, v) end
+local function parseopts(opts)
+  opts["-h,--help:print this help information"] = function()
+    print("Usage: " .. arg[0]:gsub("/.*/", '') .. (opts.usage or " [options]"))
+
+    local out, flaglen = {}, 0
+    for opt, _ in pairs(opts) do
+      local flags, msg = opt:match('(.-):(.*)')
+      flags = (flags or opt):gsub(',', ', ')
+      if #flags > flaglen then flaglen = #flags end
+      out[flags] = msg or ''
+    end
+
+    for opt, msg in pairs(out) do
+      print(opt .. (' '):rep(flaglen - #opt + 1) .. msg)
+    end
+
+    os.exit()
+  end
+
+  for _, a in ipairs(arg) do
+    for opt, fun in pairs(opts) do
+      opt = opt:match('(.*):') or opt
+      if opt == a then fun(); goto next end
+
+      local variations = {}
+      for opt in opt:split(',') do
+        varopt = opt:match('%b[]')
+        if varopt then
+          variations[opt:gsub("%b[]", varopt:sub(2, -2))] = true
+          variations[opt:gsub("%b[]", '')] = true
+        else
+          variations[opt] = true
+        end
+      end
+
+      for var, _ in pairs(variations) do
+        if a == var then fun(var) end
+      end
+
+      ::next::
+    end
+  end
+end
+
+parseopts({
+  ["--[no-]bright:use bright colors for cpu metrics"] = function(opt) opts.bright = opt == "--bright" end,
+  ["--tmux:output using tmux colors"] = function() opts.colors = 'tmux' end
+})
 
 local bars, history, mem, width = {}, {}, memory(), 38
 for i = 1, 8 do table.insert(bars, string.char(226, 150, 128 + i)) end
@@ -145,15 +194,21 @@ ffi.cdef [[
 ]]
 setmetatable(ENV, {
   __index = function(self, k)
-    return ffi.string(C.getenv(k))
+    local val = ffi.string(C.getenv(k))
+    rawset(self, k, val)
+    return val
   end,
   __newindex = function(self, k, v)
     if C.setenv(k, v, 1) == 0 then rawset(self, k, v) end
   end
 })
 
--- get the saved history
+-- get the saved history, creating the storage if not created yet
 local file = io.open(ENV.HOME .. '/.usage.dat', 'r')
+if not file then
+  file = io.open(ENV.HOME .. '/.usage.dat', 'w')
+  file:close(); file = io.open(ENV.HOME .. '/.usage.dat', 'r')
+end
 for line in file:lines() do table.insert(history, tonumber(line)) end
 file:close()
 
@@ -161,7 +216,7 @@ file:close()
 history[#history + 1] = usage()
 for i = 1, #history - width do table.remove(history, 1) end
 
-local memscale = #history / sum(mem)
+local memscale = width / sum(mem)
 local norm = (#bars - 1) / 1.0 -- math.max(table.unpack(history))
 
 local ordering, colors, cmap = 'fwaic', {
@@ -227,6 +282,7 @@ end
   the history line as a table of color and cpu usages which can be detected
   when printing.
 --]]
+for i = 1, width - #history do table.insert(history, 1, 0) end
 local idx = #history < width and width or #history
 for str in ordering:reverse():gmatch("%w") do
   -- skip this memory attribute if the platform doesn't support it
@@ -239,8 +295,8 @@ for str in ordering:reverse():gmatch("%w") do
   -- ensure we don't go beyond the start of the graph because of rounding
   if idx < 1 then idx = 1 end
 
-  local bg = colors[cmap[str]].ansi.bg
-  local fg = colors['bright_' .. cmap[str]].ansi.fg
+  local bg = colors[cmap[str]][opts.colors].bg
+  local fg = colors[(opts.bright and 'bright_' or '') .. cmap[str]][opts.colors].fg
   history[idx] = {color = fg .. bg, usage = history[idx]}
 
   ::next::
@@ -259,5 +315,7 @@ for i, val in ipairs(history) do
 end
 file:close()
 os.rename(tmpfile, ENV.HOME .. '/.usage.dat')
+
+if opts.colors == 'ansi' then io.stdout:write("\27[0m") end
 
 -- vim: set ft=lua:
