@@ -57,7 +57,8 @@ syn keyword tmuxOptsSet status-left-fg status-right-attr status-right-bg
 syn keyword tmuxOptsSet status-right-fg update-environment base-index
 syn keyword tmuxOptsSet display-panes-colour display-panes-time default-shell
 syn keyword tmuxOptsSet set-titles-string lock-command lock-server
-syn keyword tmuxOptsSet mouse-select-pane message-limit quiet escape-time
+syn keyword tmuxOptsSet mouse-select-pane mouse-select-window mouse-utf8
+syn keyword tmuxOptsSet mouse-resize-pane message-limit quiet escape-time
 syn keyword tmuxOptsSet pane-active-border-bg pane-active-border-fg
 syn keyword tmuxOptsSet pane-border-bg pane-border-fg
 syn keyword tmuxOptsSet display-panes-active-colour alternate-screen
