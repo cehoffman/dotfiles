@@ -1,3 +1,4 @@
+# Copyright (c) 2009-2013 Chris Hoffman
 # Copyright (c) 2009 Ryan Bates
 # 
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -64,6 +65,53 @@ namespace :submodule do
   end
 end
 
+$replace_all_files = false
+
+desc 'link a specified file/folder to your home directory'
+task :link, :name do |_, args|
+  return unless File.exists?(args[:name])
+  home_file = File.join(ENV['HOME'], ?. + args[:name].sub(/\.erb$/, ''))
+
+  if File.exists?(home_file)
+    if File.identical?(home_file, args[:name])
+      puts "identical, skipping #{args[:name]}"
+    elsif $replace_all_files
+      FileUtils.rm_rf home_file
+      Rake::Task['link'].invoke(args[:name])
+    else
+      puts "overwrite ~/.#{args[:name]} [ynaq]"
+      case $stdin.gets.chomp
+      when 'y' then FileUtils.rm_rf(home_file) && link(home_file, args[:name])
+      when 'a' then $replace_all_files = true && Rake::Task['link'].invoke(args[:name])
+      when 'q' then exit
+      else puts "skipping #{args[:name]}" end
+    end
+  else
+    if args[:name] =~ /\.erb$/
+      puts "generating #{home_file}"
+      File.open(home_file, 'w') do |new_file|
+        new_file.write ERB.new(File.read(args[:name])).result(binding)
+      end
+    else
+      target = File.basename(Dir.pwd) + (File::ALT_SEPARATOR || File::SEPARATOR) + args[:name]
+      link = File.basename(home_file)
+
+      Dir.chdir ENV['HOME'] do
+        puts "linking ~/#{link}"
+
+        if windows?
+          switch = File.directory?(target) && ['/d'] || []
+          switch << [link, target]
+          system 'cmd', '/c', 'mklink', *switch.flatten
+          system 'cmd', '/c', 'attrib', link, '+s', '+h'
+        else
+          File.symlink(target, link)
+        end
+      end
+    end
+  end
+end
+
 desc "update the dot files into user's home directory"
 task :update, :speed do |_, args|
   Rake::Task['submodule'].invoke unless args[:speed] == 'fast'
@@ -72,32 +120,9 @@ task :update, :speed do |_, args|
 
   Rake::Task['opp'].invoke
 
-  replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile os].include? file
-    
-    if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
-      if File.identical? file, File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
-        puts "identical ~/.#{file.sub('.erb', '')}"
-      elsif replace_all
-        replace_file(file)
-      else
-        print "overwrite ~/.#{file.sub('.erb', '')}? [ynaq] "
-        case $stdin.gets.chomp
-        when 'a'
-          replace_all = true
-          replace_file(file)
-        when 'y'
-          replace_file(file)
-        when 'q'
-          exit
-        else
-          puts "skipping ~/.#{file.sub('.erb', '')}"
-        end
-      end
-    else
-      link_file(file)
-    end
+    Rake::Task['link'].invoke(file)
   end
 
   case RUBY_PLATFORM
@@ -105,34 +130,4 @@ task :update, :speed do |_, args|
   end
 
   system 'vim', '-c', ':Helptags', '-c', ':q!'
-end
-
-def replace_file(file)
-  system %Q{rm -rf "$HOME/.#{file.sub('.erb', '')}"}
-  link_file(file)
-end
-
-def link_file(file)
-  if file =~ /.erb$/
-    puts "generating ~/.#{file.sub('.erb', '')}"
-    File.open(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"), 'w') do |new_file|
-      new_file.write ERB.new(File.read(file)).result(binding)
-    end
-  else
-    target = File.basename(Dir.pwd) + (File::ALT_SEPARATOR || File::SEPARATOR) + file
-    link = ".#{file}"
-
-    Dir.chdir ENV['HOME'] do
-      puts "linking ~/#{link}"
-
-      if windows?
-        switch = File.directory?(target) && ['/d'] || []
-        switch << [link, target]
-        system 'cmd', '/c', 'mklink', *switch.flatten
-        system 'cmd', '/c', 'attrib', link, '+s', '+h'
-      else
-        File.symlink(target, link)
-      end
-    end
-  end
 end
