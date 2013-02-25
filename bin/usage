@@ -204,13 +204,14 @@ local function parseopts(opts)
   end
 end
 
-local bars, history, mem, width = {}, {}, memory(), 38
+local bars, history, mem, ordering, width = {}, {}, memory(), 'fwaic', 38
 for i = 1, 8 do table.insert(bars, string.char(226, 150, 128 + i)) end
 
 parseopts({
   ["--[no-]bright:use bright colors for cpu metrics"] = function(opt) opts.bright = opt == "--bright" end,
   ["--tmux:output using tmux colors"] = function() opts.colors = 'tmux' end,
-  ["--width=<num>:width of output graph (default " .. width .. ")"] = function(opt) width = opt end
+  ["--width=<num>:width of output graph (default " .. width .. ")"] = function(opt) width = opt end,
+  ["--order=<string>:order to show memory sections in (default " .. ordering .. ")"] = function(opt) ordering = opt end
 })
 
 -- Slightly overkill OS Environment access and setting but great for reuse
@@ -246,7 +247,7 @@ for i = 1, #history - width do table.remove(history, 1) end
 local memscale = width / sum(mem)
 local norm = (#bars - 1) / 1.0 -- math.max(table.unpack(history))
 
-local ordering, colors, cmap = 'fwaic', {
+local colors, cmap = {
   green = {
     ansi = { bg = 42, fg = 32 },
     tmux = { },
