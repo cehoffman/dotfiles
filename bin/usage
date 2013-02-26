@@ -36,7 +36,8 @@ end
 
 table.unpack = unpack or table.unpack
 local ffi = require "ffi"
-ffi.cdef "uint32_t sleep(uint32_t)"
+setmetatable(_G, {__index = ffi.C})
+ffi.cdef "int usleep(uint64_t)"
 
 local function sum(t)
   local sum = 0
@@ -82,7 +83,7 @@ local function usage()
         break
       end
 
-      ffi.C.sleep(i)
+      usleep(i * 1000000)
       stat:seek('set', 0)
     end
 
@@ -160,10 +161,9 @@ local function parseopts(opts)
 
   for opt, fun in pairs(opts) do
     opt = opt:match('(.*):') or opt
-    if opt == a then fun(); goto next end
 
     for opt in opt:split(',') do
-      local converter, extra = {'none', fun}
+      local converter, extra, varopt = {'none', fun}
 
       varopt, extra = opt:match("(.-)=(%b<>)")
       if varopt then
@@ -179,10 +179,7 @@ local function parseopts(opts)
         variations[opt] = converter
       end
     end
-
-    ::next::
   end
-
 
   local skip = false
   for i, a in ipairs(arg) do
@@ -217,19 +214,19 @@ parseopts({
 })
 
 -- Slightly overkill OS Environment access and setting but great for reuse
-local C, ENV = ffi.C, {}
+local ENV = {}
 ffi.cdef [[
   char * getenv(const char *);
   int setenv(const char *, const char *, int);
 ]]
 setmetatable(ENV, {
   __index = function(self, k)
-    local val = ffi.string(C.getenv(k))
+    local val = ffi.string(getenv(k))
     rawset(self, k, val)
     return val
   end,
   __newindex = function(self, k, v)
-    if C.setenv(k, v, 1) == 0 then rawset(self, k, v) end
+    if setenv(k, v, 1) == 0 then rawset(self, k, v) end
   end
 })
 
