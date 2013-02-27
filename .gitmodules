@@ -115,9 +115,6 @@
 [submodule "vim/bundle/vim-bundler"]
 	path = vim/bundle/vim-bundler
 	url = https://github.com/tpope/vim-bundler.git
-[submodule "rbenv/plugins/bundler"]
-	path = rbenv/plugins/bundler
-	url = https://github.com/cehoffman/rbenv-bundler.git
 [submodule "vim/bundle/vim-rainbow_parentheses"]
 	path = vim/bundle/vim-rainbow_parentheses
 	url = https://github.com/kien/rainbow_parentheses.vim.git
@@ -172,3 +169,6 @@
 [submodule "vim/bundle/vim-undotree"]
 	path = vim/bundle/vim-undotree
 	url = https://github.com/mbbill/undotree.git
+[submodule "rbenv"]
+	path = rbenv
+	url = https://github.com/cehoffman/rbenv.git

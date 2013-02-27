@@ -8,7 +8,6 @@ weechat/*.log
 weechat/weeget
 zsh/functions/opp
 zsh/functions/opp-install
-rbenv
 coresys
 offlineimap/pid
 offlineimap/Account-*
