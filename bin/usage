@@ -132,15 +132,18 @@ end
 
 opts = {
   bright = true,
-  colors = 'ansi'
+  colors = 'ansi',
+  order = 'fwaic',
+  width = 38,
 }
 
 local function parseopts(opts)
+  -- add a help option that prints the options of the program with help strings
   opts["-h,--help:print this help information"] = function()
     print("Usage: " .. arg[0]:gsub("/.*/", '') .. (opts.usage or " [options]"))
 
     local out, flaglen = {}, 0
-    for opt, _ in pairs(opts) do
+    for opt in pairs(opts) do
       local flags, msg = opt:match('(.-):(.*)')
       flags = (flags or opt):gsub(',', ', ')
       if #flags > flaglen then flaglen = #flags end
@@ -160,17 +163,29 @@ local function parseopts(opts)
   }
 
   for opt, fun in pairs(opts) do
+    -- only parse options, i.e. --? style options
+    if opt:sub(1, 1) ~= '-' then goto next end
+
+    -- remove the help text on the option
     opt = opt:match('(.*):') or opt
 
     for opt in opt:split(',') do
       local converter, extra, varopt = {'none', fun}
 
+      -- see if option has an argument of a given format
       varopt, extra = opt:match("(.-)=(%b<>)")
+
+      -- see if option has an argument with no given format, identity is assumed
+      if not varopt then varopt, extra = opt:match("(.-)="), "<id>" end
+
+      -- store if option requires argument with converting function
       if varopt then
-        opt = varopt
-        converter[1] = converters[extra:sub(2,-2) or 'id'] or converters.id
+        opt = varopt -- the rest of the loop needs the raw option without =<>
+        converter[1] = converters[extra:sub(2,-2)] or converters.id
       end
 
+      -- look to see if option has an optional part in [] that let the option
+      -- vary, ex: --[no-]bright can be --bright or --no-bright
       varopt = opt:match('%b[]')
       if varopt then
         variations[opt:gsub("%b[]", varopt:sub(2, -2))] = converter
@@ -179,16 +194,18 @@ local function parseopts(opts)
         variations[opt] = converter
       end
     end
+
+    ::next::
   end
 
   local skip = false
   for i, a in ipairs(arg) do
+    -- used when this value was consumed by the previous option
     if skip then skip = false; goto next end
 
     for var, _ in pairs(variations) do
-      local conv, fun = table.unpack(_) 
-
       if a == var then
+        local conv, fun = table.unpack(_)
         if conv == 'none' then
           fun(var)
         else
@@ -199,19 +216,18 @@ local function parseopts(opts)
       end
     end
 
-    -- used when next value is consumed by the current option
     ::next::
   end
 end
 
-local bars, history, mem, ordering, width = {}, {}, memory(), 'fwaic', 38
+local bars, history, mem = {}, {}, memory()
 for i = 1, 8 do table.insert(bars, string.char(226, 150, 128 + i)) end
 
 parseopts({
   ["--[no-]bright:use bright colors for cpu metrics"] = function(opt) opts.bright = opt == "--bright" end,
   ["--tmux:output using tmux colors"] = function() opts.colors = 'tmux' end,
-  ["--width=<num>:width of output graph (default " .. width .. ")"] = function(opt) width = opt end,
-  ["--order=<string>:order to show memory sections in (default " .. ordering .. ")"] = function(opt) ordering = opt end
+  ["--width=<num>:width of output graph (default " .. opts.width .. ")"] = function(opt) opts.width = opt end,
+  ["--order=<string>:order to show memory sections in (default " .. opts.order .. ")"] = function(opt) opts.order = opt end
 })
 
 -- Slightly overkill OS Environment access and setting but great for reuse
@@ -242,52 +258,22 @@ file:close()
 
 -- store the new usage value and remove old entries
 history[#history + 1] = usage()
-for i = 1, #history - width do table.remove(history, 1) end
+for i = 1, #history - opts.width do table.remove(history, 1) end
 
-local memscale = width / sum(mem)
+local memscale = opts.width / sum(mem)
 local norm = (#bars - 1) / 1.0 -- math.max(table.unpack(history))
 
 local colors, cmap = {
-  green = {
-    ansi = { bg = 42, fg = 32 },
-    tmux = { },
-  },
-  bright_green = {
-    ansi = { bg = 102, fg = 92 },
-    tmux = { },
-  },
-  red = {
-    ansi = { bg = 41, fg = 31 },
-    tmux = {},
-  },
-  bright_red = {
-    ansi = { bg = 101, fg = 91 },
-    tmux = {},
-  },
-  yellow = {
-    ansi = { bg = 43, fg = 33 },
-    tmux = {},
-  },
-  bright_yellow = {
-    ansi = { bg = 103, fg = 93 },
-    tmux = {},
-  },
-  blue = {
-    ansi = { bg = 44, fg = 34 },
-    tmux = {},
-  },
-  bright_blue = {
-    ansi = { bg = 104, fg = 94 },
-    tmux = {},
-  },
-  cyan = {
-    ansi = { bg = 46, fg = 36 },
-    tmux = {},
-  },
-  bright_cyan = {
-    ansi = { bg = 106, fg = 96 },
-    tmux = {},
-  },
+  green         = { ansi = { bg = 42, fg  = 32 }, },
+  bright_green  = { ansi = { bg = 102, fg = 92 }, },
+  red           = { ansi = { bg = 41, fg  = 31 }, },
+  bright_red    = { ansi = { bg = 101, fg = 91 }, },
+  yellow        = { ansi = { bg = 43, fg  = 33 }, },
+  bright_yellow = { ansi = { bg = 103, fg = 93 }, },
+  blue          = { ansi = { bg = 44, fg  = 34 }, },
+  bright_blue   = { ansi = { bg = 104, fg = 94 }, },
+  cyan          = { ansi = { bg = 46, fg  = 36 }, },
+  bright_cyan   = { ansi = { bg = 106, fg = 96 }, },
 }, {
   f = "green",
   w = "red",
@@ -298,8 +284,8 @@ local colors, cmap = {
 
 for k, v in pairs(colors) do
   local tmux_color = k:gsub("_", '')
-  colors[k].tmux.bg = "#[bg=" .. tmux_color .. "]"
-  colors[k].tmux.fg = "#[fg=" .. tmux_color .. "]"
+  colors[k].tmux = { bg = "#[bg=" .. tmux_color .. "]",
+                     fg = "#[fg=" .. tmux_color .. "]" }
   colors[k].ansi.fg = "\27[" .. colors[k].ansi.fg .. "m"
   colors[k].ansi.bg = "\27[" .. colors[k].ansi.bg .. "m"
 end
@@ -310,9 +296,9 @@ end
   the history line as a table of color and cpu usages which can be detected
   when printing.
 --]]
-for i = 1, width - #history do table.insert(history, 1, 0) end
-local idx = #history < width and width or #history
-for str in ordering:reverse():gmatch("%w") do
+for i = 1, opts.width - #history do table.insert(history, 1, 0) end
+local idx = #history < opts.width and opts.width or #history
+for str in opts.order:reverse():gmatch("%w") do
   -- skip this memory attribute if the platform doesn't support it
   if not mem[str] then goto next end
 
