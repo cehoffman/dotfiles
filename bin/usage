@@ -183,7 +183,7 @@ local function parseopts(opts)
 
   local skip = false
   for i, a in ipairs(arg) do
-    if skip then skip = true; goto next end
+    if skip then skip = false; goto next end
 
     for var, _ in pairs(variations) do
       local conv, fun = table.unpack(_) 
