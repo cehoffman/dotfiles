@@ -108,7 +108,7 @@ local function memory()
       end
     end
 
-    mem.c, mem.c = mem.c + mem.s, nil
+    mem.c, mem.s = mem.c + mem.s, nil
     mem.f, mem.m = mem.m, nil
 
     stat:close()
