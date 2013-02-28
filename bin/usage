@@ -644,9 +644,15 @@ os.rename(tmpfile, ENV.HOME .. '/.usage.dat')
 io.stdout:write(color('black', 'bg'))
 
 if opts.battery and battery[ffi.os] then
-  local capacity, time, charging = battery[ffi.os]()
+  local capacity, time, charging, color = battery[ffi.os]()
   -- local color = color(charging and 'green' or 'red', 'fg')
-  local color = opts.colors == 'tmux' and '#[fg=red]' or "\27[31m"
+
+  if charging then
+    color = opts.colors == 'tmux' and '#[fg=green]' or '\27[32m'
+  else
+    color = opts.colors == 'tmux' and '#[fg=red]' or "\27[31m"
+  end
+
   io.stdout:write(color, '|', bars[math.round((#bars - 1) * capacity)])
   if opts['battery-time'] and time > 0 then
     io.stdout:write(("%02d:%02d"):format(time / 60, time % 60))
