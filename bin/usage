@@ -110,6 +110,104 @@ if ffi.os == 'OSX' then
       integer_t nice;
     } cpu_statistics;
   ]]
+
+  ffi.load("/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation", true)
+  ffi.load("/System/Library/Frameworks/IOKit.framework/IOKit", true)
+  ffi.cdef [[
+    struct __CFArray {};
+    struct __CFDictionary {};
+    struct __CFNumber {};
+    struct __CFString {};
+    typedef signed long CFIndex;
+    typedef unsigned char Boolean;
+    typedef const void * CFTypeRef;
+    typedef const struct __CFArray * CFArrayRef;
+    typedef const struct __CFDictionary * CFDictionaryRef;
+    typedef const void * CFAllocatorRef;
+    typedef const struct __CFString * CFStringRef;
+    typedef const struct __CFNumber * CFNumberRef;
+
+    void CFRelease(CFTypeRef);
+
+    typedef CFIndex CFNumberType; enum {
+      /* Fixed-width types */
+      kCFNumberSInt8Type = 1,
+      kCFNumberSInt16Type = 2,
+      kCFNumberSInt32Type = 3,
+      kCFNumberSInt64Type = 4,
+      kCFNumberFloat32Type = 5,
+      kCFNumberFloat64Type = 6,   /* 64-bit IEEE 754 */
+      /* Basic C types */
+      kCFNumberCharType = 7,
+      kCFNumberShortType = 8,
+      kCFNumberIntType = 9,
+      kCFNumberLongType = 10,
+      kCFNumberLongLongType = 11,
+      kCFNumberFloatType = 12,
+      kCFNumberDoubleType = 13,
+      /* Other */
+      kCFNumberCFIndexType = 14,
+      kCFNumberNSIntegerType = 15,
+      kCFNumberCGFloatType = 16,
+      kCFNumberMaxType = 16
+    };
+
+    typedef CFIndex CFStringEncoding; enum {
+      kCFStringEncodingASCII = 0x0600,
+      kCFStringEncodingUTF8 = 0x08000100,
+    };
+
+    CFStringRef __CFStringMakeConstantString(const char *);
+    Boolean CFStringGetCString(CFStringRef, char *, CFIndex, CFStringEncoding);
+
+    const void * CFDictionaryGetValue(CFDictionaryRef, const void *);
+
+    Boolean CFNumberGetValue(CFNumberRef, CFNumberType, void *);
+
+    CFIndex CFArrayGetCount(CFArrayRef);
+    const void * CFArrayGetValueAtIndex(CFArrayRef, CFIndex);
+
+    CFTypeRef IOPSCopyPowerSourcesInfo();
+    CFArrayRef IOPSCopyPowerSourcesList(CFTypeRef);
+    CFDictionaryRef IOPSGetPowerSourceDescription(CFTypeRef, CFTypeRef);
+  ]]
+
+  YES = ffi.new('Boolean', 1)
+  NO = ffi.new('Boolean', 0)
+
+  ffi.metatype("struct __CFArray", {
+    __len = function(self) return tonumber(CFArrayGetCount(self)) end,
+    __call = function(...) print(table.unpack({...})) end,
+    __index = function(self, i) return CFArrayGetValueAtIndex(self, i) end
+  })
+
+  ffi.metatype('struct __CFDictionary', {
+    __call = function(self, k, cast)
+      local val = ffi.cast(cast, self[k])
+      return cast:find('Ref$') and val[0] or val
+    end,
+    __index = function(self, k) return CFDictionaryGetValue(self, CFSTR(k)) end,
+  })
+
+  ffi.metatype('struct __CFNumber', {
+    __call = function(self, _)
+      local number = ffi.new('double[1]', 0)
+      CFNumberGetValue(self, kCFNumberDoubleType, number)
+      return number[0]
+    end,
+    __tonumber = function()print(blah)end
+  })
+
+  local cstring = ffi.new('char[255]')
+  ffi.metatype('struct __CFString', {
+    __call = function(self) return tostring(self) end,
+    __tostring = function(self)
+      CFStringGetCString(self, cstring, ffi.sizeof(cstring), kCFStringEncodingUTF8)
+      return ffi.string(cstring)
+    end
+  })
+
+  CFSTR = __CFStringMakeConstantString;
 end
 
 local top = {}
@@ -252,12 +350,44 @@ local function memory()
   return mem
 end
 
+local battery = {
+  OSX = function()
+    local capacity, time, charging
+    local blob = IOPSCopyPowerSourcesInfo()
+    local sources = IOPSCopyPowerSourcesList(blob)[0]
+
+    for i = 0, #sources - 1 do
+      local source = IOPSGetPowerSourceDescription(blob, sources[i])[0]
+      if not source then break end
+
+      capacity = source("Current Capacity", 'CFNumberRef')() /
+                 source("Max Capacity", 'CFNumberRef')()
+
+      charging = source("Is Charging", 'Boolean') == YES
+      if not charging then
+        time = source("Time to Empty", 'CFNumberRef')()
+        -- if source("Power Source State", 'CFStringRef')() == 'AC Power' then end
+        charging = time == 0
+      else
+        time = source("Time to Full Charge", 'CFNumberRef')()
+      end
+    end
+
+    CFRelease(blob)
+    CFRelease(sources)
+
+    return capacity, time, charging
+  end
+}
+
 opts = {
   bright = true,
   colors = 'ansi',
   order = 'fwaic',
   width = 38,
   rgb = false,
+  battery = true,
+  ['battery-time'] = false,
 }
 
 local function parseopts(opts)
@@ -356,12 +486,20 @@ local bars, history, mem = {}, {}, memory()
 for i = 1, 8 do table.insert(bars, string.char(226, 150, 128 + i)) end
 
 parseopts({
-  ["--[no-]bright:use bright colors for cpu metrics"] = function(opt) opts.bright = opt == "--bright" end,
+  ["--[no-]bright:use bright colors for cpu metrics"] =
+    function(opt) opts.bright = opt == "--bright" end,
   ["--tmux:output using tmux colors"] = function() opts.colors = 'tmux' end,
-  ["--width=<num>:width of output graph (default " .. opts.width .. ")"] = function(opt) opts.width = opt end,
-  ["--order=<string>:order to show memory sections in (default " .. opts.order .. ")"] = function(opt) opts.order = opt end,
+  ["--width=<num>:width of output graph (default " .. opts.width .. ")"] =
+    function(opt) opts.width = opt end,
+  ["--order=<string>:order to show memory sections in (default " ..
+    opts.order .. ")"] = function(opt) opts.order = opt end,
   ["--rgb=<num>:use 256 color palette to render foreground with 1..5 \z
-  intensity (try 4)"] = function(_) opts.rgb = _ end
+    intensity (try 4)"] = function(_) opts.rgb = _ end,
+  ["--[no-]battery:hide or show battery status (default " ..
+    tostring(opts.battery) .. ")"] = function(_) opts.battery = _ == "--battery" end,
+  ["--[no-]battery-time:hide or show battery (de)charge time (default " ..
+    tostring(opts['battery-time']) .. ")"] =
+    function(_) opts['battery-time'] = _ == "--battery-time" end
 })
 
 -- Slightly overkill OS Environment access and setting but great for reuse
@@ -381,23 +519,11 @@ setmetatable(ENV, {
   end
 })
 
--- get the saved history, creating the storage if not created yet
-local file = io.open(ENV.HOME .. '/.usage.dat', 'r')
-if not file then
-  file = io.open(ENV.HOME .. '/.usage.dat', 'w')
-  file:close(); file = io.open(ENV.HOME .. '/.usage.dat', 'r')
-end
-for line in file:lines() do table.insert(history, tonumber(line)) end
-file:close()
-
--- store the new usage value and remove old entries
-history[#history + 1] = usage()
-for i = 1, #history - opts.width do table.remove(history, 1) end
-
-local memscale = opts.width / sum(mem)
-local norm = (#bars - 1) / 1.0 -- math.max(table.unpack(history))
-
 local colors, cmap = {
+  black         = {
+    ansi = { bg = 0, fg = 0 },
+    rgb = { 0, 0, 0 }
+  },
   green         = {
     ansi = { bg = 42, fg  = 32 },
     rgb = { 0, 1, 0 },
@@ -449,14 +575,39 @@ for k, v in pairs(colors) do
   colors[k].ansi.bg = "\27[" .. colors[k].ansi.bg .. "m"
 end
 
+-- get the saved history, creating the storage if not created yet
+local file = io.open(ENV.HOME .. '/.usage.dat', 'r')
+if not file then
+  file = io.open(ENV.HOME .. '/.usage.dat', 'w')
+  file:close(); file = io.open(ENV.HOME .. '/.usage.dat', 'r')
+end
+for line in file:lines() do table.insert(history, tonumber(line)) end
+file:close()
+
+-- store the new usage value and remove old entries
+history[#history + 1] = usage()
+for i = 1, #history - opts.width do table.remove(history, 1) end
+
+local memscale = opts.width / sum(mem)
+local norm = (#bars - 1) / 1.0 -- math.max(table.unpack(history))
+
+local function color(name, kind)
+  local color = colors[name][opts.colors][kind]
+  if kind == 'fg' then
+    color = opts.rgb and '' or opts.bright and 'bright_' or ''
+    color = colors[color .. name][opts.colors][kind]
+  end
+  return color
+end
+
 --[[
   From the end of the graph to be generated calculate the transitions between
   the colors for each memory slice. The transition point is then inserted into
   the history line as a table of color and cpu usages which can be detected
   when printing.
 --]]
+local idx = opts.width
 for i = 1, opts.width - #history do table.insert(history, 1, 0) end
-local idx = #history < opts.width and opts.width or #history
 for str in opts.order:reverse():gmatch("%w") do
   -- skip this memory attribute if the platform doesn't support it
   if not mem[str] then goto next end
@@ -468,10 +619,10 @@ for str in opts.order:reverse():gmatch("%w") do
   -- ensure we don't go beyond the start of the graph because of rounding
   if idx < 1 then idx = 1 end
 
-  local bg, fg = (colors[cmap[str]][opts.colors].bg)
-  fg = opts.rgb and '' or opts.bright and 'bright_' or ''
-  fg = colors[fg .. cmap[str]][opts.colors].fg
-  history[idx] = {color = fg .. bg, usage = history[idx]}
+  history[idx] = {
+    color = color(cmap[str], 'fg') .. color(cmap[str], 'bg'),
+    usage = history[idx],
+  }
 
   ::next::
 end
@@ -490,6 +641,16 @@ end
 file:close()
 os.rename(tmpfile, ENV.HOME .. '/.usage.dat')
 
-if opts.colors == 'ansi' then io.stdout:write("\27[0m") end
+io.stdout:write(color('black', 'bg'))
+
+if opts.battery and battery[ffi.os] then
+  local capacity, time, charging = battery[ffi.os]()
+  -- local color = color(charging and 'green' or 'red', 'fg')
+  local color = opts.colors == 'tmux' and '#[fg=red]' or "\27[31m"
+  io.stdout:write(color, '|', bars[math.round((#bars - 1) * capacity)])
+  if opts['battery-time'] and time > 0 then
+    io.stdout:write(("%02d:%02d"):format(time / 60, time % 60))
+  end
+end
 
 -- vim: set ft=lua:
