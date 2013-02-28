@@ -219,7 +219,7 @@ local function memory()
     local mem_info = ffi.new('vm_statistics')
 
     -- it is important to realize this value is in terms of natural_t, i.e. it
-    -- takes natural_t times this number to get the number of bytes used
+    -- takes sizeof(natural_t) times this number to get the number of bytes used
     local mem_info_count = ffi.new('mach_msg_type_number_t[1]',
                                     ffi.sizeof(mem_info) / ffi.sizeof('natural_t'))
 
@@ -228,12 +228,10 @@ local function memory()
                                 ffi.cast('host_info_t', mem_info),
                                 mem_info_count)
     if err == KERN_SUCCESS then
-      mem.f = mem_info.free
-      mem.w = mem_info.wire
-      mem.a = mem_info.active
-      mem.i = mem_info.inactive
+      mem.f, mem.w = mem_info.free, mem_info.wire
+      mem.a, mem.i = mem_info.active, mem_info.inactive
     else
-      io.stderr:write(err .. "failed getting memory info\n")
+      io.stderr:write("failed getting memory info\n")
       os.exit(1)
     end
   else
