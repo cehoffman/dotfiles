@@ -257,6 +257,7 @@ opts = {
   colors = 'ansi',
   order = 'fwaic',
   width = 38,
+  rgb = false,
 }
 
 local function parseopts(opts)
@@ -281,7 +282,12 @@ local function parseopts(opts)
 
   local variations, converters = {}, {
     id = function(_) return _ end,
-    num = tonumber,
+    num = function(_, name)
+      local result = tonumber(_)
+      if result then return result end
+      io.stderr:write(name .. " takes a number\n")
+      os.exit(1)
+    end,
   }
 
   for opt, fun in pairs(opts) do
@@ -322,18 +328,22 @@ local function parseopts(opts)
 
   local skip = false
   for i, a in ipairs(arg) do
+    local opt, val = a:match("(.-)=(.*)")
+
     -- used when this value was consumed by the previous option
     if skip then skip = false; goto next end
+    if val == '' then val = nil end
 
     for var, _ in pairs(variations) do
-      if a == var then
+      if (opt or a) == var then
         local conv, fun = table.unpack(_)
         if conv == 'none' then
           fun(var)
         else
-          if not arg[i + 1] then print(var .. ': missing option argument'); os.exit(1) end
+          if not val and arg[i + 1] then val = arg[i + 1] end
+          if not val then print(var .. ': missing option argument'); os.exit(1) end
           skip = true
-          fun(conv(arg[i + 1]), var)
+          fun(conv(val, var), var)
         end
       end
     end
@@ -349,7 +359,9 @@ parseopts({
   ["--[no-]bright:use bright colors for cpu metrics"] = function(opt) opts.bright = opt == "--bright" end,
   ["--tmux:output using tmux colors"] = function() opts.colors = 'tmux' end,
   ["--width=<num>:width of output graph (default " .. opts.width .. ")"] = function(opt) opts.width = opt end,
-  ["--order=<string>:order to show memory sections in (default " .. opts.order .. ")"] = function(opt) opts.order = opt end
+  ["--order=<string>:order to show memory sections in (default " .. opts.order .. ")"] = function(opt) opts.order = opt end,
+  ["--rgb=<num>:use 256 color palette to render foreground with 1..5 \z
+  intensity (try 4)"] = function(_) opts.rgb = _ end
 })
 
 -- Slightly overkill OS Environment access and setting but great for reuse
@@ -386,15 +398,31 @@ local memscale = opts.width / sum(mem)
 local norm = (#bars - 1) / 1.0 -- math.max(table.unpack(history))
 
 local colors, cmap = {
-  green         = { ansi = { bg = 42, fg  = 32 }, },
-  bright_green  = { ansi = { bg = 102, fg = 92 }, },
-  red           = { ansi = { bg = 41, fg  = 31 }, },
+  green         = {
+    ansi = { bg = 42, fg  = 32 },
+    rgb = { 0, 1, 0 },
+  },
+  bright_green  = { ansi = { bg = 102, fg = 92 },
+  },
+  red           = {
+    ansi = { bg = 41, fg  = 31 },
+    rgb = { 1, 0, 0 },
+  },
   bright_red    = { ansi = { bg = 101, fg = 91 }, },
-  yellow        = { ansi = { bg = 43, fg  = 33 }, },
+  yellow        = {
+    ansi = { bg = 43, fg  = 33 },
+    rgb = { 1, 1, 0 },
+  },
   bright_yellow = { ansi = { bg = 103, fg = 93 }, },
-  blue          = { ansi = { bg = 44, fg  = 34 }, },
+  blue          = {
+    ansi = { bg = 44, fg  = 34 },
+    rgb = { 0, 0, 1 }
+  },
   bright_blue   = { ansi = { bg = 104, fg = 94 }, },
-  cyan          = { ansi = { bg = 46, fg  = 36 }, },
+  cyan          = {
+    ansi = { bg = 46, fg  = 36 },
+    rgb = { 0, 1, 1 }
+  },
   bright_cyan   = { ansi = { bg = 106, fg = 96 }, },
 }, {
   f = "green",
@@ -405,10 +433,19 @@ local colors, cmap = {
 }
 
 for k, v in pairs(colors) do
-  local tmux_color = k:gsub("_", '')
-  colors[k].tmux = { bg = "#[bg=" .. tmux_color .. "]",
-                     fg = "#[fg=" .. tmux_color .. "]" }
-  colors[k].ansi.fg = "\27[" .. colors[k].ansi.fg .. "m"
+  local tmux_color, color = k:gsub("_", ''), colors[k].rgb
+  colors[k].tmux = {}
+
+  if opts.rgb and color then
+    local fg = 16 + 36 * color[1] * opts.rgb + 6 * color[2] * opts.rgb + color[3] * opts.rgb
+    colors[k].tmux.fg = "#[fg=colour" .. fg .. "]"
+    colors[k].ansi.fg = "\27[38;5;" .. fg .. "m"
+  else
+    colors[k].tmux.fg ="#[fg=" .. tmux_color .. "]"
+    colors[k].ansi.fg = "\27[" .. colors[k].ansi.fg .. "m"
+  end
+
+  colors[k].tmux.bg = "#[bg=" .. tmux_color .. "]"
   colors[k].ansi.bg = "\27[" .. colors[k].ansi.bg .. "m"
 end
 
@@ -431,8 +468,9 @@ for str in opts.order:reverse():gmatch("%w") do
   -- ensure we don't go beyond the start of the graph because of rounding
   if idx < 1 then idx = 1 end
 
-  local bg = colors[cmap[str]][opts.colors].bg
-  local fg = colors[(opts.bright and 'bright_' or '') .. cmap[str]][opts.colors].fg
+  local bg, fg = (colors[cmap[str]][opts.colors].bg)
+  fg = opts.rgb and '' or opts.bright and 'bright_' or ''
+  fg = colors[fg .. cmap[str]][opts.colors].fg
   history[idx] = {color = fg .. bg, usage = history[idx]}
 
   ::next::
