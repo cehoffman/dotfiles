@@ -176,7 +176,7 @@ let maplocalleader = ',' " \ is the default
   " nnoremap <expr> gp '`[' . visualmode() . '`]'
 
   " Shortcut to edit .vimrc
-  noremap <Leader>ev :edit $MYVIMRC<CR>
+  noremap <Leader>ev :edit ~/.dotfiles/vimrc<CR>
 
   " Simplistic buffer removal but keeping window
   nnoremap <Leader>bd :bp<BAR>bd #<CR>
