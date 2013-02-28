@@ -747,8 +747,8 @@ endif
   let g:rails_statusline = 0
 " }}}
 " delimitMate settings {{{
-  let g:delimitMate_expand_space = 0
-  let g:delimitMate_expand_cr = 0
+  let g:delimitMate_expand_space = 1
+  let g:delimitMate_balance_matchpairs = 1
 
   " Allow for quick jumping over delimiters instead of S-Tab
   inoremap ; <C-R>=delimitMate#JumpAny(";")<CR>
@@ -789,7 +789,7 @@ endif
   let g:ctrlp_open_multiple_files = 'vr'
 
   " Default to searching from current files dir
-  let g:ctrlp_working_path_mode = 1
+  " let g:ctrlp_working_path_mode = 1
   " let g:ctrlp_user_command = {
   "   \ 'types': {
   "     \ 1: ['.git/', 'cd %s && git ls-files'],
