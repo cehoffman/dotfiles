@@ -337,8 +337,14 @@ if has("autocmd")
       " runtime! ftplugin/man.vim
       autocmd FileType man call <SID>SetupManWindow()
 
-      command! -nargs=+ Man delcommand Man | runtime! ftplugin/man.vim | :Man <args><CR>
-      cabbrev man Man
+      function! s:SetupMan(manpage)
+        delcommand Man
+        runtime! ftplugin/man.vim
+        execute 'Man '.a:manpage
+      endfunction
+
+      command! -nargs=+ Man call <SID>SetupMan(<q-args>)
+      cabbrev man <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Man' : 'man')<CR>
     " }}}
     " Fast escape from insert {{{
       autocmd InsertEnter * set timeoutlen=350
