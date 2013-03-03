@@ -91,9 +91,6 @@
 [submodule "vim/bundle/vim-gnupg"]
 	path = vim/bundle/vim-gnupg
 	url = git://gitorious.org/vim-gnupg/vim-gnupg.git
-[submodule "vim/bundle/vim-eregex"]
-	path = vim/bundle/vim-eregex
-	url = https://github.com/othree/eregex.vim.git
 [submodule "zsh/vendor/zsh-syntax-highlighting"]
 	path = zsh/vendor/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
