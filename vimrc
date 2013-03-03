@@ -736,6 +736,7 @@ endif
 " }}}
 " Gitv settings {{{
   let g:Gitv_WipeAllOnClose = 1
+  let g:Gitv_DoNotMapCtrlKey = 1 " preserves my easy window movement
 " }}}
 " Syntastic settings {{{
   let g:syntastic_enable_signs = 1
