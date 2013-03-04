@@ -16,24 +16,34 @@ end
 function string:split(pat, num)
   -- allow giving number of splits without a pattern
   if not num and type(pat) == 'number' then pat, num = nil, pat end
+  pat, num = pat or '%s', num or math.huge
 
-  return coroutine.wrap(function()
-    local idx, matches = 1, 0
+  local matches, subsplit = 0
 
-    -- capture the group before each split, if no match the yield after the
-    -- loop will return the whole string
-    for match, sep in self:gmatch("(.-)(" .. (pat or '%s+') .. ")") do
-      idx = idx + #match + #sep
-      coroutine.yield(match)
-
-      -- count the number of matches to exit early if requested
+  -- This special cases empty search pattern
+  if pat == '' then
+    local length = #self
+    subsplit = function(idx)
       matches = matches + 1
-      if num and matches >= num then goto finish end
-    end
+      if matches > num then return coroutine.yield(self:sub(idx, -1)) end
 
-    ::finish::
-    coroutine.yield(self:sub(idx, -1))
-  end)
+      local start, stop = self:find(pat, idx)
+      if stop < start then stop, start = start, start + 1 end
+      coroutine.yield(self:sub(idx, (start or 0) - 1))
+      if stop < length then return subsplit(stop + 1) end
+    end
+  else
+    subsplit = function(idx)
+      matches = matches + 1
+      if matches > num then return coroutine.yield(self:sub(idx, -1)) end
+
+      local start, stop = self:find(pat, idx)
+      coroutine.yield(self:sub(idx, (start or 0) - 1))
+      if stop then return subsplit(stop + 1) end
+    end
+  end
+
+  return coroutine.wrap(function() subsplit(1) end)
 end
 
 function math.round(val, step)
