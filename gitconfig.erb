@@ -68,7 +68,9 @@
     default = upstream
 [interactive]
     singlekey = true
-<% if mac? %>
 [credential]
+<% if mac? %>
     helper = osxkeychain
+<% else %>
+    helper = gnomekeyring
 <% end %>
