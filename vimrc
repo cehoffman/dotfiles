@@ -317,8 +317,9 @@ if has("autocmd")
 
         let l:section = match(expand('%:t:r'), "\\d\\+$")
         let l:page = expand('%:t:r:r')
-        if !exists('b:reprocessing_manpage')
-          let b:reprocessing_manpage = 1
+        " This makes sure the manpage gets the right width when opening
+        if !exists('w:reprocessing_manpage')
+          let w:reprocessing_manpage = 1
           exec ":Man " . l:section . ' ' . l:page
         endif
         setlocal nonumber winfixwidth colorcolumn=
