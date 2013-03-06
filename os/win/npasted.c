@@ -118,8 +118,8 @@ int CopyFromClipboardToSocket(SOCKET *sock) {
   // Release the clipboard
   CloseClipboard();
 
-  // Send the clipboard across
-  send(*sock, final_text, size, 0);
+  // Send the clipboard across, ignoring the null terminator
+  send(*sock, final_text, size - 1, 0);
 
   free(final_text);
 
