@@ -224,12 +224,12 @@ function _prompt_precmd {
 
   _pr_extras+="%{$fg_no_bold[magenta]%}P:$(process-tree)"
 
-  if command -v rvm-prompt > /dev/null; then
-    _pr_extras+="%{$fg_no_bold[red]%}R:$(rvm-prompt v g)"
-  fi
-
   if command -v rbenv > /dev/null; then
     _pr_extras+="%{$fg_no_bold[red]%}R:$(rbenv version-name)"
+  fi
+
+  if command -v luaenv > /dev/null; then
+    _pr_extras+="%{$fg_no_bold[cyan]%}L:$(luaenv version-name)"
   fi
 
   if [[ $(jobs | wc -l) > 0 ]]; then
