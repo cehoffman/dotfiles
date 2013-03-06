@@ -633,7 +633,7 @@ if has("autocmd")
       endif
     endfunction
     " Make running git easier
-    cabbrev git Git
+    cabbrev git <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Git' : 'git')<CR>
   augroup END " }}}
   augroup RailsShortcuts " {{{
     au!
@@ -881,9 +881,9 @@ endif
   vnoremap <Leader>vp "vy :call RunVimTmuxCommand(@v, 0)<CR>
 " }}}
 " Ack {{{
-  cabbrev ack Ack!
+  cabbrev ack <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Ack!' : 'ack')<CR>
   if executable('ag')
-    cabbrev ag Ack!
+    cabbrev ag <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Ack!' : 'ag')<CR>
     let g:ackprg = 'ag --nogroup --nocolor --column --smart-case --hidden'
   endif
 " }}}
@@ -989,7 +989,7 @@ endif
     command! -nargs=0 -bar PBCopy call s:pbcopy()
   " }}}
   " Execute bundle for the current project {{{
-    cabbrev bundle Bundle
+    cabbrev bundle <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Bundle' : 'bundle')<CR>
   " }}}
   " Open url from current line {{{
     function! s:OpenURL()
