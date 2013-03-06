@@ -803,7 +803,7 @@ endif
   "     \ 2: ['.hg/', 'hg --cwd %s locate -I .'],
   "   \ }
   " \ }
-  map <silent> <Leader>b :CtrlPBuffer<CR>
+  map <silent> <Leader>o :CtrlPBuffer<CR>
   map <silent> <Leader>m :CtrlPMixed<CR>
   map <silent> <Leader>p :CtrlP<CR>
 " }}}
