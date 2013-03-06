@@ -1,11 +1,7 @@
 # Setup Rbenv if it exists
 if [[ -x ~/.rbenv/bin/rbenv ]]; then
   path=(~/.rbenv/bin $path)
-fi
-
-if command -v rbenv > /dev/null; then
-  path=(~/.rbenv/shims ~/.rbenv/bin $path)
-  eval "$(rbenv init - | grep completions)"
+  eval "$(~/.rbenv/bin/rbenv init -)"
   function gem() {
     command gem "$@"
     case "$1" in
@@ -14,36 +10,6 @@ if command -v rbenv > /dev/null; then
         ;;
     esac
   }
-fi
-
-# Setup RVM otherwise
-if [[ -s $HOME/.rvm/scripts/rvm ]]; then
-  source $HOME/.rvm/scripts/rvm
-elif [[ -s /usr/local/lib/rvm ]]; then
-  source /usr/local/lib/rvm
-fi
-
-if command -v rvm > /dev/null; then
-  function _run-with-bundler() {
-    if command -v bundle > /dev/null 2>&1; then
-      local check_path=$PWD
-      while [ "$(dirname $check_path)" != '/' ]; do
-        [ -f "$check_path/Gemfile" ] && break
-        check_path="$(dirname $check_path)"
-      done
-      if [ -f "$check_path/Gemfile" ]; then
-        bundle exec $@
-      else
-        $@
-      fi
-    else
-      $@
-    fi
-  }
-
-  for cmd in cap heroku rails rake spork; do
-    alias $cmd="_run-with-bundler $cmd"
-  done
 fi
 
 # Load up any special local lib dirs if needed
