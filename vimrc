@@ -895,14 +895,6 @@ endif
   let g:clang_snippets_engine = 'ultisnips'
   let g:filetype_m = 'objc' " default to .m files being objc
 " }}}
-" Lua {{{
-  let g:lua_check_syntax = 0
-  let g:lua_complete_dynamic = 0
-  let g:lua_complete_library = 0
-  let g:lua_complete_globals = 0
-  let g:lua_complete_keywords = 0
-  let g:lua_complete_omni = 1
-" }}}
 
 " Window Management {{{
   " Open a yanked window {{{
