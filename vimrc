@@ -700,7 +700,7 @@ endif
     set foldmethod=syntax
     set foldlevelstart=99 " How far down fold tree to go before folding code on opening file
     set foldnestmax=10
-    set foldminlines=5
+    set foldminlines=1
 
     " Make folding not effect insert by disabling it in insert mode
     augroup FoldingInsert
