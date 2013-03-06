@@ -82,7 +82,7 @@ func <SID>PreGetPage(cnt)
 endfunc
 
 func <SID>GetCmdArg(sect, page)
-  if a:sect == ''
+  if a:sect == '' || a:sect == '-1'
     return a:page
   endif
   return s:man_sect_arg.' '.a:sect.' '.a:page
