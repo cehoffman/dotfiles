@@ -988,6 +988,12 @@ endif
     endfunction
 
     command! -nargs=0 -bar PBCopy call s:pbcopy()
+
+    function! s:pbpaste()
+      r!pbpaste
+    endfunction
+
+    command! -nargs=0 -bar PBPaste call s:pbpaste()
   " }}}
   " Execute bundle for the current project {{{
     cabbrev bundle <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Bundle' : 'bundle')<CR>
