@@ -1,9 +1,0 @@
-local new_auth_sock
-
-if [[ -n $TMUX ]]; then
-  new_auth_sock=$($(which -p tmux) showenv | grep \^SSH_AUTH_SOCK | cut -d = -f 2)
-else
-  new_auth_sock=$(ps axe | ruby -e "print STDIN.read[/\bssh-agent\b.*?\bSSH_AUTH_SOCK=([^ ]+)/, 1]")
-fi
-
-export SSH_AUTH_SOCK=$new_auth_sock
