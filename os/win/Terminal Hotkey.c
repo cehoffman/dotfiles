@@ -1,6 +1,6 @@
 // Compile: x86_64-w64-mingw32-gcc -m64 hotkey.c -mwindows -O3 -o "Zoc HotKey.exe"
 #include <stdio.h>
-/* #include <time.h> */
+#include <time.h>
 #include <wtypes.h>
 #include <winuser.h>
 
@@ -33,13 +33,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
       }
 
       // find the zoc window
-      if (!(zoc = FindWindow("mintty", NULL))) {
+      if (!(zoc = FindWindow("PuTTY", NULL))) {
         // if it doesn't exist just skip the message
         continue;
       }
 
       current = GetForegroundWindow();
       if (current == zoc) {
+        // Default to focusing a chrome window
+        if (!IsWindow(previous)) {
+          previous = FindWindow("Chrome_WidgetWin_1", NULL);
+        }
+
         if (previous) {
           SetForegroundWindow(previous);
         }
