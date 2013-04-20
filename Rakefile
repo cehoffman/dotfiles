@@ -70,7 +70,9 @@ $replace_all_files = false
 desc 'link a specified file/folder to your home directory'
 task :link, :name do |_, args|
   return unless File.exists?(args[:name])
-  home_file = File.join(ENV['HOME'], ?. + args[:name].sub(/\.erb$/, ''))
+  home_file = File.join(ENV['HOME'], ".#{args[:name].sub(/\.erb$/, '')}")
+
+  erb  = args[:name] =~ /\.erb$/ && ERB.new(File.read(args[:name])).result(binding)
 
   if File.exists?(home_file)
     if File.identical?(home_file, args[:name])
@@ -79,19 +81,27 @@ task :link, :name do |_, args|
       FileUtils.rm_rf home_file
       Rake::Task['link'].invoke(args[:name])
     else
-      puts "overwrite ~/.#{args[:name]} [ynaq]"
-      case $stdin.gets.chomp
-      when 'y' then FileUtils.rm_rf(home_file) && link(home_file, args[:name])
-      when 'a' then $replace_all_files = true && Rake::Task['link'].invoke(args[:name])
-      when 'q' then exit
-      else puts "skipping #{args[:name]}" end
+      if erb && File.read(home_file) == erb
+        puts "identical, skipping #{args[:name].sub(/\.erb$/, '')}"
+      else
+        puts "overwrite ~/.#{args[:name]} [ynaq]"
+        case $stdin.gets.chomp
+        when 'y'
+          FileUtils.rm_rf(home_file)
+          Rake::Task['link'].reenable
+          Rake::Task['link'].invoke(args[:name])
+        when 'a'
+          $replace_all_files = true
+          Rake::Task['link'].reenable
+          Rake::Task['link'].invoke(args[:name])
+        when 'q' then exit
+        else puts "skipping #{args[:name]}" end
+      end
     end
   else
     if args[:name] =~ /\.erb$/
       puts "generating #{home_file}"
-      File.open(home_file, 'w') do |new_file|
-        new_file.write ERB.new(File.read(args[:name])).result(binding)
-      end
+      File.open(home_file, 'w') { |new_file| new_file.write erb }
     else
       target = File.basename(Dir.pwd) + (File::ALT_SEPARATOR || File::SEPARATOR) + args[:name]
       link = File.basename(home_file)
@@ -123,11 +133,14 @@ task :update, :speed do |_, args|
   Dir['*'].each do |file|
     next if %w[Rakefile os].include? file
     Rake::Task['link'].invoke(file)
+    Rake::Task['link'].reenable
   end
 
   case RUBY_PLATFORM
   when 'darwin' then Dir.chdir('os/mac') { system 'rake', 'install' }
   end
 
-  system 'vim', '-c', ':Helptags', '-c', ':q!'
+  vim = %x[zsh -c 'echo =$aliases[vim]'].chomp
+  vim = vim.empty? && 'vim' || vim
+  system vim, '-c', ':Helptags', '-c', ':q!'
 end
