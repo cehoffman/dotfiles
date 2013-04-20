@@ -89,8 +89,8 @@ if [[ $IS_MAC -eq 1 ]]; then
     man -t $* | open -f -a Preview
   }
 
-  if [[ -r /Applications/MacVim.app ]]; then
-    alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+  if [[ -r $HOME/Applications/MacVim.app ]]; then
+    alias vim="$HOME/Applications/MacVim.app/Contents/MacOS/Vim"
     EDITOR=${=aliases[vim]}
     VISUAL=$EDITOR
   fi
