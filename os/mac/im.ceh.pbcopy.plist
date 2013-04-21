@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
      <key>Label</key>
-     <string>localhost.pbcopy</string>
+     <string>im.ceh.pbcopy</string>
      <key>ProgramArguments</key>
      <array>
          <string>/usr/bin/pbcopy</string>

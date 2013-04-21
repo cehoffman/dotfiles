@@ -16,15 +16,24 @@ task :install do
   system 'clang', '-Os', '-fobjc-arc', '-framework', 'Carbon', '-framework',
     'AppKit', 'iTerm2HotKey.m', '-o', File.expand_path('~/.bin/iTerm2HotKey')
 
-  Dir['*.plist.erb'].each do |plist|
-    contents = ERB.new(File.read(plist)).result(Context.new)
-    plist = File.basename(plist).sub(/\.erb$/, '')
+  loaded = Hash[%x[launchctl list].strip.lines.map do |line|
+    line = line.split
+    [line.last, true]
+  end]
+
+  Dir['*.plist*'].each do |plist|
+    if plist =~ /\.erb$/
+      contents = ERB.new(File.read(plist)).result(Context.new)
+      plist = File.basename(plist).sub(/\.erb$/, '')
+    else
+      contents = File.open(plist, 'rb') { |f| f.read }
+    end
     dest = File.expand_path("~/Library/LaunchAgents/#{plist}")
 
     puts "installing #{plist} to ~/Library/LaunchAgents"
     open(dest , 'w') { |file| file << contents }
 
-    if %x[launchctl list] =~ /#{plist.sub(/\.plist/, '')}/
+    if loaded[File.basename(dest, '.plist')]
       puts "shutting down #{plist}"
       system 'launchctl', 'unload', '-w', dest
     end

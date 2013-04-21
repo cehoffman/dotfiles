@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
      <key>Label</key>
-     <string>localhost.pbpaste</string>
+     <string>im.ceh.pbpaste</string>
      <key>ProgramArguments</key>
      <array>
          <string>/usr/bin/pbpaste</string>
