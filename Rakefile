@@ -24,13 +24,8 @@ require 'rake'
 require 'erb'
 require 'fileutils'
 
-def windows?
-  RUBY_PLATFORM =~ /[mswin|mingw]32/
-end
-
-def mac?
-  RUBY_PLATFORM =~ /darwin/
-end
+def windows?; RUBY_PLATFORM =~ /[mswin|mingw]32/ end
+def mac?; RUBY_PLATFORM =~ /darwin/ end
 
 if ENV['DEBUG']
   def system(*args)
