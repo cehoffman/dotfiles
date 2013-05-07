@@ -169,3 +169,9 @@
 [submodule "luaenv"]
 	path = luaenv
 	url = git@ceh.im:cehoffman/luaenv.git
+[submodule "vim/bundle/vim-handlebars"]
+	path = vim/bundle/vim-handlebars
+	url = https://github.com/nono/vim-handlebars.git
+[submodule "vim/bundle/vim-less"]
+	path = vim/bundle/vim-less
+	url = https://github.com/groenewege/vim-less.git
