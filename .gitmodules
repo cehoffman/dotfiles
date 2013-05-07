@@ -16,3 +16,6 @@
 [submodule "luaenv"]
 	path = luaenv
 	url = git@ceh.im:cehoffman/luaenv.git
+[submodule "zsh/vendor/autoenv"]
+	path = zsh/vendor/autoenv
+	url = https://github.com/sharat87/autoenv.git

@@ -141,6 +141,8 @@ if [[ -o interactive ]]; then
   opp-install
   autoload opp
 
+  source ~/.zsh/vendor/autoenv/activate.sh
+
   # Color all stderr lines yellow only when interactive The guard prevent
   # a proliferation of processes when using exec to replace the current shell
   # with a fresh instance
