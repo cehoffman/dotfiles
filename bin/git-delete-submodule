@@ -1,22 +1,24 @@
 #!/bin/sh -e
 
-if [ -z "$1" ]; then
-  echo "Usage: $(basename "$0") path/to/submodule"
+if [ -z "$*" ]; then
+  echo "Usage: $(basename "$0") [path/to/submodule ...]"
   exit
 fi
 
-# Remove trailing slash so we don't do the wrong thing
-submodule=$(echo $1 | sed 's/\/$//g')
-cd $(git rev-parse --show-toplevel)
+for arg in "$@"; do
+  # Remove trailing slash so we don't do the wrong thing
+  submodule=$(echo $arg | sed 's/\/$//g')
+  cd $(git rev-parse --show-toplevel)
 
-# Make sure the submodule is actually a submodule in this project
-if [ -z $(git config -f .gitmodules "submodule.$submodule.url") ]; then
-  echo "submodule $submodule not found"
-  exit
-fi
+  # Make sure the submodule is actually a submodule in this project
+  if [ -z $(git config -f .gitmodules "submodule.$submodule.url") ]; then
+    echo "submodule $submodule not found"
+    exit
+  fi
 
-git config -f .git/config --remove-section "submodule.$submodule"
-git config -f .gitmodules --remove-section "submodule.$submodule"
-git add .gitmodules
-rm -rf "$submodule"
-git rm --cached "$submodule"
+  git config -f .git/config --remove-section "submodule.$submodule"
+  git config -f .gitmodules --remove-section "submodule.$submodule"
+  git add .gitmodules
+  rm -rf "$submodule"
+  git rm --cached "$submodule"
+done
