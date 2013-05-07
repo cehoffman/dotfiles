@@ -18,8 +18,6 @@ function reload() {
 }
 reload
 
-function lst() { ls -R "${1-.}" | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/' }
-
 function mcd() { mkdir -p "$1" && cd "$1" }
 
 function {
