@@ -41,18 +41,13 @@ color scheme is called `plasticcodewrap`.
 Because of my efforts to make everything work together, I usually make
 modifications to homebrew packages. If I have a dotfile in here I most likely
 have a tweaked formula in my personal [homebrew
-clone](https://github.com/cehoffman/homebrew). 
+clone](https://github.com/cehoffman/homebrew). Thankfully the need for this has
+been going down.
 
 I've written a very basic workalike to homebrew for Linux systems as a single
 gem install called [coresys](https://github.com/cehoffman/coresys). It is
 targeted at Linux and is currently in trial development mode. I use it for my
 virtual machines, but I'm also actively hacking on it.
-
-I have a fork of [iTerm2](http://github.com/cehoffman/iTerm2) that replaces the
-font size estimation engine with one that matches to the best of my perception
-the font estimation engine in [MacVim](http://macvim.org). I did this so my
-custom font with special glyphs for my VIM statusline works the same in the
-terminal or in the GUI.
 
 # Using
 
@@ -66,7 +61,7 @@ function `update` which will take care of saving any temporary work on tracked
 files, updating the code base, putting back code changes, and then delegating
 to rake task to update all submodules and plugins.
 
-What my [iTerm2](http://github.com/cehoffman/iTerm2) session looks like.
+What my iTerm2 session looks like.
 
 ![iTerm2 in action](https://github.com/downloads/cehoffman/dotfiles/terminal.png)
 
