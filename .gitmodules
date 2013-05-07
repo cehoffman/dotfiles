@@ -1,177 +1,18 @@
-[submodule "vim/bundle/vim-ack"]
-	path = vim/bundle/vim-ack
-	url = http://github.com/mileszs/ack.vim.git
-[submodule "vim/bundle/vim-endwise"]
-	path = vim/bundle/vim-endwise
-	url = http://github.com/tpope/vim-endwise.git
-[submodule "vim/bundle/vim-fugitive"]
-	path = vim/bundle/vim-fugitive
-	url = http://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/vim-git"]
-	path = vim/bundle/vim-git
-	url = http://github.com/tpope/vim-git.git
-[submodule "vim/bundle/vim-haml"]
-	path = vim/bundle/vim-haml
-	url = http://github.com/tpope/vim-haml.git
-[submodule "vim/bundle/vim-markdown"]
-	path = vim/bundle/vim-markdown
-	url = http://github.com/tpope/vim-markdown.git
-[submodule "vim/bundle/vim-ragtag"]
-	path = vim/bundle/vim-ragtag
-	url = git@github.com:cehoffman/vim-ragtag.git
-[submodule "vim/bundle/vim-rails"]
-	path = vim/bundle/vim-rails
-	url = http://github.com/tpope/vim-rails.git
-[submodule "vim/bundle/vim-surround"]
-	path = vim/bundle/vim-surround
-	url = http://github.com/tpope/vim-surround.git
-[submodule "vim/bundle/vim-syntastic"]
-	path = vim/bundle/vim-syntastic
-	url = git@github.com:scrooloose/syntastic.git
-[submodule "vim/bundle/vim-unimpaired"]
-	path = vim/bundle/vim-unimpaired
-	url = http://github.com/tpope/vim-unimpaired.git
-[submodule "vim/bundle/vim-coffee-script"]
-	path = vim/bundle/vim-coffee-script
-	url = http://github.com/kchmck/vim-coffee-script.git
-[submodule "vim/bundle/vim-ruby"]
-	path = vim/bundle/vim-ruby
-	url = http://github.com/vim-ruby/vim-ruby.git
-[submodule "vim/bundle/vim-javascript"]
-	path = vim/bundle/vim-javascript
-	url = http://github.com/pangloss/vim-javascript.git
-[submodule "vim/bundle/vim-delimitMate"]
-	path = vim/bundle/vim-delimitMate
-	url = http://github.com/Raimondi/delimitMate.git
-[submodule "vim/bundle/vim-abolish"]
-	path = vim/bundle/vim-abolish
-	url = git://github.com/tpope/vim-abolish.git
-[submodule "vim/bundle/vim-repeat"]
-	path = vim/bundle/vim-repeat
-	url = git://github.com/tpope/vim-repeat.git
-[submodule "vim/bundle/vim-gitolite"]
-	path = vim/bundle/vim-gitolite
-	url = http://github.com/tmatilai/gitolite.vim.git
-[submodule "vim/bundle/vim-rake"]
-	path = vim/bundle/vim-rake
-	url = http://github.com/tpope/vim-rake.git
-[submodule "vim/bundle/vim-html5"]
-	path = vim/bundle/vim-html5
-	url = http://github.com/othree/html5.vim.git
-[submodule "vim/bundle/vim-ultisnips"]
-	path = vim/bundle/vim-ultisnips
-	url = https://github.com/vim-scripts/UltiSnips.git
-[submodule "vim/bundle/vim-easymotion"]
-	path = vim/bundle/vim-easymotion
-	url = https://github.com/Lokaltog/vim-easymotion.git
-[submodule "vim/bundle/vim-textobj-rubyblock"]
-	path = vim/bundle/vim-textobj-rubyblock
-	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
-[submodule "vim/bundle/vim-tabular"]
-	path = vim/bundle/vim-tabular
-	url = https://github.com/godlygeek/tabular.git
-[submodule "vim/bundle/vim-ruby-refactoring"]
-	path = vim/bundle/vim-ruby-refactoring
-	url = https://github.com/ecomba/vim-ruby-refactoring.git
-[submodule "vim/bundle/vim-tagbar"]
-	path = vim/bundle/vim-tagbar
-	url = https://github.com/majutsushi/tagbar.git
-[submodule "vim/bundle/vim-textobj-entire"]
-	path = vim/bundle/vim-textobj-entire
-	url = https://github.com/kana/vim-textobj-entire.git
-[submodule "vim/bundle/vim-gitv"]
-	path = vim/bundle/vim-gitv
-	url = https://github.com/gregsexton/gitv.git
-[submodule "vim/bundle/vim-csv"]
-	path = vim/bundle/vim-csv
-	url = git@github.com:cehoffman/csv.vim.git
-[submodule "vim/bundle/vim-textobj-user"]
-	path = vim/bundle/vim-textobj-user
-	url = https://github.com/kana/vim-textobj-user.git
-[submodule "vim/bundle/vim-gnupg"]
-	path = vim/bundle/vim-gnupg
-	url = git://gitorious.org/vim-gnupg/vim-gnupg.git
 [submodule "zsh/vendor/zsh-syntax-highlighting"]
 	path = zsh/vendor/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "zsh/vendor/opp.zsh"]
 	path = zsh/vendor/opp.zsh
 	url = https://github.com/hchbaw/opp.zsh.git
-[submodule "vim/bundle/vim-scratch"]
-	path = vim/bundle/vim-scratch
-	url = https://github.com/vim-scripts/scratch.vim.git
-[submodule "vim/bundle/vim-threesome"]
-	path = vim/bundle/vim-threesome
-	url = https://github.com/sjl/threesome.vim.git
-[submodule "vim/bundle/vim-objc"]
-	path = vim/bundle/vim-objc
-	url = https://github.com/b4winckler/vim-objc.git
-[submodule "vim/bundle/vim-splitjoin"]
-	path = vim/bundle/vim-splitjoin
-	url = https://github.com/AndrewRadev/splitjoin.vim.git
-[submodule "vim/bundle/vim-bundler"]
-	path = vim/bundle/vim-bundler
-	url = https://github.com/tpope/vim-bundler.git
-[submodule "vim/bundle/vim-rainbow_parentheses"]
-	path = vim/bundle/vim-rainbow_parentheses
-	url = https://github.com/kien/rainbow_parentheses.vim.git
-[submodule "vim/bundle/vim-latex-box"]
-	path = vim/bundle/vim-latex-box
-	url = https://github.com/LaTeX-Box-Team/LaTeX-Box.git
-[submodule "vim/bundle/vim-ctrlp"]
-	path = vim/bundle/vim-ctrlp
-	url = https://github.com/kien/ctrlp.vim.git
-[submodule "vim/bundle/vim-pathogen"]
-	path = vim/bundle/vim-pathogen
-	url = https://github.com/tpope/vim-pathogen.git
-[submodule "vim/bundle/vim-vimux"]
-	path = vim/bundle/vim-vimux
-	url = https://github.com/benmills/vimux.git
-[submodule "vim/bundle/vim-vimux-ruby-test"]
-	path = vim/bundle/vim-vimux-ruby-test
-	url = https://github.com/pgr0ss/vimux-ruby-test.git
-[submodule "vim/bundle/vim-lbdbq"]
-	path = vim/bundle/vim-lbdbq
-	url = https://github.com/cehoffman/lbdbq.git
-[submodule "vim/bundle/vim-commentary"]
-	path = vim/bundle/vim-commentary
-	url = https://github.com/tpope/vim-commentary.git
-[submodule "vim/bundle/vim-eunuch"]
-	path = vim/bundle/vim-eunuch
-	url = https://github.com/tpope/vim-eunuch.git
 [submodule "dotjs-js"]
 	path = js
 	url = git@ceh.im:cehoffman/dotjs-js
-[submodule "vim/bundle/vim-objc-match-bracket"]
-	path = vim/bundle/vim-objc-match-bracket
-	url = https://github.com/vim-scripts/Match-Bracket-for-Objective-C.git
 [submodule "coresys/formula"]
 	path = coresys/formula
 	url = git@github.com:cehoffman/coresys-formula
-[submodule "vim/bundle/vim-scriptease"]
-	path = vim/bundle/vim-scriptease
-	url = https://github.com/tpope/vim-scriptease.git
-[submodule "vim/bundle/vim-bitbake"]
-	path = vim/bundle/vim-bitbake
-	url = https://github.com/kergoth/vim-bitbake.git
-[submodule "vim/bundle/vim-ctrlp-modified"]
-	path = vim/bundle/vim-ctrlp-modified
-	url = https://github.com/jasoncodes/ctrlp-modified.vim.git
-[submodule "vim/bundle/vim-vdebug"]
-	path = vim/bundle/vim-vdebug
-	url = https://github.com/joonty/vdebug.git
-[submodule "vim/bundle/vim-undotree"]
-	path = vim/bundle/vim-undotree
-	url = https://github.com/mbbill/undotree.git
 [submodule "rbenv"]
 	path = rbenv
 	url = https://github.com/cehoffman/rbenv.git
 [submodule "luaenv"]
 	path = luaenv
 	url = git@ceh.im:cehoffman/luaenv.git
-[submodule "vim/bundle/vim-handlebars"]
-	path = vim/bundle/vim-handlebars
-	url = https://github.com/nono/vim-handlebars.git
-[submodule "vim/bundle/vim-less"]
-	path = vim/bundle/vim-less
-	url = https://github.com/groenewege/vim-less.git

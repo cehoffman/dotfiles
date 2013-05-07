@@ -7,10 +7,63 @@ if $LPKG_PREFIX != ''
 endif
 set runtimepath+=~/.vim/after
 
-" Pathogen initialization {{{
+" Vundle initialization {{{
   filetype off
-  runtime! bundle/vim-pathogen/autoload/pathogen.vim
-  call pathogen#infect()
+  " runtime! bundle/vim-pathogen/autoload/pathogen.vim
+  set rtp+=~/.vim/bundle/vundle
+  call vundle#rc()
+
+  Bundle 'tpope/vim-fugitive'
+  Bundle 'tpope/vim-git'
+  Bundle 'tpope/vim-endwise'
+  Bundle 'tpope/vim-haml'
+  Bundle 'tpope/vim-markdown'
+  Bundle 'tpope/vim-rails'
+  Bundle 'tpope/vim-rake'
+  Bundle 'tpope/vim-surround'
+  Bundle 'tpope/vim-unimpaired'
+  Bundle 'tpope/vim-abolish'
+  Bundle 'tpope/vim-repeat'
+  Bundle 'tpope/vim-bundler'
+  Bundle 'tpope/vim-commentary'
+  Bundle 'tpope/vim-eunuch'
+  Bundle 'tpope/vim-scriptease'
+  Bundle 'cehoffman/vim-ragtag'
+  Bundle 'cehoffman/csv.vim'
+  Bundle 'scrooloose/syntastic'
+  Bundle 'mileszs/ack.vim'
+  Bundle 'kchmck/vim-coffee-script'
+  Bundle 'vim-ruby/vim-ruby'
+  Bundle 'pangloss/vim-javascript'
+  Bundle 'Raimondi/delimitMate'
+  Bundle 'tmatilai/gitolite.vim'
+  Bundle 'othree/html5.vim'
+  Bundle 'vim-scripts/UltiSnips'
+  Bundle 'Lokaltog/vim-easymotion'
+  Bundle 'godlygeek/tabular'
+  Bundle 'ecomba/vim-ruby-refactoring'
+  Bundle 'majutsushi/tagbar'
+  Bundle 'kana/vim-textobj-user'
+  Bundle 'kana/vim-textobj-entire'
+  Bundle 'nelstrom/vim-textobj-rubyblock'
+  Bundle 'gregsexton/gitv'
+  Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git'
+  Bundle 'vim-scripts/scratch.vim'
+  Bundle 'sjl/threesome.vim'
+  Bundle 'b4winckler/vim-objc'
+  Bundle 'AndrewRadev/splitjoin.vim'
+  Bundle 'kien/rainbow_parentheses.vim'
+  Bundle 'kien/ctrlp.vim'
+  Bundle 'jasoncodes/ctrlp-modified.vim'
+  Bundle 'LaTeX-Box-Team/LaTeX-Box'
+  Bundle 'benmills/vimux'
+  Bundle 'pgr0ss/vimux-ruby-test'
+  Bundle 'vim-scripts/Match-Bracket-for-Objective-C'
+  Bundle 'kergoth/vim-bitbake'
+  Bundle 'joonty/vdebug'
+  Bundle 'mbbill/undotree'
+  Bundle 'nono/vim-handlebars'
+  Bundle 'groenewege/vim-less'
 " }}}
 
 " General settings {{{
@@ -544,10 +597,14 @@ if has("autocmd")
     " Default statusline {{{
       let g:default_stl  = ""
       let g:default_stl .= "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>"
-      let g:default_stl .= "#[Branch] %(%{substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', ' \\1', 'gi')}#[BranchS] [>] %)" " Git branch
-      let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName]%t " " File name
+      if &rtp =~ 'vim-fugitive'
+        let g:default_stl .= "#[Branch] %(%{substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', ' \\1', 'gi')}#[BranchS] [>]%)" " Git branch
+      endif
+      let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName] %t " " File name
       let g:syntastic_stl_format = <SID>StatusLineArrows("[>][>][>] SYNTAX  %F (%t) [>][>][>]")
-      let g:default_stl .= "<CUR>#[Error]%(%{SyntasticStatuslineFlag()} %)</CUR>"
+      if exists('*SyntasticStatuslineFlag')
+        let g:default_stl .= "<CUR>#[Error]%(%{SyntasticStatuslineFlag()} %)</CUR>"
+      endif
       let g:default_stl .= "#[ModFlag]%(%M %)" " Modified flag
       let g:default_stl .= "#[BufFlag]%(%H%W %)" " HLP,PRV flags
       let g:default_stl .= "#[FileNameS][>>]" " Separator
@@ -671,7 +728,9 @@ if has("autocmd")
   augroup END "}}}
 else
   " Custom status line using to show git branch info, has ruler set
-  set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%c%V,%l/%L%)\ %P\ %y
+  if &rtp =~ 'vim-fugitive'
+    set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%c%V,%l/%L%)\ %P\ %y
+  endif
 endif
 
 " Folding Config {{{
