@@ -99,9 +99,6 @@ zstyle ':chpwd:*' recent-dirs-default true
 zstyle ':completion:*' recent-dirs-insert both
 zstyle ':chpwd:*' recent-dirs-prune parent
 
-autoload -U compinit
-compinit -i
-
 zmodload -i zsh/complist
 
 function {

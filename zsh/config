@@ -100,6 +100,11 @@ path=($HOME/.local/{s,}bin(/) $HOME/.bin(/) $HOME/.bin(@) /usr/texbin/(/) $path)
 fpath=(~/.zsh/functions $HOME/.local/share/zsh/site-functions(/) $fpath)
 manpath=($HOME/.local/share/man(/) /usr/local/share/man /usr/share/man $manpath)
 
+if [[ -o interactive ]]; then
+  autoload -U compinit
+  compinit -i
+fi
+
 # Load all of your custom configurations from envs/
 function {
   local config_file
