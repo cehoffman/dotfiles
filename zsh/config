@@ -137,6 +137,9 @@ if [[ -o interactive ]]; then
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets) # cursor pattern
 
   # Add nice shortcuts like ci" to standard vi mode
+  if [[ ! -f ~/.zsh/functions/opp-install ]]; then
+    zsh -c 'for O in ~/.zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.zsh/vendor/opp.zsh ~/.zsh/functions'
+  fi
   . ~/.zsh/functions/opp-install
   opp-install
   autoload opp

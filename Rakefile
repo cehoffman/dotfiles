@@ -42,13 +42,6 @@ end
 
 task :default => :update
 
-task :opp do
-  if !windows?
-    puts 'updating opp.zsh'
-    system 'zsh', '-c', "for O in #{Dir.pwd}/zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.zsh/vendor/opp.zsh ~/.zsh/functions"
-  end
-end
-
 desc 'update git submodules'
 task :submodule do
   puts 'initializing submodules'
@@ -127,8 +120,6 @@ task :update, :speed do |_, args|
   Rake::Task['submodule'].invoke unless args[:speed] == 'fast'
 
   system 'git', 'clean', '-df'
-
-  Rake::Task['opp'].invoke
 
   Dir['*'].each do |file|
     next if %w[Rakefile os].include? file
