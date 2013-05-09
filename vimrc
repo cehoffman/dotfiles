@@ -71,6 +71,7 @@ set runtimepath+=~/.vim/after
   Bundle 'nono/vim-handlebars'
   Bundle 'groenewege/vim-less'
   Bundle 'ZoomWin'
+  Bundle 'vim-scripts/vim-signify'
 " }}}
 
 " General settings {{{
@@ -953,6 +954,9 @@ endif
   let g:clang_complete_patterns = 0 " Don't complete clang snippets
   let g:clang_snippets_engine = 'ultisnips'
   let g:filetype_m = 'objc' " default to .m files being objc
+" }}}
+" Signify {{{
+  let g:signify_vcs_list = ['git', 'svn']
 " }}}
 
 " Window Management {{{
