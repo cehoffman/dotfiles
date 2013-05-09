@@ -40,9 +40,9 @@ task :default => :update
 desc 'update git submodules'
 task :submodule do
   puts 'initializing submodules'
-  system 'git', 'submodule', 'update', '--init'
+  system 'git', 'submodule', 'update', '--init', '--recursive'
   system 'git', 'submodule', 'sync'
-  system 'git', 'submodule', 'update', '--init', '--rebase'
+  system 'git', 'submodule', 'update', '--init', '--recursive', '--rebase'
 end
 
 namespace :submodule do

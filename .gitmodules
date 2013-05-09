@@ -19,6 +19,3 @@
 [submodule "zsh/vendor/autoenv"]
 	path = zsh/vendor/autoenv
 	url = https://github.com/sharat87/autoenv.git
-[submodule "vim/bundle/vundle"]
-	path = vim/bundle/vundle
-	url = https://github.com/gmarik/vundle.git
