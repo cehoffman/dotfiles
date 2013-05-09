@@ -10,7 +10,7 @@ set runtimepath+=~/.vim/after
 " Vundle initialization {{{
   filetype off
   " runtime! bundle/vim-pathogen/autoload/pathogen.vim
-  if !exists('~/.vim/bundle/vundle/README.md')
+  if !filereadable(expand('~/.vim/bundle/vundle/README.md'))
     silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
   endif
 
