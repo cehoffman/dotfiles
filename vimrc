@@ -597,14 +597,10 @@ if has("autocmd")
     " Default statusline {{{
       let g:default_stl  = ""
       let g:default_stl .= "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>"
-      if &rtp =~ 'vim-fugitive'
-        let g:default_stl .= "#[Branch] %(%{substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', ' \\1', 'gi')}#[BranchS] [>]%)" " Git branch
-      endif
-      let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName] %t " " File name
+      let g:default_stl .= "#[Branch] %(%{exists('*fugitive#statusline') ? substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', ' \\1', 'gi') : ''}#[BranchS] [>]%)" " Git branch
+      let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName] %t " " File name
       let g:syntastic_stl_format = <SID>StatusLineArrows("[>][>][>] SYNTAX  %F (%t) [>][>][>]")
-      if exists('*SyntasticStatuslineFlag')
-        let g:default_stl .= "<CUR>#[Error]%(%{SyntasticStatuslineFlag()} %)</CUR>"
-      endif
+      let g:default_stl .= "<CUR>#[Error]%(%{exists('*SyntasticStatuslineFlag') ? SyntasticStatuslineFlag() : ''} %)</CUR>"
       let g:default_stl .= "#[ModFlag]%(%M %)" " Modified flag
       let g:default_stl .= "#[BufFlag]%(%H%W %)" " HLP,PRV flags
       let g:default_stl .= "#[FileNameS][>>]" " Separator
@@ -616,9 +612,7 @@ if has("autocmd")
       let g:default_stl .= "<CUR>#[Separator][<] #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
       let g:default_stl .= "#[LinePercentS][<<]#[LinePercent] %p%% " " Line/column/virtual column, Line percentage
       let g:default_stl .= "#[LineNumberS][<<]#[LineNumber]"
-      " if has("gui_running")
-        let g:default_stl .= ""
-      " endif
+      let g:default_stl .= ""
       let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage
     " }}}
     call <SID>StatusLineColors(s:statuscolors) " Make the status line become colorful on sourcing after startup
@@ -728,9 +722,7 @@ if has("autocmd")
   augroup END "}}}
 else
   " Custom status line using to show git branch info, has ruler set
-  if &rtp =~ 'vim-fugitive'
-    set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%c%V,%l/%L%)\ %P\ %y
-  endif
+  set statusline=%<%f\ %h%m%r%{exists('*fugitive#statusline') ? fugitive#statusline() : ''}%=%-14.(%c%V,%l/%L%)\ %P\ %y
 endif
 
 " Folding Config {{{
