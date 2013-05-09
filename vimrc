@@ -755,7 +755,7 @@ endif
       return line . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
     endfunction " }}}
     set foldtext=SimpleFold()
-    set foldcolumn=5
+    set foldcolumn=0
     set foldenable
     set foldmethod=syntax
     set foldlevelstart=99 " How far down fold tree to go before folding code on opening file
