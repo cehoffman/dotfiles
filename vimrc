@@ -10,9 +10,14 @@ set runtimepath+=~/.vim/after
 " Vundle initialization {{{
   filetype off
   " runtime! bundle/vim-pathogen/autoload/pathogen.vim
+  if !exists('~/.vim/bundle/vundle/README.md')
+    silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+  endif
+
   set rtp+=~/.vim/bundle/vundle
   call vundle#rc()
 
+  Bundle 'gmarik/vundle'
   Bundle 'tpope/vim-fugitive'
   Bundle 'tpope/vim-git'
   Bundle 'tpope/vim-endwise'
@@ -30,6 +35,7 @@ set runtimepath+=~/.vim/after
   Bundle 'tpope/vim-scriptease'
   Bundle 'cehoffman/vim-ragtag'
   Bundle 'cehoffman/csv.vim'
+  Bundle 'cehoffman/vim-lua'
   Bundle 'scrooloose/syntastic'
   Bundle 'mileszs/ack.vim'
   Bundle 'kchmck/vim-coffee-script'
@@ -64,6 +70,7 @@ set runtimepath+=~/.vim/after
   Bundle 'mbbill/undotree'
   Bundle 'nono/vim-handlebars'
   Bundle 'groenewege/vim-less'
+  Bundle 'ZoomWin'
 " }}}
 
 " General settings {{{
