@@ -127,7 +127,7 @@ task :update, :speed do |_, args|
   end
 
   vim = %x[zsh -c 'echo =$aliases[vim]'].chomp
-  vim = vim.empty? && 'vim' || vim
+  vim = vim == '=' && 'vim' || vim
   system vim, '+BundleInstall', '+qa'
   system vim, '+BundleUpdate', '+qa' unless args[:speed] == 'fast'
 end
