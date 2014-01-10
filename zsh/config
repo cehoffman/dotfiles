@@ -108,7 +108,7 @@ fi
 # Load all of your custom configurations from envs/
 function {
   local config_file
-  for config_file (~/.zsh/envs/*) source $config_file
+  for config_file (~/.zsh/envs/*(on)) source $config_file
 }
 
 if [[ $IS_MAC -eq 1 ]]; then
