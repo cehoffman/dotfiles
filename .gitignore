@@ -17,3 +17,4 @@ bin/iTerm2HotKey
 offlineimap/*.lock
 /elinks
 /vim/bundle
+zsh/functions/*.zwc
