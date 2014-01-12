@@ -154,10 +154,10 @@ if [[ -o interactive ]]; then
     typeset -TgU DYLD_INSERT_LIBRARIES dyld_insert_libraries
     dyld_insert_libraries=($HOME/.homebrew/lib/libstderred.dylib(-.) $dyld_insert_libraries)
     export DYLD_INSERT_LIBRARIES
-  elif [[ -f "$HOME/.local/lib/libstderred.so" ]]; then
+  elif [[ -f "$HOME/.homebrew/lib/libstderred.so" ]]; then
     export STDERRED_ESC_CODE="$fg[red]"
     typeset -TgU LD_PRELOAD ld_preload
-    ld_preload=($HOME/.local/lib/libstderred.so(-.) $ld_preload)
+    ld_preload=($HOME/.homebrew/lib/libstderred.so(-.) $ld_preload)
     export LD_PRELOAD
   else
     if [[ "$STDERR_COLORIZE" != $$ ]]; then
