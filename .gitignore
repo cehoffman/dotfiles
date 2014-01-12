@@ -18,3 +18,4 @@ offlineimap/*.lock
 /elinks
 /vim/bundle
 zsh/functions/*.zwc
+!vim/bundle/vundle
