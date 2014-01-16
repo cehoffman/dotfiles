@@ -72,6 +72,7 @@ set runtimepath+=~/.vim/after
   Bundle 'groenewege/vim-less'
   Bundle 'ZoomWin'
   Bundle 'vim-scripts/vim-signify'
+  Bundle 'sjl/vitality.vim'
 " }}}
 
 " General settings {{{
