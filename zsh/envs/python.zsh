@@ -1,15 +1,19 @@
-if [[ -a $(which virtualenvwrapper.sh) ]]; then
+if [[ -a $(which virtualenv) ]]; then
   # Virtualenvwrapper
-  export WORKON_HOME="$HOME/.virtualenvs"
-  hash -d virtualenvs=$WORKON_HOME
-  source $(which virtualenvwrapper.sh)
+  # export WORKON_HOME="$HOME/.virtualenvs"
+  # hash -d virtualenvs=$WORKON_HOME
+  # source $(which virtualenvwrapper.sh)
 
   # Virtualenv
-  export VIRTUALENV_USE_DISTRIBUTE=true
+  # export VIRTUALENV_USE_DISTRIBUTE=true
 
   # PIP config
-  export PIP_VIRTUALENV_BASE=$WORKON_HOME
+  # export PIP_VIRTUALENV_BASE=$WORKON_HOME
   export PIP_RESPECT_VIRTUALENV=true
+  export PIP_REQUIRE_VIRTUALENV=true
+  export PIP_DOWNLOAD_CACHE="$HOME/.pip/cache"
+
+  function syspip() { PIP_REQUIRE_VIRTUALENV="" pip "$@" }
 
   if [[ -f $WORKON_HOME/.active ]]; then
     workon `cat $WORKON_HOME/.active`
