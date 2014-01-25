@@ -55,7 +55,10 @@ OSStatus hotkey_handler(EventHandlerCallRef next, EventRef event, void *data) {
         runningApplicationWithProcessIdentifier:lastActive];
 
       if (lastApp) {
-        [lastApp activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+        [[NSWorkspace sharedWorkspace] launchApplicationAtURL:[lastApp bundleURL]
+                                                      options:NSWorkspaceLaunchDefault
+                                                configuration:nil
+                                                        error:nil];
       }
     } else {
       // Since we don't know who to activate, just hide to achieve effect
