@@ -19,3 +19,4 @@ offlineimap/*.lock
 /vim/bundle
 zsh/functions/*.zwc
 !vim/bundle/vundle
+/vim/backup
