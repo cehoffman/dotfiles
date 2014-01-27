@@ -65,7 +65,10 @@ OSStatus hotkey_handler(EventHandlerCallRef next, EventRef event, void *data) {
       [iTerm2 hide];
     }
   } else {
-    [iTerm2 activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+    [[NSWorkspace sharedWorkspace] launchApplicationAtURL:[iTerm2 bundleURL]
+                                                  options:NSWorkspaceLaunchDefault
+                                            configuration:nil
+                                                    error:nil];
   }
 
   return noErr;
