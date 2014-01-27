@@ -21,7 +21,10 @@ task :install do
     [line.last, true]
   end]
 
-  Dir['*.plist*'].each do |plist|
+  launch_agents_path = File.expand_path('~/Library/LaunchAgents')
+  Dir.mkdir launch_agents_path unless Dir.exists? launch_agents_path
+
+  Dir['im.ceh.*.plist*'].each do |plist|
     if plist =~ /\.erb$/
       contents = ERB.new(File.read(plist)).result(Context.new)
       plist = File.basename(plist).sub(/\.erb$/, '')
