@@ -3,6 +3,7 @@
 #import <signal.h>
 
 NSString *iTerm2Identifier = @"com.googlecode.iterm2";
+NSString *loginWindow = @"com.apple.loginwindow";
 EventHotKeyRef hotKeyRef;
 pid_t lastActive = 0;
 
@@ -25,7 +26,9 @@ pid_t lastActive = 0;
   sender = [[aNotification userInfo] valueForKey:NSWorkspaceApplicationKey];
   ident = [sender bundleIdentifier];
 
-  if (ident && ![ident isEqualToString:iTerm2Identifier]) {
+  if (ident
+      && ![ident isEqualToString:iTerm2Identifier]
+      && ![ident isEqualToString:loginWindow]) {
     lastActive = [sender processIdentifier];
   }
 }
