@@ -4,6 +4,7 @@
 
 NSString *iTerm2Identifier = @"com.googlecode.iterm2";
 NSString *loginWindow = @"com.apple.loginwindow";
+NSString *securityAgent = @"com.apple.SecurityAgent";
 EventHotKeyRef hotKeyRef;
 pid_t lastActive = 0;
 
@@ -28,8 +29,10 @@ pid_t lastActive = 0;
 
   if (ident
       && ![ident isEqualToString:iTerm2Identifier]
-      && ![ident isEqualToString:loginWindow]) {
+      && ![ident isEqualToString:loginWindow]
+      && ![ident isEqualToString:securityAgent]) {
     lastActive = [sender processIdentifier];
+    NSLog(@"Saving last active %d %@", lastActive, ident);
   }
 }
 @end
