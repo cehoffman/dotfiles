@@ -20,3 +20,4 @@ offlineimap/*.lock
 zsh/functions/*.zwc
 !vim/bundle/vundle
 /vim/backup
+*.pyc
