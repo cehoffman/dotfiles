@@ -55,7 +55,7 @@ set runtimepath+=~/.vim/after
   Bundle 'gregsexton/gitv'
   Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git'
   Bundle 'vim-scripts/scratch.vim'
-  Bundle 'sjl/threesome.vim'
+  Bundle 'sjl/splice.vim'
   Bundle 'b4winckler/vim-objc'
   Bundle 'AndrewRadev/splitjoin.vim'
   Bundle 'kien/rainbow_parentheses.vim'

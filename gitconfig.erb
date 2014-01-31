@@ -37,14 +37,14 @@
     whitespace = fix
 [merge]
     conflictstyle = merge
-    tool = threesome
+    tool = splice
 [mergetool]
     keepBackup = false
 [mergetool "mvimdiff3"]
     cmd = mvim -f -c \"Gdiff\" \"$MERGED\"
     trustExitCode = false
-[mergetool "threesome"]
-    cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
+[mergetool "splice"]
+    cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
     trustExitCode = true
 [github]
     user = cehoffman
