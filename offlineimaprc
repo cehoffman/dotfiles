@@ -1,7 +1,7 @@
 [general]
-metadata = ~/.offlineimap
-accounts = Gmail, OtherCoders, Apple
-maxsyncaccounts = 3
+metadata = ~/.dotfiles/offlineimap
+accounts = Gmail, OtherCoders, Apple, Emerson
+maxsyncaccounts = 4
 
 # The pre-defined options are:
 # Blinkenlights -- A fancy (terminal) interface
@@ -14,9 +14,9 @@ maxsyncaccounts = 3
 #
 # You can override this with a command-line option -u.
 
-ui = TTYUI
+ui = Basic
 
-pythonfile = ~/.offlineimap/config_helpers.py
+pythonfile = ~/.dotfiles/offlineimap/config_helpers.py
 socktimeout = 60
 
 ##################################################
@@ -45,16 +45,23 @@ status_backend = sqlite
 
 [Repository GmailLocal]
 type = Maildir
-localfolders = ~/Mail/Gmail
+localfolders = ~/.mail/gmail
 sep = /
 restoreatime = yes
+nametrans = lambda folder: remote_name('gmail', folder)
 
 [Repository GmailRemote]
 type = Gmail
 remoteuser = cehoffman@gmail.com
 remotepasseval = get_password('imap.gmail.com', 'cehoffman@gmail.com')
 maxconnections = 2
-sslcacertfile = ~/.cacerts/entrust.crt
+sslcacertfile = ~/.cacerts/geotrust.cer
+nametrans = lambda folder: local_name('gmail', folder)
+folderfilter = lambda folder: sync('gmail', folder)
+
+###########################################################################
+#                               OtherCoders                               #
+###########################################################################
 
 [Account OtherCoders]
 localrepository = OtherCodersLocal
@@ -63,16 +70,23 @@ status_backend = sqlite
 
 [Repository OtherCodersLocal]
 type = Maildir
-localfolders = ~/Mail/OtherCoders
+localfolders = ~/.mail/othercoders
 sep = /
 restoreatime = yes
+nametrans = lambda folder: remote_name('gmail', folder)
 
 [Repository OtherCodersRemote]
 type = Gmail
 remoteuser = cehoffman@othercoders.com
 remotepasseval = get_password('imap.gmail.com', 'cehoffman@othercoders.com')
-sslcacertfile = ~/.cacerts/entrust.crt
+sslcacertfile = ~/.cacerts/geotrust.cer
 maxconnections = 2
+nametrans = lambda folder: local_name('gmail', folder)
+folderfilter = lambda folder: sync('gmail', folder)
+
+###########################################################################
+#                                 iCloud                                  #
+###########################################################################
 
 [Account Apple]
 localrepository = AppleLocal
@@ -81,9 +95,10 @@ status_backend = sqlite
 
 [Repository AppleLocal]
 type = Maildir
-localfolders = ~/Mail/Apple
+localfolders = ~/.mail/apple
 sep = /
 restoreatime = yes
+nametrans = lambda folder: remote_name('apple', folder)
 
 [Repository AppleRemote]
 type = IMAP
@@ -92,4 +107,32 @@ remoteuser = cehaderach
 remotepasseval = get_password('imap.mail.me.com', 'cehaderach')
 ssl = yes
 maxconnections = 2
-sslcacertfile = ~/.cacerts/equifax.crt
+nametrans = lambda folder: local_name('apple', folder)
+folderfilter = lambda folder: sync('apple', folder)
+sslcacertfile = ~/.cacerts/verisign-3g5.pem
+
+###########################################################################
+#                                 Emerson                                 #
+###########################################################################
+
+[Account Emerson]
+localrepository = EmersonLocal
+remoterepository = EmersonRemote
+status_backend = sqlite
+
+[Repository EmersonLocal]
+type = Maildir
+localfolders = ~/.mail/emerson
+sep = /
+restoreatime = yes
+nametrans = lambda folder: remote_name('emerson', folder)
+
+[Repository EmersonRemote]
+type = IMAP
+remotehost = localhost
+remoteport = 1143
+remoteuser = emrsn.org\choffman
+remotepasseval = get_password('mail.emerson.com', 'emrsn.org\choffman')
+ssl = no
+folderfilter = lambda folder: sync('emerson', folder)
+nametrans = lambda folder: local_name('emerson', folder)

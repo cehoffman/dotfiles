@@ -68,7 +68,7 @@ color index         color1              default         "~F~p"                  
 color index         color1              default         "~N~F"                      # new flagged messages
 color index         color1              default         "~N~F~p"                    # new flagged messages to me
 color index         color1              default         "~U~F~p"                    # new flagged messages to me
-color index         color0              color1             "~D"                        # deleted messages
+color index         color0              color1          "~D"                        # deleted messages
 color index         color14             default         "~v~(!~N)"                  # collapsed thread with no unread
 color index         color3              default         "~v~(~N)"                   # collapsed thread with some unread
 color index         color2              default         "~N~v~(~N)"                 # collapsed thread with unread parent
@@ -79,7 +79,7 @@ color index         color3              color0           "~v~(~F~N)"            
 color index         color2              color0           "~N~v~(~F~N)"               # collapsed thread with unread parent & flagged
 color index         color2              color0           "~N~v~(~F)"                 # collapsed thread with unread parent, no unread inside, but some flagged
 color index         color6              color0           "~v~(~p)"                   # collapsed thread with unread parent, no unread inside, some to me directly
-color index         color3              color1             "~v~(~D)"                   # thread with deleted (doesn't differentiate between all or partial)
+color index         color3              color1           "~v~(~D)"                   # thread with deleted (doesn't differentiate between all or partial)
 #color index         color3             default         "~(~N)"                    # messages in threads with some unread
 #color index         color2             default         "~S"                       # superseded messages
 #color index         color1             default         "~T"                       # tagged messages

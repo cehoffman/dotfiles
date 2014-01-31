@@ -7,8 +7,8 @@ set from = "cehoffman@gmail.com"
 unset record
 set nocopy
 
-set trash = +Gmail/[Gmail]/Trash
-set postponed = +Gmail/[Gmail]/Drafts
+set trash = +gmail/trash
+set postponed = +gmail/drafts
 set signature = ~/.mutt/signature.personal
 
 # vim: set ft=muttrc:

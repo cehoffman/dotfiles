@@ -16,16 +16,19 @@ bind index <Down> noop # was next-undeleted
 bind index K noop # was previous-entry
 bind index J noop # was next-entry
 bind index <Esc>V noop # was collapse-all
-bind index  collapse-all # only need one since it is toggle, but I may forget
+# bind index  collapse-all # only need one since it is toggle, but I may forget
 bind index <Esc>v noop # was collapse-thread
-bind index - collapse-thread # only need one since it is toggle, but I may forget
-bind index + collapse-thread
+bind index <Space> collapse-thread
+bind index <Space> collapse-all
 bind index <Esc><Tab> noop # was previous-new-then-unread
-bind index \C<Tab> previous-new-then-unread
-bind index r group-reply
-bind index ,r reply
-bind index ,d delete-subthread
-bind index ,u undelete-subthread
+bind index <Tab> previous-new-then-unread
+bind index R group-reply
+bind index r reply
+bind index D delete-subthread
+bind index U undelete-subthread
+bind index <Tab> sync-mailbox
+bind index $ noop # Was sync-mailbox
+bind index p recall-message
 
 bind query q exit
 
@@ -75,7 +78,8 @@ bind pager <End> noop # was bottom
 bind pager <BackSpace> noop # was previous-line
 bind pager <Enter> noop # was next-line
 bind pager <F1> noop # was view mutt manual
-bind pager r group-reply
+bind pager R group-reply
+bind pager r reply
 
 bind browser <Space> noop
 bind browser gg first-entry
@@ -93,6 +97,8 @@ bind attach zt current-top
 bind attach zz current-middle
 bind attach zb current-bottom
 bind attach N search-opposite
+bind attach <Return> view-mailcap
+bind attach <Enter> view-mailcap
 # bind attach ; tag-prefix-cond
 
 bind compose q exit # Cancel sending email

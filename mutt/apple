@@ -2,13 +2,13 @@ set nosmime_is_default
 set nocrypt_autosmime
 set nocrypt_autosign
 
-set from = "cehaderach@me.com"
+set from = "cehaderach@icloud.com"
 
 set copy
-set record = "+Apple/Sent Messages"
+set record = +apple/sent
 
-set trash = "+Apple/Deleted Messages"
-set postponed = +Apple/Drafts
+set trash = +apple/trash
+set postponed = +apple/drafts
 set signature = ~/.mutt/signature.personal
 
 # vim: set ft=muttrc:

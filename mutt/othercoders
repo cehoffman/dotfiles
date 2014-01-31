@@ -8,8 +8,8 @@ set from = "cehoffman@othercoders.com"
 unset record
 set nocopy
 
-set trash = +OtherCoders/[Gmail]/Trash
-set postponed = +OtherCoders/[Gmail]/Drafts
+set trash = +othercoders/trash
+set postponed = +othercoders/drafts
 set signature = ~/.mutt/signature.othercoders
 
 # vim: set ft=muttrc:

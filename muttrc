@@ -1,26 +1,36 @@
-alternates "^cehoffman+.*@(gmail|othercoders)\.com$" ^khaderach@comcast\.net$
+alternates -group gmail ^cehoffman\\+?.*@(gmail|othercoders)\.com$ ^cehoffman\\+?.*@ceh\.im$ ^misplacedbox\\+?.*@gmail\.com$
+alternates -group school chrishoffman@alumni\.cmu\.edu cehoffman@cmu\.edu
+alternates -group trash khaderach@comcast\.net
+alternates -group mac ^cehaderach@(mac|me|icloud)\.com$
+alternates -group emerson christopher\.hoffman@emerson.com
 
 set realname     = "Chris Hoffman"
-set from         = "cehoffman@gmail.com"
-set reverse_name = yes     # build From: based on To: field if alternates matches
+set reverse_name # build From: based on To: field if alternates matches
 set charset      = 'utf-8'
 set send_charset = 'utf-8'
-set noquit                 # Don't ask me when I try and quit
+set quit                   # Don't ask me when I try and quit
 set noimap_passive         # Don't wait to check folder to see if mail exists
 set timeout = 10           # Instead of waiting 10 minutes to do checks...
+set tilde                  # Show tilde like in vim
+set date_format = "%m/%d/%y"
+set index_format = "%2C: [%Z]  %D  %-30.30F  %2M %s"
+set folder_format = "%t %2C: %2N%?N? → &   ?%f %> (%s)"
+set status_chars = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )──?[ %P ]───"
+set attribution = "On %{%B %d at %I:%M %p}, %n wrote:"
 
 set use_envelope_from = yes
 set query_command     = "lbdbq '%s'"
-set mailcap_path      = "~/.mailcap"
+set mailcap_path      = "~/.dotfiles/mailcap"
 set editor            = "$EDITOR -c 'norm }o' -c 'set spell' -c 'startinsert'"
 set edit_headers      # Edit the headers when writing the email
 set fast_reply        # Don't ask for receipients on reply or subject on forward
 set autoedit          # Just drop into creating message, I'll set To in editor
 set sort              = threads                    # show threaded conversations
 set sort_aux          = reverse-last-date-received # display most recent first
-set header_cache      = ~/.mutt/cache/headers
-set message_cachedir  = ~/.mutt/cache/bodies
-set certificate_file  = ~/.mutt/certificates
+set header_cache      = ~/.dotfiles/mutt/cache/headers
+set message_cachedir  = ~/.dotfiles/mutt/cache/bodies
+set certificate_file  = ~/.dotfiles/mutt/certificates
 
 set nohelp                     # Don't show the top help bar
 set nobeep                     # No beeping software
@@ -39,15 +49,14 @@ set pager_index_lines = 10     # Maintain a view of index when viewing message
 set nowait_key                 # Don't wait to confirm running external commands, e.g. auto_view
 set noconfirmappend            # Don't ask when adding messages to a mailbox
 set sig_on_top                 # I might be killing kittens with this I hear
-set folder_format = "%t:%02C: %2N%?N? → &   ?%f %> (%s)"
 set read_inc = 100
 set net_inc = 50
 set write_inc = 100
 
 ignore *
-unignore To: From: Cc: Bcc: Date: Subject:
+unignore To: From: Cc: Date: Subject:
 unhdr_order *
-hdr_order From: Subject: Date: To: CC: Bcc:
+hdr_order From: To: Cc: Date: Subject:
 
 auto_view text/html application/x-gunzip applicaiton/x-tar-gz
 alternative_order text/plain text/html
@@ -60,26 +69,30 @@ set implicit_autoview
 set sendmail = msmtpq
 set sendmail_wait = -1
 
-folder-hook +Gmail/.* 'source ~/.mutt/personal'
-folder-hook +OtherCoders/.* 'source ~/.mutt/othercoders'
-folder-hook +Apple/.* 'source ~/.mutt/apple'
+folder-hook gmail/.* 'source ~/.dotfiles/mutt/personal'
+folder-hook emerson/.* 'source ~/.dotfiles/mutt/emerson'
+folder-hook othercoders/.* 'source ~/.dofiles/mutt/othercoders'
+folder-hook apple/.* 'source ~/.dotfiles/mutt/apple'
+folder-hook . "exec collapse-all"
 
-mailboxes +Gmail/INBOX +OtherCoders/INBOX +Apple/INBOX
-set spoolfile = +Gmail/INBOX # Set the initial open mailbox
+
+set folder = ~/.mail
+mailboxes +gmail/inbox +othercoders/inbox +apple/inbox +emerson/inbox +emerson/sent +emerson/trash
+set spoolfile = +emerson/inbox # Set the initial open mailbox
 
 set delete # delete messags when closing mailbox, don't wait for me to force it
 set nomove # Don't move read mesages from inbox (spoolfile) into mbox
-set alias_file = ~/.mutt/aliases
+set alias_file = ~/.dotfiles/mutt/aliases
 set sort_alias = alias
 
-source ~/.mutt/aliases
-source ~/.mutt/colors
-source ~/.mutt/bindings
+source ~/.dotfiles/mutt/aliases
+source ~/.dotfiles/mutt/colors
+source ~/.dotfiles/mutt/bindings
 
 macro index \Cv |urlview<enter> 'call urlview to extract URLS out of a message'
 macro pager \Cv |urlview<enter> 'call urlview to extract URLS out of a message'
 
-set crypt_use_gpgme
+# set crypt_use_gpgme
 set ignore_linear_white_space
 
 # Show version at startup
