@@ -2,7 +2,23 @@
 
 exit -1 unless ARGV.size > 1 && File.exists?(ARGV[0])
 
-require 'tempfile'
-path = Tempfile.new(File.basename(ARGV[0])).path
-File.rename(ARGV[0], path = path + File.extname(ARGV[0]))
-exec 'open', path, *ARGV[1..-1]
+def move(orig, ext = nil)
+  require 'tempfile'
+  temp = [File.basename(orig), ext || File.extname(orig)]
+  path = Tempfile.new(temp).path
+  File.rename(orig, path)
+  return path
+end
+
+file = ARGV[0]
+
+case ARGV[1]
+when 'text/html' then exec 'open', move(file, '.html')
+when 'text/enriched' then exec 'open', move(file, '.rtf')
+when 'application/pdf', 'image/pdf' then exec 'open', move(file, '.pdf')
+when 'application/postscript' then exec 'open', move(file, '.ps')
+when /video\/(.*)/ then exec 'open', move(file, ?. + $1)
+when /image\/(.*)/ then exec 'open', move(file, ?. + $1)
+else
+  exec 'open', move(file)
+end

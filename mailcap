@@ -1,12 +1,12 @@
-image/*; view_attachment %s -a Preview.app
+image/*; view_attachment %s %t
 image/*; (anytopnm %s | pnmscale -xysize 80 46 | ppmtopgm | pgmtopbm | pbmtoascii -1x2 ) 2>&1 ; copiousoutput
-video/*; view_attachment %s -a Movist.app
-text/enriched; view_attachment %s -a TextEdit.app
-text/html; view_attachment %s -a "Google Chrome.app"
-text/html; elinks -default-mime-type text/html %s; needsterminal; copiousoutput;
+video/*; view_attachment %s %t
+text/enriched; view_attachment %s %t
+text/html; view_attachment %s %t
+# text/html; elinks -default-mime-type text/html %s; needsterminal; copiousoutput;
 application/x-gunzip; gzcat; copiousoutput
 application/x-tar-gz; gunzip -c %s | tar -tf -t ; copiousoutput
-application/postscript; open -f -a Preview.app
-application/pdf; view_attachment %s -a Skim.app
-image/pdf; view_attachment %s -a Preview.app
+application/postscript; open %s %t
+application/pdf; view_attachment %s %t
+image/pdf; view_attachment %s %t
 # multipart/alternative; cat; copiousoutput
