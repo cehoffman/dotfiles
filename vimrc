@@ -821,7 +821,7 @@ endif
   let g:delimitMate_balance_matchpairs = 1
 
   " Allow for quick jumping over delimiters instead of S-Tab
-  inoremap ; <C-R>=delimitMate#JumpAny(";")<CR>
+  inoremap <expr> ; delimitMate#ShouldJump() ? "<C-R>=delimitMate#JumpAny(';')<CR>" : ";"
 " }}}
 " Tagbar - the better taglist {{{
   let g:tagbar_width = 40
