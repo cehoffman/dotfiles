@@ -24,6 +24,7 @@
     prune-all = !git remote | xargs -n 1 git remote prune
     subup = !git submodule foreach 'git co master && git reup'
     root = !pwd
+    remotes = remote -v
 [core]
     eol = lf
     compression = 9
