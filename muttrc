@@ -91,6 +91,7 @@ source ~/.dotfiles/mutt/bindings
 
 macro index \Cv |urlview<enter> 'call urlview to extract URLS out of a message'
 macro pager \Cv |urlview<enter> 'call urlview to extract URLS out of a message'
+macro index,pager o "<shell-escape>/usr/bin/python $(which offlineimap) -qf INBOX<enter>" "sync Inboxes using offline-imap"
 
 # set crypt_use_gpgme
 set ignore_linear_white_space
