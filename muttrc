@@ -13,7 +13,7 @@ set noimap_passive         # Don't wait to check folder to see if mail exists
 set timeout = 10           # Instead of waiting 10 minutes to do checks...
 set tilde                  # Show tilde like in vim
 set date_format = "%m/%d/%y"
-set index_format = "%2C: [%Z]  %D  %-30.30F  %2M %s"
+set index_format = "%3C: [%Z]  %D  %-30.30F  %2M %s"
 set folder_format = "%t %2C: %2N%?N? → &   ?%f %> (%s)"
 set status_chars = " *%A"
 set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )──?[ %P ]───"
