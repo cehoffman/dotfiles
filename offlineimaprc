@@ -55,7 +55,7 @@ type = Gmail
 remoteuser = cehoffman@gmail.com
 remotepasseval = get_password('imap.gmail.com', 'cehoffman@gmail.com')
 maxconnections = 2
-sslcacertfile = ~/.cacerts/geotrust.cer
+sslcacertfile = ~/.dotfiles/cacerts/entrust.crt
 nametrans = lambda folder: local_name('gmail', folder)
 folderfilter = lambda folder: sync('gmail', folder)
 
@@ -79,7 +79,7 @@ nametrans = lambda folder: remote_name('gmail', folder)
 type = Gmail
 remoteuser = cehoffman@othercoders.com
 remotepasseval = get_password('imap.gmail.com', 'cehoffman@othercoders.com')
-sslcacertfile = ~/.cacerts/geotrust.cer
+sslcacertfile = ~/.dotfiles/cacerts/entrust.crt
 maxconnections = 2
 nametrans = lambda folder: local_name('gmail', folder)
 folderfilter = lambda folder: sync('gmail', folder)
@@ -109,7 +109,7 @@ ssl = yes
 maxconnections = 2
 nametrans = lambda folder: local_name('apple', folder)
 folderfilter = lambda folder: sync('apple', folder)
-sslcacertfile = ~/.cacerts/verisign-3g5.pem
+sslcacertfile = ~/.dotfiles/cacerts/equifax.crt
 
 ###########################################################################
 #                                 Emerson                                 #
