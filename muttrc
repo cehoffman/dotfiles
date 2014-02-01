@@ -66,8 +66,8 @@ set implicit_autoview
 # set sidebar_visible = yes
 # set sidebar_delim   = '│' # options are ─ ━ ┃
 
-set sendmail = msmtpq
-set sendmail_wait = -1
+set sendmail = msmtp
+set sendmail_wait = 0
 
 folder-hook gmail/.* 'source ~/.dotfiles/mutt/personal'
 folder-hook emerson/.* 'source ~/.dotfiles/mutt/emerson'
