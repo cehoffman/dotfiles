@@ -77,7 +77,7 @@ folder-hook . "exec collapse-all"
 
 
 set folder = ~/.mail
-mailboxes +gmail/inbox +othercoders/inbox +apple/inbox +emerson/inbox +emerson/sent +emerson/trash
+mailboxes +gmail/inbox +gmail/trash +othercoders/inbox +apple/inbox +apple/trash +emerson/inbox +emerson/sent +emerson/trash
 set spoolfile = +emerson/inbox # Set the initial open mailbox
 
 set delete # delete messags when closing mailbox, don't wait for me to force it
