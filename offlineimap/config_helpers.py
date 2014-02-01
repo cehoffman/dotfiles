@@ -73,7 +73,8 @@ excluded = {
         'Junk',
         'Junk E-mail',
         'Sync Issues.*',
-        'Unsent Messages'
+        'Unsent Messages',
+        'Sent Messages'
     ],
     'gmail': [
         '.*' # Exlude all gmail folders by default
