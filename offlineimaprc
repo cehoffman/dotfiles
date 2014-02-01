@@ -129,10 +129,11 @@ nametrans = lambda folder: remote_name('emerson', folder)
 
 [Repository EmersonRemote]
 type = IMAP
-remotehost = localhost
+remotehost = ceh.im
 remoteport = 1143
 remoteuser = emrsn.org\choffman
 remotepasseval = get_password('mail.emerson.com', 'emrsn.org\choffman')
-ssl = no
+ssl = yes
+sslcacertfile = ~/.dotfiles/cacerts/startcom.pem
 folderfilter = lambda folder: sync('emerson', folder)
 nametrans = lambda folder: local_name('emerson', folder)
