@@ -63,8 +63,8 @@ bind pager j next-line
 bind pager k previous-line
 bind pager gg top
 bind pager G bottom
-bind pager \Cf previous-page # was forget-passphrase
-bind pager \Cb next-page
+bind pager \Cf next-page # was forget-passphrase
+bind pager \Cb previous-page
 bind pager \Cd half-down # was delete-thread
 bind pager \Cu half-up # was undelete-thread
 bind pager <Up> noop # was previous-undeleted
