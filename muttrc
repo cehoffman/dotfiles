@@ -94,6 +94,20 @@ macro pager \Cv |urlview<enter> 'call urlview to extract URLS out of a message'
 macro index,pager o "<shell-escape>/usr/bin/python $(which offlineimap) -qf INBOX<enter>" "sync Inboxes using offline-imap"
 
 # set crypt_use_gpgme
+set pgp_sign_as=0x01F3E778
+set pgp_timeout=60
+set crypt_replysign          # Sign replys when author signed
+set crypt_replyencrypt       # Encrypt replys when author encrypted
+set crypt_replysignencrypted # Sign any auto encrypted replys
+set crypt_verify_sig         # Automatically verify signatures
+set crypt_autopgp            # Automatically do Sign/Encrypt based on above
+set pgp_auto_decode
+set pgp_use_gpg_agent        # Make use of the caching from gpg-agent
+
+source ~/.dotfiles/mutt/gpg.rc
+
+set display_filter = "~/.dotfiles/mutt/local-date"
+
 set ignore_linear_white_space
 
 # Show version at startup

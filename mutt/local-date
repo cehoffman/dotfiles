@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby -p
+
+if $_ =~ /^Date: (.*)/
+  require 'time'
+  time = Time.parse($1).localtime
+  puts "Local-Date: #{time.strftime("%a %b %d, %Y at %I:%m:%S %p")}"
+end

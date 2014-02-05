@@ -1,7 +1,3 @@
-set smime_is_default
-set crypt_autosmime
-set crypt_autosign
-
 set from = "cehoffman@gmail.com"
 
 unset record

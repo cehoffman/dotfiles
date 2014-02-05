@@ -1,7 +1,3 @@
-set nosmime_is_default
-set nocrypt_autosmime
-set nocrypt_autosign
-
 set from = "cehaderach@icloud.com"
 
 set copy
