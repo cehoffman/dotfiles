@@ -29,6 +29,8 @@ bind index U undelete-subthread
 bind index <Tab> sync-mailbox
 bind index $ noop # Was sync-mailbox
 bind index p recall-message
+bind index n next-new-then-unread
+bind index :q quit
 
 bind query q exit
 
