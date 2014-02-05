@@ -7,9 +7,6 @@
 [submodule "dotjs-js"]
 	path = js
 	url = git@ceh.im:cehoffman/dotjs-js
-[submodule "coresys/formula"]
-	path = coresys/formula
-	url = git@github.com:cehoffman/coresys-formula
 [submodule "rbenv"]
 	path = rbenv
 	url = https://github.com/cehoffman/rbenv.git
