@@ -54,7 +54,9 @@ module Pkgs extend self
       _files(p).each { |f| _rm f }
 
       puts "Removing empty directories left by #{p}"
-      _dirs(p).each { |f| _rmdir f }
+      _dirs(p).sort do |a, b|
+        b.split(File::SEPARATOR).size <=> a.split(File::SEPARATOR).size
+      end.each { |f| _rmdir f }
 
       _forget p
       puts "Removed #{p}"
