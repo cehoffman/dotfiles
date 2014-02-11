@@ -1,7 +1,20 @@
 #!/usr/bin/env ruby -p
 
-if $_ =~ /^Date: (.*)/
-  require 'time'
-  time = Time.parse($1).localtime
-  puts "Local-Date: #{time.strftime("%a %b %d, %Y at %I:%m:%S %p")}"
+begin
+  if $_ =~ /^Date: (.*)/
+    require 'time'
+    time = Time.parse($1).localtime
+    puts "Local-Date: #{time.strftime("%a %b %d, %Y at %I:%M:%S %p")}"
+  end
+rescue ArgumentError
+  # My environment is setup to use utf-8 everywhere so when a file isn't that
+  # and it hasn't automatically been converted to utf-8 things like this script
+  # will break. This tries to dumbly guess the source files encoding and
+  # transcode to utf-8. This seems to have the added benefit of fixing mutt so
+  # I see accented characters instead of the garbage ? enven though mutt is
+  # setup to use utf-8 and my terminal locale is set to en_US.UTF-8 for all
+  # variables.
+
+  # The text wasn't utf-8 so try next common iso 8859-1 encoding
+  $_.force_encoding('iso-8859-1').encode!('utf-8')
 end
