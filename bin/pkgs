@@ -63,6 +63,7 @@ module Pkgs extend self
     end
   end
   alias remove un
+  alias rm un
 
   def pkgutil(*args)
     stdout = IO.popen(['pkgutil', *args]).read
