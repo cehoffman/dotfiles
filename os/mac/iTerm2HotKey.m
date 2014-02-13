@@ -44,6 +44,25 @@ void shutdown(int signum) {
   [[NSApplication sharedApplication] terminate:nil];
 }
 
+bool activate(NSRunningApplication *app) {
+  return [[NSWorkspace sharedWorkspace] launchApplicationAtURL:[app bundleURL]
+                                                       options:NSWorkspaceLaunchDefault
+                                                 configuration:nil
+                                                         error:nil];
+}
+
+bool activeWindows(pid_t pid) {
+  NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID));
+
+  for (NSMutableDictionary *entry in windowList) {
+    if (pid == [[entry objectForKey:(id)kCGWindowOwnerPID] integerValue]) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 OSStatus hotkey_handler(EventHandlerCallRef next, EventRef event, void *data) {
   NSRunningApplication *iTerm2;
   NSArray *apps = [NSRunningApplication
@@ -60,21 +79,31 @@ OSStatus hotkey_handler(EventHandlerCallRef next, EventRef event, void *data) {
       NSRunningApplication *lastApp = [NSRunningApplication
         runningApplicationWithProcessIdentifier:lastActive];
 
-      if (lastApp) {
-        [[NSWorkspace sharedWorkspace] launchApplicationAtURL:[lastApp bundleURL]
-                                                      options:NSWorkspaceLaunchDefault
-                                                configuration:nil
-                                                        error:nil];
+      if (lastApp && activeWindows([lastApp processIdentifier])) {
+        NSLog(@"Activating last active %d", lastActive);
+
+        if (activate(lastApp)) {
+          NSLog(@"Succeeded");
+        } else {
+          NSLog(@"Failed");
+        }
+      } else {
+        apps = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.Safari"];
+        if ([apps count] > 0) {
+          activate([apps objectAtIndex:0]);
+        }
       }
     } else {
       // Since we don't know who to activate, just hide to achieve effect
       [iTerm2 hide];
     }
   } else {
-    [[NSWorkspace sharedWorkspace] launchApplicationAtURL:[iTerm2 bundleURL]
-                                                  options:NSWorkspaceLaunchDefault
-                                            configuration:nil
-                                                    error:nil];
+    NSLog(@"Activating iTerm");
+    if (activate(iTerm2)) {
+      NSLog(@"Succeeded");
+    } else {
+      NSLog(@"Failed");
+    }
   }
 
   return noErr;
