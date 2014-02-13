@@ -9,4 +9,5 @@ application/x-tar-gz; gunzip -c %s | tar -tf -t ; copiousoutput
 application/postscript; open %s %t
 application/pdf; view_attachment %s %t
 image/pdf; view_attachment %s %t
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; view_attachment %s %t
 # multipart/alternative; cat; copiousoutput
