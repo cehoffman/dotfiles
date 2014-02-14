@@ -1,7 +1,7 @@
 # Setup Rbenv if it exists
-if [[ -x ~/.dotfiles/rbenv/bin/rbenv ]]; then
+if [[ -x ~/.rbenv/bin/rbenv ]]; then
   # Include shims here so it sits above the system tools
-  path=(~/.dotfiles/rbenv/bin ~/.rbenv/shims $path)
+  path=(~/.rbenv/bin ~/.rbenv/shims $path)
   eval "$(rbenv init -)"
   function gem() {
     command gem "$@"

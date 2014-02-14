@@ -1,4 +1,4 @@
-if [[ -x ~/.dotfiles/luaenv/bin/luaenv ]]; then
-  path=(~/.dotfiles/luaenv/bin ~/.luaenv/shims $path)
+if [[ -x ~/.luaenv/bin/luaenv ]]; then
+  path=(~/.luaenv/bin ~/.luaenv/shims $path)
   eval "$(luaenv init -)"
 fi
