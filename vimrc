@@ -1,20 +1,20 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-set runtimepath=~/.vim,$VIMRUNTIME
+set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
 if $LPKG_PREFIX != ''
   exe "set runtimepath+=" . $LPKG_PREFIX . '/share/vim'
 endif
-set runtimepath+=~/.vim/after
+set runtimepath+=~/.dotfiles/vim/after
 
 " Vundle initialization {{{
   filetype off
   " runtime! bundle/vim-pathogen/autoload/pathogen.vim
-  if !filereadable(expand('~/.vim/bundle/vundle/README.md'))
-    silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+  if !filereadable(expand('~/.dotfiles/vim/bundle/vundle/README.md'))
+    silent !git clone https://github.com/gmarik/vundle.git ~/.dotfiles/vim/bundle/vundle
   endif
 
-  set rtp+=~/.vim/bundle/vundle
+  set rtp+=~/.dotfiles/vim/bundle/vundle
   call vundle#rc()
 
   Bundle 'gmarik/vundle'
@@ -135,15 +135,15 @@ set runtimepath+=~/.vim/after
 
   if has("persistent_undo")
     set undofile
-    set undodir=~/.vim/undo,tmp
+    set undodir=~/.dotfiles/vim/undo,tmp
   endif
-  set backupdir=~/.vim/backup
+  set backupdir=~/.dotfiles/vim/backup
   set backup
   set nowritebackup
   set noswapfile
 
   if has("spell")
-    set spellfile=~/.vim/spell/common.utf-8.add  " store common correct/incorrect works in a shared place
+    set spellfile=~/.dotfiles/vim/spell/common.utf-8.add  " store common correct/incorrect works in a shared place
   endif
 
   " Tab completion options
