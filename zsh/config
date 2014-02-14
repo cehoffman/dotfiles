@@ -97,7 +97,7 @@ fi
 export EDITOR='vim'
 
 path=(/Applications/VirtualBox.app/Contents/MacOS(/) $HOME/.local/{s,}bin(/) $HOME/.bin(/) $HOME/.bin(@) /usr/texbin/(/) $path)
-fpath=(~/.zsh/functions ~/.zsh/vendor/completions/src(/) $HOME/.local/share/zsh/site-functions(/) $fpath)
+fpath=(~/.dotfiles/zsh/functions ~/.dotfiles/zsh/vendor/completions/src(/) $HOME/.local/share/zsh/site-functions(/) $fpath)
 manpath=($HOME/.local/share/man(/) /usr/local/share/man /usr/share/man $manpath)
 
 if [[ -o interactive ]]; then
@@ -108,7 +108,7 @@ fi
 # Load all of your custom configurations from envs/
 function {
   local config_file
-  for config_file (~/.zsh/envs/*(on)) source $config_file
+  for config_file (~/.dotfiles/zsh/envs/*(on)) source $config_file
 }
 
 if [[ $IS_MAC -eq 1 ]]; then
@@ -132,19 +132,19 @@ if [[ -o interactive ]]; then
   command -v stty &> /dev/null && stty -ixon
 
   # Make a nice colored interactive prompt
-  source ~/.zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source ~/.dotfiles/zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ZSH_HIGHLIGHT_STYLES[path]=none
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets) # cursor pattern
 
   # Add nice shortcuts like ci" to standard vi mode
-  if [[ ! -f ~/.zsh/functions/opp-install ]]; then
-    zsh -c 'for O in ~/.zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.zsh/vendor/opp.zsh ~/.zsh/functions'
+  if [[ ! -f ~/.dotfiles/zsh/functions/opp-install ]]; then
+    zsh -c 'for O in ~/.dotfiles/zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.dotfiles/zsh/vendor/opp.zsh ~/.dotfiles/zsh/functions'
   fi
-  . ~/.zsh/functions/opp-install
+  . ~/.dotfiles/zsh/functions/opp-install
   opp-install
   autoload opp
 
-  source ~/.zsh/vendor/autoenv/activate.sh
+  source ~/.dotfiles/zsh/vendor/autoenv/activate.sh
 
   # Color all stderr lines yellow only when interactive The guard prevent
   # a proliferation of processes when using exec to replace the current shell

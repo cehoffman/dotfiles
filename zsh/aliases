@@ -14,7 +14,7 @@ alias x='extract -d'
 alias history='fc -l 1'
 
 function reload() {
-  autoload -U ~/.zsh/functions/*(:t)
+  autoload -U ~/.dotfiles/zsh/functions/*(:t)
 }
 reload
 
