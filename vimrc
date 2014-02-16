@@ -71,7 +71,6 @@ set runtimepath+=~/.dotfiles/vim/after
   Bundle 'nono/vim-handlebars'
   Bundle 'groenewege/vim-less'
   Bundle 'ZoomWin'
-  Bundle 'vim-scripts/vim-signify'
   Bundle 'sjl/vitality.vim'
 " }}}
 
