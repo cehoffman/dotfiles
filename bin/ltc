@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'open-uri'
+
+module LTC extend self
+  ADDRESSES = %w(LamdD5SVCKNsfBDRtcFMCeeA1DZXYd8oF9 LMXcmNAtg3775GEmmf6EuKFoTTjSczVw8k)
+
+  def _miner
+    @soc ||= begin
+               require 'socket'
+               TCPSocket.new 'miner1.local', 4028
+             end
+  end
+
+  def status
+    _miner.write({command: 'devs'}.to_json)
+    data = JSON.parse(_miner.read.strip.encode('utf-8', 'ascii'))
+
+    data["DEVS"].map do |gpu|
+      gpu = Hash[gpu.map { |k,v| [k.to_sym, v] }]
+      "GPU %{GPU}: %{Enabled}(%{Status}) %{Temperature}˚C %4{Fan Speed}RPM %{KHS 5s}Kh/s %<Utility>3.3f %{GPU Clock}KHz %{GPU Voltage}V %{Memory Clock}KHz HW:%{Hardware Errors} I:%{Intensity} R:%02.3{Device Rejected%}" % gpu
+    end
+  end
+
+  def summary
+    [total, usd, "Valued: %s" % [_comma("$%.2f" % [_total * _usd])]]
+  end
+
+  def _comma(s)
+    s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
+  end
+
+  def total
+    "LTC: %.8f" % [_total]
+  end
+
+  def _total
+    @ltc ||= JSON.parse(open("http://ltc.blockr.io/api/v1/address/balance/#{ADDRESSES.join(',')}").read).fetch('data', {}).inject(0) { |a,f| a + f['balance'].to_f }
+  end
+
+  def usd
+    "USD: %s" % [_comma("$%.2f" % [_usd])]
+  end
+
+  def _usd
+    _ltc2btc * _btc2usd
+  end
+
+  def _ltc2btc
+    @ltc2btc ||= JSON.parse(open('https://btc-e.com/api/2/ltc_btc/ticker').read).fetch('ticker', {}).fetch('last', 0).to_f
+  end
+
+  def _btc2usd
+    @btc2usd ||= JSON.parse(open('https://coinbase.com/api/v1/currencies/exchange_rates').read).fetch('btc_to_usd', 0).to_f
+  end
+
+  def method_missing(method, *args, &block)
+    [
+      ['COMMAND', 'DESCRIPTION'],
+      ['usd', 'show the current USD conversion of Litecoin'],
+      ['status', 'show the current miner gpu status'],
+      ['total', 'show the current toal of owned LTC'],
+      ['summary', 'show the current total of owned LTC and USB equivalent'],
+    ].map { |x| x[0] = x[0].ljust(8); "%s %s" % x }
+  end
+end
+
+puts LTC.send ARGV.shift
