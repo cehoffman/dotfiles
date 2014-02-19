@@ -1,11 +1,7 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
-if $LPKG_PREFIX != ''
-  exe "set runtimepath+=" . $LPKG_PREFIX . '/share/vim'
-endif
-set runtimepath+=~/.dotfiles/vim/after
+set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vim/after
 
 " Vundle initialization {{{
   filetype off
@@ -36,7 +32,7 @@ set runtimepath+=~/.dotfiles/vim/after
   Bundle 'cehoffman/vim-ragtag'
   Bundle 'cehoffman/csv.vim'
   Bundle 'cehoffman/vim-lua'
-  Bundle 'scrooloose/syntastic'
+  " Bundle 'scrooloose/syntastic'
   Bundle 'mileszs/ack.vim'
   Bundle 'kchmck/vim-coffee-script'
   Bundle 'vim-ruby/vim-ruby'
@@ -45,12 +41,11 @@ set runtimepath+=~/.dotfiles/vim/after
   Bundle 'tmatilai/gitolite.vim'
   Bundle 'othree/html5.vim'
   Bundle 'vim-scripts/UltiSnips'
-  Bundle 'Lokaltog/vim-easymotion'
+  " Bundle 'Lokaltog/vim-easymotion'
   Bundle 'godlygeek/tabular'
   Bundle 'ecomba/vim-ruby-refactoring'
   Bundle 'majutsushi/tagbar'
   Bundle 'kana/vim-textobj-user'
-  Bundle 'kana/vim-textobj-entire'
   Bundle 'nelstrom/vim-textobj-rubyblock'
   Bundle 'gregsexton/gitv'
   Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git'
@@ -60,10 +55,7 @@ set runtimepath+=~/.dotfiles/vim/after
   Bundle 'AndrewRadev/splitjoin.vim'
   Bundle 'kien/rainbow_parentheses.vim'
   Bundle 'kien/ctrlp.vim'
-  Bundle 'jasoncodes/ctrlp-modified.vim'
   Bundle 'LaTeX-Box-Team/LaTeX-Box'
-  Bundle 'benmills/vimux'
-  Bundle 'pgr0ss/vimux-ruby-test'
   Bundle 'vim-scripts/Match-Bracket-for-Objective-C'
   Bundle 'kergoth/vim-bitbake'
   Bundle 'joonty/vdebug'
@@ -178,14 +170,6 @@ let maplocalleader = ',' " \ is the default
   map j gj
   map k gk
 
-  " Make for some better autocompletion
-  " inoremap <C-]> <C-X><C-]>
-  " inoremap <C-F> <C-X><C-F>
-
-  " Make going to beginning and end of line easier, uh oh emacs
-  " inoremap <C-E> <C-O>$
-  " inoremap <C-A> <C-O>^
-
   " Don't use Ex mode, use Q for formatting
   map Q gq
 
@@ -197,12 +181,6 @@ let maplocalleader = ',' " \ is the default
   nnoremap # #zzzv
   nnoremap n nzzzv
   nnoremap N Nzzzv
-
-  " Make it easier to select []
-  onoremap id i[
-  onoremap ad a[
-  vnoremap id i[
-  vnoremap ad a[
 
   " Mode Toggles {{{
     " Toggle spell checking
@@ -221,9 +199,6 @@ let maplocalleader = ',' " \ is the default
     nnoremap <silent> <Leader><C-l> :redraw!<CR>
     vnoremap <silent> <Leader><C-l> :redraw!<CR>
   " }}}
-
-  " Allow inserting just one stupid character
-  " nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
 
   " Don't move the cursosr after pasting
   " noremap p p`[
@@ -255,6 +230,8 @@ let maplocalleader = ',' " \ is the default
   cnoremap <C-P> <Up>
   cnoremap <C-N> <Down>
 
+  " Make it easy to select the whole buffer
+  vnoremap ae ggVG$
 
   " Easy abbreviation to get path to current file mine file
   cabbrev %% <C-R>=expand('%:p:h').'/'<cr>
@@ -438,19 +415,9 @@ if has("autocmd")
           \ if &omnifunc == "" |
           \   setlocal omnifunc=syntaxcomplete#Complete |
           \ endif
-    autocmd FileType ruby,eruby,haml setlocal omnifunc=rubycomplete#Complete
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
 
     autocmd FileType vim,ruby setlocal formatoptions-=o formatoptions-=r
     autocmd FileType vim setlocal foldmethod=marker foldmarker={{{,}}}
-    autocmd FileType nerdtree setlocal nolist nowrap
-
-    " autocmd BufEnter,BufWinEnter,CursorHold,CursorHoldI,CursorMoved,CursorMovedI *.log :checktime
   augroup END " }}}
   " Statusline {{{
     " Statusline updater {{{
@@ -832,16 +799,7 @@ endif
   " Make accessing the taglist easier
   nnoremap <silent> <Leader>ll :TagbarToggle<CR>
 " }}}
-" Svndiff config {{{
-  let g:svndiff_autoupdate = 1
-  let g:svndiff_one_sign_delete = 1
-  nnoremap <silent> <Leader>dd :call Svndiff()<CR>
-  " augroup SvnDiffFugitive
-  "   au!
-  "   autocmd User Fugitive if fugitive#buffer().type('file') && &filetype != 'help' && !&diff | :call Svndiff('next') | endif
-  " augroup END
-" }}}
-" Gundo settings {{{
+" Undotree settings {{{
   nnoremap <silent> <F5> :UndotreeToggle<CR>
   let g:undotree_SplitWidth = 50
   let g:undotree_SetFocusWhenToggle = 1
@@ -871,22 +829,15 @@ endif
 " }}}
 " ZoomWin mapings {{{
   " Remove default zoomwin mapping
-  if mapcheck('<C-W>o') =~ '<Plug>ZoomWin'
-    unmap <C-W>o
-    noremap <silent> <Leader>wo :ZoomWin<CR>
-  endif
+  " if mapcheck('<C-W>o') =~ '<Plug>ZoomWin'
+  "   unmap <C-W>o
+  "   noremap <silent> <Leader>wo :ZoomWin<CR>
+  " endif
 " }}}
 " UltiSnips settings {{{
-   let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-" }}}
-" Parameter Object settings {{{
-  let g:no_parameter_object_maps = 1
-  " Must not use noremap because other functionality must be triggered
-  vmap <silent> ia <Plug>ParameterObjectI
-  omap <silent> ia <Plug>ParameterObjectI
-  vmap <silent> aa <Plug>ParameterObjectA
-  omap <silent> aa <Plug>ParameterObjectA
+   let g:UltiSnipsExpandTrigger  = "<C-j>"
+   let g:UltiSnipsJumpForwardTrigger  = "<C-j>"
+   let g:UltiSnipsJumpBackwardTrigger = "<C-S-j>"
 " }}}
 " CSV settings {{{
   let g:csv_hiHeader = 'CSVHiColumnHeader'
@@ -957,9 +908,12 @@ endif
   let g:clang_snippets_engine = 'ultisnips'
   let g:filetype_m = 'objc' " default to .m files being objc
 " }}}
-" Signify {{{
-  let g:signify_vcs_list = ['git', 'svn']
+" GPG Configuraton {{{
+  let g:GPGExecutable = 'gpg2'
+  let g:GPGDefaultRecipients = ['cehoffman@ceh.im']
+  let g:GPGUsePipes = 1
 " }}}
+" let g:vitality_fix_focus = 1
 
 " Window Management {{{
   " Open a yanked window {{{
