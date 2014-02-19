@@ -71,8 +71,8 @@ if [[ $IS_MAC -eq 1 ]]; then
   alias mosh="env -u DYLD_INSERT_LIBRARIES mosh"
 
   # show and hide files from Finder
-  alias hide="chflags hidden"
-  alias show="chflags nohidden"
+  alias hide="SetFile -a V"
+  alias show="SetFile -a v"
   alias ql="qlmanage -p 2>/dev/null"
 
   function vol() {
