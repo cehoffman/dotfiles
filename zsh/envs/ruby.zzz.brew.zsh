@@ -12,8 +12,8 @@ if [[ -a ~/.homebrew/bin/brew ]]; then
       path=($LPKG_PREFIX/share/python $path)
     fi
 
-    if [[ $IS_LINUX -eq 1 ]]; then
-      export LD_LIBRARY_PATH="$LPKG_PREFIX/lib:$LD_LIBRARY_PATH"
+    if [[ $IS_LINUX = 0 ]]; then
+      export LD_LIBRARY_PATH="$HOME/.homebrew/lib:$LD_LIBRARY_PATH"
     fi
   }
 else

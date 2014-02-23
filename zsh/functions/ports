@@ -1,4 +1,4 @@
-if [[ $IS_MAC -eq 1 ]]; then
+if [[ $IS_MAC = 0 ]]; then
   sudo lsof -i -P | grep -i listen
 else
   netstat -autp | grep -i listen

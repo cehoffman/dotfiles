@@ -1,7 +1,7 @@
 # Some basic env setup used throughout config
-IS_MAC=$([[ $(uname) != Darwin ]]; echo -n $?)
-IS_LINUX=$([[ $(uname) != Linux ]]; echo -n $?)
-IS_CYGWIN=$([[ $IS_MAC == 1 || $(uname -o) != Cygwin ]]; echo -n $?)
+[[ $OSTYPE =~ ^darwin ]]; IS_MAC=$?
+[[ $OSTYPE =~ ^linux ]]; IS_LINUX=$?
+# [[ $OSTYPE =~ ^cygwin ]]; IS_CYGWIN=$?
 
 # Enable hooks
 typeset -gUa preexec_functions
@@ -111,7 +111,7 @@ function {
   for config_file (~/.dotfiles/zsh/envs/*(on)) source $config_file
 }
 
-if [[ $IS_MAC -eq 1 ]]; then
+if [[ $IS_MAC = 0 ]]; then
   fignore+='.DS_Store'
   export __CF_USER_TEXT_ENCODING="$(printf '0x%X' $(id -u)):0x08000100:0"
 fi

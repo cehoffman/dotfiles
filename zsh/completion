@@ -107,6 +107,6 @@ function {
   for hash in md5 sha1 sha256 sha512; compdef _files $hash
 }
 
-[[ $IS_MAC = 1 ]] && compdef _man pman
+[[ $IS_MAC = 0 ]] && compdef _man pman
 
 # vim: filetype=zsh

@@ -39,7 +39,7 @@ function 256c() {
   echo -n "\e[38;5;${1}m${${(z)*}[2,-1]}"
 }
 
-if [[ $IS_MAC -eq 1 ]]; then
+if [[ $IS_MAC = 0 ]]; then
   # Aliases for setuid/setgid programs on Mac 10.8 to avoid DYLD_ complaints
   alias ps="env -u DYLD_INSERT_LIBRARIES ps"
   alias rcp="env -u DYLD_INSERT_LIBRARIES rcp"
