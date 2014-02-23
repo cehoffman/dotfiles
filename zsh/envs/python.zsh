@@ -1,4 +1,4 @@
-if [[ -a $(which virtualenv) ]]; then
+if command -v virtualenv &> /dev/null; then
   # Virtualenvwrapper
   # export WORKON_HOME="$HOME/.virtualenvs"
   # hash -d virtualenvs=$WORKON_HOME
