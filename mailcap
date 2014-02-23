@@ -3,7 +3,7 @@ image/*; (anytopnm %s | pnmscale -xysize 80 46 | ppmtopgm | pgmtopbm | pbmtoasci
 video/*; view_attachment %s %t
 text/enriched; view_attachment %s %t
 text/html; view_attachment %s %t
-# text/html; elinks -default-mime-type text/html %s; needsterminal; copiousoutput;
+text/html; elinks -default-mime-type text/html %s; needsterminal; copiousoutput;
 application/x-gunzip; gzcat; copiousoutput
 application/x-tar-gz; gunzip -c %s | tar -tf -t ; copiousoutput
 application/postscript; open %s %t
