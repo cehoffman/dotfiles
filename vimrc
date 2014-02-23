@@ -868,17 +868,17 @@ endif
   " }}}
   noremap <silent> <Leader><Tab> :call <SID>ScratchToggle()<CR>
 " }}}
-" Threesome configuration {{{
-  let g:threesome_initial_mode = "grid"
-  let g:threesome_initial_diff_grid = 1
-  let g:threesome_initial_diff_compare = 1
-  let g:threesome_initial_diff_path = 4
-  let g:threesome_initial_layout_grid = 1
-  let g:threesome_initial_layout_compare = 1
-  let g:threesome_initial_layout_path = 1
-  let g:threesome_initial_scrollbind_loupe = 1
-  let g:threesome_initial_scrollbind_compare = 1
-  let g:threesome_initial_scrollbind_path = 1
+" Splice configuration {{{
+  let g:splice_initial_mode = "grid"
+  let g:splice_initial_diff_grid = 1
+  let g:splice_initial_diff_compare = 1
+  let g:splice_initial_diff_path = 4
+  let g:splice_initial_layout_grid = 1
+  let g:splice_initial_layout_compare = 1
+  let g:splice_initial_layout_path = 1
+  let g:splice_initial_scrollbind_loupe = 1
+  let g:splice_initial_scrollbind_compare = 1
+  let g:splice_initial_scrollbind_path = 1
 " }}}
 " Latex Box {{{
   let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
