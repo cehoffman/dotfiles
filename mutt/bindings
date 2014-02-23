@@ -110,4 +110,20 @@ bind compose zt current-top
 bind compose zz current-middle
 bind compose zb current-bottom
 
+# Attach a file from a standard place we keep it, then mark it for deletion
+# upon being sent.
+macro compose B "<attach-file>~/Documents/mutt-html-alternative.html<Enter><toggle-disposition><toggle-unlink>"
+
+macro index,pager,attach,compose \Cv "\
+<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<Enter>\
+<pipe-message>urlview<Enter>\
+<enter-command>set pipe_decode=\$my_pipe_decode;unset my_pipe_decode<Enter>" 'call urlview to extract URLS out of a message'
+
+macro index,pager o "<shell-escape>/usr/bin/python $(which offlineimap) -qf INBOX<Enter>" "sync inboxes using offline-imap"
+
+macro index,pager = <change-folder>= "Make it easy to change to other conical mailboxes"
+
+macro index,pager ,g <change-folder>=gmail/inbox<Enter> 'open gmail inbox'
+macro index,pager ,e <change-folder>=emerson/inbox<Enter> 'open emerson inbox'
+
 # vim: set ft=muttrc:
