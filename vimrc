@@ -32,7 +32,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'cehoffman/vim-ragtag'
   Bundle 'cehoffman/csv.vim'
   Bundle 'cehoffman/vim-lua'
-  " Bundle 'scrooloose/syntastic'
+  Bundle 'scrooloose/syntastic'
   Bundle 'mileszs/ack.vim'
   Bundle 'kchmck/vim-coffee-script'
   Bundle 'vim-ruby/vim-ruby'
