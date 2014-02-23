@@ -7,10 +7,10 @@ if [[ -a ~/.homebrew/bin/brew ]]; then
     fpath=($LPKG_PREFIX/share/zsh/functions(/) $fpath)
 
     # Homebrew Python setup
-    if brew list | grep python &> /dev/null ; then
-      path=($(python -c "from sys import prefix; print prefix")/bin $path)
-      path=($LPKG_PREFIX/share/python $path)
-    fi
+    # if [[ -d $HOME/.homebrew/Cellar/python ]]; then
+    #   path=($(python -c "from sys import prefix; print prefix")/bin $path)
+    #   path=($HOME/.homebrew/share/python $path)
+    # fi
 
     if [[ $IS_LINUX = 0 ]]; then
       export LD_LIBRARY_PATH="$HOME/.homebrew/lib:$LD_LIBRARY_PATH"
