@@ -274,7 +274,8 @@ let maplocalleader = ',' " \ is the default
       let bufnrlist = tabpagebuflist(i)
 
       " Let vim know which tab this delineates
-      let label .= '%' . (i == current ? '#TabLineSel#' : '#TabLine#') . ' %' . i . 'T'
+      let label .= '%#TabLine# '
+      let label .= '%' . (i == current ? '#TabLineSel#' : '#TabLine#') . '%' . i . 'T'
 
       " Append the tab number
       let label .= i . ': '
@@ -303,7 +304,7 @@ let maplocalleader = ',' " \ is the default
       endfor
 
       " Append the number of windows in the tab page
-      let label .= '[' . tabpagewinnr(i, '$') . ']'
+      let label .= '[' . tabpagewinnr(i, '$') . ']' . (i == current ? '' : '')
       let i += 1
     endwhile
 
