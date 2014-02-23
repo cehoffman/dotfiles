@@ -2,7 +2,8 @@
 if [[ -x ~/.rbenv/bin/rbenv ]]; then
   # Include shims here so it sits above the system tools
   path=(~/.rbenv/bin ~/.rbenv/shims $path)
-  eval "$(rbenv init -)"
+  source ~/.rbenv/completions/rbenv.zsh
+  # eval "$(rbenv init -)"
   function gem() {
     command gem "$@"
     case "$1" in
