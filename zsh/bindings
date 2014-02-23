@@ -9,6 +9,9 @@ bindkey -M vicmd '	' complete-word
 bindkey '^?' backward-delete-char
 bindkey '^H' backward-delete-char
 
+# The zsh vi-kill-whole-line stops at last insert point
+bindkey '^U' kill-whole-line
+
 # Setup undo redo in cmd
 bindkey -M vicmd '^r' redo
 bindkey -M vicmd 'u' undo
