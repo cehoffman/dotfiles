@@ -1,3 +1,6 @@
+# Keep the right side of prompt flush with terminal
+export ZLE_RPROMPT_INDENT=0
+
 __prompt_mode_insert="%B%F{blue}i%{$reset_color%}"
 __prompt_mode_cmd="%B%F{yellow}n%{$reset_color%}"
 __prompt_mode=$__prompt_mode_insert
@@ -72,7 +75,7 @@ function {
   local name="%(!.$bold_magenta.$blue)%n$black"
   local last_exit="${bold_red}%(?..E:%? )"
 
-  PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close\$_pr_fillwidth\${_pr_extras:+${(qqq)open}${(qqq)reset}\${(j: :)_pr_extras}${(qqq)close}${(qqq)ur}}
+  PROMPT="$ul$open$name@$red%m$reset:%\$_pr_pwdlen<…<\$_pr_pwd%<<$close%{ %}\$_pr_fillwidth\${_pr_extras:+${(qqq)open}${(qqq)reset}\${(j: :)_pr_extras}${(qqq)close}${(qqq)ur}}
 $ll$open$last_exit\${(j: :)_pr_short_extras}\${_pr_short_extras:+ }\$__prompt_mode$close%(!.$red.$black)⎬$reset "
   RPROMPT=" $open$reset%D{%H:%M} ${bold_black}on $reset%D{%a %b %d}$close\${_pr_extras:+${(qqq)lr}}$reset"
   PS2="$open$bold_cyan%_$close$reset "
@@ -298,8 +301,8 @@ function _prompt_precmd {
   # need to be truncated to fit the first line of prompt
   # local promptsize=${#${(%):---(%n@%m:)---(${(j: :)infos})--}}
   local promptsize
+  _pr_fillwidth=''
   function calc_promptsize() {
-    _pr_fillwidth=''
     promptsize=${(S%%)${(e)PROMPT}//(\%([KF1]|)\{*\}|\%[BbkfsS])}
     promptsize=${${(f)promptsize}[1]}
     promptsize=$(( $#promptsize - $pwdsize + 1 ))
