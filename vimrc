@@ -331,6 +331,9 @@ if has("autocmd")
     autocmd BufRead,BufNewFile config.ru,Guardfile set ft=ruby
     autocmd BufRead,BufNewFile *.cjs set ft=javascript
 
+    " Maintain tabs for idiomatic go code
+    autocmd FileType go setlocal noexpandtab softtabstop=2 tabstop=2 listchars+=tab:\ \  completeopt-=preview
+
     " Help Window Customization {{{
       function! s:SetupHelpWindow()
         wincmd L
