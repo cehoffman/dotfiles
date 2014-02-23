@@ -29,6 +29,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'tpope/vim-commentary'
   Bundle 'tpope/vim-eunuch'
   Bundle 'tpope/vim-scriptease'
+  Bundle 'tpope/vim-dispatch'
   Bundle 'cehoffman/vim-ragtag'
   Bundle 'cehoffman/csv.vim'
   Bundle 'cehoffman/vim-lua'
@@ -880,18 +881,6 @@ endif
   let g:LatexBox_latexmk_options = '-pvc'
   let g:LatexBox_no_mappings = 1
   map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
-" }}}
-" Vimux {{{
-  let g:VimuxOrientation = 'h'
-  let g:VimuxResetSequence = 'q Escape cc'
-  let g:VimuxUseNearestPane = 1
-  let g:VimuxHeight = 50
-  nnoremap <Leader>vr :PromptVimTmuxCommand<CR>
-  nnoremap <Leader>vl :RunLastVimTmuxCommand<CR>
-  nnoremap <Leader>vq :CloseVimTmuxPanes<CR>
-  nnoremap <Leader>vi :InspectVimTmuxRunner<CR>
-  nnoremap <Leader>vs :InterruptVimTmuxRunner<CR>
-  vnoremap <Leader>vp "vy :call RunVimTmuxCommand(@v, 0)<CR>
 " }}}
 " Ack {{{
   cabbrev ack <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Ack!' : 'ack')<CR>
