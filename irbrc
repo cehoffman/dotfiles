@@ -34,9 +34,9 @@ $console_extensions = []
 
 case IRB.version
 when /dietrb/i
-  require File.expand_path('../.irb/dietrb', __FILE__)
+  require_relative 'irb/dietrb'
 else
-  require File.expand_path('../.irb/irb', __FILE__)
+  require_relative 'irb/irb'
 end
 
 # Nice alias to just see the methods specific to this object

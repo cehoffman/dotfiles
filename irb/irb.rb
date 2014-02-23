@@ -42,5 +42,5 @@ end
 
 extend_console 'wirb' do
   Wirb.start
-  Wirb.load_schema File.expand_path('~/.irb/plasticcodewrap')
+  Wirb.load_schema File.expand_path('~/.dotfiles/irb/plasticcodewrap')
 end
