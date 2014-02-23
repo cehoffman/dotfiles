@@ -235,8 +235,10 @@ function _prompt_precmd {
     _pr_extras+="%{$fg_no_bold[cyan]%}L:$(luaenv version-name)"
   fi
 
-  if [[ $(jobs | wc -l) > 0 ]]; then
-    tempinfo="%{$fg_no_bold[cyan]%}J:%j"
+  tempinfo="%j"
+  tempinfo=${(%)tempinfo}
+  if [[ $tempinfo > 0 ]]; then
+    tempinfo="%{$fg_no_bold[cyan]%}J:$tempinfo"
     _pr_extras+=$tempinfo
     _pr_short_extras+=$tempinfo
   fi
