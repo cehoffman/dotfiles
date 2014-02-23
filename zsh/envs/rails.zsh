@@ -1,4 +1,4 @@
- function _rails_command () {
+function _rails_command () {
   if [ -e "script/server" ]; then
     ruby script/$@
   else
