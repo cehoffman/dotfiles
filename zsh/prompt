@@ -1,6 +1,14 @@
 # Keep the right side of prompt flush with terminal
 export ZLE_RPROMPT_INDENT=0
 
+function set_cursor {
+  if [[ -n "$TMUX" ]]; then
+    [[ -n "$ITERM_PROFILE" ]] && print -Pn "\ePtmux;\e\e]50;CursorShape=${1:-0}\a\e\\"
+  else
+    [[ -n "$ITERM_PROFILE" ]] && print -Pn "\e]50;CursorShape=${1:-0}\a"
+  fi
+}
+
 __prompt_mode_insert="%B%F{blue}i%{$reset_color%}"
 __prompt_mode_cmd="%B%F{yellow}n%{$reset_color%}"
 __prompt_mode=$__prompt_mode_insert
@@ -9,8 +17,10 @@ function zle-keymap-select {
 
   if [[ "$KEYMAP" == 'vicmd' || "$KEYMAP" == 'opp' ]]; then
     __prompt_mode=$__prompt_mode_cmd
+    set_cursor 0
   else
     __prompt_mode=$__prompt_mode_insert
+    set_cursor 1
   fi
 
   # Only update the prompt if mode actually changed
@@ -22,6 +32,7 @@ function zle-keymap-select {
 
 function __reset_prompt_mode_precmd() {
   __prompt_mode=$__prompt_mode_insert
+  set_cursor 1
 }
 precmd_functions+=__reset_prompt_mode_precmd
 
