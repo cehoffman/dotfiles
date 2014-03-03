@@ -1,22 +1,6 @@
-# Setup Rbenv if it exists
-if [[ -x ~/.rbenv/bin/rbenv ]]; then
-  # Include shims here so it sits above the system tools
-  path=(~/.rbenv/bin ~/.rbenv/shims $path)
-  source ~/.rbenv/completions/rbenv.zsh
-  # eval "$(rbenv init -)"
-  function gem() {
-    command gem "$@"
-    case "$1" in
-      "install" | "uninstall" | "upgrade" | "cleanup")
-        rbenv rehash
-        ;;
-    esac
-  }
-fi
-
 # Load up any special local lib dirs if needed
 # function {
-#   typeset -gUT RUBYLIB ruby_lib
+#   typeset -xgUT RUBYLIB ruby_lib
 
 #   # Add homebrew ruby compiles to path if they exist
 #   local ruby_libs
@@ -27,6 +11,4 @@ fi
 #   for ruby_path in ~/.homebrew/lib/ruby{,/site_ruby,/vendor_ruby}; do
 #     ruby_lib=($ruby_path(/) $ruby_path/$ruby_libs[1](/) $ruby_path/$ruby_libs[1]/$ruby_libs[2](/) $ruby_lib)
 #   done
-
-#   export RUBYLIB
 # }
