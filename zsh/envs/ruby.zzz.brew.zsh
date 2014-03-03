@@ -13,7 +13,8 @@ if [[ -a ~/.homebrew/bin/brew ]]; then
     # fi
 
     if [[ $IS_LINUX = 0 ]]; then
-      export LD_LIBRARY_PATH="$HOME/.homebrew/lib:$LD_LIBRARY_PATH"
+      typeset -xTgU LD_LIBRARY_PATH ld_library_path
+      ld_library_path=($HOME/.homebrew/lib(/) $ld_library_path)
     fi
   }
 fi
