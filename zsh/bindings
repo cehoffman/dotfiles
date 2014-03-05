@@ -57,12 +57,6 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
-# Better movement on the line
-# bindkey '^b' backward-word
-# bindkey '^f' forward-word
-# bindkey '^d' delete-word
-# bindkey '^u' kill-whole-line
-
 # Insert literal characters
 bindkey -M viins '^v' vi-quoted-insert
 bindkey -M vicmd 'cru' up-case-word
