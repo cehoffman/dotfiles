@@ -52,7 +52,7 @@ bool activate(NSRunningApplication *app) {
 }
 
 bool activeWindows(pid_t pid) {
-  NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID));
+  NSArray *windowList = CFBridgingRelease(CGWindowListCopyWindowInfo(kCGWindowListOptionAll | kCGWindowListExcludeDesktopElements, kCGNullWindowID));
 
   for (NSMutableDictionary *entry in windowList) {
     if (pid == [[entry objectForKey:(id)kCGWindowOwnerPID] integerValue]) {
