@@ -6,6 +6,7 @@ alternates -group emerson christopher\.hoffman@emerson.com
 
 set realname     = "Chris Hoffman"
 set reverse_name # build From: based on To: field if alternates matches
+set allow_8bit
 set charset      = 'utf-8'
 set send_charset = 'utf-8'
 set quit                   # Don't ask me when I try and quit
