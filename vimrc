@@ -839,16 +839,21 @@ endif
   " endif
 " }}}
 " UltiSnips settings {{{
-   let g:UltiSnipsExpandTrigger  = "<C-j>"
-   let g:UltiSnipsJumpForwardTrigger  = "<C-j>"
-   let g:UltiSnipsJumpBackwardTrigger = "<C-S-j>"
+   let g:UltiSnipsExpandTrigger  = "<leader><tab>"
+   let g:UltiSnipsJumpForwardTrigger  = "<leader><tab>"
+   let g:UltiSnipsJumpBackwardTrigger = "<leader>;"
 " }}}
 " CSV settings {{{
   let g:csv_hiHeader = 'CSVHiColumnHeader'
   let g:csv_hiGroup = 'CSVHiColumn'
 " }}}
 " Markdown settings {{{
-  nnoremap <silent> <Leader>M :call system('open -g -F -a Marked "'.expand('%:p').'"')<CR>
+  if has('maxunix')
+    nnoremap <silent> <Leader>M :call system('open -g -F -a Marked '.shellescape(expand('%:p')))<CR>
+    if filereadable(expand('~/.dotfiles/mutt/markdown'))
+      autocmd BufWritePost mutt-* call system(expand('~/.dotfiles/mutt/markdown').' '.shellescape(expand('%:p')))
+    endif
+  endif
 " }}}
 " Split Join settings {{{
   nnoremap <silent> <Leader>s :SplitjoinSplit<CR>
