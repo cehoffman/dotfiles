@@ -136,4 +136,7 @@ function inplace-mkdirs() {
 zle -N inplace-mkdirs
 bindkey '^Xm' inplace-mkdirs
 
+# A trick to make pasting part of prompt delete itself
+bindkey -M viins   vi-kill-line
+
 # vim: ft=zsh
