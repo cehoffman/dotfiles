@@ -145,6 +145,18 @@ if [[ -o interactive ]]; then
   autoload opp
 
   source ~/.dotfiles/zsh/vendor/autoenv/activate.sh
+  source ~/.dotfiles/zsh/vendor/zaw/zaw.zsh
+
+  # Make accessing zaw easier
+  bindkey '^T' zaw
+
+  # Remove default zaw binding
+  bindkey -r '^X;'
+
+  # zstyle ':filter-select:highlight' matched fg=green,underline
+  zstyle ':filter-select' case-insensitive yes
+  zstyle ':filter-select' extended-search yes
+  zstyle ':filter-select' max-lines 4
 
   # Color all stderr lines yellow only when interactive The guard prevent
   # a proliferation of processes when using exec to replace the current shell
