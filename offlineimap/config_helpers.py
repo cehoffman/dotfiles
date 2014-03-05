@@ -60,6 +60,7 @@ mappings = {
         'Drafts': 'drafts',
         'Sent': 'sent',
         'Trash': 'trash',
+        'Archive': 'archive'
     }
 }
 
@@ -74,7 +75,8 @@ excluded = {
         'Junk E-mail',
         'Sync Issues.*',
         'Unsent Messages',
-        'Sent Messages'
+        'Sent Messages',
+        'Archive'
     ],
     'gmail': [
         '.*' # Exlude all gmail folders by default
