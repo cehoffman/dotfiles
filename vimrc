@@ -167,7 +167,9 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   endif
 " }}}
 
-runtime! macros/matchit.vim " Include the matchit macro
+if !exists('g:loaded_matchit')
+  runtime! macros/matchit.vim " Include the matchit macro
+endif
 
 let mapleader = "," " \ is the default leader character
 let maplocalleader = ',' " \ is the default
