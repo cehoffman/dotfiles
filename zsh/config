@@ -1,7 +1,7 @@
 # Some basic env setup used throughout config
-[[ $OSTYPE =~ ^darwin ]]; IS_MAC=$?
-[[ $OSTYPE =~ ^linux ]]; IS_LINUX=$?
-# [[ $OSTYPE =~ ^cygwin ]]; IS_CYGWIN=$?
+[[ ${(L)OSTYPE} =~ ^darwin ]]; IS_MAC=$?
+[[ ${(L)OSTYPE} =~ ^linux ]]; IS_LINUX=$?
+[[ ${(L)OSTYPE} =~ ^cygwin ]]; IS_CYGWIN=$?
 
 # Enable hooks
 typeset -gUa preexec_functions
