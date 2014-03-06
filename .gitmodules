@@ -19,3 +19,6 @@
 [submodule "zsh/vendor/completions"]
 	path = zsh/vendor/completions
 	url = https://github.com/zsh-users/zsh-completions.git
+[submodule "zsh/vendor/zaw"]
+	path = zsh/vendor/zaw
+	url = https://github.com/zsh-users/zaw
