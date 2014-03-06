@@ -125,7 +125,6 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   set lazyredraw           " don't redraw the screen during macros
   set cursorline           " start with cursor shown
   set clipboard=unnamed,unnamedplus " make copying put on the system clipboard and pasting get from it
-  set writeany             " don't require ! when writing, just do it
 
   if has("persistent_undo")
     set undofile
