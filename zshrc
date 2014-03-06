@@ -4,4 +4,4 @@
 . ~/.dotfiles/zsh/prompt
 
 # use .localrc for settings specific to one system
-[[ -f ~/.localrc ]] && .  ~/.localrc
+if [[ -f ~/.localrc ]]; then source  ~/.localrc; fi
