@@ -153,6 +153,9 @@ if [[ -o interactive ]]; then
   # Remove default zaw binding
   bindkey -r '^X;'
 
+  # Make doing alternate accept possible, fuck Meta-Enter
+  bindkey -M filterselect '^E' accept-search
+
   # zstyle ':filter-select:highlight' matched fg=green,underline
   zstyle ':filter-select' case-insensitive yes
   zstyle ':filter-select' extended-search yes
