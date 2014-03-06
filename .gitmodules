@@ -22,3 +22,6 @@
 [submodule "zsh/vendor/zaw"]
 	path = zsh/vendor/zaw
 	url = https://github.com/zsh-users/zaw
+[submodule "pyenv"]
+	path = pyenv
+	url = git@github.com:cehoffman/pyenv.git
