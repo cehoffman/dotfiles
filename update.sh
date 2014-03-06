@@ -21,6 +21,8 @@ set -- "$@"
 
 set -e
 
+cd ~/.dotfiles
+
 function git_update() {
   git pull --rebase
   git submodule sync
@@ -52,7 +54,7 @@ case $PLATFORM in
     ;;
 esac
 
-./link.sh
+$(dirname "$0")/link.sh
 
 if command -v vim > /dev/null 2>&1; then
   if [ -z "$DRY_RUN" ]; then

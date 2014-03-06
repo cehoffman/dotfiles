@@ -1,8 +1,2 @@
-cd $HOME/.dotfiles
-git stash
-git reup
-git stash pop
-rake update\[${(j:,:)${(z)*}}\]
-popd
-
+~/.dotfiles/update.sh
 # vim: filetype=zsh

@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-
 set -- $(getopt n "$@")
 
 while true; do
@@ -91,7 +90,8 @@ for file in $HOME/.*; do
   # fi
 done
 
-for file in *; do
+for file in $(dirname "$0")/*; do
+  file=$(basename "$file")
   case $file in
     Readme.md|os|zsh|mutt|mailcap|irb|vim|gitignore|cacerts|fonts|offlineimap)
       ;;
@@ -167,7 +167,7 @@ for file in *; do
         if command -v erb > /dev/null 2>&1; then
           echo "Generating ~/.${file%.*}"
           if [ -z "$DRY_RUN" ]; then
-            erb -r ./helpers "$file" > "$HOME/.${file%.*}"
+            erb -r "$(dirname $0)/helpers" "$(dirname $0)/$file" > "$HOME/.${file%.*}"
           fi
         fi
       fi
