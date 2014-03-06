@@ -189,23 +189,9 @@ let maplocalleader = ',' " \ is the default
   nnoremap n nzzzv
   nnoremap N Nzzzv
 
-  " Mode Toggles {{{
-    " Toggle spell checking
-    nnoremap <silent> <Leader>ts :set spell!<CR>
-    vnoremap <silent> <Leader>ts :set spell!<CR>
-
-    " Toggle showing whitespace
-    nnoremap <silent> <Leader>tz :set list!<CR>
-    vnoremap <silent> <Leader>tz :set list!<CR>
-
-    " Toggle search highlighting
-    nnoremap <silent> <Leader>th :set hlsearch!<CR>
-    vnoremap <silent> <Leader>th :set hlsearch!<CR>
-
-    " Shortcut to redraw screen
-    nnoremap <silent> <Leader><C-l> :redraw!<CR>
-    vnoremap <silent> <Leader><C-l> :redraw!<CR>
-  " }}}
+  " Shortcut to redraw screen
+  nnoremap <silent> <Leader><C-l> :redraw!<CR>
+  vnoremap <silent> <Leader><C-l> :redraw!<CR>
 
   " Don't move the cursosr after pasting
   " noremap p p`[
