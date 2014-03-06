@@ -233,7 +233,7 @@ let maplocalleader = ',' " \ is the default
   cnoremap <C-N> <Down>
 
   " Make it easy to select the whole buffer
-  vnoremap ae ggVG$
+  vnoremap ae ggVoG$
 
   " Easy abbreviation to get path to current file mine file
   cabbrev %% <C-R>=expand('%:p:h').'/'<cr>
