@@ -233,8 +233,6 @@ let maplocalleader = ',' " \ is the default
   " Better movement in command line
   cnoremap <C-A> <Home>
   cnoremap <C-E> <End>
-  cnoremap <C-P> <Up>
-  cnoremap <C-N> <Down>
 
   " Make it easy to select the whole buffer
   vnoremap ae ggVoG$
