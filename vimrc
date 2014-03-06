@@ -230,6 +230,9 @@ let maplocalleader = ',' " \ is the default
 
   " Easy jump between last file
   nnoremap <Leader><Leader> <C-^>
+
+  " When killing the current line, make it start a new undo at that point
+  inoremap <C-U> <C-G>u<C-U>
 " }}}
 
 " Terminal/GUI Setup {{{
