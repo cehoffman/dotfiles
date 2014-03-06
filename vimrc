@@ -14,6 +14,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   call vundle#rc()
 
   Bundle 'gmarik/vundle'
+  Bundle 'tpope/vim-capslock'
   Bundle 'tpope/vim-fugitive'
   Bundle 'tpope/vim-git'
   Bundle 'tpope/vim-endwise'
