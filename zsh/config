@@ -31,7 +31,7 @@ fi
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-REPORTTIME=60               # print elapsed time when more than 10 seconds
+REPORTTIME=60               # print elapsed time when more than 60 seconds
 
 setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS        # allow functions to have local options
