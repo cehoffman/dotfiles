@@ -139,11 +139,15 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
     set spellfile=~/.dotfiles/vim/spell/common.utf-8.add  " store common correct/incorrect works in a shared place
   endif
 
+  " Set command completion options to open a selectable menu
+  set wildmenu
+  set wildmode=longest:full,full
+  set wildignore=*.o,*.rbc,*.obj,*.pyc,.git,CVS,.svn,tags,.hg
+  set wildignorecase
+
   " Tab completion options
   " (only complete to the longest unambiguous match, and show a menu)
   set completeopt=longest,menuone,preview
-  set wildmode=list:longest,list:full
-  set wildignore=*.o,*.rbc,*.obj,*.pyc,.git,CVS,.svn,tags,.hg
   set complete=.,t,i,b,w
 
   set backspace=indent,eol,start " allow backspacing over everything in insert mode
