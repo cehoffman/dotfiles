@@ -30,7 +30,8 @@ function git_update() {
 }
 
 if [ -z "$DRY_RUN" ]; then
-  if git diff-index --quiet HEAD; then
+  git diff-index --quiet HEAD 
+  if [ $? = 0 ]; then
     git_update
   else
     git stash
