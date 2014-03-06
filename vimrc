@@ -111,7 +111,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   set pumheight=10         " control how many options are shown before scrolling on auto completion
   set mouse=a              " Turn on mouse support
   set nojoinspaces         " Don't add extra space when using SHIFT-J
-  set display=lastline     " Show the whole of a last line when it is wrapped
+  set display+=lastline    " Show the whole of a last line when it is wrapped
   set cpoptions+=yd        " allow yank commands to be repeated with '.'
   set cinoptions=:0,l1,g0,t0,(0,Ws
   set gdefault             " make substitutions default to replacing all on line
