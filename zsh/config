@@ -18,6 +18,14 @@ if [[ -o interactive ]]; then
 
   # Setup gpg to know what terminal is active for this session
   GPG_TTY=$(tty)
+
+  if [[ -d ~/.homebrew/share/zsh/$ZSH_VERSION/help ]]; then
+    unalias run-help
+    autoload -U run-help
+    autoload run-help-git
+    autoload run-help-svn
+    HELPDIR=~/.homebrew/share/zsh/$ZSH_VERSION/help
+  fi
 fi
 
 HISTFILE=~/.zsh_history

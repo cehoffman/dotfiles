@@ -81,6 +81,8 @@ bindkey -s '^f' ' fg %-'
 # It will remove all bindings that start with  except the one that is 
 bindkey -rpM viins '^['
 
+bindkey -M vicmd 'K' run-help
+
 # run command line as user root via sudo:
 function sudo-command-line() {
   [[ -z $BUFFER ]] && zle up-history
