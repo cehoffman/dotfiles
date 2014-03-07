@@ -59,6 +59,8 @@ $(dirname "$0")/link.sh
 
 if command -v vim > /dev/null 2>&1; then
   if [ -z "$DRY_RUN" ]; then
-    vim +BundleInstall +BundleClean! +BundleUpdate +qa
+    if [ -z $(git diff HEAD@{1}...HEAD -- vimrc) ]; then
+      vim +BundleInstall +BundleClean! +BundleUpdate +qa
+    fi
   fi
 fi
