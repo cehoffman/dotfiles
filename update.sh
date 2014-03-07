@@ -19,8 +19,6 @@ done
 
 set -- "$@"
 
-set -e
-
 cd ~/.dotfiles
 
 function git_update() {
@@ -30,7 +28,7 @@ function git_update() {
 }
 
 if [ -z "$DRY_RUN" ]; then
-  git diff-index --quiet HEAD 
+  git diff-index --quiet HEAD
   if [ $? = 0 ]; then
     git_update
   else
