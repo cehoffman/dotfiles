@@ -755,6 +755,15 @@ endif
   endif
 " }}}
 
+function! s:MyFollowSymlink(...)
+  let fname = fnameescape(a:0 ? a:1 : expand('%'))
+  if getftype(fname) == 'link'
+    bwipeout #
+    exec 'silent! edit ' . fnameescape(fnamemodify(resolve(fname), ':p'))
+  endif
+endfunction
+command! FollowSymlink call <SID>MyFollowSymlink()
+
 " HTML5 Vim Settings {{{
   let g:event_handler_attributes_complete = 0
   let g:rdfa_attributes_complete = 0
