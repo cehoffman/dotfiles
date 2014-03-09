@@ -813,17 +813,18 @@ endif
   let g:ctrlp_open_new_file = 'r'
   let g:ctrlp_open_multiple_files = 'vr'
 
-  " Default to searching from current files dir
-  " let g:ctrlp_working_path_mode = 1
-  " let g:ctrlp_user_command = {
-  "   \ 'types': {
-  "     \ 1: ['.git/', 'cd %s && git ls-files'],
-  "     \ 2: ['.hg/', 'hg --cwd %s locate -I .'],
-  "   \ }
-  " \ }
-  map <silent> <Leader>o :CtrlPBuffer<CR>
-  map <silent> <Leader>m :CtrlPMixed<CR>
-  map <silent> <Leader>p :CtrlP<CR>
+  " Default to searching from current files dir if not subdirectory of repo
+  let g:ctrlp_working_path_mode = 'ra'
+  let g:ctrlp_user_command = {
+    \ 'types': {
+      \ 1: ['.git/', 'git --git-dir=%s/.git ls-files --others --cached --exclude-standard'],
+      \ 2: ['.hg/', 'hg --cwd %s status -numac -I . $(hg root)'],
+    \ },
+    \ 'fallback': 'find %s -type f'
+  \ }
+  map <silent> <Leader>o :<C-U>CtrlPBuffer<CR>
+  map <silent> <Leader>m :<C-U>CtrlPMixed<CR>
+  map <silent> <Leader>p :<C-U>CtrlP<CR>
 " }}}
 " ZoomWin mapings {{{
   " Remove default zoomwin mapping
