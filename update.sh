@@ -21,7 +21,7 @@ set -- "$@"
 
 cd ~/.dotfiles
 
-function git_update() {
+git_update() {
   git pull --rebase
   git submodule sync
   git submodule update --init --recursive

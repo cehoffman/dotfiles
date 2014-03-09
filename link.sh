@@ -32,7 +32,7 @@ case $(uname -s) in
     ;;
 esac
 
-function link() {
+link() {
   src=".dotfiles/$file"
   dest="$HOME/.$file"
 
@@ -40,7 +40,7 @@ function link() {
     return
   fi
 
-  printf "Linking %s -> %s\n" "${dest/$HOME/~}" "$src"
+  printf "Linking %s -> %s\n" "$(echo $dest | sed -e "s:$HOME:~:")" "$src"
   if [ -d $file ]; then
     if [ -z "$DRY_RUN" ]; then
       ln -sfT "$src" "$dest"
@@ -55,13 +55,13 @@ function link() {
   unset dest
 }
 
-function test_link() {
+test_link() {
   if command -v "$1" > /dev/null 2>&1; then
     link "$2"
   fi
 }
 
-function platform_link() {
+platform_link() {
   if [ $PLATFORM = $1 ]; then
     link "$2"
   fi
