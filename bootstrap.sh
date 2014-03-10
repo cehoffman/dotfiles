@@ -96,7 +96,7 @@ brew tap cehoffman/personal
 brew install git zsh ctags cpanminus stderred
 
 if [ "$os" = "darwin" ]; then
-  brew install cehoffman/encfs htop
+  brew install cehoffman/personal/encfs htop
 fi
 
 # Make use of newly installed ctags to index ruby
@@ -131,4 +131,4 @@ if grep "$HOME/\\.homebrew/bin/zsh" /etc/shells > /dev/null ; then
 fi
 $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 
-zsh -c 'brew install cehoffman/vim'
+zsh -c 'brew install cehoffman/personal/vim'
