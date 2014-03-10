@@ -87,7 +87,7 @@ fi
 ~/.dotfiles/link.sh
 
 version=2.1.1
-if [ ! -d ~/.rbenv/versions/$version ]; then
+if [ ! -d $HOME/.rbenv/versions/$version ]; then
   rbenv install $version
   rbenv global $version
 fi
@@ -103,13 +103,13 @@ fi
 rbenv ctags
 
 version=luajit-2.1.0-alpha
-if [ ! -d ~/.luaenv/versions/$version ]; then
+if [ ! -d $HOME/.luaenv/versions/$version ]; then
   zsh -c "luaenv install $version"
   zsh -c "luaenv global $version"
 fi
 
 version=2.7.6
-if [ ! -d ~/.pyenv/versions/$version ]; then
+if [ ! -d $HOME/.pyenv/versions/$version ]; then
   case $os in
     darwin)
       opts="--enable-framework"
