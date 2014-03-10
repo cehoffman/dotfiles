@@ -83,13 +83,15 @@ fi
 rbenv install 2.1.1
 rbenv global 2.1.1
 
-brew install git zsh ctags
 brew tap cehoffman/personal
-brew install cpanminus stderred
+brew install git zsh ctags cpanminus stderred
 
 if [ "$os" = "darwin" ]; then
   brew install cehoffman/encfs htop
 fi
+
+# Make use of newly installed ctags to index ruby
+rbenv ctags
 
 zsh -c 'luaenv install luajit-2.1.0-alpha'
 zsh -c 'luaenv global luajit-2.1.0-alpha'
