@@ -76,6 +76,8 @@ case $os in
     $sudo apt-get install ncurses-dev
     # Install personal utilities
     $sudo apt-get install htop
+    # Install deps for python
+    $sudo apt-get install libreadline-dev libsqlite3-dev
     ;;
 esac
 
@@ -84,9 +86,10 @@ if [ ! -d ~/.dotfiles ]; then
 fi
 ~/.dotfiles/link.sh
 
-if [ ! -d ~/.rbenv/versions/2.1.1 ]; then
-  rbenv install 2.1.1
-  rbenv global 2.1.1
+version=2.1.1
+if [ ! -d ~/.rbenv/versions/$version ]; then
+  rbenv install $version
+  rbenv global $version
 fi
 
 brew tap cehoffman/personal
@@ -99,12 +102,27 @@ fi
 # Make use of newly installed ctags to index ruby
 rbenv ctags
 
-zsh -c 'luaenv install luajit-2.1.0-alpha'
-zsh -c 'luaenv global luajit-2.1.0-alpha'
+version=luajit-2.1.0-alpha
+if [ ! -d ~/.luaenv/versions/$version ]; then
+  zsh -c "luaenv install $version"
+  zsh -c "luaenv global $version"
+fi
 
-install_packages libreadline-dev libsqlite3-dev
-zsh -c 'pyenv install 2.7.6'
-zsh -c 'pyenv global 2.7.6'
+version=2.7.6
+if [ ! -d ~/.pyenv/versions/$version ]; then
+  case $os in
+    darwin)
+      opts="--enable-framework"
+      ;;
+    linux)
+      opts="--enable-shared"
+      ;;
+  esac
+  zsh -c "PYTHON_CONFIGURE_OPTS='$opts' pyenv install $version"
+  zsh -c "pyenv global $version"
+  unset opts
+fi
+unset version
 
 ~/.dotfiles/link.sh
 
