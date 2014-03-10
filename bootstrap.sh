@@ -126,4 +126,7 @@ unset version
 
 ~/.dotfiles/link.sh
 
-sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
+if grep "$HOME/\\.homebrew/bin/zsh" > /dev/null ; then
+  sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
+fi
+chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
