@@ -95,7 +95,7 @@ for file in $(dirname "$0")/*; do
   case $file in
     Readme.md|os|zsh|mutt|mailcap|irb|vim|gitignore|cacerts|fonts|offlineimap)
       ;;
-    link.sh|update.sh|helpers.rb)
+    bootstrap.sh|link.sh|update.sh|helpers.rb)
       ;;
     editrc)
       platform_link darwin "$file"
