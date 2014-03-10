@@ -43,7 +43,7 @@ os=$(uname -s | tr A-Z a-z)
 
 set -e
 
-export PATH="$HOME/.homebrew/bin:$PATH"
+export PATH="$HOME/.homebrew/bin:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 
 case $os in
   darwin)
@@ -81,8 +81,8 @@ if [ ! -d ~/.dotfiles ]; then
 fi
 ~/.dotfiles/link.sh
 
-zsh -c 'rbenv install 2.1.1'
-zsh -c 'rbenv global 2.1.1'
+rbenv install 2.1.1
+rbenv global 2.1.1
 
 brew install git zsh ctags
 brew tap cehoffman/personal
