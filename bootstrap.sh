@@ -76,17 +76,17 @@ case $os in
     ;;
 esac
 
-brew install git zsh ctags
-brew tap cehoffman/personal
-brew install cpanminus stderred
-
 if [ ! -d ~/.dotfiles ]; then
   git clone --recursive git@github.com:cehoffman/dotfiles ~/.dotfiles 
 fi
-sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
+~/.dotfiles/link.sh
 
 zsh -c 'rbenv install 2.1.1'
 zsh -c 'rbenv global 2.1.1'
+
+brew install git zsh ctags
+brew tap cehoffman/personal
+brew install cpanminus stderred
 
 zsh -c 'luaenv install luajit-2.1.0-alpha'
 zsh -c 'luaenv global luajit-2.1.0-alpha'
@@ -96,3 +96,5 @@ zsh -c 'pyenv install 2.7.6'
 zsh -c 'pyenv global 2.7.6'
 
 ~/.dotfiles/link.sh
+
+sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
