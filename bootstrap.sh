@@ -64,7 +64,7 @@ case $os in
     git clone --recursive git@github.com:homebrew/linuxbrew ~/.homebrew 
     echo "$USER ALL= NOPASSWD: ALL" | $sudo tee "/etc/sudoers.d/$USER" > /dev/null
     $sudo chmod 440 "/etc/sudoers.d/$USER"
-    passwd -l "$USER"
+    $sudo passwd -l "$USER"
 
     # Install deps for ruby
     $sudo apt-get install libssl-dev libcurl4-openssl-dev libbz2-dev htop
