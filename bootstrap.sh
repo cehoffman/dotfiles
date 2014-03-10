@@ -57,11 +57,16 @@ esac
 
 case $os in
   darwin)
-    git clone --recursive git@github.com:homebrew/homebrew ~/.homebrew 
+    if [ ! -d ~/.homebrew ]; then
+      git clone --recursive git@github.com:homebrew/homebrew ~/.homebrew 
+    fi
     brew install cehoffman/encfs htop
     ;;
   linux)
-    git clone --recursive git@github.com:homebrew/linuxbrew ~/.homebrew 
+    if [ ! -d ~/.homebrew ]; then
+      git clone --recursive git@github.com:homebrew/linuxbrew ~/.homebrew 
+    fi
+
     echo "$USER ALL= NOPASSWD: ALL" | $sudo tee "/etc/sudoers.d/$USER" > /dev/null
     $sudo chmod 440 "/etc/sudoers.d/$USER"
     $sudo passwd -l "$USER"
@@ -75,7 +80,9 @@ brew install git zsh ctags
 brew tap cehoffman/personal
 brew install cpanminus stderred
 
-git clone --recursive git@github.com:cehoffman/dotfiles ~/.dotfiles 
+if [ ! -d ~/.dotfiles ]; then
+  git clone --recursive git@github.com:cehoffman/dotfiles ~/.dotfiles 
+fi
 sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
 
 zsh -c 'rbenv install 2.1.1'
