@@ -50,17 +50,10 @@ case $os in
     xcode-select --install
     ;;
   linux)
-    $sudo apt-get install build-essential curl libexpat-dev
+    $sudo apt-get install build-essential curl libexpat-dev git
     ;;
   *) fatal "Unknown system, don't know how to bootstrap" ;;
 esac
-
-brew install git zsh ctags
-brew tap cehoffman/personal
-brew install cpanminus stderred
-
-git clone --recursive git@github.com:cehoffman/dotfiles ~/.dotfiles 
-sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
 
 case $os in
   darwin)
@@ -77,6 +70,13 @@ case $os in
     $sudo apt-get install libssl-dev libcurl4-openssl-dev libbz2-dev htop
     ;;
 esac
+
+brew install git zsh ctags
+brew tap cehoffman/personal
+brew install cpanminus stderred
+
+git clone --recursive git@github.com:cehoffman/dotfiles ~/.dotfiles 
+sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
 
 zsh -c 'rbenv install 2.1.1'
 zsh -c 'rbenv global 2.1.1'
