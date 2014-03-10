@@ -84,8 +84,10 @@ if [ ! -d ~/.dotfiles ]; then
 fi
 ~/.dotfiles/link.sh
 
-rbenv install 2.1.1
-rbenv global 2.1.1
+if [ ! -d ~/.rbenv/versions/2.1.1 ]; then
+  rbenv install 2.1.1
+  rbenv global 2.1.1
+fi
 
 brew tap cehoffman/personal
 brew install git zsh ctags cpanminus stderred
