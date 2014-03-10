@@ -127,11 +127,12 @@ if [ ! -d $HOME/.pyenv/versions/$version ]; then
 fi
 unset version
 
-~/.dotfiles/link.sh
-
 if grep "$HOME/\\.homebrew/bin/zsh" /etc/shells > /dev/null ; then
   sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
 fi
 $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 
 zsh -c 'brew install cehoffman/personal/vim'
+
+~/.dotfiles/update.sh
+
