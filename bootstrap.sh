@@ -60,7 +60,6 @@ case $os in
     if [ ! -d ~/.homebrew ]; then
       git clone --recursive git@github.com:homebrew/homebrew ~/.homebrew 
     fi
-    brew install cehoffman/encfs htop
     ;;
   linux)
     if [ ! -d ~/.homebrew ]; then
@@ -87,6 +86,10 @@ rbenv global 2.1.1
 brew install git zsh ctags
 brew tap cehoffman/personal
 brew install cpanminus stderred
+
+if [ "$os" = "darwin" ]; then
+  brew install cehoffman/encfs htop
+fi
 
 zsh -c 'luaenv install luajit-2.1.0-alpha'
 zsh -c 'luaenv global luajit-2.1.0-alpha'
