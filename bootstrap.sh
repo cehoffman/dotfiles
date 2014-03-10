@@ -93,7 +93,10 @@ if [ ! -d $HOME/.rbenv/versions/$version ]; then
 fi
 
 brew tap cehoffman/personal
-brew install git zsh ctags cpanminus stderred
+brew install git zsh ctags cpanminus stderred tmux
+
+# Unlink pkg-config brought in by tmux
+brew unlink pkg-config
 
 if [ "$os" = "darwin" ]; then
   brew install cehoffman/personal/encfs htop
