@@ -71,7 +71,11 @@ case $os in
     $sudo passwd -l "$USER"
 
     # Install deps for ruby
-    $sudo apt-get install libssl-dev libcurl4-openssl-dev libbz2-dev htop
+    $sudo apt-get install libssl-dev libcurl4-openssl-dev libbz2-dev
+    # Install deps for zsh
+    $sudo apt-get install ncurses-dev
+    # Install personal utilities
+    $sudo apt-get install htop
     ;;
 esac
 
