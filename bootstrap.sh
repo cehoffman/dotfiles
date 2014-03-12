@@ -2,8 +2,8 @@
 #
 # Only use sudo if not already root.
 #
-if [ $UID = 0 ]; then sudo=""
-else              sudo="sudo"
+if [ "$UID" = "0" ]; then sudo=""
+else                 sudo="sudo"
 fi
 
 #
