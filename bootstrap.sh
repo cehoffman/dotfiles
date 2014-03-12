@@ -78,6 +78,8 @@ case $os in
     $sudo apt-get install -y htop
     # Install deps for python
     $sudo apt-get install -y libreadline-dev libsqlite3-dev
+    # Install deps for git from homebrew
+    $suod apt-get install -y tcl
     ;;
 esac
 
