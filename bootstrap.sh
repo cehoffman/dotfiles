@@ -76,7 +76,7 @@ case $os in
     # Install deps for ruby
     $sudo apt-get install -y libssl-dev libcurl4-openssl-dev libbz2-dev
     # Install deps for zsh
-    $sudo apt-get install -y ncurses-dev
+    $sudo apt-get install -y ncurses-dev texinfo
     # Install personal utilities
     $sudo apt-get install -y htop
     # Install deps for python
