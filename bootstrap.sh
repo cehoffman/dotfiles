@@ -50,7 +50,7 @@ case $os in
     xcode-select --install
     ;;
   linux)
-    $sudo apt-get install build-essential curl libexpat-dev git
+    $sudo apt-get install -y build-essential curl libexpat-dev git
     ;;
   *) fatal "Unknown system, don't know how to bootstrap" ;;
 esac
@@ -71,13 +71,13 @@ case $os in
     $sudo passwd -l "$USER"
 
     # Install deps for ruby
-    $sudo apt-get install libssl-dev libcurl4-openssl-dev libbz2-dev
+    $sudo apt-get install -y libssl-dev libcurl4-openssl-dev libbz2-dev
     # Install deps for zsh
-    $sudo apt-get install ncurses-dev
+    $sudo apt-get install -y ncurses-dev
     # Install personal utilities
-    $sudo apt-get install htop
+    $sudo apt-get install -y htop
     # Install deps for python
-    $sudo apt-get install libreadline-dev libsqlite3-dev
+    $sudo apt-get install -y libreadline-dev libsqlite3-dev
     ;;
 esac
 
