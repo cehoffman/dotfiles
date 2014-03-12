@@ -87,6 +87,9 @@ setopt AUTO_PARAM_SLASH     # Params that a directories get a /
 setopt MAGIC_EQUAL_SUBST    # option=arg can have arg path expanded
 setopt PROMPT_SUBST         # Allow variable substitution in the prompt
 
+setopt IGNORE_EOF           # Allow ^D to be bound, 10 consecuritve EOF will quit
+setopt NOFLOW_CONTROL       # Allow biding of ^S/^Q
+
 ## pager
 export LESS="-Ri"
 export PAGER=less
@@ -136,9 +139,6 @@ fi
 typeset -gU path cdpath manpath fpath
 
 if [[ -o interactive ]]; then
-  # Turn off the retarded flow control
-  command -v stty &> /dev/null && stty -ixon
-
   # Make a nice colored interactive prompt
   source ~/.dotfiles/zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ZSH_HIGHLIGHT_STYLES[path]=none
