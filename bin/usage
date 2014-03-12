@@ -670,9 +670,11 @@ if opts.battery and battery[ffi.os] then
     color = opts.colors == 'tmux' and '#[fg=red]' or "\27[31m"
   end
 
-  io.stdout:write(color, '|', bars[math.round((#bars - 1) * capacity)])
-  if opts['battery-time'] and time > 0 then
-    io.stdout:write(' ', ("%02d:%02d"):format(time / 60, time % 60))
+  if capacity then
+    io.stdout:write(color, '|', bars[math.round((#bars - 1) * capacity)])
+    if opts['battery-time'] and time > 0 then
+      io.stdout:write(' ', ("%02d:%02d"):format(time / 60, time % 60))
+    end
   end
 end
 
