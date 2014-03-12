@@ -82,7 +82,8 @@ setopt REMATCH_PCRE         # use perl regex matching for the =~ operator
 setopt C_BASES              # Output non base 10 like C
 
 setopt AUTO_PARAM_KEYS      # Neater prompt, deletes spaces after complete
-setopt AUTO_PARAM_SLASH     # Params that a directories get a /
+setopt AUTO_PARAM_SLASH     # Params that are directories get a /
+setopt NOAUTO_REMOVE_SLASH  # Keep a slash if I put it there
 
 setopt MAGIC_EQUAL_SUBST    # option=arg can have arg path expanded
 setopt PROMPT_SUBST         # Allow variable substitution in the prompt
