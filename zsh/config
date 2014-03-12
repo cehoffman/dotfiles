@@ -115,6 +115,7 @@ manpath=($HOME/.local/share/man(/) /usr/local/share/man /usr/share/man $manpath)
 if [[ -o interactive ]]; then
   autoload -U compinit
   compinit -i
+  ZLE_REMOVE_SUFFIX_CHARS=$' \n\t;' # Prevent zsh from eating spaces after completion when inserting | &
 fi
 
 # Load all of your custom configurations from envs/
