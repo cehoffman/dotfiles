@@ -60,6 +60,9 @@ case $os in
     if [ ! -d ~/.homebrew ]; then
       git clone --recursive git@github.com:homebrew/homebrew ~/.homebrew 
     fi
+
+    # Install readline so ruby has it
+    brew install readline
     ;;
   linux)
     if [ ! -d ~/.homebrew ]; then
