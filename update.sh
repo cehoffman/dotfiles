@@ -28,7 +28,7 @@ git_update() {
 }
 
 if [ -z "$DRY_RUN" ]; then
-  git diff-index --quiet HEAD
+  git diff-index --ignore-submodules --quiet HEAD
   if [ $? = 0 ]; then
     git_update
   else
