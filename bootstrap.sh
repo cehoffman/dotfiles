@@ -126,17 +126,15 @@ version=2.7.6
 if [ ! -d $HOME/.pyenv/versions/$version ]; then
   case $os in
     darwin)
-      opts="--enable-framework"
+      zsh -c "PYTHON_CONFIGURE_OPTS='--enable-framework' pyenv install $version"
       ;;
     linux)
-      opts="--enable-shared"
+      zsh -c "CFLAGS='-fPIC' pyenv install $version"
       ;;
   esac
-  zsh -c "PYTHON_CONFIGURE_OPTS='$opts' pyenv install $version"
   zsh -c "pyenv global $version"
   unset opts
 fi
-unset version
 
 if grep "$HOME/\\.homebrew/bin/zsh" /etc/shells > /dev/null ; then
   sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
@@ -146,4 +144,8 @@ $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 zsh -c 'brew install cehoffman/personal/vim'
 
 ~/.dotfiles/update.sh
+
+vim +BundleInstall '+qa!'
+cd ~/.vim/bundle/YouCompleteMe
+PYENV_VERSION=$version ./install.sh --clang-completer
 

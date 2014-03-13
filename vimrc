@@ -68,6 +68,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'ledger/vim-ledger'
   Bundle 'ZoomWin'
   Bundle 'sjl/vitality.vim'
+  Bundle 'Valloric/YouCompleteMe'
 " }}}
 
 " General settings {{{
