@@ -65,6 +65,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'mbbill/undotree'
   Bundle 'nono/vim-handlebars'
   Bundle 'groenewege/vim-less'
+  Bundle 'ledger/vim-ledger'
   Bundle 'ZoomWin'
   Bundle 'sjl/vitality.vim'
 " }}}
