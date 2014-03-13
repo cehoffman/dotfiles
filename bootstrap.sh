@@ -143,6 +143,12 @@ $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 
 zsh -c 'brew install cehoffman/personal/vim'
 
+# Setup ldconfig so zsh can find pcre on login
+if [ "$os" = "linux" ]; then
+  echo $HOME/.homebrew/lib | $sudo tee /etc/ld.so.conf.d/${USER}.conf > /dev/null
+  chmod 700 $HOME
+fi
+
 ~/.dotfiles/update.sh
 
 vim +BundleInstall '+qa!'
