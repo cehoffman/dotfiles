@@ -144,6 +144,15 @@ for file in $(dirname "$0")/*; do
     lbdbrc)
       test_link lbdb "$file"
       ;;
+    *)
+      link "$file"
+    ;;
+  esac
+done
+
+for file in $(dirname "$0")/*; do
+  file=$(basename "$file")
+  case $file in
     *.erb)
       GENERATE=
       case ${file%.*} in
@@ -174,7 +183,6 @@ for file in $(dirname "$0")/*; do
       unset GENERATE
       ;;
     *)
-      link "$file"
-    ;;
+      ;;
   esac
 done
