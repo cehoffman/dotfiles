@@ -899,6 +899,8 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   cabbrev ack <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Ack!' : 'ack')<CR>
   if executable('ag')
     cabbrev ag <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Ack!' : 'ag')<CR>
+    cunabbrev ack
+    let g:ack_wildignore = 0
     let g:ackprg = 'ag --nogroup --nocolor --column --smart-case --hidden'
   endif
 " }}}
