@@ -154,5 +154,5 @@ fi
 
 vim +BundleInstall '+qa!'
 cd ~/.vim/bundle/YouCompleteMe
-PYENV_VERSION=$version ./install.sh --clang-completer
+zsh -c "PYENV_VERSION=$version ./install.sh --clang-completer"
 
