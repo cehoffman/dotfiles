@@ -144,6 +144,11 @@ for file in $(dirname "$0")/*; do
     lbdbrc)
       test_link lbdb "$file"
       ;;
+    *.erb)
+      if [ -f  "$HOME/.${file%.*}" ]; then
+        rm "$HOME/.${file%.*}"
+      fi
+      ;;
     *)
       link "$file"
     ;;
