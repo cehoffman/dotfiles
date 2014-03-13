@@ -83,6 +83,8 @@ case $os in
     $sudo apt-get install -y libreadline-dev libsqlite3-dev
     # Install deps for git from homebrew
     $sudo apt-get install -y tcl
+    # Install deps for the_silver_searcher
+    $sudo apt-get install -y autoconf
     ;;
 esac
 
@@ -98,13 +100,17 @@ if [ ! -d $HOME/.rbenv/versions/$version ]; then
 fi
 
 brew tap cehoffman/personal
-brew install git zsh ctags cpanminus stderred tmux
+brew install git zsh ctags cpanminus stderred tmux the_silver_searcher
 
 # Unlink pkg-config brought in by tmux
 brew unlink pkg-config
 
 if [ "$os" = "darwin" ]; then
   brew install cehoffman/personal/encfs htop
+else
+  # Remove liblzma installed from the_silver_searcher to avoid conflict with
+  # system
+  brew remove xz
 fi
 
 # Make use of newly installed ctags to index ruby
