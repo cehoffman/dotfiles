@@ -141,6 +141,7 @@ if grep "$HOME/\\.homebrew/bin/zsh" /etc/shells > /dev/null ; then
 fi
 $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 
+# Run this in zsh to have pyenv setup so vim finds python
 zsh -c 'brew install cehoffman/personal/vim'
 
 # Setup ldconfig so zsh can find pcre on login
