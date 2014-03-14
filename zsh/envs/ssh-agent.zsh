@@ -5,4 +5,12 @@ if [[ -o interactive && -n $TMUX ]]; then
       export SSH_AUTH_SOCK="$NEW_SSH_AUTH_SOCK"
     fi
   }
+
+  function __sync_ssh_auth_sock() {
+    # If inside a tmux session and the auth socket is no longer viable, update
+    if [[ -n "$TMUX" && ! -S "$SSH_AUTH_SOCK" ]]; then
+      sync-ssh-auth-sock
+    fi
+  }
+  precmd_functions+=__sync_ssh_auth_sock
 fi
