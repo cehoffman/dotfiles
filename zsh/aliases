@@ -67,9 +67,6 @@ if [[ $IS_MAC = 0 ]]; then
   alias traceroute="env -u DYLD_INSERT_LIBRARIES traceroute"
   alias traceroute6="env -u DYLD_INSERT_LIBRARIES traceroute6"
 
-  # mosh doesn't like DYLD_ either
-  alias mosh="env -u DYLD_INSERT_LIBRARIES mosh"
-
   # show and hide files from Finder
   alias hide="SetFile -a V"
   alias show="SetFile -a v"
