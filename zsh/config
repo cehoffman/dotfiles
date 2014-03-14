@@ -139,6 +139,7 @@ fi
 
 # Remove duplicates in paths
 typeset -gU path cdpath manpath fpath
+export MANPATH
 
 if [[ -o interactive ]]; then
   # Make a nice colored interactive prompt
