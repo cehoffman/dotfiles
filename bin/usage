@@ -636,10 +636,15 @@ for str in opts.order:reverse():gmatch("%w") do
   -- ensure we don't go beyond the start of the graph because of rounding
   if idx < 1 then idx = 1 end
 
-  history[idx] = {
-    color = color(cmap[str], 'fg') .. color(cmap[str], 'bg'),
-    usage = history[idx],
-  }
+  -- if we are over writing a spot with our new value, that means it was too
+  -- small to actually represent on the graph, e.g. free memory is almost non
+  -- existant
+  if type(history[idx]) ~= 'table' then
+    history[idx] = {
+      color = color(cmap[str], 'fg') .. color(cmap[str], 'bg'),
+      usage = history[idx],
+    }
+  end
 
   ::next::
 end
