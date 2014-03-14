@@ -8,7 +8,7 @@ alias less='less -R'
 alias x='extract -d'
 
 # Create a tmux session if there isn't one to attach to
-[[ -z "$TMUX" ]] && alias tmux="tmux attach-session"
+[[ -z "$TMUX" ]] && alias tmux="tmux new-session -A -t main"
 
 # Show full history
 alias history='fc -l 1'
