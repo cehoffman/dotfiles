@@ -68,7 +68,6 @@ if [[ $IS_MAC = 0 ]]; then
   alias write="env -u DYLD_INSERT_LIBRARIES write"
   alias postdrop="env -u DYLD_INSERT_LIBRARIES postdrop"
   alias postqueue="env -u DYLD_INSERT_LIBRARIES postqueue"
-  alias scselect="env -u DYLD_INSERT_LIBRARIES scselect"
   alias traceroute="env -u DYLD_INSERT_LIBRARIES traceroute"
   alias traceroute6="env -u DYLD_INSERT_LIBRARIES traceroute6"
 
