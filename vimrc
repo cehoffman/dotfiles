@@ -70,6 +70,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'ZoomWin'
   Bundle 'sjl/vitality.vim'
   Bundle 'Valloric/YouCompleteMe'
+  Bundle 'mhinz/vim-tmuxify'
 " }}}
 
 " General settings {{{
@@ -613,8 +614,10 @@ if has("autocmd")
       " }}}
       " Scratch {{{
         au BufEnter __Scratch__ if !exists('b:stl')
-              \ |  let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber] %l#[LineColumn]:%c%V"
-              \ |  endif
+              \ | let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber] %l#[LineColumn]:%c%V"
+              \ | endif
+              \ | imap <expr><buffer> <Return> exists('b:pane_id') ? "<Esc><S-v>mso" : "<Return>"
+              \ | nnoremap <expr><buffer><silent> <Return> exists('b:pane_id') ? "<S-v>\"my:TxSend(@m)<CR>" : "<Return>"
       " }}}
       " Syntastic location list {{{
         au BufEnter \[Location List] if !exists('b:stl')
@@ -925,6 +928,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:GPGUsePipes = 1
 " }}}
 " let g:vitality_fix_focus = 1
+let g:tmuxify_map_prefix = 'm'
 
 " Window Management {{{
   " Open a yanked window {{{
