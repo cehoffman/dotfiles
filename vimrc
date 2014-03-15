@@ -874,7 +874,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:csv_hiGroup = 'CSVHiColumn'
 " }}}
 " Markdown settings {{{
-  if has('maxunix')
+  if has('macunix')
     nnoremap <silent> <Leader>M :call system('open -g -F -a Marked '.shellescape(expand('%:p')))<CR>
     if filereadable(expand('~/.dotfiles/mutt/markdown'))
       autocmd BufWritePost mutt-* call system(expand('~/.dotfiles/mutt/markdown').' '.shellescape(expand('%:p')))
