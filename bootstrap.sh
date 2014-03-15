@@ -148,6 +148,7 @@ zsh -c 'brew install cehoffman/personal/vim'
 if [ "$os" = "linux" ]; then
   echo $HOME/.homebrew/lib | $sudo tee /etc/ld.so.conf.d/${USER}.conf > /dev/null
   chmod 700 $HOME
+  $sudo ldconfig
 fi
 
 ~/.dotfiles/update.sh
