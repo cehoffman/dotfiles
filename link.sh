@@ -129,7 +129,7 @@ for file in $(dirname "$0")/*; do
       test_link ruby "$file"
       ;;
     htoprc)
-      if [ "$os" = "darwin" ]; then
+      if [ "$PLATFORM" = "darwin" ]; then
         test_link htop "$file"
       fi
       ;;
@@ -152,7 +152,7 @@ for file in $(dirname "$0")/*; do
       fi
       ;;
     config)
-      if [ "$os" = "linux" ]; then
+      if [ "$PLATFORM" = "linux" ]; then
         link "$file"
       fi
       ;;
