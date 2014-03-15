@@ -879,7 +879,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
     if bufname('%') == '__Scratch__'
       exec 'q'
     else
-      exec "normal! :Sscratch\<CR>\<C-W>J:resize 13\<CR>"
+      exec "silent! normal! :Sscratch\<CR>\<C-W>J:resize 13\<CR>"
     endif
   endfunction
   " }}}
