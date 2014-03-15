@@ -58,6 +58,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'AndrewRadev/splitjoin.vim'
   Bundle 'kien/rainbow_parentheses.vim'
   Bundle 'kien/ctrlp.vim'
+  Bundle 'suy/vim-ctrlp-commandline'
   Bundle 'LaTeX-Box-Team/LaTeX-Box'
   Bundle 'vim-scripts/Match-Bracket-for-Objective-C'
   Bundle 'cehoffman/vim-bitbake'
@@ -825,6 +826,8 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:ctrlp_open_new_file = 'r'
   let g:ctrlp_open_multiple_files = 'vr'
 
+  let g:ctrlp_extensions = ['commandline']
+
   " Default to searching from current files dir if not subdirectory of repo
   let g:ctrlp_working_path_mode = 'ra'
   let g:ctrlp_user_command = {
@@ -837,6 +840,8 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   map <silent> <Leader>o :<C-U>CtrlPBuffer<CR>
   map <silent> <Leader>m :<C-U>CtrlPMixed<CR>
   map <silent> <Leader>p :<C-U>CtrlP<CR>
+  map <silent> <Leader>c :<C-U>CtrlPCommandline<CR>
+  command! CtrlPCommandline call ctrlp#init(ctrlp#commandline#id())
 " }}}
 " ZoomWin mapings {{{
   " Remove default zoomwin mapping
