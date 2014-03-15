@@ -938,6 +938,10 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:GPGDefaultRecipients = ['cehoffman@ceh.im']
   let g:GPGUsePipes = 1
 " }}}
+" Ledger {{{
+  let g:ledger_maxwidth = 81
+  let g:ledger_fillstring = '·'
+" }}}
 " let g:vitality_fix_focus = 1
 let g:tmuxify_map_prefix = 'm'
 
