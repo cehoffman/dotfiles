@@ -2,6 +2,10 @@ alias g='git'
 alias gd='git d'
 alias gdc='git dc'
 alias ga='git add -p'
+alias gs='git st'
+alias gc="git commit"
+alias gco="git checkout"
+alias gp="git push"
 
 alias l='ls -lAh'
 alias less='less -R'
