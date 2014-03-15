@@ -784,6 +784,19 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:syntastic_auto_loc_list = 1
   let g:syntastic_objc_compiler = "clang"
   let g:syntastic_objc_compiler_options = "--std=c99"
+  let g:syntastic_c_checkers = []
+  let g:syntastic_objc_checkers = []
+  let g:syntastic_cpp_checkers = []
+
+  " let g:ycm_semantic_triggers =  {
+  "       \ 'ledger': [':']
+  "       \ }
+  let g:ycm_collect_identifiers_from_tags_files = 1
+  let g:ycm_seed_identifiers_with_syntax = 1
+  let g:ycm_complete_in_comments = 1
+  let g:ycm_allow_changing_updatetime = 0
+  let g:ycm_autoclose_preview_window_after_completion = 1
+  let g:ycm_autoclose_preview_window_after_insertion = 1
 " }}}
 " Ruby Syntax and Completion {{{
   let g:ruby_operators = 1
