@@ -798,7 +798,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:delimitMate_balance_matchpairs = 1
 
   " Allow for quick jumping over delimiters instead of S-Tab
-  inoremap <expr> ; delimitMate#ShouldJump() ? "<C-R>=delimitMate#JumpAny(';')<CR>" : ";"
+  inoremap <silent><expr> ; delimitMate#ShouldJump() ? "<C-R>=delimitMate#JumpAny(';')<CR>" : ";"
 " }}}
 " Tagbar - the better taglist {{{
   let g:tagbar_width = 40
