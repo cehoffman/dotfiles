@@ -173,6 +173,11 @@ if [[ -o interactive ]]; then
   zstyle ':filter-select' extended-search yes
   zstyle ':filter-select' max-lines 4
 
+  # Fake brew command so autojump doesn't slow shell startup calling it
+  source ~/.dotfiles/zsh/vendor/fasd/fasd
+  eval "$(fasd --init auto)"
+  alias v="f -t -e vim -b viminfo"
+
   # Color all stderr lines yellow only when interactive The guard prevent
   # a proliferation of processes when using exec to replace the current shell
   # with a fresh instance
