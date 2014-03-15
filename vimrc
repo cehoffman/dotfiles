@@ -601,16 +601,14 @@ if has("autocmd")
     " Custom Status Lines {{{
       " Tagbar {{{
         au BufEnter __Tagbar__ if !exists('b:stl')
-              \ | setlocal foldcolumn=1
+              \ | setlocal foldcolumn=1 statusline=
               \ | let b:stl = "#[FileName] Tagbar#[FileNameS] [>>]#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
               \ | endif
-        " Override for sure the custom statusline from tagbar
-        au BufEnter __Tagbar__ setlocal statusline=
       " }}}
       " Threesome HUD {{{
         au BufEnter __Threesome_HUD__ if !exists('b:stl')
-              \ |  let b:stl = "#[FileName] Threesome HUD#[FileNameS] [>>]%<%* %="
-              \ |  endif
+              \ | let b:stl = "#[FileName] Threesome HUD#[FileNameS] [>>]%<%* %="
+              \ | endif
       " }}}
       " Scratch {{{
         au BufEnter __Scratch__ if !exists('b:stl')
