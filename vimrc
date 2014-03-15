@@ -60,7 +60,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'kien/ctrlp.vim'
   Bundle 'LaTeX-Box-Team/LaTeX-Box'
   Bundle 'vim-scripts/Match-Bracket-for-Objective-C'
-  Bundle 'kergoth/vim-bitbake'
+  Bundle 'cehoffman/vim-bitbake'
   Bundle 'joonty/vdebug'
   Bundle 'mbbill/undotree'
   Bundle 'nono/vim-handlebars'
