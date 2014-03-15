@@ -89,6 +89,7 @@ function sudo-command-line() {
   if [[ $BUFFER != sudo\ * ]]; then
       BUFFER="sudo $BUFFER"
       CURSOR=$(( CURSOR+5 ))
+      (( $+functions[_zsh_highlight] )) && _zsh_highlight
   fi
 }
 zle -N sudo-command-line
