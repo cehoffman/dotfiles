@@ -161,4 +161,12 @@ bindkey -M viins "^S" history-incremental-pattern-search-forward
 # A trick to make pasting part of prompt delete itself
 bindkey -M viins   vi-kill-line
 
+autoload -Uz insert-files
+zle -N insert-files
+bindkey '^Xf' insert-files
+
+autoload -Uz insert-unicode-char
+zle -N insert-unicode-char
+bindkey '^Xu' insert-unicode-char
+
 # vim: ft=zsh
