@@ -119,7 +119,8 @@ rbenv ctags
 version=luajit-2.1.0-alpha
 if [ ! -d $HOME/.luaenv/versions/$version ]; then
   zsh -c "luaenv install $version"
-  zsh -c "luaenv global $version"
+  ln -sf $version $HOME/.luaenv/versions/2.1.0
+  zsh -c "luaenv global 2.1.0"
 fi
 
 version=2.7.6
