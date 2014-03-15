@@ -129,7 +129,9 @@ for file in $(dirname "$0")/*; do
       test_link ruby "$file"
       ;;
     htoprc)
-      test_link htop "$file"
+      if [ "$os" = "darwin" ]; then
+        test_link htop "$file"
+      fi
       ;;
     ackrc)
       test_link ack "$file"
@@ -147,6 +149,11 @@ for file in $(dirname "$0")/*; do
     *.erb)
       if [ -f  "$HOME/.${file%.*}" ]; then
         rm "$HOME/.${file%.*}"
+      fi
+      ;;
+    config)
+      if [ "$os" = "linux" ]; then
+        link "$file"
       fi
       ;;
     *)

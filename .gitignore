@@ -1,23 +1,35 @@
-vim/swap/*
-vim/undo/*
-vim/.netrwhist
-gitconfig
-weechat/logs
-weechat/xfer
-weechat/*.log
-weechat/weeget
-zsh/functions/opp
-zsh/functions/opp-install
-coresys
-offlineimap/pid
-offlineimap/Account-*
-offlineimap/Repository-*
-msmtp.queue/
-bin/iTerm2HotKey
-offlineimap/*.lock
-/elinks
-/vim/bundle
-zsh/functions/*.zwc
-!vim/bundle/vundle
+# Vim
+/vim/swap/*
+/vim/undo/*
+/vim/.netrwhist
+/vim/bundle/*
 /vim/backup
+
+# Weechat IRC
+/weechat/logs
+/weechat/xfer
+/weechat/*.log
+/weechat/weeget
+
+# ZSH functions
+/zsh/functions/opp
+/zsh/functions/opp-install
+*.zwc
+
+# Offlineimap runtime
+/offlineimap/pid
+/offlineimap/Account-*
+/offlineimap/Repository-*
+/offlineimap/*.lock
+
+/bin/iTerm2HotKey
+
+/msmtp.queue/
+/elinks
+
+# Linux XDG config directory
+/config/*
+!/config/htop
+
+# Temporary python files
 *.pyc
