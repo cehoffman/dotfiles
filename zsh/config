@@ -8,8 +8,13 @@ typeset -gUa preexec_functions
 typeset -gUa precmd_functions
 typeset -gUa chpwd_functions
 
-## smart urls
 if [[ -o interactive ]]; then
+  # The earlier compinit is loaded the faster shell startup is
+  autoload -U compinit
+  compinit -i
+  ZLE_REMOVE_SUFFIX_CHARS=$' \n\t;' # Prevent zsh from eating spaces after completion when inserting | &
+
+  # smart urls
   autoload -U url-quote-magic
   zle -N self-insert url-quote-magic
 
@@ -108,15 +113,9 @@ fi
 
 export EDITOR='vim'
 
-path=(/Applications/VirtualBox.app/Contents/MacOS(/) $HOME/.local/{s,}bin(/) $HOME/.bin(/) $HOME/.bin(@) /usr/texbin/(/) $path)
-fpath=(~/.dotfiles/zsh/functions ~/.dotfiles/zsh/vendor/completions/src(/) $HOME/.local/share/zsh/site-functions(/) $fpath)
-manpath=($HOME/.local/share/man(/) /usr/local/share/man /usr/share/man $manpath)
-
-if [[ -o interactive ]]; then
-  autoload -U compinit
-  compinit -i
-  ZLE_REMOVE_SUFFIX_CHARS=$' \n\t;' # Prevent zsh from eating spaces after completion when inserting | &
-fi
+path[1,0]=(/Applications/VirtualBox.app/Contents/MacOS(/) ~/.bin(@) /usr/texbin/(/))
+fpath[1,0]=(~/.dotfiles/zsh/functions ~/.dotfiles/zsh/vendor/completions/src(/))
+manpath[1,0]=(/usr/local/share/man /usr/share/man)
 
 # Load all of your custom configurations from envs/
 function {
