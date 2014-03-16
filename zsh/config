@@ -185,7 +185,7 @@ if [[ -o interactive ]]; then
     export LD_PRELOAD
   else
     if [[ "$STDERR_COLORIZE" != $$ ]]; then
-      if command -v colorize >& /dev/null; then
+      if (( $+commands[colorize] )); then
         exec 2>>(colorize $fg[yellow] $reset_color > /dev/tty &)
       else
         exec 2>>(while read line; do

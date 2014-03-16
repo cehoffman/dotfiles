@@ -1,6 +1,6 @@
 function start-gpg() {
   if [[ -o interactive ]]; then
-    if command -v gpg-agent &> /dev/null; then
+    if (( $+commands[gpg-agent] )); then
       eval $(gpg-agent --daemon --write-env-file --enable-ssh-support)
     fi
   fi
@@ -27,4 +27,4 @@ fi
 
 unfunction start-gpg
 
-[[ -o interactive ]] && command -v gpg2 &> /dev/null && compdef gpg2=gpg
+[[ -o interactive ]] && (( $+commands[gpg2] )) && compdef gpg2=gpg
