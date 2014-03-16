@@ -103,14 +103,6 @@ export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 export LC_CTYPE='en_US.UTF-8'
 
-## grep
-if [[ -o interactive ]]; then
-  export GREP_OPTIONS='--color=auto'
-  export GREP_COLOR='1;32'
-else
-  export GREP_OPTIONS='--color=never'
-fi
-
 export EDITOR='vim'
 
 path[1,0]=(/Applications/VirtualBox.app/Contents/MacOS(/) ~/.bin(@) /usr/texbin/(/))
@@ -128,19 +120,20 @@ if [[ $IS_MAC = 0 ]]; then
   export __CF_USER_TEXT_ENCODING="$(printf '0x%X' $(id -u)):0x08000100:0"
 fi
 
-if [[ -o interactive ]]; then
-  if [[ ! $TERM =~ ^screen ]]; then
-    alias screen="screen -dRaA"
-  else
-    export TERM="screen-256color"
-  fi
-fi
-
 # Remove duplicates in paths
 typeset -gU path cdpath manpath fpath
 export MANPATH
 
 if [[ -o interactive ]]; then
+  export GREP_OPTIONS='--color=auto'
+  export GREP_COLOR='1;32'
+
+  if [[ ! $TERM =~ ^screen ]]; then
+    alias screen="screen -dRaA"
+  else
+    export TERM="screen-256color"
+  fi
+
   # Make a nice colored interactive prompt
   source ~/.dotfiles/zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ZSH_HIGHLIGHT_STYLES[path]=none
@@ -202,6 +195,8 @@ if [[ -o interactive ]]; then
     fi
   fi
 else
+  export GREP_OPTIONS='--color=never'
+
   # Remove the stderr coloring libs from the env variables to prevent
   # complaints on setuid/setgid programs
   if (($#dyld_insert_libraries)); then
