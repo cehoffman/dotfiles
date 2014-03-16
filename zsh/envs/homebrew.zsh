@@ -1,14 +1,13 @@
 if [[ -d ~/.homebrew ]]; then
   function {
-    local coreutils="$HOME/.homebrew/opt/coreutils"
-    path=($HOME/.homebrew/bin $path)
-    path=($coreutils/libexec/gnubin(/) $HOME/.homebrew/sbin(/) $path)
-    manpath=($coreutils/libexec/gnuman(/) $HOME/.homebrew/share/man(/) $manpath)
-    fpath=($HOME/.homebrew/share/zsh/functions(/) $fpath)
+    local coreutils=~/.homebrew/opt/coreutils
+    path[1,0]=($coreutils:q/libexec/gnubin(/) ~/.homebrew/sbin(/) ~/.homebrew/bin)
+    manpath[1,0]=($coreutils:q/libexec/gnuman(/) ~/.homebrew/share/man(/))
+    fpath[1,0]=(~/.homebrew/share/zsh/functions(/))
 
     if [[ $IS_LINUX = 0 ]]; then
       typeset -xTgU LD_LIBRARY_PATH ld_library_path
-      ld_library_path=($HOME/.homebrew/lib(/) $ld_library_path)
+      ld_library_path[1,0]=(~/.homebrew/lib(/))
     fi
   }
 fi

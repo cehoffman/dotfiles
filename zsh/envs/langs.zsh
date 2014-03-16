@@ -26,7 +26,7 @@ function {
         function __${lang}env_manpath() {
           local mpath
           for mpath (~/.${lang}env/versions/*(/)) manpath=(\"\${(@)manpath:#\$mpath/share/man}\")
-          manpath=(\"$HOME/.${lang}env/versions/\$(${lang}env version-name)/share/man\"(/) \$manpath)
+          manpath[1,0]=(\"$HOME/.${lang}env/versions/\$(${lang}env version-name)/share/man\"(/))
         }"
         eval "$funs"
         precmd_functions+=(__${lang}env_manpath)
