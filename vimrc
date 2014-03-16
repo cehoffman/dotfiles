@@ -71,6 +71,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'sjl/vitality.vim'
   Bundle 'Valloric/YouCompleteMe'
   Bundle 'mhinz/vim-tmuxify'
+  Bundle 'christoomey/vim-tmux-navigator'
 " }}}
 
 " General settings {{{
