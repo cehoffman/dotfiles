@@ -17,7 +17,7 @@ function {
             shift
           fi
           case \"\$cmd\" in
-            ${(j/|/)shlist#${lang}env-sh-})
+            ${(j:|:)shlist//${lang}env-sh-})
               eval \"\$(${lang}env sh-\$cmd \"\$@\")\"
             ;;
             *)
