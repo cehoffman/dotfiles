@@ -173,13 +173,12 @@ if [[ -o interactive ]]; then
   # Color all stderr lines yellow only when interactive The guard prevent
   # a proliferation of processes when using exec to replace the current shell
   # with a fresh instance
-  if [[ -f "$HOME/.homebrew/lib/libstderred.dylib" ]]; then
-    export STDERRED_ESC_CODE="$fg[red]"
+  export STDERRED_ESC_CODE="$fg[red]"
+  if [[ -f ~/.homebrew/lib/libstderred.dylib ]]; then
     typeset -TgU DYLD_INSERT_LIBRARIES dyld_insert_libraries
     dyld_insert_libraries[1,0]=(~/.homebrew/lib/libstderred.dylib(-.))
     export DYLD_INSERT_LIBRARIES
-  elif [[ -f "$HOME/.homebrew/lib/libstderred.so" ]]; then
-    export STDERRED_ESC_CODE="$fg[red]"
+  elif [[ -f ~/.homebrew/lib/libstderred.so ]]; then
     typeset -TgU LD_PRELOAD ld_preload
     ld_preload[1,0]=($HOME/.homebrew/lib/libstderred.so(-.))
     export LD_PRELOAD
@@ -199,10 +198,10 @@ else
 
   # Remove the stderr coloring libs from the env variables to prevent
   # complaints on setuid/setgid programs
-  if (($#dyld_insert_libraries)); then
+  if (( $#dyld_insert_libraries )); then
     dyld_insert_libraries=("${(@)dyld_insert_libraries:#$HOME/.homebrew/lib/libstderred.dylib}")
-  elif (($#ld_preload)); then
-    ld_preload=("${(@)ld_preload:#$HOME/.local/lib/libstderred.so}")
+  elif (( $#ld_preload )); then
+    ld_preload=("${(@)ld_preload:#$HOME/.homebrew/lib/libstderred.so}")
   fi
 fi
 
