@@ -1,4 +1,4 @@
 #!/usr/bin/env zsh
-if command -v reattach-to-user-namespace &> /dev/null; then
+if (( $+commands[reattach-to-user-namespace] )); then
   command tmux set-option -g default-command "$(command -v reattach-to-user-namespace) -l $SHELL" &> /dev/null
 fi
