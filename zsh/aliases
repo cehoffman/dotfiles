@@ -19,11 +19,11 @@ alias history='fc -l 1'
 
 function reload() {
   for file in ~/.dotfiles/zsh/functions/*(:t); do
-    if command -v $(basename "$file") > /dev/null; then
-      unfunction $(basename "$file")
+    if (( $+functions[$file] )); then
+      unfunction $file
     fi
+    autoload -Uz $file
   done
-  autoload -U ~/.dotfiles/zsh/functions/*(:t)
 }
 reload
 
