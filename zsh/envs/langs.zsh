@@ -3,11 +3,13 @@ ENV_LANGS=(rb red lua cyan py yellow)
 function {
   local lang
   local funs
+  local shlist
   for lang in ${(k)ENV_LANGS}; do
     if [[ -x "$HOME/.${lang}env/bin/${lang}env" ]]; then
-      path=("$HOME/.${lang}env/bin" "$HOME/.${lang}env/shims" $path)
-      source "$HOME/.${lang}env/completions/${lang}env.zsh"
+      path[1,0]=(~/.${lang}env/bin ~/.${lang}env/shims)
+      source ~/.${lang}env/completions/${lang}env.zsh
       if [[ -o interactive ]]; then
+        shlist=(~/.${lang}env/libexec/${lang}env-sh-*(:t) ~/.${lang}env/plugins/*/bin/${lang}env-sh-*(:t))
         funs="
         function ${lang}env() {
           local cmd=\"\$1\"
@@ -15,7 +17,7 @@ function {
             shift
           fi
           case \"\$cmd\" in
-            rehash|shell)
+            ${(j/|/)shlist#${lang}env-sh-})
               eval \"\$(${lang}env sh-\$cmd \"\$@\")\"
             ;;
             *)
