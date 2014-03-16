@@ -1,30 +1,19 @@
 function start-gpg() {
-  if [[ -o interactive ]]; then
-    if (( $+commands[gpg-agent] )); then
-      eval $(gpg-agent --daemon --write-env-file --enable-ssh-support)
-    fi
+  if [[ -o interactive && $+commands[gpg-agent] -eq 1 ]]; then
+    eval $(gpg-agent --daemon --write-env-file --enable-ssh-support)
   fi
 }
 
 if [[ -f ~/.gpg-agent-info ]]; then
-  source ~/.gpg-agent-info
-  export GPG_AGENT_INFO
-  export SSH_AUTH_SOCK
-  export GPG_TTY=$(tty)
+  eval "export ${(fj:\nexport :)$(cat ~/.gpg-agent-info)}"
 else
   start-gpg
 fi
 
-if [[ -n "$GPG_AGENT_INFO" ]]; then
-  if ps -p $(echo $GPG_AGENT_INFO | cut -d : -f 2) | grep gpg-agent &> /dev/null; then
-    eval $(cut -d = -f 1 < ~/.gpg-agent-info | xargs echo export)
-  else
-    start-gpg
-  fi
-else
+if [[ -n "$GPG_AGENT_INFO" && ! "$(ps -p ${${(ps/:/)GPG_AGENT_INFO}[2]})" =~ '\sgpg-agent\s' ]]; then
   start-gpg
 fi
 
 unfunction start-gpg
 
-[[ -o interactive ]] && (( $+commands[gpg2] )) && compdef gpg2=gpg
+[[ -o interactive && $+commands[gpg2] -eq 1 ]] && compdef gpg2=gpg && export GPG_TTY=$(tty)

@@ -21,9 +21,6 @@ if [[ -o interactive ]]; then
   # Colorize me
   autoload colors; colors;
 
-  # Setup gpg to know what terminal is active for this session
-  GPG_TTY=$(tty)
-
   if [[ -d ~/.homebrew/share/zsh/$ZSH_VERSION/help ]]; then
     unalias run-help
     autoload -U run-help
