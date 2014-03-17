@@ -43,11 +43,11 @@ link() {
   printf "Linking %s -> %s\n" "$(echo $dest | sed -e "s:$HOME:~:")" "$src"
   if [ -d $file ]; then
     if [ -z "$DRY_RUN" ]; then
-      ln -sfT "$src" "$dest"
+      ln -sf "$src" "$dest"
     fi
   else
     if [ -z "$DRY_RUN" ]; then
-      ln -sfT "$src" "$dest"
+      ln -sf "$src" "$dest"
     fi
   fi
 
