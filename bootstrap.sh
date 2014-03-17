@@ -91,7 +91,7 @@ esac
 if [ ! -d ~/.dotfiles ]; then
   git clone --recursive git@github.com:cehoffman/dotfiles ~/.dotfiles 
 fi
-~/.dotfiles/link.sh
+~/.dotfiles/bin/relink
 
 version=2.1.1
 if [ ! -d $HOME/.rbenv/versions/$version ]; then
@@ -152,7 +152,7 @@ if [ "$os" = "linux" ]; then
   $sudo ldconfig
 fi
 
-~/.dotfiles/update.sh
+~/.dotfiles/bin/update
 
 vim +BundleInstall '+qa!'
 cd ~/.vim/bundle/YouCompleteMe
