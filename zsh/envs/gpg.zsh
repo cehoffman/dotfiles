@@ -16,4 +16,4 @@ fi
 
 unfunction start-gpg
 
-[[ -o interactive && $+commands[gpg2] -eq 1 ]] && compdef gpg2=gpg && export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)

@@ -110,5 +110,6 @@ function {
 [[ $IS_MAC = 0 ]] && compdef _man pman
 compdef _ls l
 compdef _git g
+(( $+commands[gpg2] )) && compdef gpg2=gpg
 
 # vim: filetype=zsh
