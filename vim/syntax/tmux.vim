@@ -44,38 +44,34 @@ syn keyword tmuxCmds run[-shell] lockc lock-client locks lock-session lsp
 syn keyword tmuxCmds list-panes pipep pipe-pane showmsgs show-messages capturep
 syn keyword tmuxCmds capture-pane joinp join-pane choose-buffer
 
-syn keyword tmuxOptsSet prefix status status-fg status-bg bell-action
+syn keyword tmuxOptsSet prefix status status-style bell-action
 syn keyword tmuxOptsSet default-command history-limit status-left status-right
 syn keyword tmuxOptsSet status-interval set-titles display-time buffer-limit
-syn keyword tmuxOptsSet status-left-length status-right-length message-fg
-syn keyword tmuxOptsSet message-bg lock-after-time default-path repeat-time
-syn keyword tmuxOptsSet message-attr status-attr status-keys set-remain-on-exit
+syn keyword tmuxOptsSet status-left-length status-right-length message-style
+syn keyword tmuxOptsSet lock-after-time default-path repeat-time
+syn keyword tmuxOptsSet status-keys set-remain-on-exit
 syn keyword tmuxOptsSet status-utf8 default-terminal visual-activity
 syn keyword tmuxOptsSet visual-bell visual-content status-justify
-syn keyword tmuxOptsSet terminal-overrides status-left-attr status-left-bg
-syn keyword tmuxOptsSet status-left-fg status-right-attr status-right-bg
-syn keyword tmuxOptsSet status-right-fg update-environment base-index
+syn keyword tmuxOptsSet terminal-overrides status-left-style
+syn keyword tmuxOptsSet status-right-style update-environment base-index
+syn keyword tmuxOptsSet pane-base-index wrap-search
 syn keyword tmuxOptsSet display-panes-colour display-panes-time default-shell
 syn keyword tmuxOptsSet set-titles-string lock-command lock-server
 syn keyword tmuxOptsSet mouse-select-pane mouse-select-window mouse-utf8
 syn keyword tmuxOptsSet mouse-resize-pane message-limit quiet escape-time
-syn keyword tmuxOptsSet pane-active-border-bg pane-active-border-fg
-syn keyword tmuxOptsSet pane-border-bg pane-border-fg
+syn keyword tmuxOptsSet pane-active-border-style pane-border-style
 syn keyword tmuxOptsSet display-panes-active-colour alternate-screen
 
 syn keyword tmuxOptsSetw monitor-activity aggressive-resize force-width
-syn keyword tmuxOptsSetw force-height remain-on-exit uft8 mode-fg mode-bg
+syn keyword tmuxOptsSetw force-height remain-on-exit uft8 mode-style
 syn keyword tmuxOptsSetw mode-keys clock-mode-colour clock-mode-style
-syn keyword tmuxOptsSetw xterm-keys mode-attr window-status-attr
-syn keyword tmuxOptsSetw window-status-bg window-status-fg automatic-rename
+syn keyword tmuxOptsSetw xterm-keys mode-style window-status-style
+syn keyword tmuxOptsSetw automatic-rename window-status-current-style
 syn keyword tmuxOptsSetw main-pane-width main-pane-height monitor-content
-syn keyword tmuxOptsSetw window-status-current-attr window-status-current-bg
-syn keyword tmuxOptsSetw window-status-current-fg mode-mouse synchronize-panes
+syn keyword tmuxOptsSetw mode-mouse synchronize-panes
 syn keyword tmuxOptsSetw window-status-format window-status-current-format
-syn keyword tmuxOptsSetw window-status-bell-bg window-status-bell-fg window-status-bell-attr
-syn keyword tmuxOptsSetw window-status-content-bg window-status-content-fg window-status-content-attr
-syn keyword tmuxOptsSetw window-status-activity-bg window-status-activity-fg window-status-activity-attr
-syn keyword tmuxOptsSetw word-separators utf8
+syn keyword tmuxOptsSetw window-status-bell-style window-status-content-style
+syn keyword tmuxOptsSetw window-status-activity-style word-separators utf8
 
 syn keyword tmuxTodo FIXME NOTE TODO XXX contained
 
