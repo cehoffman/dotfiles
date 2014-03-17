@@ -157,6 +157,9 @@ fi
 ~/.dotfiles/bin/update
 
 vim +BundleInstall '+qa!'
-cd ~/.vim/bundle/YouCompleteMe
-zsh -c "PYENV_VERSION=$version ./install.sh --clang-completer"
+ycm="$HOME/.vim/bundle/YouCompleteMe"
+cd "$ycm"
+sed 's/Unix Makefiles"/Unix Makefiles" \$(python_finder)/' install.sh > install2.sh
+zsh -c "cd '$ycm' && chmod +x ./install2.sh && PYENV_VERSION=$version ./install2.sh --clang-completer"
+rm install2.sh
 
