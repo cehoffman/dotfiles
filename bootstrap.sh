@@ -110,7 +110,9 @@ if [ "$os" = "darwin" ]; then
 else
   # Remove liblzma installed from the_silver_searcher to avoid conflict with
   # system
-  brew remove xz
+  if brew list | grep -iq xz; then
+    brew remove xz
+  fi
 fi
 
 # Make use of newly installed ctags to index ruby
