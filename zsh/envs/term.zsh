@@ -63,7 +63,7 @@ if [[ -o interactive ]]; then
   }
 
   function title_precmd () {
-    set_title %~ $SHELL:t
+    set_title ${${(ps:/:)PWD/$HOME/\~}[-1]} $SHELL:t
   }
 
   preexec_functions+=title_preexec
