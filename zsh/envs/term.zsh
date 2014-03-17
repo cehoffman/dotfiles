@@ -7,7 +7,7 @@ if [[ -o interactive ]]; then
       screen*)
         print -Pn "\e]0;$2\a"
         print -Pn "\ek%m $1\e\\"
-        [[ -n "$TMUX" ]] && print -Pn "\ePtmux;\e\ek%m $1\e\\"
+        [[ -n "$TMUX" && -z "$ITERM_PROFILE" ]] && print -Pn "\ePtmux;\e\ek%m $1\e\\"
         ;;
     esac
   }
