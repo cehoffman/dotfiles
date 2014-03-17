@@ -34,8 +34,8 @@ bindkey -M vicmd '^P' history-beginning-search-backward
 bindkey -M vicmd '^N' history-beginning-search-forward
 
 # The viins versions of this are blown away below for faster  to vicmd
-bindkey 'OA' history-beginning-search-backward # Up arrow
-bindkey 'OB' history-beginning-search-forward # Down arrow
+bindkey -M vicmd 'OA' history-beginning-search-backward # Up arrow
+bindkey -M vicmd 'OB' history-beginning-search-forward # Down arrow
 
 # Make autocomplete cycling work like in vim
 bindkey -M menuselect '^P' reverse-menu-complete
