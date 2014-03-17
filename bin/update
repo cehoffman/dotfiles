@@ -53,7 +53,7 @@ case $PLATFORM in
     ;;
 esac
 
-$(dirname "$0")/link.sh
+$(dirname "$0")/relink
 
 if command -v vim > /dev/null 2>&1; then
   if [ -z "$DRY_RUN" ]; then
