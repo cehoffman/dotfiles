@@ -334,6 +334,9 @@ if has("autocmd")
     " Maintain tabs for idiomatic go code
     autocmd FileType go setlocal noexpandtab softtabstop=2 tabstop=2 listchars+=tab:\ \  completeopt-=preview
 
+    " Make upstart files comment correctly
+    autocmd FileType upstart setlocal commentstring=#\ %s
+
     " Help Window Customization {{{
       function! s:SetupHelpWindow()
         wincmd L
