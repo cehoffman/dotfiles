@@ -148,7 +148,7 @@ for file in "$dotfiles"/*; do
       test_link lbdb "$file"
       ;;
     *.erb)
-      if [ -f  "$HOME/.${file%.*}" ]; then
+      if [ -f  "$HOME/.${file%.*}" -a -z "$DRY_RUN" ]; then
         rm "$HOME/.${file%.*}"
       fi
       ;;
@@ -157,9 +157,16 @@ for file in "$dotfiles"/*; do
         link "$file"
       fi
       ;;
+    ssh)
+      if [ ! -h "$HOME/.$file" -a -z "$DRY_RUN" ]; then
+        cp -a ~/.ssh/* ssh/
+        rm -rf ~/.ssh/
+      fi
+      link "$file"
+      ;;
     *)
       link "$file"
-    ;;
+      ;;
   esac
 done
 

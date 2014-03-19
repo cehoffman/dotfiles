@@ -28,3 +28,6 @@
 [submodule "zsh/vendor/fasd"]
 	path = zsh/vendor/fasd
 	url = https://github.com/clvv/fasd.git
+[submodule "ssh"]
+	path = ssh
+	url = git@ceh.im:cehoffman/ssh-config.git
