@@ -109,7 +109,15 @@ function {
 
 [[ $IS_MAC = 0 ]] && compdef _man pman
 compdef _ls l
+_git # Need to call _git to load _git-diff and other functions - this is slow
 compdef g=git
+compdef _git-diff gd
+compdef _git-add ga
+compdef _git-status gs
+compdef _git-commit gc
+compdef _git-checkout gco
+compdef _git-push gp
+compdef _git-log gl
 (( $+commands[gpg2] )) && compdef gpg2=gpg
 
 # vim: filetype=zsh

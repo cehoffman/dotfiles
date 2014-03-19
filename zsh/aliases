@@ -6,6 +6,7 @@ alias gs='git st'
 alias gc="git commit"
 alias gco="git checkout"
 alias gp="git push"
+alias gl="git l"
 
 alias l='ls -lAh'
 alias less='less -R'
