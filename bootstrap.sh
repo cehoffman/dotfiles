@@ -157,9 +157,18 @@ fi
 ~/.dotfiles/bin/update
 
 vim +BundleInstall '+qa!'
+
 ycm="$HOME/.vim/bundle/YouCompleteMe"
-cd "$ycm"
-sed 's/Unix Makefiles"/Unix Makefiles" \$(python_finder)/' install.sh > install2.sh
-zsh -c "cd '$ycm' && chmod +x ./install2.sh && PYENV_VERSION=$version ./install2.sh --clang-completer"
-rm install2.sh
+case $os in
+  darwin)
+    zsh -c "cd '$ycm' && PYENV_VERSION=$version ./install.sh --clang-completer"
+    zsh -c $'install_name_tool -change ${${(z)${"${(f)$(otool -L =vim)}"[(r)*Python*]}}[1]} ~/.pyenv/versions/'$version'/lib/libpython*.dylib =vim'
+    ;;
+  linux)
+    cd "$ycm"
+    sed 's/Unix Makefiles"/Unix Makefiles" \$(python_finder)/' install.sh > install2.sh
+    zsh -c "cd '$ycm' && chmod +x ./install2.sh && PYENV_VERSION=$version ./install2.sh --clang-completer"
+    rm install2.sh
+    ;;
+esac
 
