@@ -158,7 +158,7 @@ for file in "$dotfiles"/*; do
       fi
       ;;
     ssh)
-      if [ ! -h "$HOME/.$file" -a -z "$DRY_RUN" ]; then
+      if [ -d "$HOME/.$file" -a ! -h "$HOME/.$file" -a -z "$DRY_RUN" ]; then
         cp -a ~/.ssh/* ssh/
         rm -rf ~/.ssh/
       fi
