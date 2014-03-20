@@ -869,9 +869,9 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   " endif
 " }}}
 " UltiSnips settings {{{
-  " let g:UltiSnipsExpandTrigger  = "<leader><tab>"
-  " let g:UltiSnipsJumpForwardTrigger  = "<leader><tab>"
-  " let g:UltiSnipsJumpBackwardTrigger = "<leader>;"
+  let g:UltiSnipsExpandTrigger  = "<leader><tab>"
+  let g:UltiSnipsJumpForwardTrigger  = "<leader><tab>"
+  let g:UltiSnipsJumpBackwardTrigger = "<leader>;"
 " }}}
 " CSV settings {{{
   let g:csv_hiHeader = 'CSVHiColumnHeader'
