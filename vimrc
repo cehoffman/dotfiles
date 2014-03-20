@@ -880,8 +880,16 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 " Markdown settings {{{
   if has('macunix')
     nnoremap <silent> <Leader>M :call system('open -g -F -a Marked '.shellescape(expand('%:p')))<CR>
-    if filereadable(expand('~/.dotfiles/mutt/markdown'))
-      autocmd BufWritePost mutt-* call system(expand('~/.dotfiles/mutt/markdown').' '.shellescape(expand('%:p')))
+    if filereadable(expand('~/.dotfiles/mutt/markdown')) && has('autocmd')
+      augroup MuttMail
+        autocmd!
+        autocmd BufRead mutt-* set ft=mail.markdown
+        autocmd BufWritePost mutt-* let b:did_writte = 1
+        autocmd BufUnload mutt-*
+              \ | if exists('b:did_write')
+              \ |   call system(expand('~/.dotfiles/mutt/markdown').' '.shellescape(expand('%:p')))
+              \ | endif
+      augroup END
     endif
   endif
 " }}}
