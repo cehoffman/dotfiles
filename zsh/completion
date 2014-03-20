@@ -113,6 +113,7 @@ _git # Need to call _git to load _git-diff and other functions - this is slow
 compdef g=git
 compdef _git-diff gd
 compdef _git-add ga
+compdef _git-add gap
 compdef _git-status gs
 compdef _git-commit gc
 compdef _git-checkout gco

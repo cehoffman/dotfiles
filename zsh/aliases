@@ -1,7 +1,8 @@
 alias g='git'
 alias gd='git d'
 alias gdc='git dc'
-alias ga='git add -p'
+alias ga='git add'
+alias gap='git add -p'
 alias gs='git st'
 alias gc="git commit"
 alias gco="git checkout"
