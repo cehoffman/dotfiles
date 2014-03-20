@@ -66,4 +66,7 @@ module LTC extend self
   end
 end
 
-puts LTC.send(ARGV.shift || 'help')
+cmd = ARGV.shift || 'help'
+cmd = /^#{cmd}/
+cmd = (LTC.public_methods - Object.public_methods).detect { |m| m =~  cmd }
+puts LTC.send cmd
