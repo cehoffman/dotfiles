@@ -26,9 +26,13 @@ function {
           esac
         }
         function __${lang}env_manpath() {
-          local mpath
-          for mpath (~/.${lang}env/versions/*(/)) manpath=(\"\${(@)manpath:#\$mpath/share/man}\")
-          manpath[1,0]=(\"$HOME/.${lang}env/versions/\$(${lang}env version-name)/share/man\"(/))
+          local cur=\$(${lang}env version-name)
+          if [[ "\$cur" != "\$__cur_${lang}env_version" ]]; then
+            local mpath
+            for mpath (~/.${lang}env/versions/*(/)) manpath=(\"\${(@)manpath:#\$mpath/share/man}\")
+            manpath[1,0]=(\"$HOME/.${lang}env/versions/\$cur/share/man\"(/))
+          fi
+          __cur_${lang}env_version=\$cur
         }"
         eval "$funs"
         precmd_functions+=(__${lang}env_manpath)
