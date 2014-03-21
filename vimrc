@@ -208,8 +208,7 @@ let maplocalleader = ',' " \ is the default
   nnoremap <Leader>el :e <C-r>=expand('%:p:h')<CR>/
 
   " Select just pasted text in last used visual mode
-  nnoremap <Leader>v V`]
-  " nnoremap <expr> gp '`[' . visualmode() . '`]'
+  nnoremap <expr> <Leader>v '`[' . visualmode() . '`]'
 
   " Shortcut to edit .vimrc
   noremap <Leader>ev :edit ~/.dotfiles/vimrc<CR>
