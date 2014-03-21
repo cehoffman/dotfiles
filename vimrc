@@ -231,7 +231,7 @@ let maplocalleader = ',' " \ is the default
   vnoremap ae ggVoG$
 
   " Easy abbreviation to get path to current file mine file
-  cabbrev %% <C-R>=expand('%:p:h').'/'<cr>
+  cabbrev %% <C-R>=expand('%:p:h')<CR>
 
   " Easy jump between last file
   nnoremap <Leader><Leader> <C-^>
