@@ -55,7 +55,7 @@ module LTC extend self
     @btc2usd ||= JSON.parse(open('https://coinbase.com/api/v1/currencies/exchange_rates').read).fetch('btc_to_usd', 0).to_f
   end
 
-  def method_missing(method, *args, &block)
+  def help
     [
       ['COMMAND', 'DESCRIPTION'],
       ['usd', 'show the current USD conversion of Litecoin'],
@@ -66,7 +66,7 @@ module LTC extend self
   end
 end
 
-cmd = ARGV.shift || 'help'
+cmd = ARGV.shift
 cmd = /^#{cmd}/
 cmd = (LTC.public_methods - Object.public_methods).detect { |m| m =~  cmd }
-puts LTC.send cmd
+puts LTC.send cmd || :help
