@@ -139,7 +139,7 @@ if [ ! -d $HOME/.pyenv/versions/$version ]; then
   unset opts
 fi
 
-if grep "$HOME/\\.homebrew/bin/zsh" /etc/shells > /dev/null ; then
+if [ -z "$(grep "$HOME/\\.homebrew/bin/zsh" /etc/shells)" ]; then
   sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
 fi
 $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
