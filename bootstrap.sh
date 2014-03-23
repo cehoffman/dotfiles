@@ -166,9 +166,9 @@ case $os in
     ;;
   linux)
     cd "$ycm"
-    sed 's/Unix Makefiles"/Unix Makefiles" \$(python_finder)/' install.sh > install2.sh
-    zsh -c "cd '$ycm' && chmod +x ./install2.sh && PYENV_VERSION=$version ./install2.sh --clang-completer"
-    rm install2.sh
+    sed -i 's/Unix Makefiles"/Unix Makefiles" \$(python_finder)/' install.sh
+    zsh -c "cd '$ycm' && chmod +x ./install.sh && PYENV_VERSION=$version ./install.sh --clang-completer"
+    git checkout install.sh
     ;;
 esac
 
