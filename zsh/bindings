@@ -43,6 +43,10 @@ bindkey -M menuselect '^N' menu-complete
 bindkey -M menuselect 'OA' reverse-menu-complete
 bindkey -M menuselect 'OB' menu-complete
 
+# Make typing a / to go to the next path component actually finish completion
+# without inserting another /
+bindkey -M menuselect / accept-line
+
 # Make G go to the end of history
 bindkey -M vicmd 'G' end-of-history
 
