@@ -884,7 +884,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
       augroup MuttMail
         autocmd!
         autocmd BufRead mutt-* set ft=mail.markdown
-        autocmd BufWritePost mutt-* let b:did_writte = 1
+        autocmd BufWritePost mutt-* let b:did_write = 1
         autocmd BufUnload mutt-*
               \ | if exists('b:did_write')
               \ |   call system(expand('~/.dotfiles/mutt/markdown').' '.shellescape(expand('%:p')))
