@@ -2,7 +2,7 @@ emulate -L zsh
 setopt NO_RC_EXPAND_PARAM
 
 local pids
-pids=$(ps ax | grep $1 | grep -v grep | awk '{ print $1 }')
+pids=$(ps -A | grep " $1" | awk '{ print $1 }')
 if [[ -z $pids ]]; then
   echo "$1 is not running"
 else
