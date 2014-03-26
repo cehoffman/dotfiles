@@ -43,7 +43,8 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'Raimondi/delimitMate'
   Bundle 'tmatilai/gitolite.vim'
   Bundle 'othree/html5.vim'
-  Bundle 'vim-scripts/UltiSnips'
+  Bundle 'SirVer/UltiSnips'
+  Bundle 'honza/vim-snippets'
   " Bundle 'Lokaltog/vim-easymotion'
   Bundle 'godlygeek/tabular'
   Bundle 'ecomba/vim-ruby-refactoring'
@@ -869,9 +870,9 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   " endif
 " }}}
 " UltiSnips settings {{{
-  let g:UltiSnipsExpandTrigger  = "<leader><tab>"
-  let g:UltiSnipsJumpForwardTrigger  = "<leader><tab>"
-  let g:UltiSnipsJumpBackwardTrigger = "<leader>;"
+  let g:UltiSnipsExpandTrigger  = "<c-e>"
+  let g:UltiSnipsJumpForwardTrigger  = "<c-w>"
+  let g:UltiSnipsJumpBackwardTrigger = "<c-r>"
 " }}}
 " CSV settings {{{
   let g:csv_hiHeader = 'CSVHiColumnHeader'
