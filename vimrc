@@ -1128,8 +1128,8 @@ let g:tmuxify_map_prefix = 'm'
 " }}}
 
 " Local config
-if filereadable(".vimrc.local")
-  source .vimrc.local
+if filereadable(expand("~/.vimrc.local"))
+  exe 'source '.expand("~/.vimrc.local")
 endif
 
 set secure " must be last line in vimrc to have desired effect
