@@ -1,12 +1,12 @@
 local pids
 
-pids=$(psls $1)
+pids=$(psls "$1")
 
 if [[ $1 != ${pids%% is not running} ]]; then
   pids=${pids#${1}: }
 
   echo -n "killing $1 ($pids)..."
-  kill -${2:-9} $=pids
+  kill -${2:-15} $=pids
   echo "slaughtered."
 else
   echo "$1 is not running"
