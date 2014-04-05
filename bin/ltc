@@ -21,29 +21,105 @@ module LTC extend self
     JSON.parse(Net::HTTP.start(uri.hostname, uri.port) { |http| http.request(req) }.body)['result']
   end
 
+  def _day_format(time); time.utc.strftime('%Y-%m-%d') end
+
   def _txs
-    txs = Hash.new(0)
-    _rpc('listtransactions', $miner_account, 10000, 0).each do |tx|
+    Hash[_rpc('listtransactions', $miner_account, 10000, 0).map do |tx|
       next unless tx['generated'] and tx['confirmations'] >= 100
-      time = Time.at(tx['timereceived']).utc.strftime('%Y-%m-%d')
-      txs[time] += tx['amount']
-    end
-    txs
+      [tx['timereceived'], tx['amount']]
+    end.compact]
   end
 
-  def txs
-    File.open('mined.json', 'w') { |f| f << _txs.to_json }
-    "Saved mined per day history to mined.json"
+  def json
+    File.open('mined.json', 'w') do |f|
+      txs = Hash.new(0)
+      _txs.each { |time, amount| txs[_day_format(Time.at(time))] += amount }
+      f << JSON.pretty_generate(txs)
+    end
+    "Saved daily mining transactions to mined.json"
+  end
+
+  def csv
+    require 'csv'
+    CSV.open('mined.csv', 'wb') do |f|
+      f << ['Date', 'Action', 'Symbol', 'Volume', 'Price']
+      _txs.each do |time, amount|
+        f << [Time.at(time).strftime("%Y-%m-%d %H:%M:%S %z"), 'BUY', 'LTC', amount, 0]
+      end
+    end
+    "Saved mining transaction to mined.csv"
+  end
+
+  MARKETS = {
+    btc2usd: {
+      pair: 'btc-usd',
+      market: 'bitstamp'
+    },
+    btc2usd_alt: {
+      pair: 'btc-usd',
+      market: 'btc-e'
+    },
+    ltc2btc: {
+      pair: 'ltc-btc',
+      market: 'btc-e'
+    }
+  }
+
+  CHART = 'http://www.cryptocoincharts.info/v2/fast/period.php?pair=%{pair}&market=%{market}&time=1y&resolution=1d'
+
+  def _chart_data(url)
+    data = JSON.parse(open(url).read)
+    Hash[data.map do |(time, high, _, _, low, avg, *_)|
+      [_day_format(Time.parse(time.split[0])), avg]
+    end]
+  end
+
+  def update(hist = nil)
+    btc2usd = _chart_data CHART % MARKETS[:btc2usd]
+    ltc2btc = _chart_data CHART % MARKETS[:ltc2btc]
+    btc2usd_alt = _chart_data CHART % MARKETS[:btc2usd_alt]
+
+    hist = JSON.parse(DATA.read) unless hist
+
+    new_hist = Hash[ltc2btc.map do |day, l2b|
+      next [day, hist[day]] if hist[day]
+      [day, {btc2usd: btc2usd[day] || btc2usd_alt[day], ltc2btc: l2b}]
+    end]
+
+    if new_hist.size == hist.size
+      "Nothing to update"
+    else
+      hist = Hash[new_hist.keys.sort.map { |k| [k, new_hist[k]] }]
+      prog = open(__FILE__).read.split(/^__END__/)[0]
+      File.open(__FILE__, 'w') do |f|
+        f << prog
+        f.puts '__END__'
+        f << JSON.pretty_generate(hist)
+      end
+      "Updated program with new historical data"
+    end
   end
 
   def gross_income
     hist = JSON.parse(DATA.read)
-    _txs.inject(0) do |sum, (k, v)|
-      day = hist[k]
-      puts "No historical data on #{k}" unless day
-      price = day['ltc2btc'] * day['btc2usd']
-      sum + price * v
+    unless hist[_day_format(Time.now)]
+      update hist
+      exec __FILE__, 'gross_income'
     end
+
+    income = 0
+    ltc = 0
+
+    _txs.each do |(k, v)|
+      k = _day_format(Time.at(k))
+      day = hist[k]
+      return "No historical data on #{k} #{day}" unless day && day['ltc2btc'] && day['btc2usd']
+      price = day['ltc2btc'] * day['btc2usd']
+      income += price * v
+      ltc += v
+    end
+
+    "Total gross income for #{ltc} is $#{income}"
   end
 
   def addresses
@@ -56,7 +132,7 @@ module LTC extend self
   def _miner
     @soc ||= begin
                require 'socket'
-               TCPSocket.new 'miner1.local', 4028
+               TCPSocket.new $miner, 4028
              end
   end
 
@@ -474,5 +550,8 @@ __END__
   "2014-03-24": {"btc2usd": 570.128319, "ltc2btc": 0.02726},
   "2014-03-25": {"btc2usd": 577.397061, "ltc2btc": 0.02767},
   "2014-03-26": {"btc2usd": 580.605366, "ltc2btc": 0.028},
-  "2014-03-27": {"btc2usd": 568.082037, "ltc2btc": 0.0275}
+  "2014-03-27": {"btc2usd": 466.10, "ltc2btc": 0.0275},
+  "2014-03-28": {"btc2usd": 468.30, "ltc2btc": 0.02632},
+  "2014-03-29": {"btc2usd": 486.97, "ltc2btc": 0.02739},
+  "2014-03-30": {"btc2usd": 455.41, "ltc2btc": 0.02708}
 }
