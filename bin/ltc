@@ -82,22 +82,30 @@ module LTC extend self
     hist = JSON.parse(DATA.read) unless hist
 
     new_hist = Hash[ltc2btc.map do |day, l2b|
-      next [day, hist[day]] if hist[day]
-      [day, {btc2usd: btc2usd[day] || btc2usd_alt[day], ltc2btc: l2b}]
-    end]
+      [day, {btc2usd: btc2usd[day] || btc2usd_alt[day], ltc2btc: l2b}] unless hist[day]
+    end.compact]
 
-    if new_hist.size == hist.size
-      "Nothing to update"
+    new_hist = Hash[new_hist.keys.sort.map { |k| [k, new_hist[k]] }]
+    if new_hist.keys.sort.last == hist.keys.sort.last
+      hist.merge! Hash[((Time.now - 60 * 60 * 24 * 7).to_i..Time.now.to_i).step(60 * 60 * 24).map do |day|
+        day = _day_format Time.at(day)
+        [day, new_hist[day]] if new_hist[day]['btc2usd'] && new_hist[day]['ltc2btc']
+      end.compact]
+      action = "Updated the last week of prices"
     else
-      hist = Hash[new_hist.keys.sort.map { |k| [k, new_hist[k]] }]
-      prog = open(__FILE__).read.split(/^__END__/)[0]
-      File.open(__FILE__, 'w') do |f|
-        f << prog
-        f.puts '__END__'
-        f << JSON.pretty_generate(hist)
-      end
-      "Updated program with new historical data"
+      hist.merge! new_hist
+      action = "Updated program with new historical data"
     end
+
+    hist = Hash[hist.keys.sort.map { |k| [k, hist[k]] }]
+    DATA.seek(0)
+    prog = DATA.read.split(/^__END__/)[0]
+    File.open(__FILE__, 'w') do |f|
+      f << prog
+      f.puts '__END__'
+      f.puts JSON.pretty_generate(hist)
+    end
+    action
   end
 
   def gross_income
