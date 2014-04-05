@@ -1,0 +1,6 @@
+osascript <<-SCRIPT
+  tell application "$1" to activate
+  tell application "System Events" to keystroke "q" using command down
+SCRIPT
+
+# vim: set ft=zsh :
