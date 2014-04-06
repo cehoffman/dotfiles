@@ -122,19 +122,22 @@ module LTC extend self
       exec __FILE__, 'gross_income'
     end
 
-    income = 0
-    ltc = 0
+    income = Hash.new(0)
+    ltc = Hash.new(0)
 
     _txs.each do |(k, v)|
-      k = _day_format(Time.at(k))
+      t = Time.at(k)
+      k = _day_format t
       day = hist[k]
       return "No historical data on #{k} #{day}" unless day && day['ltc2btc'] && day['btc2usd']
       price = day['ltc2btc'] * day['btc2usd']
-      income += price * v
-      ltc += v
+      income[t.year] += price * v
+      ltc[t.year] += v
     end
 
-    "Total gross income for #{ltc} is $#{income}"
+    income.keys.sort.map do |year|
+      "Gross income in #{year} is Ł%.8f valued at $%.2f" % [ltc[year], income[year]]
+    end
   end
 
   def addresses
