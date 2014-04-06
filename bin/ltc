@@ -24,10 +24,17 @@ module LTC extend self
   def _day_format(time); time.utc.strftime('%Y-%m-%d') end
 
   def _txs
-    Hash[_rpc('listtransactions', $miner_account, 10000, 0).map do |tx|
-      next unless tx['generated'] and tx['confirmations'] >= 100
-      [tx['timereceived'], tx['amount']]
-    end.compact]
+    txs = []
+    start = 0
+    begin
+      new_txs = _rpc('listtransactions', $miner_account, 10000, start)
+      new_txs.each do |tx|
+        next unless tx['generated'] and tx['confirmations'] >= 100
+        txs << [tx['timereceived'], tx['amount']]
+      end
+      start += 10000
+    end while new_txs.count >= 10000
+    txs
   end
 
   def json
