@@ -74,6 +74,9 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'mhinz/vim-tmuxify'
   Bundle 'christoomey/vim-tmux-navigator'
   Bundle 'elzr/vim-json'
+  Bundle 'wellle/targets.vim'
+  Bundle 'Blackrush/vim-gocode'
+  Bundle 'jaxbot/github-issues.vim'
 " }}}
 
 " General settings {{{
@@ -957,6 +960,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 " }}}
 " let g:vitality_fix_focus = 1
 let g:tmuxify_map_prefix = 'm'
+let g:github_upstream_issues = 1
 
 " Window Management {{{
   " Open a yanked window {{{
