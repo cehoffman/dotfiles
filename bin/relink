@@ -159,7 +159,7 @@ for file in "$dotfiles"/*; do
       ;;
     ssh)
       if [ -d "$HOME/.$file" -a ! -h "$HOME/.$file" -a -z "$DRY_RUN" ]; then
-        cp -a ~/.ssh/* ssh/
+        cp -a ~/.ssh/ .
         rm -rf ~/.ssh/
       fi
       link "$file"
