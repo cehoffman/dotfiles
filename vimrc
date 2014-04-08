@@ -77,6 +77,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'wellle/targets.vim'
   Bundle 'Blackrush/vim-gocode'
   Bundle 'jaxbot/github-issues.vim'
+  Bundle 'ekalinin/Dockerfile.vim'
 " }}}
 
 " General settings {{{
