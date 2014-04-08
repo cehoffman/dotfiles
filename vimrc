@@ -32,6 +32,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'tpope/vim-eunuch'
   Bundle 'tpope/vim-scriptease'
   Bundle 'tpope/vim-dispatch'
+  Bundle 'tpope/vim-projectile'
   Bundle 'cehoffman/vim-ragtag'
   Bundle 'cehoffman/csv.vim'
   Bundle 'cehoffman/vim-lua'
@@ -78,6 +79,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'Blackrush/vim-gocode'
   Bundle 'jaxbot/github-issues.vim'
   Bundle 'ekalinin/Dockerfile.vim'
+  Bundle 'moll/vim-node'
 " }}}
 
 " General settings {{{
@@ -678,24 +680,24 @@ if has("autocmd")
   augroup RailsShortcuts " {{{
     au!
     autocmd User Rails
-          \ map <buffer> <Leader>grm :Rmodel |
-          \ map <buffer> <Leader>grc :Rcontroller |
-          \ map <buffer> <Leader>grv :Rview |
-          \ map <buffer> <Leader>gvl :Rlayout |
-          \ map <buffer> <Leader>gll :Rlib |
-          \ map <buffer> <Leader>gut :Runittest |
-          \ map <buffer> <Leader>grd :Rmigration |
-          \ map <buffer> <Leader>gft :Rfunctionaltest |
-          \ map <buffer> <Leader>git :Rintegrationtest |
-          \ map <buffer> <Leader>grs :Rspec |
-          \ map <buffer> <Leader>gre :Renvironment |
-          \ map <buffer> <Leader>grt :Rtask |
-          \ map <buffer> <Leader>gro :Robserver |
-          \ map <buffer> <Leader>grj :Rjavascript |
-          \ map <buffer> <Leader>gri :Rinitializer |
-          \ map <buffer> <Leader>grl :Rlocale |
-          \ map <buffer> <Leader>grh :Rhelper |
-          \ map <buffer> <Leader>gam :Rmailer |
+          \ map <buffer> <Leader>grm :Emodel |
+          \ map <buffer> <Leader>grc :Econtroller |
+          \ map <buffer> <Leader>grv :Eview |
+          \ map <buffer> <Leader>gvl :Elayout |
+          \ map <buffer> <Leader>gll :Elib |
+          \ map <buffer> <Leader>gut :Eunittest |
+          \ map <buffer> <Leader>grd :Emigration |
+          \ map <buffer> <Leader>gft :Efunctionaltest |
+          \ map <buffer> <Leader>git :Eintegrationtest |
+          \ map <buffer> <Leader>grs :Espec |
+          \ map <buffer> <Leader>gre :Eenvironment |
+          \ map <buffer> <Leader>grt :Etask |
+          \ map <buffer> <Leader>gro :Eobserver |
+          \ map <buffer> <Leader>grj :Ejavascript |
+          \ map <buffer> <Leader>gri :Einitializer |
+          \ map <buffer> <Leader>grl :Elocale |
+          \ map <buffer> <Leader>grh :Ehelper |
+          \ map <buffer> <Leader>gam :Emailer |
           \ :Rnavcommand job app/jobs -glob=**/* |
           \ map <buffer> <Leader>gbj :Rjob |
 
@@ -790,7 +792,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 " Syntastic settings {{{
   let g:syntastic_enable_signs = 1
   let g:syntastic_auto_jump = 0
-  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_auto_loc_list = 0
   let g:syntastic_objc_compiler = "clang"
   let g:syntastic_objc_compiler_options = "--std=c99"
   let g:syntastic_c_checkers = []
@@ -962,6 +964,18 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 " let g:vitality_fix_focus = 1
 let g:tmuxify_map_prefix = 'm'
 let g:github_upstream_issues = 1
+" Node conviences {{{
+  let node#filetypes += ['coffee']
+  let node#suffixesadd += ['.coffee']
+" }}}
+" Common projectile mappings {{{
+  nnoremap <silent> <leader>d :Dispatch<CR><CR>
+  nnoremap <silent> <leader>qq :ccl<CR>
+  map geu :Eunittest |
+  map gem :Emodel |
+  map gec :Econtroller |
+  map gei :Eintegrationtest |
+" }}}
 
 " Window Management {{{
   " Open a yanked window {{{
