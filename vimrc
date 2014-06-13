@@ -6,11 +6,11 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
 " Vundle initialization {{{
   filetype off
   " runtime! bundle/vim-pathogen/autoload/pathogen.vim
-  if !filereadable(expand('~/.dotfiles/vim/bundle/vundle/README.md'))
-    silent !git clone https://github.com/gmarik/vundle.git ~/.dotfiles/vim/bundle/vundle
+  if !filereadable(expand('~/.vim/bundle/vundle/README.md'))
+    silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
   endif
 
-  set rtp+=~/.dotfiles/vim/bundle/vundle
+  set rtp+=~/.vim/bundle/vundle
   call vundle#rc()
 
   Bundle 'gmarik/vundle'
@@ -99,7 +99,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   set sidescroll=1         " mode the side by 1
   set visualbell t_vb=     " disable the stupid bell
   set cmdheight=1          " Reduce the number of times the hit enter dialog comes up
-  set shortmess+=aI        " Make messages even shorter
+  set shortmess+=aIWsc     " Make messages even shorter
   set laststatus=2         " Always display the status line
   set autoindent           " always set auto indenting on
   set smartindent          " automatically adjust the level of indentation with language constructs
