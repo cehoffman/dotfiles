@@ -166,9 +166,10 @@ case $os in
     ;;
   linux)
     cd "$ycm"
-    sed -i 's/Unix Makefiles"/Unix Makefiles" \$(python_finder)/' install.sh
+    sed -i 's/Unix Makefiles"/Unix Makefiles" \$(python_finder)/' third_party/ycmd/build.sh
     zsh -c "cd '$ycm' && chmod +x ./install.sh && PYENV_VERSION=$version ./install.sh --clang-completer"
-    git checkout install.sh
+    cd "third_party/ycmd"
+    git checkout build.sh
     ;;
 esac
 
