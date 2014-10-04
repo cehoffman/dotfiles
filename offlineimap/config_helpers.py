@@ -60,7 +60,12 @@ mappings = {
         'Drafts': 'drafts',
         'Sent': 'sent',
         'Trash': 'trash',
-        'Archive': 'archive'
+        'Archive': 'archive',
+        'SPMF': 'spmf',
+        'DMTF': 'dmtf',
+        'User Stories': 'user_stories',
+        'Stingray Questions': 'stingray_questions',
+        'Need Action': 'actionable'
     }
 }
 
@@ -76,7 +81,9 @@ excluded = {
         'Sync Issues.*',
         'Unsent Messages',
         'Sent Messages',
-        'Archive'
+        'Deleted Messages',
+        'Archive',
+        'Trash'
     ],
     'gmail': [
         '.*' # Exlude all gmail folders by default

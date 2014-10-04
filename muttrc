@@ -21,7 +21,7 @@ set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)
 set attribution = "On %{%B %d at %I:%M %p}, %n wrote:"
 
 set use_envelope_from = yes
-set query_command     = "lbdbq '%s'"
+set query_command     = "muttqt -q '%s'"
 set mailcap_path      = "~/.dotfiles/mailcap"
 set editor            = "$EDITOR -c 'norm }o' -c 'set spell' -c 'startinsert'"
 set edit_headers      # Edit the headers when writing the email
@@ -60,21 +60,21 @@ unhdr_order *
 hdr_order From: To: Cc: Date: Subject:
 
 auto_view text/html application/x-gunzip applicaiton/x-tar-gz
-alternative_order text/plain text/html
+alternative_order text/html text/plain
 set implicit_autoview
 
 # set sidebar_width   = 30
 # set sidebar_visible = yes
 # set sidebar_delim   = '│' # options are ─ ━ ┃
 
-set sendmail = msmtp
+set sendmail = "~/.dotfiles/mutt/muttqt-msmtp"
 set sendmail_wait = 0
 
 folder-hook gmail/.* 'source ~/.dotfiles/mutt/personal'
 folder-hook emerson/.* 'source ~/.dotfiles/mutt/emerson'
 folder-hook othercoders/.* 'source ~/.dofiles/mutt/othercoders'
 folder-hook apple/.* 'source ~/.dotfiles/mutt/apple'
-folder-hook . "exec collapse-all"
+# folder-hook . "exec collapse-all"
 
 
 set folder = ~/.mail
