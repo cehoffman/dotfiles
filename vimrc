@@ -80,6 +80,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'jaxbot/github-issues.vim'
   Bundle 'ekalinin/Dockerfile.vim'
   Bundle 'moll/vim-node'
+  Bundle 'leafo/moonscript-vim'
 " }}}
 
 " General settings {{{
