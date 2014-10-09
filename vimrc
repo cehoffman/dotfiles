@@ -81,6 +81,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'ekalinin/Dockerfile.vim'
   Bundle 'moll/vim-node'
   Bundle 'leafo/moonscript-vim'
+  Bundle 'tpope/vim-obsession'
 " }}}
 
 " General settings {{{
