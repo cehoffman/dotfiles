@@ -119,7 +119,7 @@ macro index,pager,attach,compose \Cv "\
 <pipe-message>urlview<Enter>\
 <enter-command>set pipe_decode=\$my_pipe_decode;unset my_pipe_decode<Enter>" 'call urlview to extract URLS out of a message'
 
-macro index,pager o "<shell-escape>/usr/bin/python $(which offlineimap) -q<Enter>" "sync inboxes using offline-imap"
+macro index,pager ,f "<shell-escape>/usr/bin/python $(which offlineimap) -q<Enter>" "sync inboxes using offline-imap"
 
 macro index,pager = <change-folder>= "Make it easy to change to other conical mailboxes"
 
