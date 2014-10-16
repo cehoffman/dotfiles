@@ -31,3 +31,6 @@
 [submodule "ssh"]
 	path = ssh
 	url = git@ceh.im:cehoffman/ssh-config.git
+[submodule "mutt/gfm-mail"]
+	path = mutt/gfm-mail
+	url = git@github.com:cehoffman/gfm-mail.git
