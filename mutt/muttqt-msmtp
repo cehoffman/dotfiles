@@ -29,12 +29,14 @@ end
 
 # File.open('/tmp/message.tmp', 'w+') { |f| f.puts new_mail.encoded.to_lf }
 
+IO.popen(['muttqt', '-f'], 'w+', :err => :out) do |f|
+  f.puts new_mail.encoded.to_lf
+  f.flush
+end
+
 IO.popen(['msmtp', *ARGV], 'w+', :err => :out) do |f|
   f.puts new_mail.encoded.to_lf
   f.flush
 end
 
-IO.popen(['muttqt', '-f'], 'w+', :err => :out) do |f|
-  f.puts new_mail.encoded.to_lf
-  f.flush
-end
+exit $?.to_i
