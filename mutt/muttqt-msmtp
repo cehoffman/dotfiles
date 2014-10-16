@@ -9,14 +9,14 @@ end
 
 mail = Mail.new($stdin.read)
 
-if mail.parts.map(&:filename).include?('mutt-html-alternative.html')
+if mail.parts.map(&:filename).include?('mutt-mail.html')
   new_mail = Mail.new
   new_mail.header = mail.header.to_s
 
   mail.parts.each do |part|
     if part.content_type =~ %r{^text/plain}
       new_mail.text_part = part
-    elsif part.filename == 'mutt-html-alternative.html'
+    elsif part.filename == 'mutt-mail.html'
       new_mail.html_part = part
     #elsif !part.filename.nil? && part.filename != ''
     else

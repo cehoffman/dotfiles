@@ -7,7 +7,7 @@ script = <<-APPLESCRIPT
   end tell
   set myPath to #{ARGV[0].inspect}
   try
-    do shell script "rm ~/Documents/mutt-html-alternative.html"
+    do shell script "rm /tmp/mutt-mail.html"
   end try
   tell application "Marked"
     activate
@@ -27,7 +27,7 @@ script = <<-APPLESCRIPT
   tell application activeApp to activate
 APPLESCRIPT
 
-alt = File.expand_path('~/Documents/mutt-html-alternative.html')
+alt = File.expand_path('/tmp/mutt-mail.html')
 File.unlink alt if File.exist?(alt)
 
 IO.popen('osascript', 'w+') do |f|

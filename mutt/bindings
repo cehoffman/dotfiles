@@ -112,7 +112,7 @@ bind compose zb current-bottom
 
 # Attach a file from a standard place we keep it, then mark it for deletion
 # upon being sent.
-macro compose B "<attach-file>~/Documents/mutt-html-alternative.html<Enter><toggle-disposition><toggle-unlink>"
+macro compose B "<attach-file>/tmp/mutt-mail.html<Enter><toggle-disposition><toggle-unlink>"
 
 macro index,pager,attach,compose \Cv "\
 <enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<Enter>\
