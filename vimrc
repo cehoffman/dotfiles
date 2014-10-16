@@ -890,13 +890,19 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   if has('macunix')
     nnoremap <silent> <Leader>M :call system('open -g -F -a "Marked 2" '.shellescape(expand('%:p')))<CR>
     if filereadable(expand('~/.dotfiles/mutt/markdown')) && has('autocmd')
+      " function! CleanMail()
+      "   :normal! :%s/\<c-v>\<esc>[\\d;\\d\\+m
+      "   :normal! :g/>   /d2"
+      " endfunction
+      nnoremap <leader>c ma:%s/<c-v><esc>[\d;\d\+m<cr>:g/>\ \ \s* /d2<cr>`a
       augroup MuttMail
         autocmd!
         autocmd BufRead mutt-* set ft=mail.markdown
         autocmd BufWritePost mutt-* let b:did_write = 1
         autocmd BufUnload mutt-*
               \ | if exists('b:did_write')
-              \ |   call system(expand('~/.dotfiles/mutt/markdown').' '.shellescape(expand('%:p')))
+              \ |   call system("sed '1,/^$/d' ".shellescape(expand('%:p')).' | grip --wide - --export /tmp/markdown')
+              \ |   call system('cat /tmp/markdown | '.expand('~/.dotfiles/mutt/gfm-mail/bin/gfm-mail').' > /tmp/mutt-mail.html')
               \ | endif
       augroup END
     endif
