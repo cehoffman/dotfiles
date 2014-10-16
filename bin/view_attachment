@@ -17,7 +17,12 @@ when 'text/html' then exec 'open', move(file, '.html')
 when 'text/enriched' then exec 'open', move(file, '.rtf')
 when 'application/pdf', 'image/pdf' then exec 'open', move(file, '.pdf')
 when 'application/postscript' then exec 'open', move(file, '.ps')
-when /application\/vnd\.openxmlformats-officedocument.*/ then exec 'open', move(file, '.docx')
+when /application\/vnd\.openxmlformats-officedocument.*/
+  case ARGV[1]
+  when /word/ then exec 'open', move(file, '.docx')
+  when /presentation/ then exec 'open', move(file, '.pptx')
+  when /shreadsheet/ then exec 'open', move(file, '.xslx')
+  end
 when /video\/(.*)/ then exec 'open', move(file, ?. + $1)
 when /image\/(.*)/ then exec 'open', move(file, ?. + $1)
 else
