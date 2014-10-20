@@ -3,8 +3,10 @@
 #import <signal.h>
 
 NSString *iTerm2Identifier = @"com.googlecode.iterm2";
-NSString *loginWindow = @"com.apple.loginwindow";
-NSString *securityAgent = @"com.apple.SecurityAgent";
+NSArray *blacklist = [NSArray arrayWithObjects:@"com.apple.loginwindow",
+        @"com.apple.SecurityAgent",
+        @"com.kapeli.dash",
+        nil];
 EventHotKeyRef hotKeyRef;
 pid_t lastActive = 0;
 
@@ -27,10 +29,7 @@ pid_t lastActive = 0;
   sender = [[aNotification userInfo] valueForKey:NSWorkspaceApplicationKey];
   ident = [sender bundleIdentifier];
 
-  if (ident
-      && ![ident isEqualToString:iTerm2Identifier]
-      && ![ident isEqualToString:loginWindow]
-      && ![ident isEqualToString:securityAgent]) {
+  if (ident && [blacklist indexOfObject:ident] == NSNotFound)
     lastActive = [sender processIdentifier];
     NSLog(@"Saving last active %d %@", lastActive, ident);
   }
