@@ -833,7 +833,25 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:tagbar_autoclose = 1
   let g:tagbar_autofocus = 1
   let g:tagbar_sort = 0
+  let g:tagbar_compact = 1
+  let g:tagbar_indent = 1
   set tags=./tags,tags
+
+  " Add support for markdown files in tagbar.
+  let g:tagbar_type_markdown = {
+      \ 'ctagstype': 'markdown',
+      \ 'ctagsbin' : expand('~/.dotfiles/vim/markdown2ctags.py'),
+      \ 'ctagsargs' : '-f - --sort=yes',
+      \ 'kinds' : [
+          \ 's:sections',
+          \ 'i:images'
+      \ ],
+      \ 'sro' : '|',
+      \ 'kind2scope' : {
+          \ 's' : 'section',
+      \ },
+      \ 'sort': 0,
+  \ }
 
   " Make accessing the taglist easier
   nnoremap <silent> <Leader>ll :TagbarToggle<CR>
