@@ -459,6 +459,7 @@ if has("autocmd")
         " Prepare current buffer specific text
         " Syntax: <CUR> ... </CUR>
         let new_stl = substitute(new_stl, '<CUR>\(.\{-,}\)</CUR>', (a:current ? '\1' : ''), 'g')
+        let new_stl = substitute(new_stl, '<NCUR>\(.\{-,}\)</NCUR>', (a:current ? '' : '\1'), 'g')
 
         " Prepare statusline colors
         " Syntax: #[ ... ]
@@ -547,20 +548,20 @@ if has("autocmd")
           \ , 'ModeS'        : [[ s:yellow, s:midbg, 'bold',  s:gui_yellow, s:gui_midbg], []]
           \,  'Branch'       : [[ s:midbg,  s:botfg, 'none',  s:gui_midbg,  s:gui_botfg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
           \,  'BranchS'      : [[ s:midbg,  s:midfg, 'bold',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg]]
-          \,  'FileName'     : [[ s:midbg,  s:midfg, 'bold',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midfg, 'none', s:gui_darkbg,  s:gui_midfg]]
-          \,  'FileNameS'    : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,   s:bgbg, 'bold', s:gui_darkbg,   s:gui_bgbg]]
+          \,  'FileName'     : [[ s:midbg,  s:midfg, 'bold',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midfg]]
+          \,  'FileNameS'    : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,   s:gui_bgbg]]
           \,  'Error'        : [[ s:midbg,    s:red, 'bold',  s:gui_midbg,    s:gui_red], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
           \,  'ModFlag'      : [[ s:midbg,    s:red, 'bold',  s:gui_midbg,    s:gui_red], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
           \,  'BufFlag'      : [[ s:midbg, s:darkbg, 'none',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
-          \, 'FunctionName' : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \, 'FileFormat'   : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \, 'FileEncoding' : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \, 'Separator'    : [[ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \, 'FileType'     : [[ s:darkbg,  s:botfg, 'none', s:gui_darkbg,  s:gui_botfg], [   s:bgbg, s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \,  'LinePercentS' : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:bgbg,   s:bgbg, 'bold', s:gui_bgbg,   s:gui_bgbg]]
-          \,  'LinePercent'  : [[ s:midbg,  s:midfg, 'none',  s:gui_midbg,  s:gui_midfg], [ s:bgbg,  s:midbg, 'none', s:gui_bgbg,  s:gui_midbg]]
-          \,  'LineNumberS'  : [[ s:topbg,  s:midbg, 'bold',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:bgbg, 'bold', s:gui_darkbg,  s:gui_bgbg]]
-          \,  'LineNumber'   : [[ s:topbg, s:darkbg, 'bold',  s:gui_topbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
+          \, 'FunctionName' : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \, 'FileFormat'   : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \, 'FileEncoding' : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \, 'Separator'    : [[ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \, 'FileType'     : [[ s:darkbg,  s:botfg, 'none', s:gui_darkbg,  s:gui_botfg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \,  'LinePercentS' : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'none', s:gui_bgbg,   s:gui_bgbg]]
+          \,  'LinePercent'  : [[ s:midbg,  s:midfg, 'none',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'bold', s:gui_bgbg,  s:gui_midbg]]
+          \,  'LineNumberS'  : [[ s:topbg,  s:midbg, 'bold',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_bgbg]]
+          \,  'LineNumber'   : [[ s:topbg, s:darkbg, 'bold',  s:gui_topbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg]]
           \,  'LineColumn'   : [[ s:topbg,  s:midbg, 'none',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
         \ }
         \ , 'Insert': {
@@ -595,15 +596,15 @@ if has("autocmd")
       let g:default_stl .= "<CUR>#[Error]%(%{exists('*SyntasticStatuslineFlag') ? SyntasticStatuslineFlag() : ''} %)</CUR>"
       let g:default_stl .= "#[ModFlag]%(%M %)" " Modified flag
       let g:default_stl .= "#[BufFlag]%(%H%W %)" " HLP,PRV flags
-      let g:default_stl .= "#[FileNameS][>>]" " Separator
+      let g:default_stl .= "#[FileNameS]<CUR>[>>]</CUR>" " Separator
       let g:default_stl .= "#[FunctionName] " " Padding/HL group
       let g:default_stl .= "%<" " Truncate right
       let g:default_stl .= "%= " " Right align
       let g:default_stl .= "<CUR>#[FileFormat]%{&fileformat} </CUR>" " File format
       let g:default_stl .= "<CUR>#[FileEncoding]%{(&fenc == '' ? &enc : &fenc)} </CUR>" " File encoding
       let g:default_stl .= "<CUR>#[Separator][<] #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
-      let g:default_stl .= "#[LinePercentS][<<]#[LinePercent] %p%% " " Line/column/virtual column, Line percentage
-      let g:default_stl .= "#[LineNumberS][<<]#[LineNumber]"
+      let g:default_stl .= "<CUR>#[LinePercentS][<<]#[LinePercent]</CUR> %p%% " " Line percentage
+      let g:default_stl .= "#[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber]"
       let g:default_stl .= ""
       let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage
     " }}}
