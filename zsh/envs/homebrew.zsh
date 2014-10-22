@@ -18,5 +18,10 @@ if [[ -d ~/.homebrew ]]; then
       typeset -xTgU LD_LIBRARY_PATH ld_library_path
       ld_library_path[1,0]=(~/.homebrew/lib(/))
     fi
+
   }
+
+  if (( $+commands[brew-cask.rb] )); then
+    export HOMEBREW_CASK_OPTS="--binarydir=~/.homebrew/bin"
+  fi
 fi
