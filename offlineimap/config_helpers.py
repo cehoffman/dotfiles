@@ -84,7 +84,7 @@ excluded = {
         'Deleted Messages',
         'Archive',
         'Trash',
-        '[AirMail]*'
+        r'\[Airmail\].*'
     ],
     'gmail': [
         '.*' # Exlude all gmail folders by default
