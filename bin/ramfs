@@ -15,7 +15,7 @@ module RamFS extend self
 
   # Remove a created ramfs disk
   def unmount(location = 'volatile')
-    location = File.expand_path('volatile')
+    location = File.expand_path(location)
     abort "#{location} does not exist" unless File.directory?(location)
     system 'diskutil', 'eject', location
     Dir.unlink(location) if Dir.entries(location) == ['.', '..']
