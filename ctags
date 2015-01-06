@@ -2,4 +2,5 @@
 --langmap=html:+.rhtml
 --langdef=css
 --langmap=css:.css
+--langmap=html:.html
 --fields=+l
