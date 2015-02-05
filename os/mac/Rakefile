@@ -16,6 +16,10 @@ task :install do
   system 'clang', '-Os', '-fobjc-arc', '-framework', 'Carbon', '-framework',
     'AppKit', 'iTerm2HotKey.m', '-o', File.expand_path('~/.bin/iTerm2HotKey')
 
+  puts "installing GPGFix"
+  system 'clang', '-Os', '-fobjc-arc', '-framework', 'Carbon', '-framework',
+    'AppKit', 'GPGFix.m', '-o', File.expand_path('~/.bin/GPGFix')
+
   loaded = Hash[%x[launchctl list].strip.lines.map do |line|
     line = line.split
     [line.last, true]
