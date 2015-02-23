@@ -80,7 +80,7 @@ case $os in
     # Install personal utilities
     $sudo apt-get install -y htop
     # Install deps for python
-    $sudo apt-get install -y libreadline-dev libsqlite3-dev
+    $sudo apt-get install -y libreadline-dev libsqlite3-dev python-setuptools
     # Install deps for git from homebrew
     $sudo apt-get install -y tcl
     # Install deps for the_silver_searcher
@@ -97,6 +97,20 @@ version=2.2.0
 if [ ! -d $HOME/.rbenv/versions/$version ]; then
   rbenv install $version
   rbenv global $version
+fi
+
+version=2.7.6
+if [ ! -d $HOME/.pyenv/versions/$version ]; then
+  case $os in
+    darwin)
+      zsh -c "PYTHON_CONFIGURE_OPTS='--enable-framework' pyenv install $version"
+      ;;
+    linux)
+      zsh -c "CFLAGS='-fPIC' pyenv install $version"
+      ;;
+  esac
+  zsh -c "pyenv global $version"
+  unset opts
 fi
 
 brew tap cehoffman/personal
@@ -123,20 +137,6 @@ if [ ! -d $HOME/.luaenv/versions/$version ]; then
   zsh -c "luaenv install $version"
   ln -sf $version $HOME/.luaenv/versions/2.1.0
   zsh -c "luaenv global 2.1.0"
-fi
-
-version=2.7.6
-if [ ! -d $HOME/.pyenv/versions/$version ]; then
-  case $os in
-    darwin)
-      zsh -c "PYTHON_CONFIGURE_OPTS='--enable-framework' pyenv install $version"
-      ;;
-    linux)
-      zsh -c "CFLAGS='-fPIC' pyenv install $version"
-      ;;
-  esac
-  zsh -c "pyenv global $version"
-  unset opts
 fi
 
 if [ -z "$(grep "$HOME/\\.homebrew/bin/zsh" /etc/shells)" ]; then
