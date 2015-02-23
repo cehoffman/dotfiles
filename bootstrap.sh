@@ -58,7 +58,7 @@ esac
 case $os in
   darwin)
     if [ ! -d ~/.homebrew ]; then
-      git clone --recursive git@github.com:homebrew/homebrew ~/.homebrew 
+      git clone --recursive git@github.com:homebrew/homebrew ~/.homebrew
     fi
 
     # Install readline so ruby has it
@@ -66,7 +66,7 @@ case $os in
     ;;
   linux)
     if [ ! -d ~/.homebrew ]; then
-      git clone --recursive git@github.com:homebrew/linuxbrew ~/.homebrew 
+      git clone --recursive git@github.com:homebrew/linuxbrew ~/.homebrew
     fi
 
     echo "$USER ALL= NOPASSWD: ALL" | $sudo tee "/etc/sudoers.d/$USER" > /dev/null
@@ -74,7 +74,7 @@ case $os in
     $sudo passwd -l "$USER"
 
     # Install deps for ruby
-    $sudo apt-get install -y libssl-dev libcurl4-openssl-dev libbz2-dev
+    $sudo apt-get install -y libssl-dev libcurl4-openssl-dev libbz2-dev libffi-dev
     # Install deps for zsh
     $sudo apt-get install -y ncurses-dev texinfo
     # Install personal utilities
@@ -89,11 +89,11 @@ case $os in
 esac
 
 if [ ! -d ~/.dotfiles ]; then
-  git clone --recursive git@github.com:cehoffman/dotfiles ~/.dotfiles 
+  git clone --recursive git@github.com:cehoffman/dotfiles ~/.dotfiles
 fi
 ~/.dotfiles/bin/relink
 
-version=2.1.1
+version=2.2.0
 if [ ! -d $HOME/.rbenv/versions/$version ]; then
   rbenv install $version
   rbenv global $version
