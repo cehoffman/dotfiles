@@ -24,7 +24,7 @@ static void closeSCDaemon() {
     proc_pidpath(pids[i], pathBuffer, sizeof(pathBuffer));
     if (*pathBuffer != '\0' && strstr(basename(pathBuffer), "scdaemon")) {
       NSLog(@"Found scdaemon pid %d", pids[i]);
-      kill(pids[i], SIGINT);
+      kill(pids[i], SIGQUIT);
     }
   }
 }
