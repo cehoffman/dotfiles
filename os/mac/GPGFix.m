@@ -11,6 +11,7 @@
 // Method for listing processes taken from:
 // http://stackoverflow.com/questions/3018054/retrieve-names-of-running-processes
 static void closeSCDaemon() {
+  static char *bad_actors[] = {"scdaemon", "pcsc-wrapper", NULL};
   pid_t pids[1024];
   bzero(pids, sizeof(pids));
   proc_listpids(PROC_ALL_PIDS, 0, pids, sizeof(pids));
@@ -22,9 +23,13 @@ static void closeSCDaemon() {
     bzero(pathBuffer, sizeof(pathBuffer));
 
     proc_pidpath(pids[i], pathBuffer, sizeof(pathBuffer));
-    if (*pathBuffer != '\0' && strstr(basename(pathBuffer), "scdaemon")) {
-      NSLog(@"Found scdaemon pid %d", pids[i]);
-      kill(pids[i], SIGQUIT);
+    if (*pathBuffer != '\0') {
+      for (int j = 0; bad_actors[j] != NULL; j++) {
+        if (strstr(basename(pathBuffer), bad_actors[j])) {
+          NSLog(@"Found %s pid %d", bad_actors[j], pids[i]);
+          kill(pids[i], SIGQUIT);
+        }
+      }
     }
   }
 }
