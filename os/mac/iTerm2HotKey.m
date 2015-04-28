@@ -26,9 +26,11 @@ pid_t lastActive = 0;
   sender = [[aNotification userInfo] valueForKey:NSWorkspaceApplicationKey];
   ident = [sender bundleIdentifier];
 
-  if (ident && [blacklist indexOfObject:ident] == NSNotFound)
+  if (ident && [blacklist indexOfObject:ident] == NSNotFound) {
     lastActive = [sender processIdentifier];
-    NSLog(@"Saving last active %d %@", lastActive, ident);
+    if (lastActive > 1) {
+      NSLog(@"Saving last active %d %@", lastActive, ident);
+    }
   }
 }
 @end
