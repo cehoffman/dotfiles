@@ -3,10 +3,7 @@
 #import <signal.h>
 
 NSString *iTerm2Identifier = @"com.googlecode.iterm2";
-NSArray *blacklist = [NSArray arrayWithObjects:@"com.apple.loginwindow",
-        @"com.apple.SecurityAgent",
-        @"com.kapeli.dash",
-        nil];
+NSArray *blacklist;
 EventHotKeyRef hotKeyRef;
 pid_t lastActive = 0;
 
@@ -66,6 +63,7 @@ OSStatus hotkey_handler(EventHandlerCallRef next, EventRef event, void *data) {
   NSRunningApplication *iTerm2;
   NSArray *apps = [NSRunningApplication
                    runningApplicationsWithBundleIdentifier:iTerm2Identifier];
+  blacklist = @[@"com.apple.loginwindow", @"com.apple.SecurityAgent", @"com.kapeli.dash"];
 
   if ([apps count] == 0) return noErr;
   iTerm2 = [apps objectAtIndex:0];

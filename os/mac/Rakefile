@@ -17,7 +17,7 @@ task :install do
     'AppKit', 'iTerm2HotKey.m', '-o', File.expand_path('~/.bin/iTerm2HotKey')
 
   puts "installing GPGFix"
-  system 'clang', '-Os', '-fobjc-arc', '-framework', 'Carbon', '-framework',
+  system 'clang', '-Os', '-fobjc-arc', '-framework', 'IOKit', '-framework',
     'AppKit', 'GPGFix.m', '-o', File.expand_path('~/.bin/GPGFix')
 
   loaded = Hash[%x[launchctl list].strip.lines.map do |line|
@@ -40,7 +40,7 @@ task :install do
     puts "installing #{plist} to ~/Library/LaunchAgents"
     open(dest , 'w') { |file| file << contents }
 
-    if loaded[File.basename(dest, '.plist')]
+    if loaded[File.basename(dest, '.plist')] || /im\.ceh\.gpg-smartcard/ =~ dest
       puts "shutting down #{plist}"
       system 'launchctl', 'unload', '-w', dest
     end
