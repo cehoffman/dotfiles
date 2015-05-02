@@ -23,7 +23,7 @@ set attribution = "On %{%B %d at %I:%M %p}, %n wrote:"
 set use_envelope_from = yes
 set query_command     = "muttqt -q '%s'"
 set mailcap_path      = "~/.dotfiles/mailcap"
-set editor            = "$EDITOR -c 'norm }o' -c 'set spell' -c 'startinsert'"
+set editor            = "$EDITOR -c 'norm }' -c 'set spell'"
 set edit_headers      # Edit the headers when writing the email
 set fast_reply        # Don't ask for receipients on reply or subject on forward
 set autoedit          # Just drop into creating message, I'll set To in editor
