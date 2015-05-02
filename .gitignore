@@ -23,6 +23,7 @@
 /offlineimap/*.lock
 
 /bin/iTerm2HotKey
+/bin/GPGFix
 
 /msmtp.queue/
 /elinks
