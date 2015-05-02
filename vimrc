@@ -71,6 +71,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'ledger/vim-ledger'
   Bundle 'ZoomWin'
   Bundle 'sjl/vitality.vim'
+  Bundle 'ervandew/supertab'
   Bundle 'Valloric/YouCompleteMe'
   Bundle 'mhinz/vim-tmuxify'
   Bundle 'christoomey/vim-tmux-navigator'
@@ -898,9 +899,12 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   " endif
 " }}}
 " UltiSnips settings {{{
-  let g:UltiSnipsExpandTrigger  = "<c-e>"
-  let g:UltiSnipsJumpForwardTrigger  = "<c-w>"
-  let g:UltiSnipsJumpBackwardTrigger = "<c-r>"
+  let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+  let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+  let g:SuperTabDefaultCompletionType = '<C-n>'
+  let g:UltiSnipsExpandTrigger  = "<tab>"
+  let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+  let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " }}}
 " CSV settings {{{
   let g:csv_hiHeader = 'CSVHiColumnHeader'
