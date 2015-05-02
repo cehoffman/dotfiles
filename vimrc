@@ -993,8 +993,13 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 let g:tmuxify_map_prefix = 'm'
 let g:github_upstream_issues = 1
 " Node conviences {{{
-  let node#filetypes += ['coffee']
-  let node#suffixesadd += ['.coffee']
+  let node#filetypes += ['coffee', '.ls']
+  let node#suffixesadd += ['.coffee', '.ls']
+  augroup CoffeeScriptExtensions
+    au!
+    autocmd FileType coffee setlocal nosmartindent foldmethod=indent foldlevel=99
+    autocmd FileType ls setlocal nosmartindent foldmethod=indent foldlevel=99
+  augroup END
 " }}}
 " Common projectile mappings {{{
   nnoremap <silent> <leader>d :Dispatch<CR><CR>
