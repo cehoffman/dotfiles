@@ -924,14 +924,16 @@ command! FollowSymlink call <SID>MyFollowSymlink()
       "   :normal! :%s/\<c-v>\<esc>[\\d;\\d\\+m
       "   :normal! :g/>   /d2"
       " endfunction
-      nnoremap <leader>c ma:%s/<c-v><esc>[\d;\d\+m<cr>:g/>\ \ \s* /d2<cr>`a
+      nnoremap <buffer> <leader>c ma:%s/<c-v><esc>[\d;\d\+m<cr>:g/>\ \ \s* /d2<cr>`a
       augroup MuttMail
         autocmd!
-        autocmd BufRead mutt-* set ft=mail.markdown
+        autocmd BufRead mutt-* set ft=mail.markdown | setlocal fo=wn | execute "normal ,c"
+        " autocmd FileType markdown setlocal textwidth=0 fo=wn wrap
+
         autocmd BufWritePost mutt-* let b:did_write = 1
         autocmd BufUnload mutt-*
               \ | if exists('b:did_write')
-              \ |   call system("sed '1,/^$/d' ".shellescape(expand('%:p')).' | grip --wide - --export /tmp/markdown')
+              \ |   call system("sed '1,/^$/d' ".expand('%:pS').' | grip --wide - --export /tmp/markdown')
               \ |   call system('cat /tmp/markdown | '.expand('~/.dotfiles/mutt/gfm-mail/bin/gfm-mail').' > /tmp/mutt-mail.html')
               \ | endif
       augroup END
