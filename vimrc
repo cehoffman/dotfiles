@@ -33,6 +33,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'tpope/vim-scriptease'
   Bundle 'tpope/vim-dispatch'
   Bundle 'tpope/vim-projectile'
+  Bundle 'tpope/vim-obsession'
   Bundle 'cehoffman/vim-ragtag'
   Bundle 'cehoffman/csv.vim'
   Bundle 'cehoffman/vim-lua'
@@ -40,7 +41,13 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'mileszs/ack.vim'
   Bundle 'kchmck/vim-coffee-script'
   Bundle 'vim-ruby/vim-ruby'
+  Bundle 'ecomba/vim-ruby-refactoring'
+
   Bundle 'pangloss/vim-javascript'
+  Bundle 'othree/javascript-libraries-syntax.vim'
+  Bundle 'claco/jasmine.vim'
+  Bundle 'othree/yajs.vim'
+
   Bundle 'Raimondi/delimitMate'
   Bundle 'tmatilai/gitolite.vim'
   Bundle 'othree/html5.vim'
@@ -48,7 +55,6 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'honza/vim-snippets'
   " Bundle 'Lokaltog/vim-easymotion'
   Bundle 'godlygeek/tabular'
-  Bundle 'ecomba/vim-ruby-refactoring'
   Bundle 'majutsushi/tagbar'
   Bundle 'kana/vim-textobj-user'
   Bundle 'nelstrom/vim-textobj-rubyblock'
@@ -58,7 +64,6 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'sjl/splice.vim'
   Bundle 'b4winckler/vim-objc'
   Bundle 'AndrewRadev/splitjoin.vim'
-  Bundle 'kien/rainbow_parentheses.vim'
   Bundle 'kien/ctrlp.vim'
   Bundle 'suy/vim-ctrlp-commandline'
   Bundle 'LaTeX-Box-Team/LaTeX-Box'
@@ -66,7 +71,6 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'cehoffman/vim-bitbake'
   Bundle 'joonty/vdebug'
   Bundle 'mbbill/undotree'
-  Bundle 'nono/vim-handlebars'
   Bundle 'groenewege/vim-less'
   Bundle 'ledger/vim-ledger'
   Bundle 'ZoomWin'
@@ -82,7 +86,9 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'ekalinin/Dockerfile.vim'
   Bundle 'moll/vim-node'
   Bundle 'leafo/moonscript-vim'
-  Bundle 'tpope/vim-obsession'
+  Bundle 'rstacruz/sparkup'
+  Bundle 'clausreinke/typescript-tools.vim'
+  Bundle 'leafgarland/typescript-vim'
 " }}}
 
 " General settings {{{
