@@ -969,7 +969,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
     cabbrev ag <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Ack!' : 'ag')<CR>
     cunabbrev ack
     let g:ack_wildignore = 0
-    let g:ackprg = 'ag --nogroup --nocolor --column --smart-case --hidden'
+    let g:ackprg = 'ag --vimgrep'
   endif
 " }}}
 " Objc {{{
