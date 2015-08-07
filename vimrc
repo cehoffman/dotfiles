@@ -43,10 +43,11 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'vim-ruby/vim-ruby'
   Bundle 'ecomba/vim-ruby-refactoring'
 
-  Bundle 'pangloss/vim-javascript'
-  Bundle 'othree/javascript-libraries-syntax.vim'
+  " Bundle 'pangloss/vim-javascript'
+  " Bundle 'othree/javascript-libraries-syntax.vim'
   Bundle 'claco/jasmine.vim'
-  Bundle 'othree/yajs.vim'
+  " Bundle 'othree/yajs.vim'
+  Bundle 'isRuslan/vim-es6'
 
   Bundle 'Raimondi/delimitMate'
   Bundle 'tmatilai/gitolite.vim'
