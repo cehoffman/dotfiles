@@ -59,7 +59,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Bundle 'kana/vim-textobj-user'
   Bundle 'nelstrom/vim-textobj-rubyblock'
   Bundle 'gregsexton/gitv'
-  Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git'
+  Bundle 'jamessan/vim-gnupg'
   Bundle 'vim-scripts/scratch.vim'
   Bundle 'sjl/splice.vim'
   Bundle 'b4winckler/vim-objc'
