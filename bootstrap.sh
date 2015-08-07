@@ -114,7 +114,16 @@ if [ ! -d $HOME/.pyenv/versions/$version ]; then
 fi
 
 brew tap cehoffman/personal
+if [ "$os" = "linux" ]; then
+  # Install tcl deps for git without problematic tk
+  brew install tcl-tk --without-tk
+fi
 brew install git zsh ctags cpanminus stderred tmux the_silver_searcher
+
+if [ "$os" = "linux" ]; then
+  # Install single key read for git
+  cpanm Term::ReadKey
+fi
 
 # Unlink pkg-config brought in by tmux
 brew unlink pkg-config

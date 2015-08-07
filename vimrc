@@ -1006,7 +1006,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 let g:tmuxify_map_prefix = 'm'
 let g:github_upstream_issues = 1
 " Node conviences {{{
-  let node#filetypes += ['coffee', '.ls']
   let node#suffixesadd += ['.coffee', '.ls']
   augroup CoffeeScriptExtensions
     au!
