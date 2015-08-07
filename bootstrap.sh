@@ -93,13 +93,13 @@ if [ ! -d ~/.dotfiles ]; then
 fi
 ~/.dotfiles/bin/relink
 
-version=2.2.0
+version=2.2.2
 if [ ! -d $HOME/.rbenv/versions/$version ]; then
   rbenv install $version
   rbenv global $version
 fi
 
-version=2.7.6
+version=2.7.9
 if [ ! -d $HOME/.pyenv/versions/$version ]; then
   case $os in
     darwin)
