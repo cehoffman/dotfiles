@@ -176,7 +176,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   set complete=.,t,i,b,w
 
   set backspace=indent,eol,start " allow backspacing over everything in insert mode
-  set formatoptions=cq1nr
+  set formatoptions=cq1nrj
   set colorcolumn=+1       " Always be aware of the best file width
   set textwidth=79
   set wrap linebreak showbreak=\ …\  cpoptions+=n " Use soft wrapping, and adjust mappings for edit keys
