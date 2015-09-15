@@ -157,7 +157,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   endif
   set backupdir=~/.dotfiles/vim/backup
   set backup
-  set nowritebackup
+  set backupcopy=yes
   set noswapfile
 
   if has("spell")
