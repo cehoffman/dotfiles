@@ -99,11 +99,13 @@ if [ ! -d $HOME/.rbenv/versions/$version ]; then
   rbenv global $version
 fi
 
-version=2.7.9
+zsh -c "brew install openssl"
+
+version=2.7.10
 if [ ! -d $HOME/.pyenv/versions/$version ]; then
   case $os in
     darwin)
-      zsh -c "PYTHON_CONFIGURE_OPTS='--enable-framework' pyenv install $version"
+      zsh -c "PYTHON_CONFIGURE_OPTS=\"--enable-framework\" CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib\" pyenv install $version"
       ;;
     linux)
       zsh -c "CFLAGS='-fPIC' pyenv install $version"
@@ -111,6 +113,12 @@ if [ ! -d $HOME/.pyenv/versions/$version ]; then
   esac
   zsh -c "pyenv global $version"
   unset opts
+fi
+
+version=4.0.0
+if [ ! -d $HOME/.nodenv/versions/$version ]; then
+  zsh -c "nodenv install $version"
+  zsh -c "nodenv global $version"
 fi
 
 brew tap cehoffman/personal
@@ -154,7 +162,7 @@ fi
 $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 
 # Run this in zsh to have pyenv setup so vim finds python
-zsh -c 'brew install cehoffman/personal/vim'
+zsh -c 'brew install vim'
 
 # Setup ldconfig so zsh can find pcre on login
 if [ "$os" = "linux" ]; then
