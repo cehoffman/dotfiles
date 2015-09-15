@@ -1,5 +1,5 @@
 typeset -gA ENV_LANGS
-ENV_LANGS=(rb red lua cyan py yellow)
+ENV_LANGS=(rb red lua cyan py yellow nod red)
 function {
   local lang
   local funs
