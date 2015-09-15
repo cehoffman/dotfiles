@@ -7,6 +7,7 @@ function {
   for lang in ${(k)ENV_LANGS}; do
     if [[ -x "$HOME/.${lang}env/bin/${lang}env" ]]; then
       path[1,0]=(~/.${lang}env/bin ~/.${lang}env/shims)
+      export ${(U)lang}ENV_SHELL=zsh
       source ~/.${lang}env/completions/${lang}env.zsh
       if [[ -o interactive ]]; then
         shlist=(~/.${lang}env/libexec/${lang}env-sh-*(:t) ~/.${lang}env/plugins/*/bin/${lang}env-sh-*(:t))
