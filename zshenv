@@ -16,8 +16,5 @@
 #   global zlogin
 #   .zlogin
 
-source ~/.dotfiles/zsh/config
-source ~/.dotfiles/zsh/aliases
-
 # use .localrc for settings specific to one system
 [[ -f ~/.localenv ]] && source  ~/.localenv
