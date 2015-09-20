@@ -37,3 +37,6 @@
 [submodule "nodenv"]
 	path = nodenv
 	url = https://github.com/cehoffman/nodenv
+[submodule "tmux/plugins/tpm"]
+	path = tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
