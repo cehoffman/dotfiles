@@ -137,9 +137,8 @@ if [[ -o interactive ]]; then
   if [[ ! -f ~/.dotfiles/zsh/functions/opp-install ]]; then
     zsh -c 'for O in ~/.dotfiles/zsh/vendor/opp.zsh/{opp.zsh,opp/*.zsh}; do . $O; done && opp-zcompile ~/.dotfiles/zsh/vendor/opp.zsh ~/.dotfiles/zsh/functions'
   fi
-  source ~/.dotfiles/zsh/functions/opp-install
-  opp-install
   autoload opp
+  {source ~/.dotfiles/zsh/functions/opp-install; opp-install}
 
   source ~/.dotfiles/zsh/vendor/autoenv/activate.sh
   source ~/.dotfiles/zsh/vendor/zaw/zaw.zsh
