@@ -535,13 +535,13 @@
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
 	<key>NSWindow Frame Preferences</key>
-	<string>-2177 834 924 485 -3440 440 3440 1440 </string>
+	<string>179 130 924 485 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>710 351 570 426 0 0 1280 800 </string>
+	<string>0 319 570 426 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>710 351 570 426 0 0 1280 777 </string>
+	<string>-3264 572 570 426 -3440 440 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>173 27 574 459 0 0 1280 800 </string>
+	<string>-1461 455 1459 1402 -3440 440 3440 1417 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
