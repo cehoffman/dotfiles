@@ -83,7 +83,9 @@ bindkey -s '^f' ' fg %-'
 
 # Much quicker switch to vicmd mode
 # It will remove all bindings that start with  except the one that is 
-bindkey -rpM viins '^['
+# bindkey -rpM viins '^['
+# Keep copy paste working in bracketed paste enabled terminal emulators
+# bindkey -M viins '^[[200~' bracketed-paste
 
 bindkey -M vicmd 'K' run-help
 
