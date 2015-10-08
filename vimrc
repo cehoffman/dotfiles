@@ -91,6 +91,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'clausreinke/typescript-tools.vim'
   Plugin 'leafgarland/typescript-vim'
   Plugin 'rizzatti/dash.vim'
+  Plugin 'ConradIrwin/vim-bracketed-paste'
 " }}}
 
 " General settings {{{
