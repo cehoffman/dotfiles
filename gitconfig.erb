@@ -12,9 +12,9 @@
     co = checkout
     reup = pull --rebase
     st = status --ignore-submodules=untracked -sb
-    d = diff --ignore-submodules=untracked
-    dc = diff --cached --ignore-submodules=untracked
-    l = log --graph --stat --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    d = diff --ignore-submodules=untracked --ignore-space-at-eol
+    dc = diff --cached --ignore-submodules=untracked --ignore-space-at-eol
+    l = log --graph --stat --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset [%an]: %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     l1 = l -1
     ci = commit
     cp = cherry-pick
