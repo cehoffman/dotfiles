@@ -24,4 +24,6 @@ if [[ -d ~/.homebrew ]]; then
   if (( $+commands[brew-cask.rb] )); then
     export HOMEBREW_CASK_OPTS="--binarydir=~/.homebrew/bin"
   fi
+
+  alias brew="env -u GIT_SSL_CERT -u GIT_SSL_KEY -u GIT_SSL_CAINFO -u DYLD_INSERT_LIBRARIES brew"
 fi
