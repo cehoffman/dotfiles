@@ -16,16 +16,9 @@
 /zsh/functions/opp-install
 *.zwc
 
-# Offlineimap runtime
-/offlineimap/pid
-/offlineimap/Account-*
-/offlineimap/Repository-*
-/offlineimap/*.lock
-
 /bin/iTerm2HotKey
 /bin/GPGFix
 
-/msmtp.queue/
 /elinks
 
 # Linux XDG config directory

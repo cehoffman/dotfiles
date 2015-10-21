@@ -1,9 +1,0 @@
-set from = "christopher.hoffman@emerson.com"
-
-unset record
-set nocopy
-
-set trash = +emerson/trash
-set postponed = +emerson/drafts
-
-# vim: set ft=muttrc:
