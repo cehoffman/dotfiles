@@ -71,4 +71,6 @@
     helper = gnomekeyring
 <% end %>
 [pull]
-	rebase = true
+    rebase = true
+[http]
+    sslCAPath = <%= ENV['HOME'] %>/.dotfiles/cacerts/
