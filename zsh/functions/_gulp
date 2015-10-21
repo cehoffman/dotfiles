@@ -1,0 +1,11 @@
+#compdef gulp
+
+if [[ -f gulpfile.js ]]; then
+  local recent=$(ls -t .gulp_tasks~ gulpfile.* tasks/**/*.{js,coffee} 2> /dev/null | head -n 1)
+  if [[ $recent != '.gulp_tasks~' ]]; then
+    gulp --tasks-simple > .gulp_tasks~
+  fi
+  compadd -- ${=$(cat .gulp_tasks~)}
+fi
+
+# vim: set filetype zsh
