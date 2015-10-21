@@ -94,7 +94,7 @@ done
 for file in "$dotfiles"/*; do
   file="$(basename "$file")"
   case $file in
-    Readme.md|os|zsh|mutt|mailcap|irb|vim|gitignore|cacerts|fonts|offlineimap)
+    Readme.md|os|zsh|irb|vim|gitignore|cacerts|fonts)
       ;;
     bootstrap.sh|helpers.rb)
       ;;
@@ -114,15 +114,6 @@ for file in "$dotfiles"/*; do
     tmux.conf)
       test_link tmux "$file"
       ;;
-    offlineimaprc)
-      test_link offlineimap "$file"
-      ;;
-    muttrc)
-      test_link mutt "$file"
-      ;;
-    msmtprc)
-      test_link msmtp "$file"
-      ;;
     js)
       test_link djsd "$file"
       ;;
@@ -140,12 +131,6 @@ for file in "$dotfiles"/*; do
       ;;
     minttyrc)
       platform_link cygwin "$file"
-      ;;
-    screenrc)
-      test_link screen "$file"
-      ;;
-    lbdbrc)
-      test_link lbdb "$file"
       ;;
     *.erb)
       if [ -f  "$HOME/.${file%.*}" -a -z "$DRY_RUN" ]; then
