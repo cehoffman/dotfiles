@@ -56,8 +56,6 @@
     recurseSubmodules = on-demand
 [format]
     pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
-[branch]
-    autosetuprebase = always
 [rerere]
     enabled = 1
 [help]
@@ -72,3 +70,5 @@
 <% else %>
     helper = gnomekeyring
 <% end %>
+[pull]
+	rebase = true
