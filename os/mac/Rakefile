@@ -41,7 +41,7 @@ task :install do
     puts "installing #{plist} to ~/Library/LaunchAgents"
     open(dest , 'w') { |file| file << contents }
 
-    if loaded[File.basename(dest, '.plist')] || /im\.ceh\.gpg-smartcard/ =~ dest
+    if loaded[File.basename(dest, '.plist')]
       puts "shutting down #{plist}"
       system 'launchctl', 'unload', '-w', dest
     end
