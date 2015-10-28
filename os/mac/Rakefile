@@ -16,6 +16,11 @@ task :install do
   system 'clang', '-Os', '-fobjc-arc', '-framework', 'Carbon', '-framework',
     'AppKit', 'iTerm2HotKey.m', '-o', File.expand_path('~/.bin/iTerm2HotKey')
 
+  nlc = File.expand_path('~/.bin/NetworkLocationChanger')
+  system 'clang', '-Os', '-fobjc-arc', '-framework', 'AppKit', '-framework',
+    'CoreWLAN', '-framework', 'SystemConfiguration', '-o', nlc, 'Reachability.m',
+    'NetworkLocationChanger.m'
+
   loaded = Hash[%x[launchctl list].strip.lines.map do |line|
     line = line.split
     [line.last, true]
