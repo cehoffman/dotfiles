@@ -115,7 +115,7 @@ if [ ! -d $HOME/.pyenv/versions/$version ]; then
   unset opts
 fi
 
-version=4.0.0
+version=4.2.1
 if [ ! -d $HOME/.nodenv/versions/$version ]; then
   zsh -c "nodenv install $version"
   zsh -c "nodenv global $version"
