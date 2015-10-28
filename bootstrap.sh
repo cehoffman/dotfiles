@@ -133,7 +133,7 @@ brew install git --with-pcre --with-persistent-https --with-brewed-curl
 brew install git-extras zsh ctags cpanminus stderred tmux the_silver_searcher
 
 if [ "$os" = "linux" ]; then
-  # Install single key read for git
+  # Install single key read for git add --patch
   cpanm Term::ReadKey
 fi
 
