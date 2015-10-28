@@ -537,7 +537,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>179 130 924 485 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 319 570 426 0 0 1280 777 </string>
+	<string>0 299 570 426 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>-3264 572 570 426 -3440 440 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1280,7 +1280,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>453344203.66329497</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>464486209.59795201</real>
+	<real>467577908.837219</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -1341,11 +1341,11 @@
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>http://iterm2.com/appcasts/testing.xml</string>
+	<string>https://iterm2.com/appcasts/testing.xml</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-09-20T07:20:10Z</date>
+	<date>2015-10-26T15:26:10Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -1379,7 +1379,7 @@
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
-	<string>.Helvetica Neue DeskInterface</string>
+	<string>.AppleSystemUIFont</string>
 	<key>WindowNumber</key>
 	<false/>
 	<key>WindowStyle</key>
@@ -1391,6 +1391,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.1.1</string>
+	<string>2.1.4</string>
 </dict>
 </plist>
