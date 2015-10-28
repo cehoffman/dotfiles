@@ -15,4 +15,11 @@ if (( $+commands[pip] )); then
   }
   compctl -K _pip_completion pip
   # pip zsh completion end
+
+  if (( $+commands[pyenv] )); then
+    pip() {
+      command pip $@
+      pyenv rehash
+    }
+  fi
 fi
