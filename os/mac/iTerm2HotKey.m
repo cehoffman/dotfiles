@@ -8,12 +8,12 @@ EventHotKeyRef hotKeyRef;
 pid_t lastActive = 0;
 
 @interface AppListener : NSObject
-+(AppListener *)sharedListener;
++(instancetype)sharedListener;
 -(void)notified:(NSNotification *)aNotification;
 @end
 
 @implementation AppListener
-+(AppListener *)sharedListener {
++(instancetype)sharedListener {
   static __strong AppListener *shared = nil;
   if (!shared) shared = [[self alloc] init];
   return shared;
