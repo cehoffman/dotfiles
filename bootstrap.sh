@@ -125,8 +125,12 @@ brew tap cehoffman/personal
 if [ "$os" = "linux" ]; then
   # Install tcl deps for git without problematic tk
   brew install tcl-tk --without-tk
+elif [ "$os" = "darwin" ]; then
+  brew install nginx --with-libressl
+  brew install gnu-sed gnu-tar reattach-to-user-namespace
 fi
-brew install git zsh ctags cpanminus stderred tmux the_silver_searcher
+brew install git --with-pcre --with-persistent-https --with-brewed-curl
+brew install git-extras zsh ctags cpanminus stderred tmux the_silver_searcher
 
 if [ "$os" = "linux" ]; then
   # Install single key read for git
