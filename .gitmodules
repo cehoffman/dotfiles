@@ -6,13 +6,13 @@
 	url = https://github.com/hchbaw/opp.zsh.git
 [submodule "dotjs-js"]
 	path = js
-	url = git@ceh.im:cehoffman/dotjs-js
+	url = https://git.ceh.im/cehoffman/dotjs
 [submodule "rbenv"]
 	path = rbenv
 	url = https://github.com/cehoffman/rbenv.git
 [submodule "luaenv"]
 	path = luaenv
-	url = git@ceh.im:cehoffman/luaenv.git
+	url = https://github.com/cehoffman/luaenv.git
 [submodule "zsh/vendor/autoenv"]
 	path = zsh/vendor/autoenv
 	url = https://github.com/cehoffman/autoenv.git
@@ -30,7 +30,7 @@
 	url = https://github.com/clvv/fasd.git
 [submodule "ssh"]
 	path = ssh
-	url = git@ceh.im:cehoffman/ssh-config.git
+	url = https://git.ceh.im/cehoffman/ssh
 [submodule "nodenv"]
 	path = nodenv
 	url = https://github.com/cehoffman/nodenv
