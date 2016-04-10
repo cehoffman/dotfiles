@@ -509,6 +509,8 @@
 	<string>3</string>
 	<key>NSColorPickerSlidersDefaults</key>
 	<string>3</string>
+	<key>NSFontPanelSizeSliderParams</key>
+	<string>2 0 100</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/.dotfiles/os/mac/iTerm2</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -530,20 +532,31 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>322</string>
+		<string>307</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>645 37 445 77 0 0 1280 800 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>189 1214 606 456 -1076 800 3440 1417 </string>
+	<string>179 320 606 456 0 0 1280 777 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>334 1568 620 392 -1076 800 3440 1417 </string>
+	<key>NSWindow Frame com.apple.typography_panel_KnackNerdFontCompleteMono</key>
+	<string>344 531 260 96 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 9 1146 762 0 0 1280 800 </string>
+	<string>474 205 570 427 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>-3264 572 570 426 -3440 440 3440 1417 </string>
+	<string>-1036 835 570 427 -1076 800 3440 1440 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>-1461 455 1459 1402 -3440 440 3440 1417 </string>
+	<string>1 372 570 427 0 0 1280 800 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1100,7 +1113,7 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>MesloLGM-Regular 11</string>
+			<string>UbuntuMonoNerdFontCompleteMono 11</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
@@ -1269,8 +1282,10 @@
 			<true/>
 			<key>Use Italic Font</key>
 			<true/>
+			<key>Use Non-ASCII Font</key>
+			<false/>
 			<key>Vertical Spacing</key>
-			<real>1</real>
+			<real>0.93150531814759052</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -1281,12 +1296,20 @@
 	</array>
 	<key>NoSyncHaveShownPromoWithId_4</key>
 	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
+	<key>NoSyncSuppressAnnyoingBellOffer</key>
+	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>477587806.16085601</real>
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>477585820.38774198</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>477582990.12582397</real>
+	<real>482001727.96927398</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -1353,7 +1376,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-02-19T13:55:30Z</date>
+	<date>2016-04-10T17:02:03Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -1399,6 +1422,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20160206</string>
+	<string>2.9.20160313</string>
 </dict>
 </plist>
