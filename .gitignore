@@ -21,3 +21,4 @@
 
 # Temporary python files
 *.pyc
+/bin/NetworkLocationChanger
