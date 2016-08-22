@@ -28,8 +28,8 @@ if [[ -o interactive ]]; then
 fi
 
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 REPORTTIME=60               # print elapsed time when more than 60 seconds
 
 setopt NO_LIST_BEEP
