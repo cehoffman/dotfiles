@@ -51,7 +51,6 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'othree/es.next.syntax.vim'
   " Plugin 'gavocanov/vim-js-indent'
   Plugin 'jason0x43/vim-js-indent'
-  let g:js_indent_flat_switch = 1
 
   Plugin 'lambdatoast/elm.vim'
   " Plugin 'isRuslan/vim-es6'
@@ -1075,6 +1074,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 let g:tmuxify_map_prefix = 'm'
 let g:github_upstream_issues = 1
 " Node conviences {{{
+  let g:js_indent_flat_switch = 1
   let node#suffixesadd += ['.coffee', '.ls']
   augroup CoffeeScriptExtensions
     au!
