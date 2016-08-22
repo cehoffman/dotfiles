@@ -1,3 +1,13 @@
+alias d="env -u DYLD_INSERT_LIBRARIES docker"
+
+di() {
+  docker images "$@" | cut -c-$(tput cols)
+}
+
+dps() {
+  docker ps "$@" | cut -c-$(tput cols)
+}
+
 alias g='git'
 alias gd='git d'
 alias gdc='git dc'
