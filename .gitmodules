@@ -6,7 +6,7 @@
 	url = https://github.com/hchbaw/opp.zsh.git
 [submodule "dotjs-js"]
 	path = js
-	url = https://git.ceh.im/cehoffman/dotjs
+  url = https://cehoffman@bitbucket.org/cehoffman/dotjs.git
 [submodule "rbenv"]
 	path = rbenv
 	url = https://github.com/cehoffman/rbenv.git
@@ -30,7 +30,7 @@
 	url = https://github.com/clvv/fasd.git
 [submodule "ssh"]
 	path = ssh
-	url = https://git.ceh.im/cehoffman/ssh
+  url = https://cehoffman@bitbucket.org/cehoffman/ssh.git
 [submodule "nodenv"]
 	path = nodenv
 	url = https://github.com/cehoffman/nodenv

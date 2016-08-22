@@ -544,17 +544,19 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>645 37 445 77 0 0 1280 800 </string>
+	<string>653 61 445 77 0 0 1280 800 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>179 320 606 456 0 0 1280 777 </string>
+	<string>189 1758 606 456 -1076 800 3440 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>334 1568 620 392 -1076 800 3440 1417 </string>
+	<string>330 307 620 392 0 0 1280 800 </string>
+	<key>NSWindow Frame SharedPreferences</key>
+	<string>269 214 918 381 0 0 1280 800 </string>
 	<key>NSWindow Frame com.apple.typography_panel_KnackNerdFontCompleteMono</key>
 	<string>344 531 260 96 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>474 205 570 427 0 0 1280 777 </string>
+	<string>564 206 570 402 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>-1036 835 570 427 -1076 800 3440 1440 </string>
+	<string>-1066 828 570 402 -1076 800 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>1 372 570 427 0 0 1280 800 </string>
 	<key>New Bookmarks</key>
@@ -1294,8 +1296,12 @@
 			<string>/Users/cehoffman</string>
 		</dict>
 	</array>
+	<key>NoSyncConfirmBeta</key>
+	<true/>
 	<key>NoSyncHaveShownPromoWithId_4</key>
 	<true/>
+	<key>NoSyncInstallationId</key>
+	<string>E7681390-66ED-4BAE-BFD9-A7B69B569D4A</string>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1322,6 +1328,8 @@
 	<false/>
 	<key>PasteFromClipboard</key>
 	<false/>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1372,11 +1380,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing3.xml</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=74</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-04-10T17:02:03Z</date>
+	<date>2016-08-16T23:21:13Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -1422,6 +1430,10 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20160313</string>
+	<string>3.0.5</string>
+	<key>kCPKSelectionViewPreferredModeKey</key>
+	<integer>0</integer>
+	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
 </dict>
 </plist>
