@@ -1,6 +1,8 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+let $DYLD_INSERT_LIBRARIES=''
+
 set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vim/after
 
 " Vundle initialization {{{
@@ -32,7 +34,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'tpope/vim-eunuch'
   Plugin 'tpope/vim-scriptease'
   Plugin 'tpope/vim-dispatch'
-  Plugin 'tpope/vim-projectile'
+  Plugin 'tpope/vim-projectionist'
   Plugin 'tpope/vim-obsession'
   Plugin 'cehoffman/vim-ragtag'
   Plugin 'cehoffman/csv.vim'
@@ -44,10 +46,16 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'ecomba/vim-ruby-refactoring'
 
   " Plugin 'pangloss/vim-javascript'
-  " Plugin 'othree/javascript-libraries-syntax.vim'
   Plugin 'claco/jasmine.vim'
-  " Plugin 'othree/yajs.vim'
-  Plugin 'isRuslan/vim-es6'
+  Plugin 'othree/yajs.vim'
+  Plugin 'othree/es.next.syntax.vim'
+  " Plugin 'gavocanov/vim-js-indent'
+  Plugin 'jason0x43/vim-js-indent'
+  let g:js_indent_flat_switch = 1
+
+  Plugin 'lambdatoast/elm.vim'
+  " Plugin 'isRuslan/vim-es6'
+  Plugin 'MarcWeber/vim-addon-local-vimrc'
 
   Plugin 'Raimondi/delimitMate'
   Plugin 'tmatilai/gitolite.vim'
@@ -82,16 +90,17 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'christoomey/vim-tmux-navigator'
   Plugin 'elzr/vim-json'
   Plugin 'wellle/targets.vim'
-  Plugin 'Blackrush/vim-gocode'
+  Plugin 'fatih/vim-go'
   Plugin 'jaxbot/github-issues.vim'
   Plugin 'ekalinin/Dockerfile.vim'
   Plugin 'moll/vim-node'
   Plugin 'leafo/moonscript-vim'
   Plugin 'rstacruz/sparkup'
-  Plugin 'clausreinke/typescript-tools.vim'
-  Plugin 'leafgarland/typescript-vim'
+  " Plugin 'clausreinke/typescript-tools.vim'
+  " Plugin 'leafgarland/typescript-vim'
   Plugin 'rizzatti/dash.vim'
   Plugin 'ConradIrwin/vim-bracketed-paste'
+  Plugin 'keith/swift.vim'
 " }}}
 
 " General settings {{{
@@ -603,7 +612,7 @@ if has("autocmd")
       let g:default_stl .= "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>"
       let g:default_stl .= "#[Branch] %(%{exists('*fugitive#statusline') ? substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', ' \\1', 'gi') : ''}#[BranchS] [>]%)" " Git branch
       let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName] %t " " File name
-      let g:syntastic_stl_format = <SID>StatusLineArrows("[>][>][>] SYNTAX  %F (%t) [>][>][>]")
+      let g:syntastic_stl_format = <SID>StatusLineArrows("[>][>][>] SYNTAX [>] %F (%t) [>][>][>]")
       let g:default_stl .= "<CUR>#[Error]%(%{exists('*SyntasticStatuslineFlag') ? SyntasticStatuslineFlag() : ''} %)</CUR>"
       let g:default_stl .= "#[ModFlag]%(%M %)" " Modified flag
       let g:default_stl .= "#[BufFlag]%(%H%W %)" " HLP,PRV flags
@@ -616,8 +625,7 @@ if has("autocmd")
       let g:default_stl .= "<CUR>#[Separator][<] #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
       let g:default_stl .= "<CUR>#[LinePercentS][<<]#[LinePercent]</CUR> %p%% " " Line percentage
       let g:default_stl .= "#[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber]"
-      let g:default_stl .= ""
-      let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage
+      let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage
     " }}}
     call <SID>StatusLineColors(s:statuscolors) " Make the status line become colorful on sourcing after startup
   " }}}
@@ -804,14 +812,73 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:Gitv_DoNotMapCtrlKey = 1 " preserves my easy window movement
 " }}}
 " Syntastic settings {{{
+  let g:syntastic_error_symbol = "✗"
+  let g:syntastic_warning_symbol = "⚠"
   let g:syntastic_enable_signs = 1
   let g:syntastic_auto_jump = 0
+  let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list = 0
   let g:syntastic_objc_compiler = "clang"
   let g:syntastic_objc_compiler_options = "--std=c99"
   let g:syntastic_c_checkers = []
   let g:syntastic_objc_checkers = []
   let g:syntastic_cpp_checkers = []
+  let g:syntastic_javascript_checkers = ['jscs', 'eslint']
+  let g:syntastic_javascript_eslint_quiet_messages = {
+        \ "regex": 'no-console'
+        \ }
+  let g:syntastic_javascript_jscs_args = '--esnext'
+  let g:jasmine_use_templates = 0
+
+  let g:syntastic_html_tidy_blocklevel_tags = [
+        \ 'template',
+        \ 'emrsn-pinpad',
+        \ 'emrsn-panel',
+        \ 'panel-header',
+        \ 'panel-content',
+        \ 'panel-footer',
+        \ 'emrsn-dropdown-list',
+        \ 'emrsn-list-grid',
+        \ 'emrsn-nav-button',
+        \ 'emrsn-status-button',
+        \ 'emrsn-dial',
+        \ 'emrsn-drawer',
+        \ 'drawer-content',
+        \ 'pull-bar',
+        \ 'router-view',
+        \ 'require',
+        \ 'compose',
+        \ 'content'
+        \ ]
+  let g:syntastic_html_tidy_inline_tags = [
+        \ ]
+  let g:syntastic_html_tidy_ignore_errors = [
+        \ 'unescaped & which should be written as &amp;',
+        \ "<link> isn't allowed in <template> elements",
+        \ "<style> isn't allowed in <template> elements",
+        \ 'proprietary attribute "emrsn-iscroll"',
+        \ 'proprietary attribute "emrsn-iscroll.ref"',
+        \ 'proprietary attribute "t"',
+        \ 'proprietary attribute "ref"',
+        \ 'proprietary attribute "css.bind"',
+        \ 'proprietary attribute "style.bind"',
+        \ 'proprietary attribute "class.bind"',
+        \ 'proprietary attribute "repeat.for"',
+        \ 'proprietary attribute "if.bind"',
+        \ 'proprietary attribute "show.bind"',
+        \ 'proprietary attribute "value.bind"',
+        \ 'proprietary attribute "view-cache"',
+        \ 'proprietary attribute "mousedown.trigger"',
+        \ 'proprietary attribute "mousedown.delegate"',
+        \ 'proprietary attribute "mouseup.trigger"',
+        \ 'proprietary attribute "mouseup.delegate"',
+        \ 'proprietary attribute "mouseover.trigger"',
+        \ 'proprietary attribute "mouseover.delegate"',
+        \ 'proprietary attribute "mousemove.trigger"',
+        \ 'proprietary attribute "mousemove.delegate"',
+        \ 'proprietary attribute "click.trigger"',
+        \ 'proprietary attribute "click.delegate"',
+        \ ]
 
   " let g:ycm_semantic_triggers =  {
   "       \ 'ledger': [':']
@@ -1015,7 +1082,7 @@ let g:github_upstream_issues = 1
     autocmd FileType ls setlocal nosmartindent foldmethod=indent foldlevel=99
   augroup END
 " }}}
-" Common projectile mappings {{{
+" Common projectionist mappings {{{
   nnoremap <silent> <leader>d :Dispatch<CR><CR>
   nnoremap <silent> <leader>qq :ccl<CR>
   map geu :Eunittest |
