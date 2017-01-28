@@ -99,7 +99,7 @@ export LC_CTYPE='en_US.UTF-8'
 
 export EDITOR='vim'
 
-path[1,0]=(/opt/{s,}bin(/) /usr/{s,}bin/local(/) /Applications/VirtualBox.app/Contents/MacOS(/) ~/.bin(@) /usr/texbin/(/))
+path[1,0]=(/opt/{s,}bin(/) /usr/{,local/}{s,}bin(/) /Applications/VirtualBox.app/Contents/MacOS(/) ~/.bin(@) /usr/texbin/(/))
 fpath[1,0]=(~/.dotfiles/zsh/functions ~/.dotfiles/zsh/vendor/completions/src(/))
 manpath[1,0]=(/usr/local/share/man /usr/share/man)
 
