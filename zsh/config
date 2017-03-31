@@ -47,6 +47,7 @@ setopt COMPLETE_ALIASES     # Aliases as unique entities viable for completion
 setopt LIST_ROWS_FIRST      # Order completion by row instead of column
 setopt RC_EXPAND_PARAM      # Use arrays in in params to get multiple versions
 setopt CLOBBER              # allow > to clobber and >> to append/create
+setopt POSIX_BUILTINS       # allow `command` to use the builtin versions
 
 setopt INTERACTIVE_COMMENTS # Allow comments when in an interactive shell
 setopt NO_PRINT_EXIT_VALUE  # My zsh prompt tells me what the exit value was
