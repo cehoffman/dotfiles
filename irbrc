@@ -107,7 +107,7 @@ def pbcopy(str)
 end
 
 def pbpaste
-  TCPSocket.open('localhost', 2223) { |io| io.read }
+  TCPSocket.open('localhost', 2225) { |io| io.read }
 end
 
 # Setup ability to copy the tmux buffer
