@@ -64,8 +64,8 @@ function 256c() {
 if [[ -o interactive && $IS_MAC = 0 ]]; then
   # Aliases for setuid/setgid programs on Mac 10.8+ to avoid DYLD_ complaints
   for prog ($path/*(s) $path/*(S)) alias ${prog:t}="env -u DYLD_INSERT_LIBRARIES $prog"
+  for prog (vagrant terraform) [[ $+commands[$prog] = 1 ]] && alias ${prog}="env -u DYLD_INSERT_LIBRARIES $prog"
   unset prog
-  [[ $+commands[vagrant] = 1 ]] && alias vagrant="env -u DYLD_INSERT_LIBRARIES vagrant"
 
   # show and hide files from Finder
   alias hide="SetFile -a V"
