@@ -1,11 +1,12 @@
 alias d="env -u DYLD_INSERT_LIBRARIES docker"
+alias dclean="d rm \$(d ps -q -f status=exited)"
 
 di() {
-  docker images "$@" | cut -c-$(tput cols)
+  d images "$@" | cut -c-$(tput cols)
 }
 
 dps() {
-  docker ps "$@" | cut -c-$(tput cols)
+  d ps "$@" | cut -c-$(tput cols)
 }
 
 alias g='git'
