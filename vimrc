@@ -90,7 +90,6 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'elzr/vim-json'
   Plugin 'wellle/targets.vim'
   Plugin 'fatih/vim-go'
-  Plugin 'jaxbot/github-issues.vim'
   Plugin 'ekalinin/Dockerfile.vim'
   Plugin 'moll/vim-node'
   Plugin 'leafo/moonscript-vim'
@@ -1072,7 +1071,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 " }}}
 " let g:vitality_fix_focus = 1
 let g:tmuxify_map_prefix = 'm'
-let g:github_upstream_issues = 1
 " Node conviences {{{
   let g:js_indent_flat_switch = 1
   let node#suffixesadd += ['.coffee', '.ls']
