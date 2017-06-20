@@ -18,9 +18,8 @@ task :install do
 
   puts "installing NetworkLocationChanger"
   nlc = File.expand_path('~/.bin/NetworkLocationChanger')
-  system 'clang', '-Os', '-fobjc-arc', '-framework', 'AppKit', '-framework',
-    'CoreWLAN', '-framework', 'SystemConfiguration', '-o', nlc, 'Reachability.m',
-    'NetworkLocationChanger.m'
+  system 'clang', '-Os', '-fobjc-arc', '-framework', 'CoreWLAN', '-framework',
+    'SystemConfiguration', '-o', nlc, 'Reachability.m', 'NetworkLocationChanger.m'
 
   puts "installing GPGFix"
   system 'clang', '-Os', '-fobjc-arc', '-framework', 'IOKit', '-framework',
