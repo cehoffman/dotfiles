@@ -114,9 +114,6 @@ for file in "$dotfiles"/*; do
     tmux.conf)
       test_link tmux "$file"
       ;;
-    js)
-      test_link djsd "$file"
-      ;;
     irbrc|rspec|rdebugrc|gemrc)
       test_link ruby "$file"
       ;;
