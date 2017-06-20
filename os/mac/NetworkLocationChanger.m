@@ -51,9 +51,11 @@
   SCPreferencesRef prefs = SCPreferencesCreate(NULL, (CFStringRef)@"SystemConfiguration", NULL);
   Boolean ret = YES;
 
-  // Short circuit if the current location is the one we want to switch to
   SCNetworkSetRef set = SCNetworkSetCopyCurrent(prefs);
-  if (![name isEqual:(NSString *)SCNetworkSetGetName(set)]) {
+  NSString *curLocation = (NSString *)SCNetworkSetGetName(set);
+
+  // Short circuit if the current location is the one we want to switch to
+  if (![name isEqual:curLocation]) {
     // Get all locations
     NSArray *locations = (NSArray *)CFBridgingRelease(SCNetworkSetCopyAll(prefs));
 
@@ -67,6 +69,8 @@
         break;
       }
     }
+  } else {
+    NSLog(@"Not changing location from %@ to %@", curLocation, name);
   }
 
   // Make the changes apply to the running system
