@@ -23,6 +23,7 @@
     unstage = reset HEAD --
     amend = commit --amend -C HEAD
     prune-all = !git remote | xargs -n 1 git remote prune
+    tidy = !git branch --merged | egrep -v '(^\\*|master)' | xargs git branch -d
     subup = !git submodule foreach 'git co master && git reup'
     root = !pwd
     remotes = remote -v
