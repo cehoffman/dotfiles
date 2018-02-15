@@ -24,7 +24,7 @@
 	url = https://github.com/zsh-users/zaw
 [submodule "pyenv"]
 	path = pyenv
-	url = git@github.com:cehoffman/pyenv.git
+	url = https://github.com/cehoffman/pyenv.git
 [submodule "zsh/vendor/fasd"]
 	path = zsh/vendor/fasd
 	url = https://github.com/clvv/fasd.git
