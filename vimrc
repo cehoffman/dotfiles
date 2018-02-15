@@ -52,7 +52,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   " Plugin 'gavocanov/vim-js-indent'
   Plugin 'jason0x43/vim-js-indent'
 
-  Plugin 'lambdatoast/elm.vim'
+  " Plugin 'lambdatoast/elm.vim'
   " Plugin 'isRuslan/vim-es6'
   Plugin 'MarcWeber/vim-addon-local-vimrc'
 
@@ -90,6 +90,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'elzr/vim-json'
   Plugin 'wellle/targets.vim'
   Plugin 'fatih/vim-go'
+  " Plugin 'nsf/gocode', {'rtp': 'vim/'}
   Plugin 'ekalinin/Dockerfile.vim'
   Plugin 'moll/vim-node'
   Plugin 'leafo/moonscript-vim'
@@ -153,7 +154,6 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   set fileformats=unix,dos " Make the default fileformat be unix line endings
   set encoding=utf-8       " Make default text encoding utf-8
   set termencoding=utf-8   " Make default termainl encoding utf-8
-  set cryptmethod=blowfish " use a strong encryption method instead of weak one
   " set number               " Use number for now because relative is slow
   set relativenumber       " Make line numbers relative to my cursor for easy jumping
   set lazyredraw           " don't redraw the screen during macros
@@ -182,7 +182,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   " Tab completion options
   " (only complete to the longest unambiguous match, and show a menu)
   set completeopt=longest,menuone,preview
-  set complete=.,t,i,b,w
+  set complete=.,t,i,b,w,kspell
 
   set backspace=indent,eol,start " allow backspacing over everything in insert mode
   set formatoptions=cq1nrj
@@ -830,8 +830,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 
   let g:syntastic_html_tidy_blocklevel_tags = [
         \ 'template',
-        \ 'emrsn-pinpad',
-        \ 'emrsn-panel',
         \ 'panel-header',
         \ 'panel-content',
         \ 'panel-footer',
@@ -854,8 +852,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
         \ 'unescaped & which should be written as &amp;',
         \ "<link> isn't allowed in <template> elements",
         \ "<style> isn't allowed in <template> elements",
-        \ 'proprietary attribute "emrsn-iscroll"',
-        \ 'proprietary attribute "emrsn-iscroll.ref"',
         \ 'proprietary attribute "t"',
         \ 'proprietary attribute "ref"',
         \ 'proprietary attribute "css.bind"',
@@ -1061,7 +1057,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:filetype_m = 'objc' " default to .m files being objc
 " }}}
 " GPG Configuraton {{{
-  let g:GPGExecutable = 'gpg2'
+  let g:GPGExecutable = 'gpg'
   let g:GPGDefaultRecipients = ['cehoffman@ceh.im']
   let g:GPGUsePipes = 1
 " }}}
