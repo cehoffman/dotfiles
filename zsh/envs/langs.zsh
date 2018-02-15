@@ -8,6 +8,7 @@ function {
     if [[ -x "$HOME/.${lang}env/bin/${lang}env" ]]; then
       path[1,0]=(~/.${lang}env/bin ~/.${lang}env/shims)
       export ${(U)lang}ENV_SHELL=zsh
+      export ${(U)lang}ENV_ROOT="${HOME}/.${lang}env"
       source ~/.${lang}env/completions/${lang}env.zsh
       if [[ -o interactive ]]; then
         shlist=(~/.${lang}env/libexec/${lang}env-sh-*(:t) ~/.${lang}env/plugins/*/bin/${lang}env-sh-*(:t))

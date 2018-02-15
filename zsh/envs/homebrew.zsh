@@ -25,5 +25,13 @@ if [[ -d ~/.homebrew ]]; then
     export HOMEBREW_CASK_OPTS="--binarydir=~/.homebrew/bin"
   fi
 
+  if [ -f ~/.homebrew/opt/dvm/dvm.sh ]; then
+    source ~/.homebrew/opt/dvm/dvm.sh
+    eval "original_$(declare -f dvm)"
+    dvm() {
+      DYLD_INSERT_LIBRARIES= original_dvm "$@"
+    }
+  fi
+
   alias brew="env -u GIT_SSL_CERT -u GIT_SSL_KEY -u GIT_SSL_CAINFO -u DYLD_INSERT_LIBRARIES brew"
 fi

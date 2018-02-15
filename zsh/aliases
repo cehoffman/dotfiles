@@ -1,5 +1,10 @@
 alias d="env -u DYLD_INSERT_LIBRARIES docker"
-alias dclean="d rm \$(d ps -q -f status=exited)"
+alias dm="docker-machine"
+
+dclean() {
+  d rm $(d ps -q -f status=exited)
+  d rmi $(d images -q -f dangling=true)
+}
 
 di() {
   d images "$@" | cut -c-$(tput cols)
@@ -7,6 +12,10 @@ di() {
 
 dps() {
   d ps "$@" | cut -c-$(tput cols)
+}
+
+dip() {
+  d inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
 
 alias g='git'
@@ -61,10 +70,14 @@ function 256c() {
   echo -n "\e[38;5;${1}m${${(z)*}[2,-1]}"
 }
 
+function debug() {
+  set -x; "$@"; set +x
+}
+
 if [[ -o interactive && $IS_MAC = 0 ]]; then
   # Aliases for setuid/setgid programs on Mac 10.8+ to avoid DYLD_ complaints
   for prog ($path/*(s) $path/*(S)) alias ${prog:t}="env -u DYLD_INSERT_LIBRARIES $prog"
-  for prog (vagrant terraform) [[ $+commands[$prog] = 1 ]] && alias ${prog}="env -u DYLD_INSERT_LIBRARIES $prog"
+  for prog (docker docker-machine go kubectl terraform vagrant) [[ $+commands[$prog] = 1 ]] && alias ${prog}="env -u DYLD_INSERT_LIBRARIES $prog"
   unset prog
 
   # show and hide files from Finder
