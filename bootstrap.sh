@@ -73,19 +73,9 @@ case $os in
     $sudo passwd -l "$USER"
 
     # Install deps for ruby
-    $sudo apt-get install -y libssl-dev libcurl4-openssl-dev libbz2-dev libffi-dev zlib1g-dev
-    # Install deps for zsh
-    $sudo apt-get install -y ncurses-dev texinfo
+    $sudo apt-get install -y zlib1g-dev
     # Install personal utilities
     $sudo apt-get install -y htop
-    # Install deps for python
-    $sudo apt-get install -y libreadline-dev libsqlite3-dev python-setuptools
-    # Install deps for git from homebrew
-    $sudo apt-get install -y tcl
-    # Install deps for the_silver_searcher
-    $sudo apt-get install -y autoconf
-    # Need zsh to bootstrap zsh
-    $sudo apt-get install -y zsh
     ;;
 esac
 
@@ -104,33 +94,14 @@ if [ ! -d ~/.dotfiles ]; then
 fi
 ~/.dotfiles/bin/relink
 
-zsh -c "brew install ctags openssl"
+brew install zsh
 
-version=2.5.0
-if [ ! -d $HOME/.rbenv/versions/$version ]; then
-  rbenv install $version
-  rbenv global $version
+if [ -z "$(grep "$HOME/\\.homebrew/bin/zsh" /etc/shells)" ]; then
+  sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
 fi
+$sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 
-version=2.7.14
-if [ ! -d $HOME/.pyenv/versions/$version ]; then
-  case $os in
-    darwin)
-      zsh -c "PYTHON_CONFIGURE_OPTS=\"--enable-framework\" CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib\" pyenv install $version"
-      ;;
-    linux)
-      zsh -c "PYTHON_CONFIGURE_OPTS='--enable-shared' CFLAGS='-fPIC -I$(brew --prefix openssl)/include' LDFLAGS='-L$(brew --prefix openssl)/lib' pyenv install $version"
-      ;;
-  esac
-  zsh -c "pyenv global $version"
-  unset opts
-fi
-
-version=9.5.0
-if [ ! -d $HOME/.nodenv/versions/$version ]; then
-  zsh -c "nodenv install $version"
-  zsh -c "nodenv global $version"
-fi
+zsh -c "brew install openssl"
 
 if [ "$os" = "linux" ]; then
   # Install tcl deps for git without problematic tk
@@ -140,8 +111,25 @@ elif [ "$os" = "darwin" ]; then
 fi
 brew install git --with-pcre2 --with-persistent-https --with-openssl --with-curl --with-perl
 brew install zsh --with-pcre --with-unicode9
-brew install git-extras cpanminus tmux the_silver_searcher gnu-sed gnu-tar cmake
+brew install git-extras cpanminus tmux the_silver_searcher gnu-sed gnu-tar cmake ctags
 
+version=2.5.0
+if [ ! -d $HOME/.rbenv/versions/$version ]; then
+  zsh -c "rbenv install $version"
+  zsh -c "rbenv global $version"
+fi
+
+version=2.7.14
+if [ ! -d $HOME/.pyenv/versions/$version ]; then
+  zsh -c "PYTHON_CONFIGURE_OPTS='--enable-shared' CFLAGS='-I$(brew --prefix openssl)/include' LDFLAGS='-L$(brew --prefix openssl)/lib' pyenv install $version"
+  zsh -c "pyenv global $version"
+fi
+
+version=9.5.0
+if [ ! -d $HOME/.nodenv/versions/$version ]; then
+  zsh -c "nodenv install $version"
+  zsh -c "nodenv global $version"
+fi
 
 if [ "$os" = "linux" ]; then
   # Install single key read for git add --patch
@@ -157,11 +145,6 @@ if [ ! -d $HOME/.luaenv/versions/$version ]; then
   ln -sf $version $HOME/.luaenv/versions/2.1.0
   zsh -c "luaenv global 2.1.0"
 fi
-
-if [ -z "$(grep "$HOME/\\.homebrew/bin/zsh" /etc/shells)" ]; then
-  sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
-fi
-$sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 
 # Run this in zsh to have pyenv setup so vim finds python
 zsh -c 'brew install python --with-unicode-ucs4 --without-tcl-tk'
