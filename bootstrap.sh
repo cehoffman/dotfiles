@@ -58,14 +58,12 @@ esac
 if [ ! -d ~/.homebrew ]; then
   mkdir ~/.homebrew
   curl -LsSf https://github.com/Homebrew/homebrew/tarball/master | tar --strip-components=1 -zxf - -C ~/.homebrew
+  rm -rf ~/.homebrew/share/doc/homebrew
   brew update
 fi
 
 case $os in
   darwin)
-
-    # Install readline so ruby has it
-    brew install readline
     ;;
   linux)
     echo "$USER ALL= NOPASSWD: ALL" | $sudo tee "/etc/sudoers.d/$USER" > /dev/null
@@ -94,14 +92,13 @@ if [ ! -d ~/.dotfiles ]; then
 fi
 ~/.dotfiles/bin/relink
 
-brew install zsh
+brew install readline openssl
+brew install zsh --with-pcre --with-unicode9
 
 if [ -z "$(grep "$HOME/\\.homebrew/bin/zsh" /etc/shells)" ]; then
   sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
 fi
 $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
-
-zsh -c "brew install openssl"
 
 if [ "$os" = "linux" ]; then
   # Install tcl deps for git without problematic tk
@@ -110,8 +107,7 @@ elif [ "$os" = "darwin" ]; then
   brew install reattach-to-user-namespace htop
 fi
 brew install git --with-pcre2 --with-persistent-https --with-openssl --with-curl --with-perl
-brew install zsh --with-pcre --with-unicode9
-brew install git-extras cpanminus tmux the_silver_searcher gnu-sed gnu-tar cmake ctags
+brew install git-extras tmux the_silver_searcher gnu-sed gnu-tar cmake ctags
 
 version=2.5.0
 if [ ! -d $HOME/.rbenv/versions/$version ]; then
