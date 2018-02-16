@@ -72,6 +72,8 @@ case $os in
 
     # Install deps for ruby
     $sudo apt-get install -y zlib1g-dev
+    # Install deps for python
+    $sudo apt-get install -y libssl-dev libbz2-dev
     # Install personal utilities
     $sudo apt-get install -y htop
     ;;
