@@ -1069,7 +1069,9 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 let g:tmuxify_map_prefix = 'm'
 " Node conviences {{{
   let g:js_indent_flat_switch = 1
-  let node#suffixesadd += ['.coffee', '.ls']
+  if exists('node#suffixesadd')
+    let node#suffixesadd += ['.coffee', '.ls']
+  endif
   augroup CoffeeScriptExtensions
     au!
     autocmd FileType coffee setlocal nosmartindent foldmethod=indent foldlevel=99
