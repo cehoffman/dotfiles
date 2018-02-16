@@ -136,7 +136,7 @@ if [ "$os" = "linux" ]; then
   # Install tcl deps for git without problematic tk
   brew install tcl-tk --without-tk
 elif [ "$os" = "darwin" ]; then
-  brew install reattach-to-user-namespace
+  brew install reattach-to-user-namespace htop
 fi
 brew install git --with-pcre2 --with-persistent-https --with-openssl --with-curl --with-perl
 brew install zsh --with-pcre --with-unicode9
@@ -150,16 +150,6 @@ fi
 
 # Unlink pkg-config brought in by tmux
 brew unlink pkg-config
-
-if [ "$os" = "darwin" ]; then
-  brew install htop
-# else
-  # Remove liblzma installed from the_silver_searcher to avoid conflict with
-  # system
-  if brew list | grep -iq xz; then
-    brew remove xz
-  fi
-fi
 
 version=luajit-2.1.0-beta1
 if [ ! -d $HOME/.luaenv/versions/$version ]; then
@@ -177,29 +167,8 @@ $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 zsh -c 'brew install python --with-unicode-ucs4 --without-tcl-tk'
 zsh -c 'brew install vim --with-luajit'
 
-# Setup ldconfig so zsh can find pcre on login
-if [ "$os" = "linux" ]; then
-  echo $HOME/.homebrew/lib | $sudo tee /etc/ld.so.conf.d/${USER}.conf > /dev/null
-  chmod 700 $HOME
-  $sudo ldconfig
-fi
-
 ~/.dotfiles/bin/update
 
 vim +BundleInstall '+qa!'
 
-ycm="$HOME/.vim/bundle/YouCompleteMe"
-case $os in
-  darwin)
-    zsh -c "cd '$ycm' && PYENV_VERSION=$version ./install.sh --clang-completer"
-    zsh -c $'install_name_tool -change ${${(z)${"${(f)$(otool -L =vim)}"[(r)*Python*]}}[1]} ~/.pyenv/versions/'$version'/lib/libpython*.dylib =vim'
-    ;;
-  linux)
-    cd "$ycm"
-    sed -i 's/Unix Makefiles"/Unix Makefiles" \$(python_finder)/' third_party/ycmd/build.sh
-    zsh -c "cd '$ycm' && chmod +x ./install.sh && PYENV_VERSION=$version ./install.sh --clang-completer --gocode-completer --tern-completer"
-    cd "third_party/ycmd"
-    git checkout build.sh
-    ;;
-esac
-
+zsh -c "cd '$HOME/.vim/bundle/YouCompleteMe' && ./install.py --clang-completer --gocode-completer --js-completer"

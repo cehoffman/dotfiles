@@ -120,7 +120,7 @@ typeset -gU path cdpath manpath fpath
 export MANPATH
 
 if [[ -o interactive ]]; then
-  export GREP_OPTIONS='--color=auto'
+  alias grep="grep --color-auto"
   export GREP_COLOR='1;32'
 
   if [[ ! $TERM =~ ^screen ]]; then
@@ -193,7 +193,7 @@ if [[ -o interactive ]]; then
   autoload -U compinit
   compinit -i
 else
-  export GREP_OPTIONS='--color=never'
+  alias grep="grep --color=never"
 
   # Remove the stderr coloring libs from the env variables to prevent
   # complaints on setuid/setgid programs
