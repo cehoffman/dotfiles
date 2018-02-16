@@ -1,15 +1,17 @@
-" if exists('g:loaded_textobj_luablock')  "{{{1
-"   finish
-" endif
+if exists('g:loaded_textobj_luablock')  "{{{1
+  finish
+endif
 
 " Interface  "{{{1
-call textobj#user#plugin('luablock', {
-\      '-': {
-\        '*sfile*': expand('<sfile>:p'),
-\        'select-a': 'al',  '*select-a-function*': 's:select_a',
-\        'select-i': 'il',  '*select-i-function*': 's:select_i'
-\      }
-\    })
+if exists('*textobj#user#plugin')
+  call textobj#user#plugin('luablock', {
+  \      '-': {
+  \        '*sfile*': expand('<sfile>:p'),
+  \        'select-a': 'al',  '*select-a-function*': 's:select_a',
+  \        'select-i': 'il',  '*select-i-function*': 's:select_i'
+  \      }
+  \    })
+endif
 
 " Misc.  "{{{1
 let s:start_pattern = '\v(<function>|<if>|<for>|<do>|<repeat>|<while>)'

@@ -55,26 +55,25 @@ case $os in
   *) fatal "Unknown system, don't know how to bootstrap" ;;
 esac
 
+if [ ! -d ~/.homebrew ]; then
+  mkdir ~/.homebrew
+  curl -LsSf https://github.com/Homebrew/homebrew/tarball/master | tar --strip-components=1 -zxf - -C ~/.homebrew
+  brew update
+fi
+
 case $os in
   darwin)
-    if [ ! -d ~/.homebrew ]; then
-      git clone --recursive git@github.com:homebrew/homebrew ~/.homebrew
-    fi
 
     # Install readline so ruby has it
     brew install readline
     ;;
   linux)
-    if [ ! -d ~/.homebrew ]; then
-      git clone --recursive git@github.com:homebrew/linuxbrew ~/.homebrew
-    fi
-
     echo "$USER ALL= NOPASSWD: ALL" | $sudo tee "/etc/sudoers.d/$USER" > /dev/null
     $sudo chmod 440 "/etc/sudoers.d/$USER"
     $sudo passwd -l "$USER"
 
     # Install deps for ruby
-    $sudo apt-get install -y libssl-dev libcurl4-openssl-dev libbz2-dev libffi-dev
+    $sudo apt-get install -y libssl-dev libcurl4-openssl-dev libbz2-dev libffi-dev zlib1g-dev
     # Install deps for zsh
     $sudo apt-get install -y ncurses-dev texinfo
     # Install personal utilities
@@ -85,64 +84,76 @@ case $os in
     $sudo apt-get install -y tcl
     # Install deps for the_silver_searcher
     $sudo apt-get install -y autoconf
+    # Need zsh to bootstrap zsh
+    $sudo apt-get install -y zsh
     ;;
 esac
 
 if [ ! -d ~/.dotfiles ]; then
-  git clone --recursive git@github.com:cehoffman/dotfiles ~/.dotfiles
+  git clone https://github.com/cehoffman/dotfiles ~/.dotfiles
+  if [ -n "${PUBLIC}" ]; then
+    sed '/js/d' -i ~/.dotfiles/.gitmodules
+    git --git-dir ~/.dotfiles/.git rm -r ssh
+    sed '/js/d' -i ~/.dotfiles/.gitmodules
+    git --git-dir ~/.dotfiles/.git rm -r js
+    git --git-dir ~/.dotfiles/.git add .gitmodules
+  fi
+  cd ~/.dotfiles
+  git submodule update --init --recursive
+  cd $OLDPWD
 fi
 ~/.dotfiles/bin/relink
 
-version=2.2.2
+zsh -c "brew install ctags openssl"
+
+version=2.5.0
 if [ ! -d $HOME/.rbenv/versions/$version ]; then
   rbenv install $version
   rbenv global $version
 fi
 
-zsh -c "brew install openssl"
-
-version=2.7.10
+version=2.7.14
 if [ ! -d $HOME/.pyenv/versions/$version ]; then
   case $os in
     darwin)
       zsh -c "PYTHON_CONFIGURE_OPTS=\"--enable-framework\" CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib\" pyenv install $version"
       ;;
     linux)
-      zsh -c "CFLAGS='-fPIC' pyenv install $version"
+      zsh -c "PYTHON_CONFIGURE_OPTS='--enable-shared' CFLAGS='-fPIC -I$(brew --prefix openssl)/include' LDFLAGS='-L$(brew --prefix openssl)/lib' pyenv install $version"
       ;;
   esac
   zsh -c "pyenv global $version"
   unset opts
 fi
 
-version=4.2.1
+version=9.5.0
 if [ ! -d $HOME/.nodenv/versions/$version ]; then
   zsh -c "nodenv install $version"
   zsh -c "nodenv global $version"
 fi
 
-brew tap cehoffman/personal
 if [ "$os" = "linux" ]; then
   # Install tcl deps for git without problematic tk
   brew install tcl-tk --without-tk
 elif [ "$os" = "darwin" ]; then
-  brew install nginx --with-libressl
-  brew install gnu-sed gnu-tar reattach-to-user-namespace
+  brew install reattach-to-user-namespace
 fi
-brew install git --with-pcre --with-persistent-https --with-brewed-curl --with-brewed-openssl
-brew install git-extras zsh ctags cpanminus stderred tmux the_silver_searcher
+brew install git --with-pcre2 --with-persistent-https --with-openssl --with-curl --with-perl
+brew install zsh --with-pcre --with-unicode9
+brew install git-extras cpanminus tmux the_silver_searcher gnu-sed gnu-tar cmake
+
 
 if [ "$os" = "linux" ]; then
   # Install single key read for git add --patch
-  cpanm Term::ReadKey
+  cpan -i Term::ReadKey
 fi
 
 # Unlink pkg-config brought in by tmux
 brew unlink pkg-config
 
 if [ "$os" = "darwin" ]; then
-  brew install cehoffman/personal/encfs htop
-else
+  brew install htop
+# else
   # Remove liblzma installed from the_silver_searcher to avoid conflict with
   # system
   if brew list | grep -iq xz; then
@@ -150,10 +161,7 @@ else
   fi
 fi
 
-# Make use of newly installed ctags to index ruby
-rbenv ctags
-
-version=luajit-2.1.0-alpha
+version=luajit-2.1.0-beta1
 if [ ! -d $HOME/.luaenv/versions/$version ]; then
   zsh -c "luaenv install $version"
   ln -sf $version $HOME/.luaenv/versions/2.1.0
@@ -166,7 +174,8 @@ fi
 $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 
 # Run this in zsh to have pyenv setup so vim finds python
-zsh -c 'brew install vim'
+zsh -c 'brew install python --with-unicode-ucs4 --without-tcl-tk'
+zsh -c 'brew install vim --with-luajit'
 
 # Setup ldconfig so zsh can find pcre on login
 if [ "$os" = "linux" ]; then
@@ -188,7 +197,7 @@ case $os in
   linux)
     cd "$ycm"
     sed -i 's/Unix Makefiles"/Unix Makefiles" \$(python_finder)/' third_party/ycmd/build.sh
-    zsh -c "cd '$ycm' && chmod +x ./install.sh && PYENV_VERSION=$version ./install.sh --clang-completer"
+    zsh -c "cd '$ycm' && chmod +x ./install.sh && PYENV_VERSION=$version ./install.sh --clang-completer --gocode-completer --tern-completer"
     cd "third_party/ycmd"
     git checkout build.sh
     ;;
