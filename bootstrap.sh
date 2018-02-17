@@ -109,7 +109,9 @@ elif [ "$os" = "darwin" ]; then
   brew install reattach-to-user-namespace htop
 fi
 brew install git --with-pcre2 --with-persistent-https --with-openssl --with-curl --with-perl
-brew install git-extras tmux the_silver_searcher gnu-sed gnu-tar cmake ctags
+brew install gnu-tar --with-default-names
+brew install gnu-sed --with-default-names
+brew install git-extras tmux the_silver_searcher coreutils cmake ctags tree pstree
 
 version=2.5.0
 if [ ! -d $HOME/.rbenv/versions/$version ]; then
