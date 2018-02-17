@@ -137,7 +137,7 @@ fi
 # Unlink pkg-config brought in by tmux
 brew unlink pkg-config
 
-version=luajit-2.1.0-beta1
+version=luajit-2.1.0-beta3
 if [ ! -d $HOME/.luaenv/versions/$version ]; then
   zsh -c "luaenv install $version"
   ln -sf $version $HOME/.luaenv/versions/2.1.0
