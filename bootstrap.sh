@@ -125,7 +125,7 @@ version=2.7.14
 if [ ! -d $HOME/.pyenv/versions/$version ]; then
   zsh -c "PYTHON_CONFIGURE_OPTS='--enable-shared' CFLAGS='-I$(brew --prefix openssl)/include' LDFLAGS='-L$(brew --prefix openssl)/lib' pyenv install $version"
   zsh -c "pyenv global $version"
-  zsh -c "pip install --upgrade pip && pip install httpie"
+  zsh -c "pip install --upgrade pip && pip install httpie && pyenv rehash"
 fi
 
 version=9.5.0
