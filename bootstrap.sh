@@ -9,8 +9,7 @@ fi
 #
 # Prints a warn message.
 #
-warn()
-{
+warn() {
   if [ -t 1 ]; then
     echo -e "\e[1m\e[33m***\e[0m \e[1m$1\e[0m" >&2
   else
@@ -21,8 +20,7 @@ warn()
 #
 # Prints an error message.
 #
-error()
-{
+error() {
   if [ -t 1 ]; then
     echo -e "\e[1m\e[31m!!!\e[0m \e[1m$1\e[0m" >&2
   else
@@ -33,8 +31,7 @@ error()
 #
 # Prints an error message and exists with -1.
 #
-fail()
-{
+fail() {
   error "$*"
   exit -1
 }
