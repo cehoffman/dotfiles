@@ -139,9 +139,6 @@ if [ "$os" = "linux" ]; then
   cpan -i Term::ReadKey
 fi
 
-# Unlink pkg-config brought in by tmux
-brew unlink pkg-config
-
 version=luajit-2.1.0-beta3
 if [ ! -d $HOME/.luaenv/versions/$version ]; then
   zsh -c "luaenv install $version"
