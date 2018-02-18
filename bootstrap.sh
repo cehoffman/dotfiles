@@ -109,7 +109,11 @@ fi
 brew install git --with-pcre2 --with-persistent-https --with-openssl --with-curl --with-perl
 brew install gnu-tar --with-default-names
 brew install gnu-sed --with-default-names
-brew install git-extras tmux the_silver_searcher coreutils cmake ctags tree pstree
+brew install python --with-unicode-ucs4 --without-tcl-tk
+brew install git-extras tmux the_silver_searcher coreutils cmake ctags tree pstree vim
+
+# Run this in zsh to have pyenv setup so vim finds python
+zsh -c 'brew install vim --with-luajit'
 
 version=2.5.0
 if [ ! -d $HOME/.rbenv/versions/$version ]; then
@@ -145,12 +149,7 @@ if [ ! -d $HOME/.luaenv/versions/$version ]; then
   zsh -c "luaenv global 2.1.0"
 fi
 
-# Run this in zsh to have pyenv setup so vim finds python
-zsh -c 'brew install python --with-unicode-ucs4 --without-tcl-tk'
-zsh -c 'brew install vim --with-luajit'
-
 ~/.dotfiles/bin/update
 
 vim +BundleInstall '+qa!'
-
 zsh -c "cd '$HOME/.vim/bundle/YouCompleteMe' && ./install.py --clang-completer --gocode-completer --js-completer"
