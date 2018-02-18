@@ -84,7 +84,11 @@ if [ ! -d ~/.dotfiles ]; then
     sed '/js/d' -i ~/.dotfiles/.gitmodules
     git --git-dir ~/.dotfiles/.git rm -r js
     git --git-dir ~/.dotfiles/.git add .gitmodules
+    git --git-dir ~/.dotfiles/.git config --local user.email cehoffman@gmail.com
+    git --git-dir ~/.dotfiles/.git config --local user.name "Chris Hoffman"
     git --git-dir ~/.dotfiles/.git commit -m "Remove private git submodules"
+    git --git-dir ~/.dotfiles/.git config --local --unset user.email
+    git --git-dir ~/.dotfiles/.git config --local --unset user.name "Chris Hoffman"
   fi
   cd ~/.dotfiles
   git submodule update --init --recursive
