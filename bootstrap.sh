@@ -84,6 +84,7 @@ if [ ! -d ~/.dotfiles ]; then
     sed '/js/d' -i ~/.dotfiles/.gitmodules
     git --git-dir ~/.dotfiles/.git rm -r js
     git --git-dir ~/.dotfiles/.git add .gitmodules
+    git --git-dir ~/.dotfiles/.git commit -m "Remove private git submodules"
   fi
   cd ~/.dotfiles
   git submodule update --init --recursive
