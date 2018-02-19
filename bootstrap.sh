@@ -74,7 +74,7 @@ case $os in
     # Install personal utilities
     $sudo apt-get install -y htop
     # Useful system utilties to have
-    $sudo apt-get net-tools procps iputils-ping
+    $sudo apt-get install -y net-tools procps iputils-ping
     ;;
 esac
 
