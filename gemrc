@@ -1,9 +1,11 @@
---- 
-:update_sources: true
-:sources: 
-- http://rubygems.org
-:bulk_threshold: 1000
-:verbose: true
+---
 :backtrace: false
-:benchmark: false
-gem: --no-ri --no-rdoc
+:bulk_threshold: 1000
+:sources:
+- http://rubygems.org
+:update_sources: true
+:verbose: true
+install: "--env-shebang --document=yri,yard"
+gemhome: "/Users/cehoffman/.rbenv/gems/2.5.0"
+benchmark: false
+gem: "--no-ri --no-rdoc"
