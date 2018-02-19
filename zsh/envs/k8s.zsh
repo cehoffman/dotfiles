@@ -1,11 +1,11 @@
 if (( $+commands[kubectl] )); then
-  alias kubectl="env -u DYLD_INSERT_LIBRARIES command kubectl"
+  alias kubectl="env -u DYLD_INSERT_LIBRARIES kubectl"
   alias k="kubectl"
   # source <(kubectl completion zsh)
 
-  # k() {
-  #   k "$@" ${KUBE_NAMESPACE+-n $KUBE_NAMESPACE}
-  # }
+  pod-name() {
+    k get po "${@}" -o json | jq -r '.items | map(select(.status.phase == "Running")) | first.metadata.name'
+  }
   
   ksanitize() {
     jq 'del(.spec.clusterIP,
@@ -25,7 +25,7 @@ if (( $+commands[kubectl] )); then
     kubectl patch -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"$(date +%s)\"}}}}}" "$@"
   }
 
-  kexec() {                                                                                                                                                                                                    12:50 on Thu Oct 19
+  kexec() {
     k exec -n "${1}" -it "$(k get po -n "${1}" -l "${2}" -o jsonpath="{.items[0].metadata.name}")" "${3-bash}" "${@:3}"
   }
 fi
