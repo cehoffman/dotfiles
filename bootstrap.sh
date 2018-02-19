@@ -73,6 +73,8 @@ case $os in
     $sudo apt-get install -y libssl-dev libbz2-dev
     # Install personal utilities
     $sudo apt-get install -y htop
+    # Useful system utilties to have
+    $sudo apt-get net-tools procps iputils-ping
     ;;
 esac
 
@@ -114,7 +116,7 @@ brew install git --with-pcre2 --with-persistent-https --with-openssl --with-curl
 brew install gnu-tar --with-default-names
 brew install gnu-sed --with-default-names
 brew install python --with-unicode-ucs4 --without-tcl-tk
-brew install git-extras tmux the_silver_searcher coreutils cmake ctags tree pstree vim
+brew install git-extras tmux the_silver_searcher coreutils cmake ctags tree pstree vim jq
 
 # Run this in zsh to have pyenv setup so vim finds python
 zsh -c 'brew install vim --with-luajit'
