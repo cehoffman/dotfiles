@@ -100,11 +100,17 @@ extend_console 'cp', use_require: false do
   # Setup pbcopy through nc to allow quick posting to clipboard
   require 'socket'
   def pbcopy(str)
-    TCPSocket.open('localhost', 2224) { |io| io.send str.to_s, 0 }
+    TCPSocket.open('localhost', 2224) do |io|
+      io.set_encoding Encoding::UTF_8
+      io.send str.to_s, 0
+    end
   end
 
   def pbpaste
-    TCPSocket.open('localhost', 2225) { |io| io.read }
+    TCPSocket.open('localhost', 2225) do |io|
+      io.set_encoding Encoding::UTF_8
+      io.read
+    end
   end
 end
 
