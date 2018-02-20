@@ -16,7 +16,7 @@ IRB.conf[:PROMPT][:SIMPLE_COLOR] = {
   :PROMPT_N => ">> ",
   :PROMPT_C => "?> ",
   :PROMPT_S => "?> ",
-  :RETURN   => "#{IRB::ANSI[:GREEN]}=>#{IRB::ANSI[:RESET]} %s\n",
+  :RETURN   => "#{TERM_COLORS[:GREEN]}=>#{TERM_COLORS[:RESET]} %s\n",
   :AUTO_INDENT => true }
 IRB.conf[:PROMPT_MODE] = :SIMPLE_COLOR
 
@@ -29,7 +29,7 @@ if defined?(Rails)
     :PROMPT_N => "#{rails_root}>> ",
     :PROMPT_C => "#{rails_root}?> ",
     :PROMPT_S => "#{rails_root}?> ",
-    :RETURN   => "#{IRB::ANSI[:GREEN]}=>#{IRB::ANSI[:RESET]} %s\n"
+    :RETURN   => "#{TERM_COLORS[:GREEN]}=>#{TERM_COLORS[:RESET]} %s\n"
   }
   IRB.conf[:PROMPT_MODE] = :RAILS
 
@@ -38,9 +38,4 @@ if defined?(Rails)
   IRB.conf[:IRB_RC] = Proc.new do |context|
     ActiveRecord::Base.logger = Logger.new(STDOUT)
   end if defined?(ActiveRecord)
-end
-
-extend_console 'wirb' do
-  Wirb.start
-  Wirb.load_schema File.expand_path('~/.dotfiles/irb/plasticcodewrap')
 end
