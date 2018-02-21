@@ -192,6 +192,9 @@ if [[ -o interactive ]]; then
   # are setup correctly
   autoload -U compinit
   compinit -i
+
+  autoload -U bashcompinit
+  bashcompinit
 else
   alias grep="grep --color=never"
 
