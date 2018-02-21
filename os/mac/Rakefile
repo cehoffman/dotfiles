@@ -38,12 +38,12 @@ task :install do
       contents = ERB.new(File.read(plist)).result(Context.new)
       plist = File.basename(plist).sub(/\.erb$/, '')
     else
-      contents = File.open(plist, 'rb') { |f| f.read }
+      contents = File.read(plist, mode: 'rb')
     end
     dest = File.expand_path("~/Library/LaunchAgents/#{plist}")
 
     puts "installing #{plist} to ~/Library/LaunchAgents"
-    open(dest , 'w') { |file| file << contents }
+    File.write(dest, contents)
 
     if loaded[File.basename(dest, '.plist')]
       puts "shutting down #{plist}"
