@@ -4,7 +4,7 @@ if (( $+commands[kubectl] )); then
   # source <(kubectl completion zsh)
 
   pod-name() {
-    k get po "${@}" -o json | jq -r '.items | map(select(.status.phase == "Running")) | first.metadata.name'
+    kubectl get po "${@}" -o json | jq -r '.items | map(select(.status.phase == "Running")) | first.metadata.name'
   }
   
   ksanitize() {
