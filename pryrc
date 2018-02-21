@@ -1,4 +1,4 @@
-load File.expand_path("~/.irbrc")
+load File.expand_path("~/.dotfiles/irb/common.rb")
 
 if defined?(PryByebug)
   Pry.commands.alias_command 'c', 'continue'

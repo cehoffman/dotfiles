@@ -1,5 +1,6 @@
 require 'irb/completion'
 require 'irb/ext/save-history'
+require_relative 'common'
 
 IRB.conf[:SAVE_HISTORY] = 500
 IRB.conf[:PROMPT_MODE]  = :SIMPLE
