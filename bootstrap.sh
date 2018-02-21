@@ -40,7 +40,7 @@ os=$(uname -s | tr A-Z a-z)
 
 set -e
 
-export PATH="$HOME/.homebrew/bin:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
+export PATH="$HOME/.homebrew/bin:$HOME/.asdf/shims:$PATH"
 
 case $os in
   darwin)
@@ -121,35 +121,52 @@ brew install git-extras tmux the_silver_searcher coreutils cmake ctags tree pstr
 # Run this in zsh to have pyenv setup so vim finds python
 zsh -c 'brew install vim --with-luajit'
 
-version=2.5.0
-if [ ! -d $HOME/.rbenv/versions/$version ]; then
-  zsh -c "rbenv install $version"
-  zsh -c "rbenv global $version"
-fi
-
-version=2.7.14
-if [ ! -d $HOME/.pyenv/versions/$version ]; then
-  zsh -c "PYTHON_CONFIGURE_OPTS='--enable-shared' CFLAGS='-I$(brew --prefix openssl)/include' LDFLAGS='-L$(brew --prefix openssl)/lib' pyenv install $version"
-  zsh -c "pyenv global $version"
-  zsh -c "pip install --upgrade pip && pip install httpie && pyenv rehash"
-fi
-
-version=9.5.0
-if [ ! -d $HOME/.nodenv/versions/$version ]; then
-  zsh -c "nodenv install $version"
-  zsh -c "nodenv global $version"
-fi
-
 if [ "$os" = "linux" ]; then
   # Install single key read for git add --patch
   cpan -i Term::ReadKey
 fi
 
-version=luajit-2.1.0-beta3
-if [ ! -d $HOME/.luaenv/versions/$version ]; then
-  zsh -c "luaenv install $version"
-  ln -sf $version $HOME/.luaenv/versions/2.1.0
-  zsh -c "luaenv global 2.1.0"
+version=2.5.0
+if [ ! -d $HOME/.asdf/installs/ruby/$version ]; then
+  asdf plugin-install ruby
+  zsh -c "asdf install ruby $version"
+  asdf global ruby $version
+fi
+
+version=2.7.14
+if [ ! -d $HOME/.asdf/installs/python/$version ]; then
+  asdf plugin-install python
+  zsh -c "PYTHON_CONFIGURE_OPTS='--enable-shared' CFLAGS='-I$(brew --prefix openssl)/include' LDFLAGS='-L$(brew --prefix openssl)/lib' asdf install python $version"
+  asdf global python $version
+  zsh -c "pip install --upgrade pip && pip install httpie && pyenv rehash"
+fi
+
+version=9.5.0
+if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
+  asdf plugin-install nodejs
+  zsh -c "asdf install nodejs $version"
+  asdf global nodejs $version
+fi
+
+version=2.0.3--2.4.2
+if [ ! -d $HOME/.asdf/installs/luajit/$version ]; then
+  asdf plugin-install luajit
+  zsh -c "asdf install luajit $version"
+  asdf global luajit $version
+fi
+
+version=20.2.3
+if [ ! -d $HOME/.asdf/installs/erlang/$version ]; then
+  asdf plugin-install erlang
+  asdf install erlang $version
+  asdf global erlang $version
+fi
+
+version=1.6.1-otp-20
+if [ ! -d $HOME/.asdf/installs/elixir/$version ]; then
+  asdf plugin-install elixir
+  zsh -c "asdf install elixir $version"
+  asdf global elixir $version
 fi
 
 ~/.dotfiles/bin/update

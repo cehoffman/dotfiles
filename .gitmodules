@@ -7,12 +7,6 @@
 [submodule "dotjs-js"]
 	path = js
   url = https://cehoffman@bitbucket.org/cehoffman/dotjs.git
-[submodule "rbenv"]
-	path = rbenv
-	url = https://github.com/cehoffman/rbenv.git
-[submodule "luaenv"]
-	path = luaenv
-	url = https://github.com/cehoffman/luaenv.git
 [submodule "zsh/vendor/autoenv"]
 	path = zsh/vendor/autoenv
 	url = https://github.com/cehoffman/autoenv.git
@@ -22,18 +16,15 @@
 [submodule "zsh/vendor/zaw"]
 	path = zsh/vendor/zaw
 	url = https://github.com/zsh-users/zaw
-[submodule "pyenv"]
-	path = pyenv
-	url = https://github.com/cehoffman/pyenv.git
 [submodule "zsh/vendor/fasd"]
 	path = zsh/vendor/fasd
 	url = https://github.com/clvv/fasd.git
 [submodule "ssh"]
 	path = ssh
   url = https://cehoffman@bitbucket.org/cehoffman/ssh.git
-[submodule "nodenv"]
-	path = nodenv
-	url = https://github.com/cehoffman/nodenv
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "asdf"]
+	path = asdf
+	url = https://github.com/asdf-vm/asdf.git

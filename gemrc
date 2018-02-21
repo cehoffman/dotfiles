@@ -6,6 +6,5 @@
 :update_sources: true
 :verbose: true
 install: "--env-shebang --document=yri,yard"
-gemhome: "/Users/cehoffman/.rbenv/gems/2.5.0"
 benchmark: false
 gem: "--no-ri --no-rdoc"
