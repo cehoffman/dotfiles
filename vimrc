@@ -41,7 +41,6 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'cehoffman/vim-lua'
   Plugin 'scrooloose/syntastic'
   Plugin 'mileszs/ack.vim'
-  Plugin 'kchmck/vim-coffee-script'
   Plugin 'vim-ruby/vim-ruby'
   Plugin 'ecomba/vim-ruby-refactoring'
 
@@ -57,7 +56,6 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'MarcWeber/vim-addon-local-vimrc'
 
   Plugin 'Raimondi/delimitMate'
-  Plugin 'tmatilai/gitolite.vim'
   Plugin 'othree/html5.vim'
   Plugin 'SirVer/UltiSnips'
   Plugin 'honza/vim-snippets'
@@ -76,11 +74,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   Plugin 'suy/vim-ctrlp-commandline'
   Plugin 'LaTeX-Box-Team/LaTeX-Box'
   Plugin 'vim-scripts/Match-Bracket-for-Objective-C'
-  Plugin 'cehoffman/vim-bitbake'
-  Plugin 'joonty/vdebug'
   Plugin 'mbbill/undotree'
-  Plugin 'groenewege/vim-less'
-  Plugin 'ledger/vim-ledger'
   Plugin 'ZoomWin'
   Plugin 'sjl/vitality.vim'
   Plugin 'Valloric/YouCompleteMe'
@@ -93,13 +87,18 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   " Plugin 'nsf/gocode', {'rtp': 'vim/'}
   Plugin 'ekalinin/Dockerfile.vim'
   Plugin 'moll/vim-node'
-  Plugin 'leafo/moonscript-vim'
   Plugin 'rstacruz/sparkup'
   " Plugin 'clausreinke/typescript-tools.vim'
   " Plugin 'leafgarland/typescript-vim'
   Plugin 'rizzatti/dash.vim'
   Plugin 'ConradIrwin/vim-bracketed-paste'
-  Plugin 'keith/swift.vim'
+  Plugin 'hashivim/vim-terraform'
+  Plugin 'markcornick/vim-bats'
+  if has('nvim')
+    Plugin 'machakann/vim-highlightedyank'
+    let g:highlightedyank_highlight_duration = 200
+  endif
+  Plugin 'elixir-editors/vim-elixir'
 " }}}
 
 " General settings {{{
@@ -1064,6 +1063,10 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 " Ledger {{{
   let g:ledger_maxwidth = 81
   let g:ledger_fillstring = '·'
+" }}}
+" Terraform {{{
+  let g:terraform_align = 1
+  autocmd FileType terraform setlocal commentstring=#\ %s
 " }}}
 " let g:vitality_fix_focus = 1
 let g:tmuxify_map_prefix = 'm'
