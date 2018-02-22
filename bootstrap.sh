@@ -144,6 +144,7 @@ fi
 version=9.5.0
 if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
   asdf plugin-add nodejs
+  zsh -c "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
   zsh -c "asdf install nodejs $version"
   asdf global nodejs $version
 fi
