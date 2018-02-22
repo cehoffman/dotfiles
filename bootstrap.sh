@@ -126,6 +126,13 @@ if [ "$os" = "linux" ]; then
   cpan -i Term::ReadKey
 fi
 
+version=2.0.3--2.4.2
+if [ ! -d $HOME/.asdf/installs/luajit/$version ]; then
+  asdf plugin-add luajit
+  zsh -c "asdf install luajit $version"
+  asdf global luajit $version
+fi
+
 version=2.5.0
 if [ ! -d $HOME/.asdf/installs/ruby/$version ]; then
   asdf plugin-add ruby
@@ -147,13 +154,6 @@ if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
   zsh -c "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
   zsh -c "asdf install nodejs $version"
   asdf global nodejs $version
-fi
-
-version=2.0.3--2.4.2
-if [ ! -d $HOME/.asdf/installs/luajit/$version ]; then
-  asdf plugin-add luajit
-  zsh -c "asdf install luajit $version"
-  asdf global luajit $version
 fi
 
 version=20.2.3
