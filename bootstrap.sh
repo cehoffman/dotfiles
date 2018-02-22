@@ -40,7 +40,7 @@ os=$(uname -s | tr A-Z a-z)
 
 set -e
 
-export PATH="$HOME/.homebrew/bin:$HOME/.asdf/shims:$PATH"
+export PATH="$HOME/.homebrew/bin:$HOME/.asdf/shims:$HOME/.asdf/bin:$PATH"
 
 case $os in
   darwin)
