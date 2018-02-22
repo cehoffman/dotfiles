@@ -138,7 +138,7 @@ if [ ! -d $HOME/.asdf/installs/python/$version ]; then
   asdf plugin-install python
   zsh -c "PYTHON_CONFIGURE_OPTS='--enable-shared' CFLAGS='-I$(brew --prefix openssl)/include' LDFLAGS='-L$(brew --prefix openssl)/lib' asdf install python $version"
   asdf global python $version
-  zsh -c "pip install --upgrade pip && pip install httpie && pyenv rehash"
+  zsh -c "pip install --upgrade pip && pip install httpie && asdf reshim"
 fi
 
 version=9.5.0
