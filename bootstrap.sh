@@ -128,43 +128,43 @@ fi
 
 version=2.5.0
 if [ ! -d $HOME/.asdf/installs/ruby/$version ]; then
-  asdf plugin-install ruby
+  asdf plugin-add ruby
   zsh -c "asdf install ruby $version"
   asdf global ruby $version
 fi
 
 version=2.7.14
 if [ ! -d $HOME/.asdf/installs/python/$version ]; then
-  asdf plugin-install python
+  asdf plugin-add python
   zsh -c "PYTHON_CONFIGURE_OPTS='--enable-shared' CFLAGS='-I$(brew --prefix openssl)/include' LDFLAGS='-L$(brew --prefix openssl)/lib' asdf install python $version"
   asdf global python $version
-  zsh -c "pip install --upgrade pip && pip install httpie && asdf reshim"
+  zsh -c "pip install --upgrade pip && pip install httpie && asdf reshim python"
 fi
 
 version=9.5.0
 if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
-  asdf plugin-install nodejs
+  asdf plugin-add nodejs
   zsh -c "asdf install nodejs $version"
   asdf global nodejs $version
 fi
 
 version=2.0.3--2.4.2
 if [ ! -d $HOME/.asdf/installs/luajit/$version ]; then
-  asdf plugin-install luajit
+  asdf plugin-add luajit
   zsh -c "asdf install luajit $version"
   asdf global luajit $version
 fi
 
 version=20.2.3
 if [ ! -d $HOME/.asdf/installs/erlang/$version ]; then
-  asdf plugin-install erlang
+  asdf plugin-add erlang
   asdf install erlang $version
   asdf global erlang $version
 fi
 
 version=1.6.1-otp-20
 if [ ! -d $HOME/.asdf/installs/elixir/$version ]; then
-  asdf plugin-install elixir
+  asdf plugin-add elixir
   zsh -c "asdf install elixir $version"
   asdf global elixir $version
 fi
