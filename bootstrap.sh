@@ -75,6 +75,9 @@ case $os in
     $sudo apt-get install -y htop
     # Useful system utilties to have
     $sudo apt-get install -y net-tools procps iputils-ping
+
+    # Tool necessary to compile tools outside of brew
+    brew install autoconf libtool
     ;;
 esac
 
