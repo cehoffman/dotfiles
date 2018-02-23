@@ -128,9 +128,9 @@ fi
 
 version=2.0.3--2.4.2
 if [ ! -d $HOME/.asdf/installs/luajit/$version ]; then
-  asdf plugin-add luajit
-  zsh -c "asdf install luajit $version"
-  asdf global luajit $version
+  asdf plugin-add luaJIT
+  zsh -c "asdf install luaJIT $version"
+  asdf global luaJIT $version
 fi
 
 version=2.5.0
