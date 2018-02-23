@@ -77,7 +77,7 @@ case $os in
     $sudo apt-get install -y net-tools procps iputils-ping
 
     # Tool necessary to compile tools outside of brew
-    $sudo apt-get install autoconf libtool
+    $sudo apt-get install -y autoconf libtool libncurses5-dev
     ;;
 esac
 
@@ -130,7 +130,7 @@ if [ "$os" = "linux" ]; then
 fi
 
 version=2.0.3--2.4.2
-if [ ! -d $HOME/.asdf/installs/luajit/$version ]; then
+if [ ! -d $HOME/.asdf/installs/luaJIT/$version ]; then
   asdf plugin-add luaJIT
   zsh -c "asdf install luaJIT $version"
   asdf global luaJIT $version
