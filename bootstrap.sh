@@ -77,7 +77,7 @@ case $os in
     $sudo apt-get install -y net-tools procps iputils-ping
 
     # Tool necessary to compile tools outside of brew
-    brew install autoconf libtool
+    $sudo apt-get install autoconf libtool
     ;;
 esac
 
