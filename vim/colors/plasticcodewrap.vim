@@ -35,9 +35,13 @@ hi WildMenu                     cterm=NONE           ctermfg=16   ctermbg=226  g
 hi Folded                       cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#4e4e4e guibg=#0b161d
 hi FoldColumn                   cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#4e4e4e guibg=#0b161d
 hi DiffAdd                      cterm=NONE           ctermfg=251  ctermbg=22   gui=NONE                  guifg=NONE    guibg=#004400
-hi DiffChange                   cterm=NONE           ctermfg=251  ctermbg=130  gui=NONE                  guifg=#0b161d    guibg=#d8dc42
+hi DiffChange                   cterm=NONE           ctermfg=251  ctermbg=130  gui=NONE                  guifg=#0b161d guibg=#d8dc42
 hi DiffDelete                   cterm=NONE           ctermfg=254  ctermbg=88   gui=NONE                  guifg=NONE    guibg=#660000
 hi DiffText                     cterm=NONE           ctermfg=251  ctermbg=NONE gui=NONE                  guifg=NONE    guibg=#660000
+hi GitGutterAdd                 cterm=NONE           ctermfg=22   ctermbg=22   gui=NONE                  guifg=#004400 guibg=#004400
+hi GitGutterChange              cterm=NONE           ctermfg=130  ctermbg=130  gui=NONE                  guifg=#d8dc42 guibg=#d8dc42
+hi GitGutterDelete              cterm=NONE           ctermfg=88   ctermbg=88   gui=NONE                  guifg=#660000 guibg=#660000
+hi GitGutterChangeDelete        cterm=NONE           ctermfg=130  ctermbg=130  gui=NONE                  guifg=#d8dc42 guibg=#d8dc42
 hi svnDiffAdd                   cterm=NONE           ctermfg=22   ctermbg=22   gui=NONE                  guifg=#004400 guibg=#004400
 hi svnDiffChange                cterm=NONE           ctermfg=184  ctermbg=184  gui=NONE                  guifg=#d8dc42 guibg=#d8dc42
 hi svnDiffDelete                cterm=NONE           ctermfg=88   ctermbg=88   gui=NONE                  guifg=#660000 guibg=#660000
