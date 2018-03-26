@@ -61,6 +61,8 @@ fi
 
 case $os in
   darwin)
+    # erlang/elixir nice to haves
+    brew install freetds unixodbc wxmac
     ;;
   linux)
     echo "$USER ALL= NOPASSWD: ALL" | $sudo tee "/etc/sudoers.d/$USER" > /dev/null
@@ -78,6 +80,9 @@ case $os in
 
     # Tool necessary to compile tools outside of brew
     $sudo apt-get install -y autoconf libtool libncurses5-dev
+
+    # erlang/elixir nice to have
+    brew install freetds unixodbc
     ;;
 esac
 
@@ -159,18 +164,33 @@ if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
   asdf global nodejs $version
 fi
 
-version=20.2.3
+version=20.3.2
 if [ ! -d $HOME/.asdf/installs/erlang/$version ]; then
   asdf plugin-add erlang
   asdf install erlang $version
   asdf global erlang $version
 fi
 
-version=1.6.1-otp-20
+version=1.6.4-otp-20
 if [ ! -d $HOME/.asdf/installs/elixir/$version ]; then
   asdf plugin-add elixir
   zsh -c "asdf install elixir $version"
   asdf global elixir $version
+fi
+
+version=1.10
+if [ ! -d $HOME/.asdf/installs/golang/$version ]; then
+  asdf plugin-add golang
+  zsh -c "asdf install golang $version"
+  asdf global golang $version
+fi
+
+asdf plugin-add kubectl
+version=1.8.7
+if [ ! -d $HOME/.asdf/installs/kubectl/$version ]; then
+  asdf plugin-add kubectl
+  zsh -c "asdf install kubectl $version"
+  asdf global kubectl $version
 fi
 
 ~/.dotfiles/bin/update
