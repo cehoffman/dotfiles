@@ -3,102 +3,99 @@ set nocompatible
 
 let $DYLD_INSERT_LIBRARIES=''
 
-set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vim/after
+" TODO: add nvim default runtime paths
+set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vim/after
 
-" Vundle initialization {{{
+" Plug initialization {{{
   filetype off
-  " runtime! bundle/vim-pathogen/autoload/pathogen.vim
-  if !filereadable(expand('~/.vim/bundle/vundle/README.md'))
-    silent !git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+  if !filereadable(expand('~/.vim/autoload/plug.vim'))
+    silent !curl -Lfo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
   endif
+  call plug#begin('~/.vim/plugged')
 
-  set rtp+=~/.vim/bundle/vundle
-  call vundle#rc()
-
-  Plugin 'gmarik/vundle'
-  Plugin 'tpope/vim-jdaddy'
-  Plugin 'tpope/vim-capslock'
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'tpope/vim-git'
-  Plugin 'tpope/vim-endwise'
-  Plugin 'tpope/vim-haml'
-  Plugin 'tpope/vim-markdown'
-  Plugin 'tpope/vim-rails'
-  Plugin 'tpope/vim-rake'
-  Plugin 'tpope/vim-surround'
-  Plugin 'tpope/vim-unimpaired'
-  Plugin 'tpope/vim-abolish'
-  Plugin 'tpope/vim-repeat'
-  Plugin 'tpope/vim-bundler'
-  Plugin 'tpope/vim-commentary'
-  Plugin 'tpope/vim-eunuch'
-  Plugin 'tpope/vim-scriptease'
-  Plugin 'tpope/vim-dispatch'
-  Plugin 'tpope/vim-projectionist'
-  Plugin 'tpope/vim-obsession'
-  Plugin 'cehoffman/vim-ragtag'
-  Plugin 'cehoffman/csv.vim'
-  Plugin 'cehoffman/vim-lua'
-  Plugin 'scrooloose/syntastic'
-  Plugin 'mileszs/ack.vim'
-  Plugin 'vim-ruby/vim-ruby'
-  Plugin 'ecomba/vim-ruby-refactoring'
-
-  " Plugin 'pangloss/vim-javascript'
-  Plugin 'claco/jasmine.vim'
-  Plugin 'othree/yajs.vim'
-  Plugin 'othree/es.next.syntax.vim'
-  " Plugin 'gavocanov/vim-js-indent'
-  Plugin 'jason0x43/vim-js-indent'
-
-  " Plugin 'lambdatoast/elm.vim'
-  " Plugin 'isRuslan/vim-es6'
-  Plugin 'MarcWeber/vim-addon-local-vimrc'
-
-  Plugin 'Raimondi/delimitMate'
-  Plugin 'othree/html5.vim'
-  Plugin 'SirVer/UltiSnips'
-  Plugin 'honza/vim-snippets'
-  " Plugin 'Lokaltog/vim-easymotion'
-  Plugin 'godlygeek/tabular'
-  Plugin 'majutsushi/tagbar'
-  Plugin 'kana/vim-textobj-user'
-  Plugin 'nelstrom/vim-textobj-rubyblock'
-  Plugin 'gregsexton/gitv'
-  Plugin 'jamessan/vim-gnupg'
-  Plugin 'vim-scripts/scratch.vim'
-  Plugin 'sjl/splice.vim'
-  Plugin 'b4winckler/vim-objc'
-  Plugin 'AndrewRadev/splitjoin.vim'
-  Plugin 'kien/ctrlp.vim'
-  Plugin 'suy/vim-ctrlp-commandline'
-  Plugin 'LaTeX-Box-Team/LaTeX-Box'
-  Plugin 'vim-scripts/Match-Bracket-for-Objective-C'
-  Plugin 'mbbill/undotree'
-  Plugin 'ZoomWin'
-  Plugin 'sjl/vitality.vim'
-  Plugin 'Valloric/YouCompleteMe'
-  Plugin 'tmux-plugins/vim-tmux'
-  Plugin 'tmux-plugins/vim-tmux-focus-events'
-  Plugin 'christoomey/vim-tmux-navigator'
-  Plugin 'elzr/vim-json'
-  Plugin 'wellle/targets.vim'
-  Plugin 'fatih/vim-go'
-  " Plugin 'nsf/gocode', {'rtp': 'vim/'}
-  Plugin 'ekalinin/Dockerfile.vim'
-  Plugin 'moll/vim-node'
-  Plugin 'rstacruz/sparkup'
-  " Plugin 'clausreinke/typescript-tools.vim'
-  " Plugin 'leafgarland/typescript-vim'
-  Plugin 'rizzatti/dash.vim'
-  Plugin 'ConradIrwin/vim-bracketed-paste'
-  Plugin 'hashivim/vim-terraform'
-  Plugin 'markcornick/vim-bats'
+  Plug 'tpope/vim-jdaddy'
+  Plug 'tpope/vim-capslock'
+  Plug 'tpope/vim-fugitive'
   if has('nvim')
-    Plugin 'machakann/vim-highlightedyank'
-    let g:highlightedyank_highlight_duration = 200
+    augroup patch_terminal
+      au!
+
+      au TermOpen * startinsert
+      au TermClose * stopinsert
+    augroup END
   endif
-  Plugin 'elixir-editors/vim-elixir'
+  Plug 'tpope/vim-git'
+  Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-markdown'
+  Plug 'tpope/vim-rails', {'for': ['ruby']}
+  Plug 'tpope/vim-rake', {'for': ['ruby']}
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-abolish'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-bundler'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-scriptease'
+  Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-projectionist'
+  Plug 'tpope/vim-obsession'
+  Plug 'tpope/vim-ragtag'
+  if has('nvim')
+    Plug 'benekastah/neomake'
+    augroup localneomake
+      autocmd! BufWritePost * Neomake
+    augroup END
+    " Configure a nice credo setup, courtesy https://github.com/neomake/neomake/pull/300
+    let g:neomake_elixir_enabled_makers = ['mix', 'credo']
+  endif
+  Plug 'airblade/vim-gitgutter'
+  let g:gitgutter_diff_args = '-w'
+  Plug 'sheerun/vim-polyglot'
+
+  Plug 'ecomba/vim-ruby-refactoring', {'for': ['ruby']}
+  Plug 'jason0x43/vim-js-indent', {'for': ['javascript']}
+  Plug 'vim-scripts/Match-Bracket-for-Objective-C', {'for': ['objc']}
+  Plug 'fatih/vim-go', {'do': ':GoInstallBinaries', 'for': ['go']}
+  Plug 'moll/vim-node', {'for': ['javascript']}
+  Plug 'markcornick/vim-bats'
+  Plug 'mhinz/vim-mix-format', {'for': ['elixir']}
+  let g:mix_format_on_save = 1
+  let g:mix_format_options = '--check-equivalent'
+  Plug 'slashmili/alchemist.vim', {'for': ['elixir']}
+  Plug 'MarcWeber/vim-addon-local-vimrc'
+
+  Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+  Plug 'Raimondi/delimitMate'
+  Plug 'SirVer/UltiSnips'
+  Plug 'honza/vim-snippets'
+  Plug 'godlygeek/tabular'
+  Plug 'majutsushi/tagbar'
+  Plug 'kana/vim-textobj-user'
+  Plug 'nelstrom/vim-textobj-rubyblock'
+  " Plug 'gregsexton/gitv'
+  Plug 'jamessan/vim-gnupg'
+  Plug 'vim-scripts/scratch.vim'
+  Plug 'sjl/splice.vim'
+  Plug 'AndrewRadev/splitjoin.vim'
+  Plug 'kien/ctrlp.vim'
+  Plug 'suy/vim-ctrlp-commandline'
+  Plug 'mbbill/undotree'
+  Plug 'vim-scripts/ZoomWin'
+  Plug 'sjl/vitality.vim'
+  " Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --gocode-completer --tern-completer'}
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  let g:deoplete#enable_at_startup = 1
+  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'ConradIrwin/vim-bracketed-paste'
+  Plug 'wellle/targets.vim'
+  Plug 'rizzatti/dash.vim', {'on': 'Dash'}
+  Plug 'machakann/vim-highlightedyank', has('nvim') ? {} : {'on': []}
+  let g:highlightedyank_highlight_duration = 200
+
+  call plug#end()
 " }}}
 
 " General settings {{{
@@ -143,7 +140,12 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   set updatetime=1500      " Make man auto command macros fire quicker, more often
   set pumheight=10         " control how many options are shown before scrolling on auto completion
   set mouse=a              " Turn on mouse support
-  set ttymouse=sgr         " Support ultra wide terminals (> 223 columns)
+  if !has('nvim')
+    set ttymouse=sgr         " Support ultra wide terminals (> 223 columns)
+    set cryptmethod=blowfish " use a strong encryption method instead of weak one
+  else
+    set inccommand=nosplit
+  endif
   set nojoinspaces         " Don't add extra space when using SHIFT-J
   set display+=lastline    " Show the whole of a last line when it is wrapped
   set cpoptions+=yd        " allow yank commands to be repeated with '.'
@@ -155,6 +157,11 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   set termencoding=utf-8   " Make default termainl encoding utf-8
   " set number               " Use number for now because relative is slow
   set relativenumber       " Make line numbers relative to my cursor for easy jumping
+  augroup numbertoggle
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber nonumber
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber number
+  augroup END
   set lazyredraw           " don't redraw the screen during macros
   set cursorline           " start with cursor shown
   set clipboard=unnamed,unnamedplus " make copying put on the system clipboard and pasting get from it
@@ -187,7 +194,7 @@ set runtimepath=~/.dotfiles/vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vi
   set formatoptions=cq1nrj
   set colorcolumn=+1       " Always be aware of the best file width
   set textwidth=79
-  set wrap linebreak showbreak=\ …\  cpoptions+=n " Use soft wrapping, and adjust mappings for edit keys
+  set wrap linebreak showbreak=… cpoptions+=n " Use soft wrapping, and adjust mappings for edit keys
   set list listchars=tab:▸\ ,eol:¬,precedes:<,extends:>,nbsp:· " Display extra whitespace
 
   " Enable file type detection.
@@ -227,7 +234,7 @@ let maplocalleader = ',' " \ is the default
   nnoremap <silent> <Leader><C-l> :redraw!<CR>
   vnoremap <silent> <Leader><C-l> :redraw!<CR>
 
-  " Don't move the cursosr after pasting
+  " Don't move the cursor after pasting
   " noremap p p`[
   " noremap P P`[
 
@@ -241,8 +248,8 @@ let maplocalleader = ',' " \ is the default
   noremap <Leader>ev :edit ~/.dotfiles/vimrc<CR>
 
   " Simplistic buffer removal but keeping window
-  nnoremap <silent> <Leader>bd :bp<BAR>bd #<CR>
-  nnoremap <silent> <Leader>bw :bp<BAR>bw #<CR>
+  nnoremap <silent> <Leader>bd <C-^>:bd #<CR>
+  nnoremap <silent> <Leader>bw <C-^>:bw #<CR>
 
   " Paste without losing the item being pasted
   " vnoremap P p :call setreg(&clipboard =~# 'unnamed' ? '*' : '"', getreg('0')) <CR>
@@ -270,12 +277,16 @@ let maplocalleader = ',' " \ is the default
 " Terminal/GUI Setup {{{
   set background=dark
   if !has("gui_running")
-    " Workaround for making things like arrow keys work under screen
-    if $TERM == 'screen*'
-      set term=xterm
-    elseif $TERM == 'screen-256color'
-      set term=xterm-256color
-    end
+    if !has('nvim')
+      " Workaround for making things like arrow keys work under screen
+      if $TERM == 'screen*'
+        set term=xterm
+      elseif $TERM == 'screen-256color'
+        set term=xterm-256color
+      end
+    else
+      " set termguicolors
+    endif
 
     " Color scheme
     let g:solarized_underline = 0
@@ -609,8 +620,6 @@ if has("autocmd")
       let g:default_stl .= "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>"
       let g:default_stl .= "#[Branch] %(%{exists('*fugitive#statusline') ? substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', ' \\1', 'gi') : ''}#[BranchS] [>]%)" " Git branch
       let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName] %t " " File name
-      let g:syntastic_stl_format = <SID>StatusLineArrows("[>][>][>] SYNTAX [>] %F (%t) [>][>][>]")
-      let g:default_stl .= "<CUR>#[Error]%(%{exists('*SyntasticStatuslineFlag') ? SyntasticStatuslineFlag() : ''} %)</CUR>"
       let g:default_stl .= "#[ModFlag]%(%M %)" " Modified flag
       let g:default_stl .= "#[BufFlag]%(%H%W %)" " HLP,PRV flags
       let g:default_stl .= "#[FileNameS]<CUR>[>>]</CUR>" " Separator
@@ -635,9 +644,9 @@ if has("autocmd")
               \ | let b:stl = "#[FileName] Tagbar#[FileNameS] [>>]#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
               \ | endif
       " }}}
-      " Threesome HUD {{{
-        au BufEnter __Threesome_HUD__ if !exists('b:stl')
-              \ | let b:stl = "#[FileName] Threesome HUD#[FileNameS] [>>]%<%* %="
+      " Splie HUD {{{
+        au BufEnter __Splice_HUD__ if !exists('b:stl')
+              \ | let b:stl = "#[FileName] Splice HUD#[FileNameS] [>>]%<%* %="
               \ | endif
       " }}}
       " Scratch {{{
@@ -646,11 +655,6 @@ if has("autocmd")
               \ | endif
               \ | imap <expr><buffer> <Return> exists('b:pane_id') ? "<Esc><S-v>mso" : "<Return>"
               \ | nnoremap <expr><buffer><silent> <Return> exists('b:pane_id') ? "<S-v>\"my:TxSend(@m)<CR>" : "<Return>"
-      " }}}
-      " Syntastic location list {{{
-        au BufEnter \[Location List] if !exists('b:stl')
-              \ | let b:stl = "#[FileName]%< Location List #[FileNameS][>>]%* %="
-              \ | endif
       " }}}
     " }}}
     " Main Statusline Highlighting {{{
@@ -804,85 +808,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:microdata_attributes_complete = 0
   let g:atia_attributes_complete = 0
 " }}}
-" Gitv settings {{{
-  let g:Gitv_WipeAllOnClose = 1
-  let g:Gitv_DoNotMapCtrlKey = 1 " preserves my easy window movement
-" }}}
-" Syntastic settings {{{
-  let g:syntastic_error_symbol = "✗"
-  let g:syntastic_warning_symbol = "⚠"
-  let g:syntastic_enable_signs = 1
-  let g:syntastic_auto_jump = 0
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 0
-  let g:syntastic_objc_compiler = "clang"
-  let g:syntastic_objc_compiler_options = "--std=c99"
-  let g:syntastic_c_checkers = []
-  let g:syntastic_objc_checkers = []
-  let g:syntastic_cpp_checkers = []
-  let g:syntastic_javascript_checkers = ['jscs', 'eslint']
-  let g:syntastic_javascript_eslint_quiet_messages = {
-        \ "regex": 'no-console'
-        \ }
-  let g:syntastic_javascript_jscs_args = '--esnext'
-  let g:jasmine_use_templates = 0
-
-  let g:syntastic_html_tidy_blocklevel_tags = [
-        \ 'template',
-        \ 'panel-header',
-        \ 'panel-content',
-        \ 'panel-footer',
-        \ 'emrsn-dropdown-list',
-        \ 'emrsn-list-grid',
-        \ 'emrsn-nav-button',
-        \ 'emrsn-status-button',
-        \ 'emrsn-dial',
-        \ 'emrsn-drawer',
-        \ 'drawer-content',
-        \ 'pull-bar',
-        \ 'router-view',
-        \ 'require',
-        \ 'compose',
-        \ 'content'
-        \ ]
-  let g:syntastic_html_tidy_inline_tags = [
-        \ ]
-  let g:syntastic_html_tidy_ignore_errors = [
-        \ 'unescaped & which should be written as &amp;',
-        \ "<link> isn't allowed in <template> elements",
-        \ "<style> isn't allowed in <template> elements",
-        \ 'proprietary attribute "t"',
-        \ 'proprietary attribute "ref"',
-        \ 'proprietary attribute "css.bind"',
-        \ 'proprietary attribute "style.bind"',
-        \ 'proprietary attribute "class.bind"',
-        \ 'proprietary attribute "repeat.for"',
-        \ 'proprietary attribute "if.bind"',
-        \ 'proprietary attribute "show.bind"',
-        \ 'proprietary attribute "value.bind"',
-        \ 'proprietary attribute "view-cache"',
-        \ 'proprietary attribute "mousedown.trigger"',
-        \ 'proprietary attribute "mousedown.delegate"',
-        \ 'proprietary attribute "mouseup.trigger"',
-        \ 'proprietary attribute "mouseup.delegate"',
-        \ 'proprietary attribute "mouseover.trigger"',
-        \ 'proprietary attribute "mouseover.delegate"',
-        \ 'proprietary attribute "mousemove.trigger"',
-        \ 'proprietary attribute "mousemove.delegate"',
-        \ 'proprietary attribute "click.trigger"',
-        \ 'proprietary attribute "click.delegate"',
-        \ ]
-
-  " let g:ycm_semantic_triggers =  {
-  "       \ 'ledger': [':']
-  "       \ }
-  let g:ycm_collect_identifiers_from_tags_files = 1
-  let g:ycm_seed_identifiers_with_syntax = 1
-  let g:ycm_complete_in_comments = 1
-  let g:ycm_allow_changing_updatetime = 0
-  let g:ycm_autoclose_preview_window_after_completion = 1
-  let g:ycm_autoclose_preview_window_after_insertion = 1
-" }}}
 " Ruby Syntax and Completion {{{
   let g:ruby_operators = 1
   let g:rubycomplete_rails = 1
@@ -932,10 +857,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:undotree_SplitWidth = 50
   let g:undotree_SetFocusWhenToggle = 1
 " }}}
-" EasyMotion settings {{{
-  let g:EasyMotion_leader_key = '<Leader>e'
-  let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
-" }}}
 " CtrlP Settings {{{
   " let g:ctrlp_prompt_mappings = { 'MarkToOpen()': ['<c-z>'] }
 
@@ -960,13 +881,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   map <silent> <Leader>c :<C-U>CtrlPCommandline<CR>
   command! CtrlPCommandline call ctrlp#init(ctrlp#commandline#id())
 " }}}
-" ZoomWin mapings {{{
-  " Remove default zoomwin mapping
-  " if mapcheck('<C-W>o') =~ '<Plug>ZoomWin'
-  "   unmap <C-W>o
-  "   noremap <silent> <Leader>wo :ZoomWin<CR>
-  " endif
-" }}}
 " UltiSnips settings {{{
   let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
   let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
@@ -974,10 +888,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:UltiSnipsExpandTrigger  = "<tab>"
   let g:UltiSnipsJumpForwardTrigger  = "<tab>"
   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-" }}}
-" CSV settings {{{
-  let g:csv_hiHeader = 'CSVHiColumnHeader'
-  let g:csv_hiGroup = 'CSVHiColumn'
 " }}}
 " Markdown settings {{{
   if has('macunix')
@@ -1038,15 +948,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:LatexBox_no_mappings = 1
   map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
 " }}}
-" Ack {{{
-  cabbrev ack <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Ack!' : 'ack')<CR>
-  if executable('ag')
-    cabbrev ag <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Ack!' : 'ag')<CR>
-    cunabbrev ack
-    let g:ack_wildignore = 0
-    let g:ackprg = 'ag --vimgrep'
-  endif
-" }}}
 " Objc {{{
   let g:clang_use_library = 1
   " let g:clang_library_path = expand($LPKG_PREFIX . '/lib')
@@ -1059,10 +960,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:GPGExecutable = 'gpg'
   let g:GPGDefaultRecipients = ['cehoffman@ceh.im']
   let g:GPGUsePipes = 1
-" }}}
-" Ledger {{{
-  let g:ledger_maxwidth = 81
-  let g:ledger_fillstring = '·'
 " }}}
 " Terraform {{{
   let g:terraform_align = 1
@@ -1088,6 +985,20 @@ let g:tmuxify_map_prefix = 'm'
   map gem :Emodel |
   map gec :Econtroller |
   map gei :Eintegrationtest |
+  let g:projectionist_heuristics = {
+        \ "mix.exs": {
+        \   "lib/*.ex": {
+        \     "alternate": "test/{}_test.exs",
+        \     "type": "lib"
+        \   },
+        \   "test/*_test.exs": {
+        \     "alternate": "lib/{}.ex",
+        \     "type": "unittest"
+        \   },
+        \   "mix.exs": {
+        \     "type": "mix"
+        \   }
+        \ }}
 " }}}
 
 " Window Management {{{
