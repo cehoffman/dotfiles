@@ -77,7 +77,7 @@ function debug() {
 if [[ -o interactive && $IS_MAC = 0 ]]; then
   # Aliases for setuid/setgid programs on Mac 10.8+ to avoid DYLD_ complaints
   for prog ($path/*(s) $path/*(S)) alias ${prog:t}="env -u DYLD_INSERT_LIBRARIES $prog"
-  for prog (docker docker-machine go kubectl terraform vagrant) [[ $+commands[$prog] = 1 ]] && alias ${prog}="env -u DYLD_INSERT_LIBRARIES $prog"
+  for prog (dep docker docker-machine go kubectl terraform vagrant) [[ $+commands[$prog] = 1 ]] && alias ${prog}="env -u DYLD_INSERT_LIBRARIES $prog"
   unset prog
 
   # show and hide files from Finder
