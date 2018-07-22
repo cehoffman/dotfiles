@@ -16,3 +16,4 @@ Session.vim
 .unenv
 /node_modules
 /jspm_packages
+.env.asc
