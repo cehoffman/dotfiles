@@ -933,8 +933,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   endif
 " }}}
 " Split Join settings {{{
-  nnoremap <silent> <Leader>s :SplitjoinSplit<CR>
-  nnoremap <silent> <Leader>j :SplitjoinJoin<CR>
   let g:splitjoin_align = 1
   let g:splitjoin_normalize_whitespace = 1
 " }}}
