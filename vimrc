@@ -58,6 +58,16 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'jason0x43/vim-js-indent', {'for': ['javascript']}
   Plug 'vim-scripts/Match-Bracket-for-Objective-C', {'for': ['objc']}
   Plug 'fatih/vim-go', {'do': ':GoInstallBinaries', 'for': ['go']}
+  let g:go_auto_sameids = 1
+  let g:go_fmt_command = "goimports"
+  let g:go_auto_type_info = 1
+  augroup go
+    autocmd!
+    autocmd Filetype go
+      \  command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+      \| command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+      \| command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  augroup END
   Plug 'moll/vim-node', {'for': ['javascript']}
   Plug 'markcornick/vim-bats'
   Plug 'mhinz/vim-mix-format', {'for': ['elixir']}
@@ -85,7 +95,14 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'vim-scripts/ZoomWin'
   Plug 'sjl/vitality.vim'
   " Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --gocode-completer --tern-completer'}
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/deoplete-go', { 'do': 'make' }
+  " else
+  "   Plug 'Shougo/deoplete.nvim'
+  "   Plug 'roxma/nvim-yarp'
+  "   Plug 'roxma/vim-hug-neovim-rpc'
+  endif
   let g:deoplete#enable_at_startup = 1
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
   Plug 'christoomey/vim-tmux-navigator'
@@ -165,6 +182,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   set lazyredraw           " don't redraw the screen during macros
   set cursorline           " start with cursor shown
   set clipboard=unnamed,unnamedplus " make copying put on the system clipboard and pasting get from it
+  set maxmempattern=10000
 
   if has("persistent_undo")
     set undofile
