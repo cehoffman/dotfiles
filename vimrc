@@ -42,6 +42,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'tpope/vim-projectionist'
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-ragtag'
+  Plug 'moll/vim-bbye'
   if has('nvim')
     Plug 'benekastah/neomake'
     augroup localneomake
@@ -266,8 +267,8 @@ let maplocalleader = ',' " \ is the default
   noremap <Leader>ev :edit ~/.dotfiles/vimrc<CR>
 
   " Simplistic buffer removal but keeping window
-  nnoremap <silent> <Leader>bd <C-^>:bd #<CR>
-  nnoremap <silent> <Leader>bw <C-^>:bw #<CR>
+  nnoremap <silent> <Leader>bd :Bdelete<CR>
+  nnoremap <silent> <Leader>bw :Bwipeout<CR>
 
   " Paste without losing the item being pasted
   " vnoremap P p :call setreg(&clipboard =~# 'unnamed' ? '*' : '"', getreg('0')) <CR>
