@@ -14,6 +14,12 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   endif
   call plug#begin('~/.vim/plugged')
 
+  let g:vikube_use_current_namespace = 1
+  let g:vikube_autoupdate = 1
+  Plug 'c9s/helper.vim'
+  Plug 'c9s/treemenu.vim'
+  Plug 'c9s/vikube.vim'
+
   Plug 'tpope/vim-jdaddy'
   Plug 'tpope/vim-capslock'
   Plug 'tpope/vim-fugitive'
@@ -43,6 +49,10 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-ragtag'
   Plug 'moll/vim-bbye'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  let g:deoplete#enable_at_startup = 1
+  Plug 'zchee/deoplete-go', { 'do': 'make' }
+  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
   if has('nvim')
     Plug 'benekastah/neomake'
     augroup localneomake
@@ -53,30 +63,39 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   endif
   Plug 'airblade/vim-gitgutter'
   let g:gitgutter_diff_args = '-w'
-  Plug 'sheerun/vim-polyglot'
+  " Plug 'sheerun/vim-polyglot'
+  Plug 'hashivim/vim-terraform'
 
   Plug 'ecomba/vim-ruby-refactoring', {'for': ['ruby']}
   Plug 'jason0x43/vim-js-indent', {'for': ['javascript']}
+  Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'typescriptreact']}
+  Plug 'peitalin/vim-jsx-typescript', {'for': ['typescriptreact', 'jsx']}
   Plug 'vim-scripts/Match-Bracket-for-Objective-C', {'for': ['objc']}
-  Plug 'fatih/vim-go', {'do': ':GoInstallBinaries', 'for': ['go']}
+  Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': ['go']}
   let g:go_auto_sameids = 1
   let g:go_fmt_command = "goimports"
+  let g:go_fmt_experimental = 1
+  " let g:go_info_mode = "guru"
+  let g:go_def_mode = "godef"
+  let g:go_gocode_propose_source = 0
   let g:go_auto_type_info = 1
-  augroup go
-    autocmd!
-    autocmd Filetype go
-      \  command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-      \| command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-      \| command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-  augroup END
+  " augroup go
+  "   autocmd!
+  "   autocmd Filetype go
+  "     \  command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  "     \| command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  "     \| command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  " augroup END
+  Plug 'jodosha/vim-godebug'
   Plug 'moll/vim-node', {'for': ['javascript']}
+  Plug 'lnl7/vim-nix'
   Plug 'markcornick/vim-bats'
   Plug 'mhinz/vim-mix-format', {'for': ['elixir']}
   let g:mix_format_on_save = 1
   let g:mix_format_options = '--check-equivalent'
   Plug 'slashmili/alchemist.vim', {'for': ['elixir']}
   Plug 'MarcWeber/vim-addon-local-vimrc'
-
+  Plug 'vim-utils/vim-man'
   Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
   Plug 'Raimondi/delimitMate'
   Plug 'SirVer/UltiSnips'
@@ -96,16 +115,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'vim-scripts/ZoomWin'
   Plug 'sjl/vitality.vim'
   " Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --gocode-completer --tern-completer'}
-  if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'zchee/deoplete-go', { 'do': 'make' }
-  " else
-  "   Plug 'Shougo/deoplete.nvim'
-  "   Plug 'roxma/nvim-yarp'
-  "   Plug 'roxma/vim-hug-neovim-rpc'
-  endif
-  let g:deoplete#enable_at_startup = 1
-  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'ConradIrwin/vim-bracketed-paste'
   Plug 'wellle/targets.vim'
@@ -177,8 +186,14 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   set relativenumber       " Make line numbers relative to my cursor for easy jumping
   augroup numbertoggle
     autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber nonumber
-    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber number
+    autocmd BufEnter,FocusGained,InsertLeave * 
+          \ if &number == 1 |
+          \   setlocal relativenumber nonumber |
+          \ endif
+    autocmd BufLeave,FocusLost,InsertEnter * 
+          \ if &relativenumber == 1 |
+          \   setlocal norelativenumber number |
+          \ end
   augroup END
   set lazyredraw           " don't redraw the screen during macros
   set cursorline           " start with cursor shown
@@ -380,6 +395,7 @@ if has("autocmd")
     " Reload vimrc after editing
     " autocmd BufWritePost .vimrc source $MYVIMRC
     autocmd BufNewFile,BufRead *.txt setfiletype text
+    autocmd BufNewFile,BufRead .envrc setfiletype zsh
     autocmd FileType diff setlocal nolist nospell
 
     " Ruby functions can have these in thier names
@@ -437,16 +453,8 @@ if has("autocmd")
         nnoremap <buffer> <silent> q :bd<CR>
       endfunction
 
-      " runtime! ftplugin/man.vim
       autocmd FileType man call <SID>SetupManWindow()
 
-      function! s:SetupMan(manpage)
-        delcommand Man
-        runtime! ftplugin/man.vim
-        execute 'Man '.a:manpage
-      endfunction
-
-      command! -nargs=+ Man call <SID>SetupMan(<q-args>)
       cabbrev man <C-R>=(getcmdtype() == ':' && getcmdpos() == 1 ? 'Man' : 'man')<CR>
     " }}}
     " Fast escape from insert {{{
@@ -1015,7 +1023,21 @@ let g:tmuxify_map_prefix = 'm'
         \   "mix.exs": {
         \     "type": "mix"
         \   }
-        \ }}
+        \ },
+        \ "go.mod": {
+        \   "*.go": {
+        \     "type": "go",
+        \     "alternate": "{}_test.go"
+        \   },
+        \   "*_test.go": {
+        \     "type": "test",
+        \     "alternate": "{}.go"
+        \   },
+        \   "go.mod": {
+        \     "type": "mod"
+        \   }
+        \ }
+        \}
 " }}}
 
 " Window Management {{{

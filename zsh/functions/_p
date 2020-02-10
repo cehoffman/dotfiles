@@ -1,2 +1,3 @@
 #compdef p
-_files -W ~/Projects -/
+local paths=(~/Projects $GOPATH:q/src)
+_path_files -W paths -/

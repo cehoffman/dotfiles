@@ -1,0 +1,30 @@
+#compdef ci
+local curcontext=$curcontext state line
+declare -A opt_args
+
+_arguments -C \
+	'--version[Print program version and exit]' \
+	'--base[GitLab API v4 base URl]' \
+	': :->command' \
+	'*:: :->option-or-argument'
+
+case "$state" in
+	command)
+    opts=("artifact:Download artifact" "trigger:Run pipeline" "lint:validate CI configuration")
+		_describe 'commands' opts
+		;;
+	option-or-argument)
+		curcontext=${curcontext%!:(string=ci)*}-$line[1]:
+
+		case $line[1] in
+			artifact)
+				_arguments -w -S -s \
+					'--project[GitLab project]:project:{EVAL-${words[@]:0:#words[@]-1} --generate-bash-completion}'
+			;;
+			trigger)
+			;;
+			lint)
+			;;
+		esac
+		;;
+esac

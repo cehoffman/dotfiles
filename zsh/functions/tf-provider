@@ -1,0 +1,26 @@
+[ -n "${TRACE}" ] && set -x
+
+if [ "$#" -ne 2 ]; then
+  echo "Usage: tf provider <plugin> <version>"
+  exit 1
+fi
+
+get-provider() {
+  mkdir -p .terraform/plugins/darwin_amd64/
+  tmp="$(mktemp -d)"
+  curl -LsSf "${1}" | tar -zxvf - -C "${tmp}"
+  exe="$(find "${tmp}" -type f -iname "terraform-provider-*" -print0)"
+  ver="$(echo "${exe}" | sed -n -E 's|.*v([0-9]+\.[0-9]+\.[0-9]+).*|\1|p')"
+  provider="$(echo "${exe}" | sed -n -E 's|.*terraform-provider-([^_]+).*|\1|p')"
+  mv "${exe}" ".terraform/plugins/darwin_amd64/terraform-provider-${provider}_v${ver}"
+}
+
+plugin="${1}"
+version="${2}"
+
+if [ ! -f ".terraform/plugins/darwin_amd64/terraform-provider-${plugin}_$(echo "${version}" | cut -d+ -f1)" ]; then
+  echo "Installing terraform-provider-${plugin} version ${version}"
+  get-provider "https://vertivart.blob.core.windows.net/terraform-provider-${plugin}/terraform-provider-${plugin}-${version}-darwin_amd64.tar.gz?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-01-01T05:48:36Z&st=2018-02-10T21:48:36Z&spr=https&sig=yS%2Fl8yFlwvbnhWBrxIdN3fe1PUDRuVjgo%2BRkpylrJ5A%3D"
+else
+  echo "Using terraform-provider-${plugin} version ${version}"
+fi

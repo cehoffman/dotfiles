@@ -1,84 +1,93 @@
 [user]
-    name = Chris Hoffman
-    email = cehoffman@gmail.com
-    useConfigOnly = true
+  name = Chris Hoffman
+  email = cehoffman@gmail.com
+  useConfigOnly = true
 [color]
-    ui = auto
+  ui = auto
 [sendemail]
-    smtpuser = cehoffman
-    smtpserver = smtp.gmail.com
-    chainreplyto = false
-    smptencryption = tls
+  smtpuser = cehoffman
+  smtpserver = smtp.gmail.com
+  chainreplyto = false
+  smptencryption = tls
 [alias]
-    co = checkout
-    reup = pull --rebase
-    st = status --ignore-submodules=untracked -sb
-    d = diff --ignore-submodules=untracked --ignore-space-at-eol
-    dc = diff --cached --ignore-submodules=untracked --ignore-space-at-eol
-    l = log --graph --stat --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset [%an]: %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-    l1 = l -1
-    ci = commit
-    cp = cherry-pick
-    br = branch
-    unstage = reset HEAD --
-    amend = commit --amend -C HEAD
-    prune-all = !git remote | xargs -n 1 git remote prune
-    tidy = !git branch --merged | egrep -v '(^\\*|master)' | xargs git branch -d
-    subup = !git submodule foreach 'git co master && git reup'
-    root = !pwd
-    remotes = remote -v
+  co = checkout
+  reup = pull --rebase
+  st = status --ignore-submodules=untracked -sb
+  d = diff --ignore-submodules=untracked --ignore-space-at-eol
+  dc = diff --cached --ignore-submodules=untracked --ignore-space-at-eol
+  l = log --graph --stat --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset [%an]: %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  l1 = l -1
+  ci = commit
+  cp = cherry-pick
+  br = branch
+  unstage = reset HEAD --
+  amend = commit --amend -C HEAD
+  prune-all = !git remote | xargs -n 1 git remote prune
+  tidy = !git branch --merged | egrep -v '(^\\*|master)' | xargs -r git branch -d
+  subup = !git submodule foreach 'git co master && git reup'
+  root = !pwd
+  remotes = remote -v
 [core]
-    eol = lf
-    compression = 9
-    pager = less
-    whitespace = trailing-space,space-before-tab,-blank-at-eof
-    excludesfile = ~/.dotfiles/gitignore
-    preloadindex = true
+  eol = lf
+  compression = 9
+  pager = less
+  whitespace = trailing-space,space-before-tab,-blank-at-eof
+  excludesfile = ~/.dotfiles/gitignore
+  preloadindex = true
 [apply]
-    whitespace = fix
+  whitespace = fix
 [merge]
-    conflictstyle = merge
-    tool = splice
+  conflictstyle = merge
+  tool = splice
 [mergetool]
-    keepBackup = false
+  keepBackup = false
 [mergetool "mvimdiff3"]
-    cmd = mvim -f -c \"Gdiff\" \"$MERGED\"
-    trustExitCode = false
+  cmd = mvim -f -c \"Gdiff\" \"$MERGED\"
+  trustExitCode = false
 [mergetool "splice"]
-    cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
-    trustExitCode = true
+  cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
+  trustExitCode = true
 [github]
-    user = cehoffman
+  user = cehoffman
 [clean]
-    requireForce = no
+  requireForce = no
 [status]
-    submodulesummary = true
-    showUntrackedFiles = all
+  submodulesummary = true
+  showUntrackedFiles = all
 [fetch]
-    recurseSubmodules = on-demand
+  recurseSubmodules = on-demand
 [format]
-    pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
+  pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
 [rerere]
-    enabled = 1
+  enabled = 1
 [help]
-    autocorrect = 1
+  autocorrect = 1
 [push]
-    default = upstream
-    recurseSubmodules = on-demand
+  default = upstream
+  recurseSubmodules = on-demand
 [interactive]
-    singlekey = true
+  singlekey = true
 [credential]
-<% if mac? %>
-    helper = osxkeychain
-<% end %>
+<%- if mac? %>
+  helper = osxkeychain
+<%- end %>
 [pull]
-    rebase = true
-[http]
-    sslCAPath = <%= ENV['HOME'] %>/.dotfiles/cacerts/
+  rebase = true
+<%# [http] %>
+<%#   sslCAPath = <%= ENV['HOME'] %1>/.dotfiles/cacerts/ %>
 [color "diff-highlight"]
-    oldNormal = red bold
-    oldHighlight = red bold 52
-    newNormal = green bold
-    newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [commit]
-    gpgsign = <% mac? %>
+  gpgsign = <% mac? %>
+[diff]
+  renameLimit = 5000
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[protocol]
+  version = 2

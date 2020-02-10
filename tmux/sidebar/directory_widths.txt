@@ -1,0 +1,8 @@
+/Users/cehoffman/Projects/work/devops/dev-rsg	40
+/Users/cehoffman/Projects/work/personal/internal/modules	40
+/Users/cehoffman/Projects/work/devops/console	40
+/Users/cehoffman/Projects/work/crow/cluster-deploy	40
+/Users/cehoffman/Projects/work/devops/chisel	40
+/Users/cehoffman/Projects/work/itsystems/cluster-tunnel-operator	40
+/Users/cehoffman/Projects/work/itsystems	40
+/Users/cehoffman/Projects/work/itsystems/obsidian/k8-deployments	40

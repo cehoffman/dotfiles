@@ -1,4 +1,4 @@
-#!/usr/bin/env lua
+#!/usr/bin/env luajit
 shell = {}
 
 function shell.escape(...)

@@ -180,7 +180,7 @@ fi
 
 version=1.10
 if [ ! -d $HOME/.asdf/installs/golang/$version ]; then
-  asdf plugin-add golang
+  asdf plugin-add golang 
   zsh -c "asdf install golang $version"
   asdf global golang $version
 fi
@@ -188,7 +188,7 @@ fi
 asdf plugin-add kubectl
 version=1.8.7
 if [ ! -d $HOME/.asdf/installs/kubectl/$version ]; then
-  asdf plugin-add kubectl
+  asdf plugin-add kubectl 
   zsh -c "asdf install kubectl $version"
   asdf global kubectl $version
 fi

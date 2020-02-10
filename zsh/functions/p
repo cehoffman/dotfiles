@@ -1,1 +1,1 @@
-cd ~/Projects/$1;
+cd ~/Projects/{,gocode/src}/$1(/Y1)
