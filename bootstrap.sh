@@ -62,6 +62,9 @@ case $os in
   darwin)
     # erlang/elixir nice to haves
     brew install freetds unixodbc wxmac
+
+    # Disable accents menu on key hold
+    defaults write -g ApplePressAndHoldEnabled -bool false
     ;;
   linux)
     echo "$USER ALL= NOPASSWD: ALL" | $sudo tee "/etc/sudoers.d/$USER" > /dev/null
