@@ -105,57 +105,46 @@ if [ ! -d ~/.dotfiles ]; then
 fi
 ~/.dotfiles/bin/relink
 
-brew install readline openssl
-brew install zsh --with-pcre --with-unicode9
+brew install readline openssl direnv
+brew install zsh
 
 if [ -z "$(grep "$HOME/\\.homebrew/bin/zsh" /etc/shells)" ]; then
-  sed -e "\$a$HOME/.homebrew/bin/zsh" /etc/shells | $sudo tee /etc/shells > /dev/null
+  {
+    cat /etc/shells
+    echo "$HOME/.homebrew/bin/zsh"
+  } | $sudo tee /etc/shells > /dev/null
 fi
 $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 
 if [ "$os" = "linux" ]; then
   # Install tcl deps for git without problematic tk
-  brew install tcl-tk --without-tk
+  brew install tcl-tk
 elif [ "$os" = "darwin" ]; then
   brew install reattach-to-user-namespace htop
 fi
-brew install git --with-pcre2 --with-persistent-https --with-openssl --with-curl --with-perl
-brew install gnu-tar --with-default-names
-brew install gnu-sed --with-default-names
-brew install python --with-unicode-ucs4 --without-tcl-tk
-brew install git-extras tmux the_silver_searcher coreutils cmake ctags tree pstree vim jq
-
-# Run this in zsh to have pyenv setup so vim finds python
-zsh -c 'brew install vim --with-luajit'
+brew install git gnu-tar gnu-sed python git-extras tmux the_silver_searcher coreutils cmake ctags tree pstree luajit neovim jq
 
 if [ "$os" = "linux" ]; then
   # Install single key read for git add --patch
   cpan -i Term::ReadKey
 fi
 
-version=2.0.3--2.4.2
-if [ ! -d $HOME/.asdf/installs/luaJIT/$version ]; then
-  asdf plugin-add luaJIT
-  zsh -c "asdf install luaJIT $version"
-  asdf global luaJIT $version
-fi
-
-version=2.5.0
+version=2.7.0
 if [ ! -d $HOME/.asdf/installs/ruby/$version ]; then
   asdf plugin-add ruby
   zsh -c "asdf install ruby $version"
   asdf global ruby $version
 fi
 
-version=2.7.14
+version=3.8.1
 if [ ! -d $HOME/.asdf/installs/python/$version ]; then
   asdf plugin-add python
-  zsh -c "PYTHON_CONFIGURE_OPTS='--enable-shared' CFLAGS='-I$(brew --prefix openssl)/include' LDFLAGS='-L$(brew --prefix openssl)/lib' asdf install python $version"
+  zsh -c "asdf install python $version"
   asdf global python $version
   zsh -c "pip install --upgrade pip && pip install httpie && asdf reshim python"
 fi
 
-version=9.5.0
+version=13.8.0
 if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
   asdf plugin-add nodejs
   zsh -c "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
@@ -163,21 +152,26 @@ if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
   asdf global nodejs $version
 fi
 
-version=20.3.2
+version=22.2.6
 if [ ! -d $HOME/.asdf/installs/erlang/$version ]; then
   asdf plugin-add erlang
-  asdf install erlang $version
+  # Required because sql.h and sqlext.h are installed by unixodbc, but
+  # configure does not add the with-odbc path to search for these headers
+  $sudo ln -sfT $HOME/.homebrew/include /usr/local/include
+  # Fix failure due to looking for /usr/local/lib as a directory
+  $sudo mkdir -p /usr/local/lib
+  zsh -c "KERL_CONFIGURE_OPTIONS='--with-odbc=$HOME/.homebrew/opt/unixodbc --enable-dynamic-ssl-lib --with-ssl=$HOME/.homebrew/opt/openssl@1.1 --enable-sctp --enable-shared-zlib --without-javac --with-dynamic-trace=dtrace --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --enable-darwin-64bit' asdf install erlang $version"
   asdf global erlang $version
 fi
 
-version=1.6.4-otp-20
+version=1.10.1-otp-22
 if [ ! -d $HOME/.asdf/installs/elixir/$version ]; then
   asdf plugin-add elixir
   zsh -c "asdf install elixir $version"
   asdf global elixir $version
 fi
 
-version=1.10
+version=1.13.7
 if [ ! -d $HOME/.asdf/installs/golang/$version ]; then
   asdf plugin-add golang 
   zsh -c "asdf install golang $version"
@@ -185,7 +179,7 @@ if [ ! -d $HOME/.asdf/installs/golang/$version ]; then
 fi
 
 asdf plugin-add kubectl
-version=1.8.7
+version=1.16.7
 if [ ! -d $HOME/.asdf/installs/kubectl/$version ]; then
   asdf plugin-add kubectl 
   zsh -c "asdf install kubectl $version"
@@ -194,5 +188,4 @@ fi
 
 ~/.dotfiles/bin/update
 
-vim +BundleInstall '+qa!'
-zsh -c "cd '$HOME/.vim/bundle/YouCompleteMe' && ./install.py --clang-completer --gocode-completer --js-completer"
+nvim '+qa!'
