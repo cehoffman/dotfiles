@@ -22,3 +22,4 @@
 # Temporary python files
 *.pyc
 /bin/NetworkLocationChanger
+zsh/functions/_kubectl
