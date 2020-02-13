@@ -3,10 +3,10 @@ if (( $+commands[kubectl] )); then
   alias k="kubectl"
   # source <(kubectl completion zsh)
 
-  pod-name() {
-    kubectl get po "${@}" -o json | jq -r '.items | map(select(.status.phase == "Running")) | first.metadata.name'
-  }
-  
+  # Build kubeconfig from a file to hold current context (~/.kube/config) and
+  # individual config files that are most likely for individual clusters
+  typeset -gxUT KUBECONFIG kubeconfig=(~/.kube/config "${HOME}"/.kube/configs/*(.))
+
   ksanitize() {
     jq 'del(.spec.clusterIP,
         .metadata.uid,
@@ -21,11 +21,7 @@ if (( $+commands[kubectl] )); then
         .spec.template.spec.restartPolicy)'
   }
 
-  redeploy() {
-    kubectl patch -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"$(date +%s)\"}}}}}" "$@"
-  }
-
   kexec() {
-    k exec -n "${1}" -it "$(k get po -n "${1}" -l "${2}" -o jsonpath="{.items[0].metadata.name}")" "${3-bash}" "${@:3}"
+    k exec -it "$(k get po -l "${1}" -o jsonpath="{.items[0].metadata.name}")" "${2-bash}" "${@:2}"
   }
 fi
