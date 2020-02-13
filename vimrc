@@ -121,6 +121,10 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'machakann/vim-highlightedyank', has('nvim') ? {} : {'on': []}
   let g:highlightedyank_highlight_duration = 200
 
+  Plug 'lambdalisue/suda.vim'
+  let g:suda#prefix = "sudo://"
+  let g:suda_smart_edit = 1
+
   call plug#end()
   " Instead of using deoplete-go which uses gocode, defer to vim-go with gopls
   call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
