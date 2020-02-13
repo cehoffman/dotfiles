@@ -54,8 +54,7 @@ esac
 
 if [ ! -d ~/.homebrew ]; then
   mkdir ~/.homebrew
-  curl -LsSf https://github.com/Homebrew/homebrew/tarball/master | tar --strip-components=1 -zxf - -C ~/.homebrew
-  rm -rf ~/.homebrew/share/doc/homebrew
+  curl -LsSf https://github.com/Homebrew/brew/tarball/master | tar --strip-components=1 -zxf - -C ~/.homebrew
   brew update
 fi
 
