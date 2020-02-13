@@ -51,7 +51,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'moll/vim-bbye'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   let g:deoplete#enable_at_startup = 1
-  Plug 'zchee/deoplete-go', { 'do': 'make' }
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
   if has('nvim')
     Plug 'benekastah/neomake'
@@ -123,6 +122,8 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   let g:highlightedyank_highlight_duration = 200
 
   call plug#end()
+  " Instead of using deoplete-go which uses gocode, defer to vim-go with gopls
+  call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 " }}}
 
 " General settings {{{
