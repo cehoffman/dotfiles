@@ -1,6 +1,5 @@
 typeset -gA ENV_LANGS
-# ENV_LANGS=(rb red lua cyan py yellow nod red)
-ENV_LANGS=(ruby red luajit cyan python yellow nodejs green elixir magenta)
+ENV_LANGS=(ruby red  python yellow nodejs green elixir magenta)
 function {
   local lang
   local funs
