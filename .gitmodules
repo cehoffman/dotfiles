@@ -7,9 +7,6 @@
 [submodule "dotjs-js"]
 	path = js
   url = https://cehoffman@bitbucket.org/cehoffman/dotjs.git
-[submodule "zsh/vendor/autoenv"]
-	path = zsh/vendor/autoenv
-	url = https://github.com/cehoffman/autoenv.git
 [submodule "zsh/vendor/completions"]
 	path = zsh/vendor/completions
 	url = https://github.com/zsh-users/zsh-completions.git
