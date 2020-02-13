@@ -40,7 +40,6 @@ setopt NO_CORRECT_ALL       # Prevents asking 'correct git to .git' when at root
 setopt COMPLETE_IN_WORD
 # setopt NO_ALWAYS_TO_END     # Don't got to end of word on completion from middle
 setopt NO_LIST_AMBIGUOUS    # Show completion list immediately when ambiguous
-setopt COMPLETE_ALIASES     # Aliases as unique entities viable for completion
 # setopt NO_REC_EXACT         # Always ask if multiple matches exist with word
 
 # setopt AUTO_MENU
