@@ -1,4 +1,10 @@
 #!/usr/bin/env zsh
+
+# Make a memory mount for usage temporary files to reduce disk wear
+if (( $+commands[usage] )); then
+  ramfs mount ~/.usage 1 &> /dev/null
+fi
+
 if (( $+commands[reattach-to-user-namespace] )); then
   command tmux set-option -g default-command "$(command -v reattach-to-user-namespace) -l $SHELL" &> /dev/null
 fi

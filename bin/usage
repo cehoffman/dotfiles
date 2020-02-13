@@ -593,10 +593,10 @@ for k, v in pairs(colors) do
 end
 
 -- get the saved history, creating the storage if not created yet
-local file = io.open(ENV.HOME .. '/.usage.dat', 'r')
+local file = io.open(ENV.HOME .. '/.usage/dat', 'r')
 if not file then
-  file = io.open(ENV.HOME .. '/.usage.dat', 'w')
-  file:close(); file = io.open(ENV.HOME .. '/.usage.dat', 'r')
+  file = io.open(ENV.HOME .. '/.usage/dat', 'w')
+  file:close(); file = io.open(ENV.HOME .. '/.usage/dat', 'r')
 end
 for line in file:lines() do table.insert(history, tonumber(line)) end
 file:close()
@@ -653,7 +653,7 @@ local parts = {}
 local name
 local tmpname = os.tmpname()
 for name in tmpname:split('/') do table.insert(parts, name) end
-local tmpfile = ENV.HOME .. '/.usage.dat_' .. parts[#parts]
+local tmpfile = ENV.HOME .. '/.usage/dat_' .. parts[#parts]
 os.remove(tmpname)
 file = io.open(tmpfile, 'w')
 
@@ -666,7 +666,7 @@ for i, val in ipairs(history) do
   io.stdout:write(bars[math.round(norm * val) + 1])
 end
 file:close()
-os.rename(tmpfile, ENV.HOME .. '/.usage.dat')
+os.rename(tmpfile, ENV.HOME .. '/.usage/dat')
 
 io.stdout:write(color('black', 'bg'))
 

@@ -5,12 +5,15 @@ module RamFS extend self
   def mount(location = 'volatile', size = 1024)
     size = size.to_i
     abort "Size needs to be 0 or greater" unless size > 0
-    
+
+    location = File.expand_path(location)
+    abort "Already mounted" if %x[mount] =~ / #{location} /
+
     dev = %x[hdid -nomount ram://#{size * 1024 * 1024 / 512}].strip
-    system 'newfs_hfs', '-v', File.basename(location).capitalize, dev
-    Dir.mkdir File.expand_path(location) unless Dir.exists?(File.expand_path(location))
-    system 'diskutil', 'mount', '-mountPoint', File.expand_path(location), dev
-    system 'mount', '-uo', 'noatime', dev, File.expand_path(location)
+    system 'newfs_hfs', '-v', location.capitalize, dev
+    Dir.mkdir location unless Dir.exists?(location)
+    system 'diskutil', 'mount', '-mountPoint', location, dev
+    system 'mount', '-uo', 'noatime', dev, location
   end
 
   # Remove a created ramfs disk
