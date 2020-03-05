@@ -1,4 +1,7 @@
 if [[ -d ~/.homebrew ]]; then
+  # Disable analytics
+  export HOMEBREW_NO_ANALYTICS=1
+
   function {
     local coreutils=~/.homebrew/opt/coreutils
     local gnutar=~/.homebrew/opt/gnu-tar
