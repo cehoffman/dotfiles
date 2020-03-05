@@ -29,7 +29,7 @@ if [[ -d ~/.homebrew ]]; then
   }
 
   if (( $+commands[brew-cask.rb] )); then
-    export HOMEBREW_CASK_OPTS="--binarydir=~/.homebrew/bin"
+    export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
   fi
 
   if [ -f ~/.homebrew/opt/dvm/dvm.sh ]; then
