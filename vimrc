@@ -120,6 +120,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'rizzatti/dash.vim', {'on': 'Dash'}
   Plug 'machakann/vim-highlightedyank', has('nvim') ? {} : {'on': []}
   let g:highlightedyank_highlight_duration = 200
+  Plug 'rhysd/vim-clang-format', {'for': ['arduino', 'c', 'cpp']}
 
   Plug 'lambdalisue/suda.vim'
   let g:suda#prefix = "sudo://"
