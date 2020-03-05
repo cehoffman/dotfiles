@@ -28,9 +28,7 @@ if [[ -d ~/.homebrew ]]; then
 
   }
 
-  if (( $+commands[brew-cask.rb] )); then
-    export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-  fi
+  export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
   if [ -f ~/.homebrew/opt/dvm/dvm.sh ]; then
     source ~/.homebrew/opt/dvm/dvm.sh
