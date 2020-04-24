@@ -16,6 +16,8 @@
 #   global zlogin
 #   .zlogin
 
+unsetopt GLOBAL_RCS
+
 source ~/.dotfiles/zsh/config
 source ~/.dotfiles/zsh/aliases
 
