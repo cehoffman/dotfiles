@@ -2,7 +2,7 @@
 
 # Make a memory mount for usage temporary files to reduce disk wear
 if (( $+commands[usage] )); then
-  ramfs mount ~/.usage 1 &> /dev/null
+  ramfs mount ~/.usage 5 &> /dev/null
 fi
 
 if (( $+commands[reattach-to-user-namespace] )); then
