@@ -231,7 +231,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
 
   " Tab completion options
   " (only complete to the longest unambiguous match, and show a menu)
-  set completeopt=longest,menuone,preview
+  set completeopt=longest,menuone,preview,noselect
   set complete=.,t,i,b,w,kspell
 
   set backspace=indent,eol,start " allow backspacing over everything in insert mode
