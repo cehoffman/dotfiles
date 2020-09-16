@@ -93,6 +93,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   let g:mix_format_on_save = 1
   let g:mix_format_options = '--check-equivalent'
   Plug 'slashmili/alchemist.vim', {'for': ['elixir']}
+  Plug 'elixir-editors/vim-elixir'
   Plug 'MarcWeber/vim-addon-local-vimrc'
   Plug 'vim-utils/vim-man'
   Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
