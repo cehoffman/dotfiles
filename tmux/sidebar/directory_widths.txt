@@ -6,3 +6,6 @@
 /Users/cehoffman/Projects/work/itsystems/cluster-tunnel-operator	40
 /Users/cehoffman/Projects/work/itsystems	40
 /Users/cehoffman/Projects/work/itsystems/obsidian/k8-deployments	40
+/Users/cehoffman/Projects/xhyve-manager	40
+/Users/cehoffman/Projects/personal/internal	40
+/Users/cehoffman/Projects/personal/matchbox	40

@@ -141,7 +141,6 @@ if [[ -o interactive ]]; then
   autoload opp
   {source ~/.dotfiles/zsh/functions/opp-install; opp-install}
 
-  # source ~/.dotfiles/zsh/vendor/autoenv/activate.sh
   if (( $+commands[direnv] )); then
     eval "$(direnv hook zsh)"
   fi
