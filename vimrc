@@ -126,6 +126,9 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   let g:suda#prefix = "sudo://"
   let g:suda_smart_edit = 1
 
+  Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
+  let g:livepreview_previewer = "open -a Preview"
+
   call plug#end()
   " Instead of using deoplete-go which uses gocode, defer to vim-go with gopls
   call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
@@ -972,12 +975,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   let g:splice_initial_scrollbind_loupe = 1
   let g:splice_initial_scrollbind_compare = 1
   let g:splice_initial_scrollbind_path = 1
-" }}}
-" Latex Box {{{
-  let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
-  let g:LatexBox_latexmk_options = '-pvc'
-  let g:LatexBox_no_mappings = 1
-  map <silent> <Leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
 " }}}
 " Objc {{{
   let g:clang_use_library = 1
