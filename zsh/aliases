@@ -1,4 +1,4 @@
-alias d="env -u DYLD_INSERT_LIBRARIES docker"
+alias d="env -u http_proxy -u https_proxy -u DYLD_INSERT_LIBRARIES docker"
 alias dm="docker-machine"
 
 dclean() {
