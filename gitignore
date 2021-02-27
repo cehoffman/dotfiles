@@ -18,3 +18,8 @@ Session.vim
 /node_modules
 /jspm_packages
 .env.asc
+/.terraform
+/.terraform.lock.hcl
+terraform.tfstate*
+/bazel-*
+.token.asc
