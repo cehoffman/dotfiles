@@ -1,3 +1,5 @@
+[[ $IS_MAC = 0 ]] && hash -d idrive="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+
 alias d="env -u http_proxy -u https_proxy -u DYLD_INSERT_LIBRARIES docker"
 alias dm="docker-machine"
 
