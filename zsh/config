@@ -103,8 +103,8 @@ export EDITOR='nvim'
 typeset -gU path cdpath manpath fpath
 
 path[1,0]=(/opt/{s,}bin(/) /usr/{,local/}{s,}bin(/) /Applications/VirtualBox.app/Contents/MacOS(/) ~/.bin(@) /usr/texbin/(/))
-fpath[1,0]=(~/.dotfiles/zsh/functions ~/.dotfiles/zsh/vendor/completions/src(/))
-manpath[1,0]=(/usr/local/share/man /usr/share/man)
+fpath[1,0]=(~/.dotfiles/zsh/functions(/) ~/.dotfiles/zsh/vendor/completions/src(/))
+manpath[1,0]=(/usr/local/share/man(/) /usr/share/man(/) /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man(/))
 
 # Load all of your custom configurations from envs/
 function {
