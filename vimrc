@@ -14,12 +14,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   endif
   call plug#begin('~/.vim/plugged')
 
-  let g:vikube_use_current_namespace = 1
-  let g:vikube_autoupdate = 1
-  Plug 'c9s/helper.vim'
-  Plug 'c9s/treemenu.vim'
-  Plug 'c9s/vikube.vim'
-
   Plug 'tpope/vim-jdaddy'
   Plug 'tpope/vim-capslock'
   Plug 'tpope/vim-fugitive'
@@ -62,7 +56,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   endif
   Plug 'airblade/vim-gitgutter'
   let g:gitgutter_diff_args = '-w'
-  " Plug 'sheerun/vim-polyglot'
   Plug 'hashivim/vim-terraform'
 
   Plug 'ecomba/vim-ruby-refactoring', {'for': ['ruby']}
@@ -87,7 +80,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   " augroup END
   Plug 'jodosha/vim-godebug'
   Plug 'moll/vim-node', {'for': ['javascript']}
-  Plug 'lnl7/vim-nix'
   Plug 'markcornick/vim-bats'
   Plug 'mhinz/vim-mix-format', {'for': ['elixir']}
   let g:mix_format_on_save = 1
@@ -95,7 +87,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'slashmili/alchemist.vim', {'for': ['elixir']}
   Plug 'elixir-editors/vim-elixir'
   Plug 'MarcWeber/vim-addon-local-vimrc'
-  Plug 'vim-utils/vim-man'
+  " Plug 'paretje/nvim-man'
   Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
   Plug 'Raimondi/delimitMate'
   Plug 'SirVer/UltiSnips'
@@ -107,32 +99,48 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   " Plug 'gregsexton/gitv'
   Plug 'jamessan/vim-gnupg'
   Plug 'vim-scripts/scratch.vim'
-  Plug 'sjl/splice.vim'
-  Plug 'AndrewRadev/splitjoin.vim'
+  " Splice configuration {{{
+    Plug 'sjl/splice.vim'
+    let g:splice_initial_mode = "grid"
+    let g:splice_initial_diff_grid = 1
+    let g:splice_initial_diff_compare = 1
+    let g:splice_initial_diff_path = 4
+    let g:splice_initial_layout_grid = 1
+    let g:splice_initial_layout_compare = 1
+    let g:splice_initial_layout_path = 1
+    let g:splice_initial_scrollbind_loupe = 1
+    let g:splice_initial_scrollbind_compare = 1
+    let g:splice_initial_scrollbind_path = 1
+  " }}}
+  " Split Join settings {{{
+    Plug 'AndrewRadev/splitjoin.vim'
+    let g:splitjoin_align = 1
+    let g:splitjoin_normalize_whitespace = 1
+  " }}}
   Plug 'kien/ctrlp.vim'
   Plug 'suy/vim-ctrlp-commandline'
   Plug 'mbbill/undotree'
   Plug 'vim-scripts/ZoomWin'
-  Plug 'sjl/vitality.vim'
-  " Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --gocode-completer --tern-completer'}
-  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'junegunn/goyo.vim'
+  " Tmux integration {{{
+    Plug 'sjl/vitality.vim'
+    Plug 'christoomey/vim-tmux-navigator'
+    let g:tmux_navigator_save_on_switch = 1
+  " }}}
   Plug 'ConradIrwin/vim-bracketed-paste'
   Plug 'wellle/targets.vim'
   Plug 'rizzatti/dash.vim', {'on': 'Dash'}
   Plug 'machakann/vim-highlightedyank', has('nvim') ? {} : {'on': []}
   let g:highlightedyank_highlight_duration = 200
   Plug 'rhysd/vim-clang-format', {'for': ['arduino', 'c', 'cpp']}
-
-  Plug 'lambdalisue/suda.vim'
-  let g:suda#prefix = "sudo://"
-  let g:suda_smart_edit = 1
+  Plug 'psliwka/vim-smoothie'
 
   Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
   let g:livepreview_previewer = "open -a Preview"
 
   call plug#end()
   " Instead of using deoplete-go which uses gocode, defer to vim-go with gopls
-  call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+  " call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 " }}}
 
 " General settings {{{
@@ -308,7 +316,7 @@ let maplocalleader = ',' " \ is the default
   " Make it easy to select the whole buffer
   vnoremap ae ggVoG$
 
-  " Easy abbreviation to get path to current file mine file
+  " Easy abbreviation to get path to current file
   cabbrev %% <C-R>=expand('%:p:h')<CR>
 
   " Easy jump between last file
@@ -416,9 +424,6 @@ if has("autocmd")
     " Maintain tabs for idiomatic go code
     autocmd FileType go setlocal noexpandtab softtabstop=2 tabstop=2 listchars+=tab:\ \  completeopt-=preview
 
-    " Make upstart files comment correctly
-    autocmd FileType upstart setlocal commentstring=#\ %s
-
     " Help Window Customization {{{
       function! s:SetupHelpWindow()
         wincmd L
@@ -439,28 +444,33 @@ if has("autocmd")
       autocmd FileType help call <SID>SetupHelpWindow()
     " }}}
     " Man Window Customization {{{
+      " Tell the plugin to compute manpage width based on actual window size
+      " instead of 999
+      let g:man_hardwrap=1
       function! s:SetupManWindow()
         wincmd L
         vertical resize 80
 
-        let l:section = match(expand('%:t:r'), "\\d\\+$")
-        let l:page = expand('%:t:r:r')
         " This makes sure the manpage gets the right width when opening
         if !exists('w:reprocessing_manpage')
           let w:reprocessing_manpage = 1
+          let l:section = match(expand('%:t:r'), "\\d\\+$")
+          let l:page = expand('%:t:r:r')
           exec ":Man " . l:section . ' ' . l:page
         endif
         setlocal nonumber winfixwidth colorcolumn=
         setlocal norelativenumber nolist nospell readonly
         setlocal foldexpr& nofoldenable foldmethod& foldcolumn=0
+        setlocal showbreak=
 
-        let b:stl = "#[Branch] MANPAGE#[BranchS] [>] #[Filename]%{expand('%:t:r:r')} #[FileNameS][>>]%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
+        let b:stl = "#[Branch] MANPAGE#[BranchS] [>] #[Filename]%{expand('%:t:r:r')} #[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%< %=<CUR>#[LinePercentS][<<]#[LinePercent]</CUR> %p%% "
 
         autocmd BufWinEnter <buffer> call <SID>SetupManWindow()
         nmap <buffer> <Space> <C-]>
         nmap <buffer> <CR> <C-]>
         nmap <buffer> <BS> <C-T>
-        nnoremap <buffer> <silent> q :bd<CR>
+        nnoremap <buffer> <silent> q :bw<CR>
+        setlocal ft=man
       endfunction
 
       autocmd FileType man call <SID>SetupManWindow()
@@ -715,12 +725,12 @@ if has("autocmd")
 
     autocmd User Fugitive
           \ nnoremap <silent> <buffer> <Leader>gs :Gstatus<CR>|
-          \ nnoremap <silent> <buffer> <Leader>gc :Gcommit<CR>|
+          \ nnoremap <silent> <buffer> <Leader>gc :Git commit<CR>|
           \ nnoremap <silent> <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR>|
           \ nnoremap <silent> <buffer> <Leader>gl :Glog<CR>|
           \ nnoremap <silent> <buffer> <Leader>gd :call <SID>GdiffToggle()<CR>|
-          \ nnoremap <silent> <Leader>gv :Gitv --all<CR>|
-          \ nnoremap <silent> <Leader>gV :Gitv! --all<CR>
+          \ nnoremap <silent> <Leader>gv :Git log <CR>|
+          " \ nnoremap <silent> <Leader>gV :Gitv! --all<CR>
 
     autocmd FileType gitcommit setlocal spell
 
@@ -919,9 +929,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   command! CtrlPCommandline call ctrlp#init(ctrlp#commandline#id())
 " }}}
 " UltiSnips settings {{{
-  let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-  let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-  let g:SuperTabDefaultCompletionType = '<C-n>'
   let g:UltiSnipsExpandTrigger  = "<tab>"
   let g:UltiSnipsJumpForwardTrigger  = "<tab>"
   let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
@@ -929,30 +936,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 " Markdown settings {{{
   if has('macunix')
     nnoremap <silent> <Leader>M :call system('open -g -F -a "Marked 2" '.shellescape(expand('%:p')))<CR>
-    if filereadable(expand('~/.dotfiles/mutt/markdown')) && has('autocmd')
-      " function! CleanMail()
-      "   :normal! :%s/\<c-v>\<esc>[\\d;\\d\\+m
-      "   :normal! :g/>   /d2"
-      " endfunction
-      nnoremap <buffer> <leader>c ma:%s/<c-v><esc>[\d;\d\+m<cr>:g/>\ \ \s* /d2<cr>`a
-      augroup MuttMail
-        autocmd!
-        autocmd BufRead mutt-* set ft=mail.markdown | setlocal fo=wn | execute "normal ,c"
-        " autocmd FileType markdown setlocal textwidth=0 fo=wn wrap
-
-        autocmd BufWritePost mutt-* let b:did_write = 1
-        autocmd BufUnload mutt-*
-              \ | if exists('b:did_write')
-              \ |   call system("sed '1,/^$/d' ".expand('%:pS').' | grip --wide - --export /tmp/markdown')
-              \ |   call system('cat /tmp/markdown | '.expand('~/.dotfiles/mutt/gfm-mail/bin/gfm-mail').' > /tmp/mutt-mail.html')
-              \ | endif
-      augroup END
-    endif
   endif
-" }}}
-" Split Join settings {{{
-  let g:splitjoin_align = 1
-  let g:splitjoin_normalize_whitespace = 1
 " }}}
 " Scratch buffer mapping {{{
   function! s:ScratchToggle() " {{{
@@ -965,18 +949,6 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   " }}}
   noremap <silent> <Leader><Tab> :call <SID>ScratchToggle()<CR>
 " }}}
-" Splice configuration {{{
-  let g:splice_initial_mode = "grid"
-  let g:splice_initial_diff_grid = 1
-  let g:splice_initial_diff_compare = 1
-  let g:splice_initial_diff_path = 4
-  let g:splice_initial_layout_grid = 1
-  let g:splice_initial_layout_compare = 1
-  let g:splice_initial_layout_path = 1
-  let g:splice_initial_scrollbind_loupe = 1
-  let g:splice_initial_scrollbind_compare = 1
-  let g:splice_initial_scrollbind_path = 1
-" }}}
 " Objc {{{
   let g:clang_use_library = 1
   " let g:clang_library_path = expand($LPKG_PREFIX . '/lib')
@@ -987,25 +959,15 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 " }}}
 " GPG Configuraton {{{
   let g:GPGExecutable = 'gpg'
-  let g:GPGDefaultRecipients = ['cehoffman@ceh.im']
+  let g:GPGDefaultRecipients = ['cehoffman@gmail.com']
   let g:GPGUsePipes = 1
 " }}}
 " Terraform {{{
   let g:terraform_align = 1
   autocmd FileType terraform setlocal commentstring=#\ %s
 " }}}
-" let g:vitality_fix_focus = 1
-let g:tmuxify_map_prefix = 'm'
 " Node conviences {{{
   let g:js_indent_flat_switch = 1
-  if exists('node#suffixesadd')
-    let node#suffixesadd += ['.coffee', '.ls']
-  endif
-  augroup CoffeeScriptExtensions
-    au!
-    autocmd FileType coffee setlocal nosmartindent foldmethod=indent foldlevel=99
-    autocmd FileType ls setlocal nosmartindent foldmethod=indent foldlevel=99
-  augroup END
 " }}}
 " Common projectionist mappings {{{
   nnoremap <silent> <leader>d :Dispatch<CR><CR>
