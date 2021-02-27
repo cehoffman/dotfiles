@@ -1,0 +1,1 @@
+command scp -o "UserKnownHostsFile /dev/null" -o "StrictHostKeyChecking no" "$@"

@@ -1,0 +1,1 @@
+command ssh-copy-id -o "UserKnownHostsFile /dev/null" -o "StrictHostKeyChecking no" "$@"
