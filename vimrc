@@ -423,6 +423,10 @@ if has("autocmd")
 
     " Maintain tabs for idiomatic go code
     autocmd FileType go setlocal noexpandtab softtabstop=2 tabstop=2 listchars+=tab:\ \  completeopt-=preview
+    autocmd BufWrite *.go :call <SID>TrimTrailingWhitespace()
+    autocmd BufWrite *.py :call <SID>TrimTrailingWhitespace()
+    autocmd BufWrite *.rb :call <SID>TrimTrailingWhitespace()
+    autocmd BufWrite *.md :call <SID>TrimTrailingWhitespace()
 
     " Help Window Customization {{{
       function! s:SetupHelpWindow()
