@@ -451,17 +451,11 @@ if has("autocmd")
       " Tell the plugin to compute manpage width based on actual window size
       " instead of 999
       let g:man_hardwrap=1
+      let $MANWIDTH=80
       function! s:SetupManWindow()
         wincmd L
         vertical resize 80
 
-        " This makes sure the manpage gets the right width when opening
-        if !exists('w:reprocessing_manpage')
-          let w:reprocessing_manpage = 1
-          let l:section = match(expand('%:t:r'), "\\d\\+$")
-          let l:page = expand('%:t:r:r')
-          exec ":Man " . l:section . ' ' . l:page
-        endif
         setlocal nonumber winfixwidth colorcolumn=
         setlocal norelativenumber nolist nospell readonly
         setlocal foldexpr& nofoldenable foldmethod& foldcolumn=0
