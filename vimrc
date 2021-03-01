@@ -432,7 +432,7 @@ if has("autocmd")
         setlocal norelativenumber nolist nospell readonly
         setlocal foldexpr& nofoldenable foldmethod& foldcolumn=0
 
-        let b:stl = "#[Branch] HELP#[BranchS] [>] #[FileNameS][>>]%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
+        let b:stl = "#[Branch] HELP #[BranchS]<NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
 
         autocmd BufWinEnter <buffer> call <SID>SetupHelpWindow()
         nnoremap <buffer> <Space> <C-]>
@@ -515,10 +515,10 @@ if has("autocmd")
     " Statusline updater {{{
       function! s:StatusLineArrows(stl)
         " if has("gui_running")
-          let stl = substitute(a:stl, '\[>>\]',  '', 'g')
-          let stl = substitute(stl, '\[>\]', '', 'g')
-          let stl = substitute(stl, '\[<<\]',  '', 'g')
-          let stl = substitute(stl, '\[<\]', '', 'g')
+          let stl = substitute(a:stl, '\[>>\]',  '', 'g')
+          let stl = substitute(stl, '\[>\]', '', 'g')
+          let stl = substitute(stl, '\[<<\]',  '', 'g')
+          let stl = substitute(stl, '\[<\]', '', 'g')
         " else
         "   let new_stl = substitute(new_stl, '\(\[>>\]\|\[>\]\|\[<<\]\|\[<\]\)', '', 'g')
         " end
@@ -620,32 +620,32 @@ if has("autocmd")
         \ }
         \ , 'Normal': {
           \   'Mode'         : [[ s:yellow,  s:bgbg, 'bold',  s:gui_yellow,  s:gui_bgbg], []]
-          \ , 'ModeS'        : [[ s:yellow, s:midbg, 'bold',  s:gui_yellow, s:gui_midbg], []]
+          \ , 'ModeS'        : [[ s:midbg, s:yellow, 'bold',  s:gui_midbg, s:gui_yellow], []]
           \,  'Branch'       : [[ s:midbg,  s:botfg, 'none',  s:gui_midbg,  s:gui_botfg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
           \,  'BranchS'      : [[ s:midbg,  s:midfg, 'bold',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg]]
           \,  'FileName'     : [[ s:midbg,  s:midfg, 'bold',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midfg]]
-          \,  'FileNameS'    : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,   s:gui_bgbg]]
+          \,  'FileNameS'    : [[ s:darkbg, s:midbg, 'bold',  s:gui_darkbg, s:gui_midbg], [ s:midbg,  s:darkbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
           \,  'Error'        : [[ s:midbg,    s:red, 'bold',  s:gui_midbg,    s:gui_red], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
           \,  'ModFlag'      : [[ s:midbg,    s:red, 'bold',  s:gui_midbg,    s:gui_red], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
           \,  'BufFlag'      : [[ s:midbg, s:darkbg, 'none',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
-          \, 'FunctionName' : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \, 'FileFormat'   : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \, 'FileEncoding' : [[ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \, 'Separator'    : [[ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \, 'FileType'     : [[ s:darkbg,  s:botfg, 'none', s:gui_darkbg,  s:gui_botfg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
-          \,  'LinePercentS' : [[ s:midbg, s:darkbg, 'bold',  s:gui_midbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'none', s:gui_bgbg,   s:gui_bgbg]]
-          \,  'LinePercent'  : [[ s:midbg,  s:midfg, 'none',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'bold', s:gui_bgbg,  s:gui_midbg]]
-          \,  'LineNumberS'  : [[ s:topbg,  s:midbg, 'bold',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_bgbg]]
+          \,  'FunctionName' : [[ s:darkbg, s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \,  'FileFormat'   : [[ s:darkbg, s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \,  'FileEncoding' : [[ s:darkbg, s:midbg, 'none', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \,  'Separator'    : [[ s:darkbg, s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \,  'FileType'     : [[ s:darkbg, s:botfg, 'none', s:gui_darkbg,  s:gui_botfg], [ s:darkbg,  s:midbg, 'none',   s:gui_bgbg, s:gui_darkbg]]
+          \,  'LinePercentS' : [[ s:darkbg, s:midbg, 'bold',  s:gui_darkbg, s:gui_midbg], [ s:midbg,  s:darkbg, 'none',   s:gui_bgbg,   s:gui_bgbg]]
+          \,  'LinePercent'  : [[ s:midbg,  s:midfg, 'none',  s:gui_midbg,  s:gui_midfg], [ s:darkbg,  s:midbg, 'bold',   s:gui_bgbg,  s:gui_midbg]]
+          \,  'LineNumberS'  : [[ s:midbg,  s:topbg, 'bold',  s:gui_midbg,  s:gui_topbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,   s:gui_bgbg]]
           \,  'LineNumber'   : [[ s:topbg, s:darkbg, 'bold',  s:gui_topbg, s:gui_darkbg], [ s:darkbg,  s:midbg, 'bold', s:gui_darkbg,  s:gui_midbg]]
           \,  'LineColumn'   : [[ s:topbg,  s:midbg, 'none',  s:gui_topbg,  s:gui_midbg], [ s:darkbg,  s:midbg, 'none', s:gui_darkbg,  s:gui_midbg]]
         \ }
         \ , 'Insert': {
           \   'Mode'         : [[ 153,  23, 'bold', '#afd7ff', '#005f5f'], []]
-          \ , 'ModeS'        : [[ 153,  31, 'bold', '#afd7ff', '#0087af'], []]
+          \ , 'ModeS'        : [[  31, 153, 'bold', '#0087af', '#afd7ff'], []]
           \ , 'Branch'       : [[  31, 117, 'none', '#0087af', '#87d7ff'], []]
           \ , 'BranchS'      : [[  31, 117, 'bold', '#0087af', '#87d7ff'], []]
           \ , 'FileName'     : [[  31, 231, 'bold', '#0087af', '#ffffff'], []]
-          \ , 'FileNameS'    : [[  31,  24, 'bold', '#0087af', '#005f87'], []]
+          \ , 'FileNameS'    : [[  24,  31, 'bold', '#005f87', '#0087af'], []]
           \ , 'Error'        : [[  31, 202, 'bold', '#0087af', '#ff5f00'], []]
           \ , 'ModFlag'      : [[  31, 196, 'bold', '#0087af', '#ff0000'], []]
           \ , 'BufFlag'      : [[  31,  75, 'none', '#0087af', '#5fafff'], []]
@@ -654,9 +654,9 @@ if has("autocmd")
           \ , 'FileEncoding' : [[  24,  75, 'none', '#005f87', '#5fafff'], []]
           \ , 'Separator'    : [[  24,  37, 'bold', '#005f87', '#00afaf'], []]
           \ , 'FileType'     : [[  24,  81, 'none', '#005f87', '#5fd7ff'], []]
-          \ , 'LinePercentS' : [[  31,  24, 'bold', '#0087af', '#005f87'], []]
+          \ , 'LinePercentS' : [[  24,  31, 'bold', '#005f87', '#0087af'], []]
           \ , 'LinePercent'  : [[  31, 117, 'none', '#0087af', '#87d7ff'], []]
-          \ , 'LineNumberS'  : [[ 117,  31, 'bold', '#87d7ff', '#0087af'], []]
+          \ , 'LineNumberS'  : [[  31, 117, 'bold', '#0087af', '#87d7ff'], []]
           \ , 'LineNumber'   : [[ 117,  23, 'bold', '#87d7ff', '#005f5f'], []]
           \ , 'LineColumn'   : [[ 117,  31, 'none', '#87d7ff', '#0087af'], []]
         \ }
@@ -665,8 +665,8 @@ if has("autocmd")
     " Default statusline {{{
       let g:default_stl  = ""
       let g:default_stl .= "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>"
-      let g:default_stl .= "#[Branch] %(%{exists('*fugitive#statusline') ? substitute(fugitive#statusline(), 'GIT(\\([a-z0-9\\-_\\./:]\\+\\))', ' \\1', 'gi') : ''}#[BranchS] [>]%)" " Git branch
-      let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName] %t " " File name
+      let g:default_stl .= "#[Branch] %(%{exists('*fugitive#statusline') ? substitute(fugitive#statusline(), '\\[GIT(\\([a-z0-9\\-_\\./:]\\+\\))\\]', ' \\1', 'gi') : ''}#[BranchS] [>]%)" " Git branch
+      let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName] %t " " File name
       let g:default_stl .= "#[ModFlag]%(%M %)" " Modified flag
       let g:default_stl .= "#[BufFlag]%(%H%W %)" " HLP,PRV flags
       let g:default_stl .= "#[FileNameS]<CUR>[>>]</CUR>" " Separator
@@ -678,7 +678,7 @@ if has("autocmd")
       let g:default_stl .= "<CUR>#[Separator][<] #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
       let g:default_stl .= "<CUR>#[LinePercentS][<<]#[LinePercent]</CUR> %p%% " " Line percentage
       let g:default_stl .= "#[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber]"
-      let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage
+      let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage
     " }}}
     call <SID>StatusLineColors(s:statuscolors) " Make the status line become colorful on sourcing after startup
   " }}}
@@ -686,19 +686,19 @@ if has("autocmd")
     au!
     " Custom Status Lines {{{
       " Tagbar {{{
-        au BufEnter __Tagbar__ if !exists('b:stl')
-              \ | setlocal foldcolumn=1 statusline=
-              \ | let b:stl = "#[FileName] Tagbar#[FileNameS] [>>]#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%* %=#[LinePercentS][<<]#[LinePercent] %p%% "
+        let g:tagbar_no_status_line=1
+        au BufEnter __Tagbar__* if !exists('b:stl')
+              \ | let b:stl = "#[FileName] Tagbar <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
               \ | endif
       " }}}
       " Splie HUD {{{
         au BufEnter __Splice_HUD__ if !exists('b:stl')
-              \ | let b:stl = "#[FileName] Splice HUD#[FileNameS] [>>]%<%* %="
+              \ | let b:stl = "#[FileName] Splice HUD #[FileNameS][>>]%<%="
               \ | endif
       " }}}
       " Scratch {{{
         au BufEnter __Scratch__ if !exists('b:stl')
-              \ | let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch#[FileNameS] [>>]#[FunctionName]%<%=#[LinePercentS][<<]#[LinePercent] %p%% #[LineNumberS][<<]#[LineNumber] %l#[LineColumn]:%c%V"
+              \ | let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% #[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber] %l#[LineColumn]:%c%V"
               \ | endif
               \ | imap <expr><buffer> <Return> exists('b:pane_id') ? "<Esc><S-v>mso" : "<Return>"
               \ | nnoremap <expr><buffer><silent> <Return> exists('b:pane_id') ? "<S-v>\"my:TxSend(@m)<CR>" : "<Return>"
