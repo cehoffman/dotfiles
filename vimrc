@@ -204,11 +204,11 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   set relativenumber       " Make line numbers relative to my cursor for easy jumping
   augroup numbertoggle
     autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * 
+    autocmd BufEnter,FocusGained,InsertLeave *
           \ if &number == 1 |
           \   setlocal relativenumber nonumber |
           \ endif
-    autocmd BufLeave,FocusLost,InsertEnter * 
+    autocmd BufLeave,FocusLost,InsertEnter *
           \ if &relativenumber == 1 |
           \   setlocal norelativenumber number |
           \ end
