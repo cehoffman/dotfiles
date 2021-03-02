@@ -46,14 +46,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   let g:deoplete#enable_at_startup = 1
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-  if has('nvim')
-    Plug 'benekastah/neomake'
-    augroup localneomake
-      autocmd! BufWritePost * Neomake
-    augroup END
-    " Configure a nice credo setup, courtesy https://github.com/neomake/neomake/pull/300
-    let g:neomake_elixir_enabled_makers = ['mix', 'credo']
-  endif
   Plug 'airblade/vim-gitgutter'
   let g:gitgutter_diff_args = '-w'
   Plug 'hashivim/vim-terraform'
