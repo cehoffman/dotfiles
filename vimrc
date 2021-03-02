@@ -114,6 +114,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'mbbill/undotree'
   Plug 'vim-scripts/ZoomWin'
   Plug 'junegunn/goyo.vim'
+  let g:goyo_width=90
   " Tmux integration {{{
     Plug 'sjl/vitality.vim'
     Plug 'christoomey/vim-tmux-navigator'
