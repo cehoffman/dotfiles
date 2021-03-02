@@ -17,11 +17,11 @@ function {
       for lang in ${(k)ENV_LANGS}; do
         funs="
         function __${lang}_manpath() {
-          local cur=\$(asdf current ${lang} | sed 's|\s*(.*||')
+          local cur=\$(asdf current ${lang} | awk '{print \$2}')
           if [[ "\$cur" != "\$__cur_${lang}_version" ]]; then
             local mpath
             for mpath (~/.asdf/installs/${lang}/**/*/man(/)) manpath=(\"\${(@)manpath:#\$mpath}\")
-            manpath[1,0]=(\"$HOME/.asdf/installs/\$cur/**/*/man\"(/))
+            manpath[1,0]=(\"$HOME/.asdf/installs/${lang}/\$cur/\"**\"/man\"(/))
           fi
           __cur_${lang}_version=\$cur
         }"
