@@ -131,6 +131,15 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
   let g:livepreview_previewer = "open -a Preview"
 
+  Plug 'mhinz/vim-startify'
+  let g:startify_fortune_use_unicode = 1
+  let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
+  command! -nargs=? -bar -bang -complete=customlist,startify#session_list SSave
+        \ call startify#session_save(<bang>0, <f-args>) |
+        \ if !empty(v:this_session) |
+        \   execute "Obsession " . v:this_session |
+        \ endif
+
   call plug#end()
   " Instead of using deoplete-go which uses gocode, defer to vim-go with gopls
   " call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
