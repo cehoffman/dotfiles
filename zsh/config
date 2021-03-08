@@ -191,6 +191,11 @@ if [[ -o interactive ]]; then
     fi
   fi
 
+  if [[ -n "${VIM}" ]]; then
+    unset DYLD_INSERT_LIBRARIES
+    unset LD_PRELOAD
+  fi
+
   # This needs to be done after all changes to fpath are made so _* commands
   # are setup correctly
   autoload -U compinit
