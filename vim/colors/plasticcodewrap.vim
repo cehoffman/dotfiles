@@ -16,7 +16,7 @@ let colors_name = 'plasticcodewrap'
 hi SpecialKey                   cterm=NONE           ctermfg=59   ctermbg=NONE gui=NONE                  guifg=#485056 guibg=#081015
 hi NonText                      cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#485056 guibg=NONE
 hi Directory                    cterm=NONE           ctermfg=185  ctermbg=NONE gui=NONE                  guifg=#e4e46f guibg=NONE
-hi ErrorMsg                     cterm=reverse        ctermfg=1    ctermbg=NONE gui=reverse               guifg=#d70000 guibg=NONE
+hi ErrorMsg                     cterm=bold        ctermfg=1    ctermbg=NONE gui=reverse               guifg=#d70000 guibg=NONE
 hi IncSearch                    cterm=bold           ctermfg=39   ctermbg=NONE gui=bold                  guifg=#00c2ff guibg=NONE
 hi Search                       cterm=bold           ctermfg=39   ctermbg=NONE gui=bold,italic           guifg=#00c2ff guibg=NONE
 hi MoreMsg                      cterm=NONE           ctermfg=29   ctermbg=NONE gui=NONE                  guifg=#2e8b57 guibg=NONE
@@ -42,9 +42,6 @@ hi GitGutterAdd                 cterm=NONE           ctermfg=22   ctermbg=22   g
 hi GitGutterChange              cterm=NONE           ctermfg=130  ctermbg=130  gui=NONE                  guifg=#d8dc42 guibg=#d8dc42
 hi GitGutterDelete              cterm=NONE           ctermfg=88   ctermbg=88   gui=NONE                  guifg=#660000 guibg=#660000
 hi GitGutterChangeDelete        cterm=NONE           ctermfg=130  ctermbg=130  gui=NONE                  guifg=#d8dc42 guibg=#d8dc42
-hi svnDiffAdd                   cterm=NONE           ctermfg=22   ctermbg=22   gui=NONE                  guifg=#004400 guibg=#004400
-hi svnDiffChange                cterm=NONE           ctermfg=184  ctermbg=184  gui=NONE                  guifg=#d8dc42 guibg=#d8dc42
-hi svnDiffDelete                cterm=NONE           ctermfg=88   ctermbg=88   gui=NONE                  guifg=#660000 guibg=#660000
 hi diffAdded                    cterm=NONE           ctermfg=40   ctermbg=NONE gui=NONE                  guifg=#00cc00 guibg=NONE
 hi diffRemoved                  cterm=NONE           ctermfg=196  ctermbg=NONE gui=NONE                  guifg=#ee0000 guibg=NONE
 hi diffNewFile                  cterm=NONE           ctermfg=240  ctermbg=NONE gui=NONE                  guifg=#ee0000 guibg=NONE
@@ -74,7 +71,7 @@ hi CursorColumn                 cterm=NONE           ctermfg=NONE ctermbg=0    g
 hi CursorLine                   cterm=NONE           ctermfg=NONE ctermbg=0    gui=NONE                  guifg=NONE    guibg=#1c1c1c
 hi Cursor                       cterm=NONE           ctermfg=251  ctermbg=109  gui=NONE                  guifg=NONE    guibg=#8ba7a7
 hi lCursor                      cterm=NONE           ctermfg=16   ctermbg=251  gui=NONE                  guifg=#0b161d guibg=#f8f8f8
-hi MatchParen                   cterm=NONE           ctermfg=0    ctermbg=4    gui=bold                  guifg=#e0e0e0 guibg=NONE
+hi MatchParen                   cterm=bold           ctermfg=253  ctermbg=0    gui=bold                  guifg=#e0e0e0 guibg=NONE
 hi Comment                      cterm=NONE           ctermfg=241  ctermbg=NONE gui=italic                guifg=#82878b guibg=NONE
 hi Constant                     cterm=NONE           ctermfg=185  ctermbg=NONE gui=NONE                  guifg=#e4e46f guibg=NONE
 hi Special                      cterm=NONE           ctermfg=161  ctermbg=NONE gui=NONE                  guifg=#d7005f guibg=NONE
@@ -92,9 +89,9 @@ hi Number                       cterm=NONE           ctermfg=185  ctermbg=NONE g
 " hi Boolean                      cterm=NONE           ctermfg=185  ctermbg=NONE gui=NONE                  guifg=#e4e46f guibg=NONE
 " hi Float                        cterm=NONE           ctermfg=185  ctermbg=NONE gui=NONE                  guifg=#e4e46f guibg=NONE
 hi Function                     cterm=bold           ctermfg=184  ctermbg=NONE gui=bold                  guifg=#ddd800 guibg=NONE
-hi Conditional                  cterm=NONE           ctermfg=3  ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
+hi Conditional                  cterm=NONE           ctermfg=3    ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
 " hi Label                        cterm=NONE           ctermfg=77   ctermbg=NONE gui=NONE                  guifg=#55e439 guibg=NONE
-hi Operator                     cterm=bold           ctermfg=3  ctermbg=NONE gui=bold                  guifg=#c98600 guibg=NONE
+hi Operator                     cterm=bold           ctermfg=3    ctermbg=NONE gui=bold                  guifg=#c98600 guibg=NONE
 " hi Keyword                      cterm=NONE           ctermfg=3  ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
 " hi Define                       cterm=NONE           ctermfg=3  ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
 " hi StorageClass                 cterm=NONE           ctermfg=228  ctermbg=NONE gui=NONE                  guifg=#f6f080 guibg=NONE
@@ -102,12 +99,12 @@ hi Tag                          cterm=bold           ctermfg=184  ctermbg=NONE g
 hi Normal                       cterm=NONE           ctermfg=251  ctermbg=NONE gui=NONE                  guifg=#c6c6c6 guibg=#0b161d
 hi rubyRegexp                   cterm=NONE           ctermfg=215  ctermbg=NONE gui=NONE                  guifg=#ffb454 guibg=NONE
 hi rubyRegexpDelimiter          cterm=NONE           ctermfg=215  ctermbg=NONE gui=NONE                  guifg=#ffb454 guibg=NONE
-hi rubyControl                  cterm=bold           ctermfg=3  ctermbg=NONE gui=bold                  guifg=#c98600 guibg=NONE
+hi rubyControl                  cterm=bold           ctermfg=3    ctermbg=NONE gui=bold                  guifg=#c98600 guibg=NONE
 " hi rubyCurlyBlock               cterm=bold           ctermfg=7    ctermbg=NONE gui=bold                  guifg=#e0e0e0 guibg=NONE
 " hi rubyLocalVariableOrMethod    cterm=NONE           ctermfg=251  ctermbg=NONE gui=NONE                  guifg=#c6c6c6 guibg=NONE
 hi rubyBlockParameterList       cterm=bold           ctermfg=7    ctermbg=NONE gui=bold                  guifg=#e0e0e0 guibg=NONE
-hi rubyException                cterm=bold           ctermfg=3  ctermbg=NONE gui=bold                  guifg=#c98600 guibg=NONE
-hi rubyClass                    cterm=NONE           ctermfg=3  ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
+hi rubyException                cterm=bold           ctermfg=3    ctermbg=NONE gui=bold                  guifg=#c98600 guibg=NONE
+hi rubyClass                    cterm=NONE           ctermfg=3    ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
 hi rubyPseudoVariable           cterm=NONE           ctermfg=209  ctermbg=NONE gui=NONE                  guifg=#fb9a4b guibg=NONE
 " hi rubyOperator                 cterm=bold           ctermfg=3  ctermbg=NONE gui=bold                  guifg=#c98600 guibg=NONE
 hi rubyOperator                 cterm=bold           ctermfg=7    ctermbg=NONE gui=bold                  guifg=#e0e0e0 guibg=NONE
@@ -121,7 +118,7 @@ hi rubyInterpolation            cterm=NONE           ctermfg=251  ctermbg=NONE g
 hi rubyFunction                 cterm=bold           ctermfg=184  ctermbg=NONE gui=bold                  guifg=#ddd800 guibg=NONE
 hi rubyStringDelimiter          cterm=NONE           ctermfg=77   ctermbg=NONE gui=NONE                  guifg=#55e439 guibg=NONE
 hi rubyBlockParameter           cterm=NONE           ctermfg=209  ctermbg=NONE gui=NONE                  guifg=#fb9a4b guibg=NONE
-hi rubyInclude                  cterm=NONE           ctermfg=3  ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
+hi rubyInclude                  cterm=NONE           ctermfg=3    ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
 hi rubyGlobalVariable           cterm=NONE           ctermfg=209  ctermbg=NONE gui=NONE                  guifg=#fb9a4b guibg=NONE
 hi rubyTestMethod               cterm=NONE           ctermfg=160  ctermbg=NONE gui=NONE                  guifg=#d40c00 guibg=NONE
 " hi erubyDelimiter               cterm=NONE           ctermfg=251  ctermbg=NONE gui=NONE                  guifg=NONE    guibg=NONE
@@ -166,7 +163,7 @@ hi htmlBoldItalic               cterm=italic,bold    ctermfg=NONE ctermbg=NONE g
 " hi hi                           cterm=NONE           ctermfg=105  ctermbg=68   gui=NONE                  guifg=NONE    guibg=NONE
 " hi gitconfig                    cterm=NONE           ctermfg=24   ctermbg=24   gui=NONE                  guifg=NONE    guibg=NONE
 " hi vim                          cterm=NONE           ctermfg=NONE ctermbg=236  gui=NONE                  guifg=NONE    guibg=NONE
-hi EasyMotionTarget             cterm=bold           ctermfg=3  ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
+hi EasyMotionTarget             cterm=bold           ctermfg=3    ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
 hi EasyMotionShade              cterm=NONE           ctermfg=241  ctermbg=NONE gui=NONE                  guifg=#303030 guibg=NONE
 
 " Raindow Parenthsis
