@@ -61,10 +61,10 @@ hi SpellBad                     cterm=undercurl      ctermfg=196  ctermbg=NONE g
 hi SpellCap                     cterm=undercurl      ctermfg=21   ctermbg=NONE gui=undercurl             guifg=NONE    guibg=NONE
 hi SpellRare                    cterm=undercurl      ctermfg=201  ctermbg=NONE gui=undercurl             guifg=NONE    guibg=NONE
 hi SpellLocal                   cterm=undercurl      ctermfg=51   ctermbg=NONE gui=undercurl             guifg=NONE    guibg=NONE
-hi Pmenu                        cterm=NONE           ctermfg=236  ctermbg=230  gui=NONE                  guifg=#ddd800 guibg=#0b161d
+hi Pmenu                        cterm=NONE           ctermfg=251  ctermbg=0  gui=NONE                  guifg=#ddd800 guibg=#0b161d
 hi PmenuSel                     cterm=bold           ctermfg=251  ctermbg=66   gui=bold                  guifg=#ddd800 guibg=#2b5670
-hi PmenuSbar                    cterm=NONE           ctermfg=241  ctermbg=158  gui=NONE                  guifg=NONE    guibg=#666666
-hi PmenuThumb                   cterm=reverse        ctermfg=251  ctermbg=NONE gui=reverse               guifg=NONE    guibg=NONE
+hi PmenuSbar                    cterm=NONE           ctermfg=251  ctermbg=NONE gui=NONE                  guifg=NONE    guibg=#666666
+hi PmenuThumb                   cterm=NONE           ctermfg=NONE ctermbg=10  gui=reverse               guifg=NONE    guibg=NONE
 hi TabLine                      cterm=NONE           ctermfg=10   ctermbg=0    gui=NONE                  guifg=#585858 guibg=#262626
 hi TabLineSel                   cterm=bold           ctermfg=0    ctermbg=4    gui=bold                  guifg=#262626 guibg=#0087ff
 hi TabLineFill                  cterm=NONE           ctermfg=3    ctermbg=0    gui=NONE                  guifg=#af8700 guibg=#262626
