@@ -1,11 +1,16 @@
 typeset -gA ENV_LANGS
-ENV_LANGS=(ruby red  python yellow nodejs green elixir magenta)
+ENV_LANGS=(ruby red python yellow nodejs green elixir magenta)
 function {
   local lang
   local funs
   local shlist
   if [[ -d "$HOME/.asdf" ]]; then
-    path[1,0]=(~/.asdf/bin ~/.asdf/shims)
+    export ASDF_DIR="$HOME/.asdf"
+    export ASDF_BIN="${ASDF_DIR}/bin"
+    export ASDF_USER_SHIMS="${ASDF_DIR}/shims"
+    export ASDF_CONFIG_FILE="${HOME}/.dotfiles/asdfrc"
+    path[1,0]=("${ASDF_BIN}" "${ASDF_USER_SHIMS}")
+    source "${ASDF_DIR}/lib/asdf.sh"
     if [[ -o interactive ]]; then
       __init_asdf_comp() {
         . ~/.asdf/completions/asdf.bash
