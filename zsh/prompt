@@ -251,14 +251,14 @@ function _prompt_precmd {
   typeset -g _pr_pwdlen=''
   typeset -g _pr_fillwidth=''
 
-  if [[ -n $vcs_info_msg_0_ ]]; then
-    _pr_extras+=$vcs_info_msg_0_
-    _pr_short_extras+=$vcs_info_msg_1_
+  if [[ -n "${vcs_info_msg_0_}" ]]; then
+    _pr_extras+="${vcs_info_msg_0_}"
+    _pr_short_extras+="${vcs_info_msg_1_}"
   fi
 
   # _pr_extras+="%{$fg_no_bold[magenta]%}P:$(process-tree)"
 
-  if [[ -n $vcs_info_msg_0_ ]]; then
+  if [[ -n "${vcs_info_msg_0_}" ]]; then
     local groot="$(git rev-parse --show-toplevel)"
     local lang
     local marker
