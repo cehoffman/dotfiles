@@ -168,7 +168,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     let g:compe.source.snippets_nvim = v:true
     let g:compe.source.ultisnips = v:true
     let g:compe.source.treesitter = v:true
-    let g:compe.source.omni = v:true
+    let g:compe.source.omni = v:false
 
   call plug#end()
 
