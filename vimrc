@@ -126,6 +126,9 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
         \   execute "Obsession " . v:this_session |
         \ endif
 
+  " Use nvim in browser
+  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'hrsh7th/nvim-compe'
@@ -592,14 +595,10 @@ if has("autocmd")
   " Statusline {{{
     " Statusline updater {{{
       function! s:StatusLineArrows(stl)
-        " if has("gui_running")
-          let stl = substitute(a:stl, '\[>>\]',  '', 'g')
-          let stl = substitute(stl, '\[>\]', '', 'g')
-          let stl = substitute(stl, '\[<<\]',  '', 'g')
-          let stl = substitute(stl, '\[<\]', '', 'g')
-        " else
-        "   let new_stl = substitute(new_stl, '\(\[>>\]\|\[>\]\|\[<<\]\|\[<\]\)', '', 'g')
-        " end
+        let stl = substitute(a:stl, '\[>>\]',  '', 'g')
+        let stl = substitute(stl, '\[>\]', '', 'g')
+        let stl = substitute(stl, '\[<<\]',  '', 'g')
+        let stl = substitute(stl, '\[<\]', '', 'g')
         return stl
       endfunction
 
