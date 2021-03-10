@@ -111,6 +111,8 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   let g:highlightedyank_highlight_duration = 200
   Plug 'rhysd/vim-clang-format', {'for': ['arduino', 'c', 'cpp']}
   Plug 'psliwka/vim-smoothie'
+  Plug 'gyim/vim-boxdraw'
+  Plug 'liuchengxu/vista.vim'
 
   Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
   let g:livepreview_previewer = "open -a Preview"
@@ -762,9 +764,11 @@ if has("autocmd")
     au!
     " Custom Status Lines {{{
       " Tagbar {{{
-        let g:tagbar_no_status_line=1
         au BufEnter __Tagbar__* if !exists('b:stl')
               \ | let b:stl = "#[FileName] Tagbar <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
+              \ | endif
+        au BufEnter __vista__* if !exists('b:stl')
+              \ | let b:stl = "#[FileName] Vista <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName] %{get(g:vista.source, 'fname', '')}%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
               \ | endif
       " }}}
       " Splie HUD {{{
@@ -948,32 +952,44 @@ command! FollowSymlink call <SID>MyFollowSymlink()
   inoremap <silent><expr> ; delimitMate#ShouldJump() ? "<C-R>=delimitMate#JumpAny(';')<CR>" : ";"
 " }}}
 " Tagbar - the better taglist {{{
-  let g:tagbar_width = 40
-  let g:tagbar_autoclose = 1
-  let g:tagbar_autofocus = 1
-  let g:tagbar_sort = 0
-  let g:tagbar_compact = 1
-  let g:tagbar_indent = 1
+  let g:vista_sidebar_width = 40
+  let g:vista_echo_cursor_strategy = "floating_win"
+  let g:vista_stay_on_open = 1
+  let g:vista_disable_statusline = 1
+  let g:vista#renderer#enable_icon = 0
+  let g:vista_close_on_jump = 1
+  let g:vista_enable_centering_jump = 0
+  let g:vista_default_executive = 'nvim_lsp'
+  let g:vista_finder_alternative_executives = ['ctags']
+  let g:vista_cursor_delay = 600
+  let g:tagbar_no_status_line = 1
+  " let g:tagbar_width = 40
+  " let g:tagbar_autoclose = 1
+  " let g:tagbar_autofocus = 1
+  " let g:tagbar_sort = 0
+  " let g:tagbar_compact = 1
+  " let g:tagbar_indent = 1
   set tags=./tags,tags
 
   " Add support for markdown files in tagbar.
-  let g:tagbar_type_markdown = {
-      \ 'ctagstype': 'markdown',
-      \ 'ctagsbin' : expand('~/.dotfiles/vim/markdown2ctags.py'),
-      \ 'ctagsargs' : '-f - --sort=yes',
-      \ 'kinds' : [
-          \ 's:sections',
-          \ 'i:images'
-      \ ],
-      \ 'sro' : '|',
-      \ 'kind2scope' : {
-          \ 's' : 'section',
-      \ },
-      \ 'sort': 0,
-  \ }
+  " let g:tagbar_type_markdown = {
+  "     \ 'ctagstype': 'markdown',
+  "     \ 'ctagsbin' : expand('~/.dotfiles/vim/markdown2ctags.py'),
+  "     \ 'ctagsargs' : '-f - --sort=yes',
+  "     \ 'kinds' : [
+  "         \ 's:sections',
+  "         \ 'i:images'
+  "     \ ],
+  "     \ 'sro' : '|',
+  "     \ 'kind2scope' : {
+  "         \ 's' : 'section',
+  "     \ },
+  "     \ 'sort': 0,
+  " \ }
 
   " Make accessing the taglist easier
-  nnoremap <silent> <Leader>ll :TagbarToggle<CR>
+  " nnoremap <silent> <Leader>ll :TagbarToggle<CR>
+  nnoremap <silent> <Leader>ll :Vista!!<CR>
 " }}}
 " Undotree settings {{{
   nnoremap <silent> <F5> :UndotreeToggle<CR>
