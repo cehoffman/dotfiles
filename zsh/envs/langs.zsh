@@ -25,13 +25,18 @@ function {
           local cur=\$(asdf current ${lang} | awk '{print \$2}')
           if [[ "\$cur" != "\$__cur_${lang}_version" ]]; then
             local mpath
-            for mpath (~/.asdf/installs/${lang}/**/*/man(/)) manpath=(\"\${(@)manpath:#\$mpath}\")
+            for mpath in \$manpath; do
+              if [[ \"\${mpath##$ASDF_DIR/installs/${lang}}\" != \"\${mpath}\" ]]; then
+                manpath=(\"\${(@)manpath:#\$mpath}\")
+              fi
+            done
             manpath[1,0]=(\"$HOME/.asdf/installs/${lang}/\$cur/\"**\"/man\"(/))
           fi
           __cur_${lang}_version=\$cur
         }"
         eval "$funs"
         chpwd_functions+=(__${lang}_manpath)
+        __${lang}_manpath
       done
     fi
   fi
