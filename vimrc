@@ -393,8 +393,8 @@ let maplocalleader = ',' " \ is the default
   noremap <Leader>ev :edit ~/.dotfiles/vimrc<CR>
 
   " Simplistic buffer removal but keeping window
-  nnoremap <silent> <Leader>bd :Bdelete<CR>
-  nnoremap <silent> <Leader>bw :Bwipeout<CR>
+  nnoremap <silent> <Leader>bd :Bdelete!<CR>
+  nnoremap <silent> <Leader>bw :Bwipeout!<CR>
 
   " Paste without losing the item being pasted
   " vnoremap P p :call setreg(&clipboard =~# 'unnamed' ? '*' : '"', getreg('0')) <CR>
