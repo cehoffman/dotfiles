@@ -165,6 +165,11 @@ hi htmlBoldItalic               cterm=italic,bold    ctermfg=NONE ctermbg=NONE g
 " hi vim                          cterm=NONE           ctermfg=NONE ctermbg=236  gui=NONE                  guifg=NONE    guibg=NONE
 hi EasyMotionTarget             cterm=bold           ctermfg=3    ctermbg=NONE gui=NONE                  guifg=#c98600 guibg=NONE
 hi EasyMotionShade              cterm=NONE           ctermfg=241  ctermbg=NONE gui=NONE                  guifg=#303030 guibg=NONE
+hi LspReferenceText             cterm=bold           ctermfg=254  ctermbg=NONE
+hi LspReferenceRead             cterm=bold           ctermfg=254  ctermbg=NONE
+hi LspReferenceWrite            cterm=bold           ctermfg=254  ctermbg=NONE
+hi LspDiagnosticsSignError      cterm=NONE           ctermfg=185  ctermbg=1
+hi LspDiagnosticsDefaultError   cterm=NONE           ctermfg=1    ctermbg=NONE
 
 " Raindow Parenthsis
 hi level1c  ctermbg=NONE ctermfg=brown        guibg=NONE guifg=RoyalBlue3

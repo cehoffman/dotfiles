@@ -43,11 +43,10 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-ragtag'
   Plug 'moll/vim-bbye'
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  let g:deoplete#enable_at_startup = 1
-  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
   Plug 'airblade/vim-gitgutter'
   let g:gitgutter_diff_args = '-w'
+  let g:gitgutter_sign_priority = 1
+
   Plug 'hashivim/vim-terraform'
 
   Plug 'ecomba/vim-ruby-refactoring', {'for': ['ruby']}
@@ -55,21 +54,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'typescriptreact']}
   Plug 'peitalin/vim-jsx-typescript', {'for': ['typescriptreact', 'jsx']}
   Plug 'vim-scripts/Match-Bracket-for-Objective-C', {'for': ['objc']}
-  Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': ['go']}
-  let g:go_auto_sameids = 1
-  let g:go_fmt_command = "goimports"
-  let g:go_fmt_experimental = 1
-  " let g:go_info_mode = "guru"
-  let g:go_def_mode = "godef"
-  let g:go_gocode_propose_source = 0
-  let g:go_auto_type_info = 1
-  " augroup go
-  "   autocmd!
-  "   autocmd Filetype go
-  "     \  command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-  "     \| command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-  "     \| command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-  " augroup END
   Plug 'jodosha/vim-godebug'
   Plug 'moll/vim-node', {'for': ['javascript']}
   Plug 'markcornick/vim-bats'
@@ -140,9 +124,96 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
         \   execute "Obsession " . v:this_session |
         \ endif
 
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'hrsh7th/nvim-compe'
+    let g:compe = {}
+    let g:compe.enabled = v:true
+    let g:compe.autocomplete = v:true
+    let g:compe.debug = v:false
+    let g:compe.min_length = 1
+    let g:compe.preselect = 'enable'
+    let g:compe.throttle_time = 80
+    let g:compe.source_timeout = 200
+    let g:compe.incomplete_delay = 400
+    let g:compe.max_abbr_width = 100
+    let g:compe.max_kind_width = 100
+    let g:compe.max_menu_width = 100
+    let g:compe.documentation = v:true
+
+    let g:compe.source = {}
+    let g:compe.source.path = v:true
+    let g:compe.source.buffer = v:true
+    let g:compe.source.calc = v:true
+    let g:compe.source.vsnip = v:true
+    let g:compe.source.nvim_lsp = v:true
+    let g:compe.source.nvim_lua = v:true
+    let g:compe.source.spell = v:true
+    let g:compe.source.tags = v:true
+    let g:compe.source.snippets_nvim = v:true
+    let g:compe.source.ultisnips = v:true
+    let g:compe.source.treesitter = v:true
+    let g:compe.source.omni = v:true
+
   call plug#end()
-  " Instead of using deoplete-go which uses gocode, defer to vim-go with gopls
-  " call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+
+:lua << EOF
+  local nvim_lsp = require('lspconfig')
+
+  local on_attach = function(client, bufnr)
+
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    -- Mappings
+    local opts = { noremap=true, silent=true }
+    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', '<C-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('i', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+    -- Set some keybinds conditional on server capabilities
+    if client.resolved_capabilities.document_formatting then
+        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    elseif client.resolved_capabilities.document_range_formatting then
+        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    end
+
+    -- Set autocommands conditional on server_capabilities
+    if client.resolved_capabilities.document_highlight then
+        vim.api.nvim_exec([[
+        command! -buffer -nargs=0 -bar LspRename lua vim.lsp.buf.rename()
+        augroup lsp_document_highlight
+            autocmd!
+            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        augroup END
+        ]], true)
+    end
+  end
+
+  local servers = {'gopls'}
+  for _, lsp in ipairs(servers) do
+    nvim_lsp[lsp].setup {
+      on_attach = on_attach,
+    }
+  end
+EOF
 " }}}
 
 " General settings {{{
@@ -250,6 +321,11 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   set textwidth=79
   set wrap linebreak showbreak=… cpoptions+=n " Use soft wrapping, and adjust mappings for edit keys
   set list listchars=tab:▸\ ,eol:¬,precedes:<,extends:>,nbsp:· " Display extra whitespace
+
+  sign define LspDiagnosticsSignError text=✖ texthl=LspDiagnosticsSignError
+  sign define LspDiagnosticsSignWarning text=‼ texthl=LspDiagnosticsSignWarning
+  sign define LspDiagnosticsSignInformation text=⚑ texthl=LspDiagnosticsSignInformation
+  sign define LspDiagnosticsSignHint text=➜ texthl=LspDiagnosticsSignHint
 
   " Enable file type detection.
   filetype plugin indent on
