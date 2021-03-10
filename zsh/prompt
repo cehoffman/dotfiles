@@ -262,27 +262,18 @@ function _prompt_precmd {
     local groot="$(git rev-parse --show-toplevel)"
     local lang
     local marker
-    for lang in ${(k)ENV_LANGS}; do
-      case "${lang}" in
-        rb|ruby)
-          marker="Gemfile"
-          ;;
-        nod|nodejs)
-          marker="package.json"
-          ;;
-        py|python)
-          marker="setup.py"
-          ;;
-        elixir)
-          marker="mix.exs"
-          ;;
-        *)
-          marker="unlikely-to-exist"
-          ;;
-      esac
-      if [[ -e "${groot}/${marker}" && (( $+commands[${lang}env] )) ]] ; then
-        _pr_extras+="%{$fg_no_bold[${ENV_LANGS[$lang]}]%}${(U)lang[1]}:$(eval "echo \$__cur_${lang}_version")"
-      fi
+    local -A markers=(ruby "Gemfile" python "setup.py|pyproject.toml" nodejs "package.json" elixir "mix.exs")
+    local testfile
+    local testpath
+
+    for testpath in ${(s[/])${PWD##$groot}} ''; do
+      for lang in ${(k)markers}; do
+        for testfile in ${(s/|/)markers[$lang]}
+          if [[ -e "${groot}/${testpath}/${testfile}" ]]; then
+            _pr_extras+="%{$fg_no_bold[${ENV_LANGS[$lang]}]%}${(U)lang[1]}:$(eval "echo \$__cur_${lang}_version")"
+            break
+          fi
+      done
     done
   fi
 
