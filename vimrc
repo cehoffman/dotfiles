@@ -75,7 +75,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'slashmili/alchemist.vim', {'for': ['elixir']}
   Plug 'elixir-editors/vim-elixir'
   Plug 'MarcWeber/vim-addon-local-vimrc'
-  " Plug 'paretje/nvim-man'
   Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
   Plug 'Raimondi/delimitMate'
   Plug 'SirVer/UltiSnips'
@@ -84,7 +83,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'majutsushi/tagbar'
   Plug 'kana/vim-textobj-user'
   Plug 'nelstrom/vim-textobj-rubyblock'
-  " Plug 'gregsexton/gitv'
   Plug 'jamessan/vim-gnupg'
   Plug 'vim-scripts/scratch.vim'
   " Splice configuration {{{
