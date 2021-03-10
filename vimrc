@@ -228,6 +228,18 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
       on_attach = on_attach,
     }
   end
+
+  -- treesitter
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = {"go", "python", "java", "typescript"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    highlight = {
+      enable = true,              -- false will disable the whole extension
+    },
+    indent = {
+      enable = true,
+      -- disable = {"go"},
+    },
+  }
 EOF
 " }}}
 
@@ -898,7 +910,8 @@ endif
     set foldtext=SimpleFold()
     set foldcolumn=0
     set foldenable
-    set foldmethod=syntax
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
     set foldlevelstart=99 " How far down fold tree to go before folding code on opening file
     set foldnestmax=10
     set foldminlines=1
