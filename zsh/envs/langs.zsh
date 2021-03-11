@@ -9,7 +9,7 @@ function {
     export ASDF_BIN="${ASDF_DIR}/bin"
     export ASDF_USER_SHIMS="${ASDF_DIR}/shims"
     export ASDF_CONFIG_FILE="${HOME}/.dotfiles/asdfrc"
-    path[1,0]=("${ASDF_BIN}" "${ASDF_USER_SHIMS}")
+    path[2,1]=("${ASDF_BIN}" "${ASDF_USER_SHIMS}")
     source "${ASDF_DIR}/lib/asdf.sh"
     if [[ -o interactive ]]; then
       __init_asdf_comp() {

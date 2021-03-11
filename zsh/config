@@ -102,7 +102,7 @@ export EDITOR='nvim'
 # Remove duplicates in paths
 typeset -gU path cdpath manpath fpath
 
-path[1,0]=(/opt/{s,}bin(/) /usr/{,local/}{s,}bin(/) /Applications/VirtualBox.app/Contents/MacOS(/) ~/.bin(@) /usr/texbin/(/))
+path[1,0]=(~/.bin(@) /opt/{s,}bin(/) /usr/{,local/}{s,}bin(/) /Applications/VirtualBox.app/Contents/MacOS(/) /usr/texbin/(/))
 fpath[1,0]=(~/.dotfiles/zsh/functions(/) ~/.dotfiles/zsh/vendor/completions/src(/))
 manpath[1,0]=(/usr/local/share/man(/) /usr/share/man(/) /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man(/))
 

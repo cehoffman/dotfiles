@@ -8,7 +8,7 @@ if [[ -d ~/.homebrew ]]; then
     local gnused=~/.homebrew/opt/gnu-sed
     local findutils=~/.homebrew/opt/findutils
     local make=~/.homebrew/opt/make
-    path[1,0]=($make:q/libexec/gnubin(-/) $findutils:q/libexec/gnubin(-/) $gnused:q/libexec/gnubin(-/) $gnutar:q/libexec/gnubin(-/) $coreutils:q/libexec/gnubin(-/) ~/.homebrew/sbin(-/) ~/.homebrew/bin)
+    path[2,1]=($make:q/libexec/gnubin(-/) $findutils:q/libexec/gnubin(-/) $gnused:q/libexec/gnubin(-/) $gnutar:q/libexec/gnubin(-/) $coreutils:q/libexec/gnubin(-/) ~/.homebrew/sbin(-/) ~/.homebrew/bin)
     manpath[1,0]=($make:q/libexec/gnuman(-/) $findutils:q/libexec/gnuman(-/) $gnused:q/libexec/gnuman(-/) $gnutar:q/libexec/gnuman(-/) $coreutils:q/libexec/gnuman(-/) ~/.homebrew/share/man(-/))
 
     # Reorder zsh function directories because homebrew inserts them in the
