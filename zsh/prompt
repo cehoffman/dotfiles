@@ -277,7 +277,7 @@ function _prompt_precmd {
     done
   fi
 
-  if [[ (( $+commands[kubectl] )) && (( $+commands[jq] )) && -d ~/.kube/configs ]]; then
+  if [[ (( $+commands[kubectl] )) && (( $+commands[jq] )) && -d ~/.kube/configs && -f ~/.kube/config ]]; then
     _pr_extras+="%{$fg_no_bold[blue]%}⎈:$(kubectl config view --minify -o json | jq -r '.contexts | first.context | .user + "@" + .cluster + "/" + (.namespace // "default")')"
   fi
 
