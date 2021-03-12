@@ -76,6 +76,11 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'elixir-editors/vim-elixir'
   Plug 'MarcWeber/vim-addon-local-vimrc'
   Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+  let g:grepper = {}
+  let g:grepper.tools = ['rg', 'ag', 'git', 'ack', 'grep']
+  let g:grepper.simple_prompt = 1
+  let g:grepper.prompt_quote = 1
+  let g:grepper.switch = 0
   Plug 'Raimondi/delimitMate'
   Plug 'SirVer/UltiSnips'
   Plug 'honza/vim-snippets'
