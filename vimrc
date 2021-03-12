@@ -802,6 +802,13 @@ if has("autocmd")
               \ | let b:stl = "#[FileName] Splice HUD #[FileNameS][>>]%<%="
               \ | endif
       " }}}
+      " Quickfix {{{
+        au BufWinEnter quickfix if !exists('b:stl')
+              \ | set statusline=
+              \ | let b:stl = "#[FileName] Quickfix <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %l%% "
+              \ | nnoremap <buffer> q :cclose<CR>
+              \ | endif
+      " }}}
       " Scratch {{{
         au BufEnter __Scratch__ if !exists('b:stl')
               \ | let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% #[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber] %l#[LineColumn]:%c%V"
