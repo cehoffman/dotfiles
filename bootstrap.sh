@@ -108,8 +108,7 @@ if [ ! -d ~/.dotfiles ]; then
 fi
 ~/.dotfiles/bin/relink
 
-brew install readline openssl direnv
-brew install zsh
+brew install readline openssl direnv zsh
 
 if [ -z "$(grep "$HOME/\\.homebrew/bin/zsh" /etc/shells)" ]; then
   {
@@ -125,29 +124,34 @@ if [ "$os" = "linux" ]; then
 elif [ "$os" = "darwin" ]; then
   brew install reattach-to-user-namespace htop
 fi
-brew install git gnu-tar gnu-sed python git-extras tmux the_silver_searcher coreutils cmake ctags tree pstree luajit neovim jq
+brew tap cehoffman/personal
+brew tap universal-ctags/universal-ctags
+brew install git gnu-tar gnu-sed git-extras tmux ripgrep coreutils cmake tree pstree luajit neovim jq stderred
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 if [ "$os" = "linux" ]; then
   # Install single key read for git add --patch
   cpan -i Term::ReadKey
 fi
 
-version=2.7.0
+version=3.0.0
 if [ ! -d $HOME/.asdf/installs/ruby/$version ]; then
   asdf plugin-add ruby
   zsh -c "asdf install ruby $version"
   asdf global ruby $version
 fi
 
-version=3.8.1
+version=3.9.2
 if [ ! -d $HOME/.asdf/installs/python/$version ]; then
   asdf plugin-add python
+  brew unlink gettext
   zsh -c "asdf install python $version"
+  brew link gettext
   asdf global python $version
   zsh -c "pip install --upgrade pip && pip install httpie && asdf reshim python"
 fi
 
-version=13.8.0
+version=15.11.0
 if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
   asdf plugin-add nodejs
   zsh -c "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
@@ -155,26 +159,24 @@ if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
   asdf global nodejs $version
 fi
 
-version=22.2.6
+version=23.2.7
 if [ ! -d $HOME/.asdf/installs/erlang/$version ]; then
   asdf plugin-add erlang
   # Required because sql.h and sqlext.h are installed by unixodbc, but
   # configure does not add the with-odbc path to search for these headers
   $sudo ln -sfT $HOME/.homebrew/include /usr/local/include
-  # Fix failure due to looking for /usr/local/lib as a directory
-  $sudo mkdir -p /usr/local/lib
   zsh -c "KERL_CONFIGURE_OPTIONS='--with-odbc=$HOME/.homebrew/opt/unixodbc --enable-dynamic-ssl-lib --with-ssl=$HOME/.homebrew/opt/openssl@1.1 --enable-sctp --enable-shared-zlib --without-javac --with-dynamic-trace=dtrace --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --enable-darwin-64bit' asdf install erlang $version"
   asdf global erlang $version
 fi
 
-version=1.10.1-otp-22
+version=1.11.3-otp-23
 if [ ! -d $HOME/.asdf/installs/elixir/$version ]; then
   asdf plugin-add elixir
   zsh -c "asdf install elixir $version"
   asdf global elixir $version
 fi
 
-version=1.13.7
+version=1.16
 if [ ! -d $HOME/.asdf/installs/golang/$version ]; then
   asdf plugin-add golang 
   zsh -c "asdf install golang $version"
@@ -182,7 +184,7 @@ if [ ! -d $HOME/.asdf/installs/golang/$version ]; then
 fi
 
 asdf plugin-add kubectl
-version=1.16.7
+version=1.20.4
 if [ ! -d $HOME/.asdf/installs/kubectl/$version ]; then
   asdf plugin-add kubectl 
   zsh -c "asdf install kubectl $version"
@@ -190,5 +192,3 @@ if [ ! -d $HOME/.asdf/installs/kubectl/$version ]; then
 fi
 
 ~/.dotfiles/bin/update
-
-nvim '+qa!'
