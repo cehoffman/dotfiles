@@ -38,7 +38,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     autocmd FileType gitmessengerpopup call <SID>setup_git_messenger_popup()
   augroup END
   Plug 'tpope/vim-git'
-  Plug 'tpope/vim-endwise'
+  " Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-markdown'
   Plug 'tpope/vim-rails', {'for': ['ruby']}
   Plug 'tpope/vim-rake', {'for': ['ruby']}
