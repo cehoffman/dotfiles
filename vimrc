@@ -57,7 +57,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'moll/vim-bbye'
   Plug 'airblade/vim-gitgutter'
   let g:gitgutter_diff_args = '-w'
-  let g:gitgutter_sign_priority = 1
+  let g:gitgutter_sign_priority = 1 " Allow other uses to override us, default sign priority is 10
 
   Plug 'hashivim/vim-terraform'
 
@@ -108,8 +108,17 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     let g:splitjoin_align = 1
     let g:splitjoin_normalize_whitespace = 1
   " }}}
-  Plug 'kien/ctrlp.vim'
-  Plug 'suy/vim-ctrlp-commandline'
+  " Fuzzy Finding {{{
+    if has('nvim')
+      Plug 'nvim-lua/popup.nvim'
+      Plug 'nvim-lua/plenary.nvim'
+      Plug 'nvim-telescope/telescope.nvim'
+      Plug 'nvim-telescope/telescope-fzy-native.nvim'
+    else
+      Plug 'kien/ctrlp.vim'
+      Plug 'suy/vim-ctrlp-commandline'
+    endif
+  " }}}
   Plug 'mbbill/undotree'
   Plug 'vim-scripts/ZoomWin'
   Plug 'junegunn/goyo.vim'
@@ -141,116 +150,127 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
         \   execute "Obsession " . v:this_session |
         \ endif
 
-  " Use nvim in browser
-  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'hrsh7th/nvim-compe'
-    let g:compe = {}
-    let g:compe.enabled = v:true
-    let g:compe.autocomplete = v:true
-    let g:compe.debug = v:false
-    let g:compe.min_length = 1
-    let g:compe.preselect = 'enable'
-    let g:compe.throttle_time = 80
-    let g:compe.source_timeout = 200
-    let g:compe.incomplete_delay = 400
-    let g:compe.max_abbr_width = 100
-    let g:compe.max_kind_width = 100
-    let g:compe.max_menu_width = 100
-    let g:compe.documentation = v:true
+  if has('nvim')
+    " Use nvim in browser
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Compe {{{
+    Plug 'hrsh7th/nvim-compe'
+      let g:compe = {}
+      let g:compe.enabled = v:true
+      let g:compe.autocomplete = v:true
+      let g:compe.debug = v:false
+      let g:compe.min_length = 2
+      let g:compe.preselect = 'enable'
+      let g:compe.throttle_time = 100
+      let g:compe.source_timeout = 200
+      let g:compe.incomplete_delay = 400
+      let g:compe.max_abbr_width = 100
+      let g:compe.max_kind_width = 100
+      let g:compe.max_menu_width = 100
+      let g:compe.documentation = v:true
 
-    let g:compe.source = {}
-    let g:compe.source.path = v:true
-    let g:compe.source.buffer = v:true
-    let g:compe.source.calc = v:true
-    let g:compe.source.vsnip = v:false
-    let g:compe.source.nvim_lsp = v:true
-    let g:compe.source.nvim_lua = v:true
-    let g:compe.source.spell = v:true
-    let g:compe.source.tags = v:true
-    let g:compe.source.snippets_nvim = v:false
-    let g:compe.source.ultisnips = v:true
-    let g:compe.source.treesitter = v:true
-    let g:compe.source.omni = v:false
-    inoremap <silent><expr> <C-Space> compe#complete()
-    inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })
-    inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-    inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-    inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+      let g:compe.source = {}
+      let g:compe.source.path = v:true
+      let g:compe.source.buffer = v:true
+      let g:compe.source.calc = v:true
+      let g:compe.source.vsnip = v:false
+      let g:compe.source.nvim_lsp = v:true
+      let g:compe.source.nvim_lua = v:true
+      let g:compe.source.spell = v:true
+      let g:compe.source.tags = v:true
+      let g:compe.source.snippets_nvim = v:false
+      let g:compe.source.ultisnips = v:true
+      let g:compe.source.treesitter = v:true
+      let g:compe.source.omni = v:false
+      inoremap <silent><expr> <C-Space> compe#complete()
+      inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })
+      inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+      inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+      inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+    " }}}
+    Plug 'pwntester/octo.nvim'
+  endif
 
   call plug#end()
 
-:lua << EOF
-  local nvim_lsp = require('lspconfig')
+  if has('nvim')
+    :lua << EOF
+      local nvim_lsp = require('lspconfig')
 
-  local on_attach = function(client, bufnr)
+      local on_attach = function(client, bufnr)
 
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+        local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+        local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+        buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Mappings
-    local opts = { noremap=true, silent=true }
-    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', '<C-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('i', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+        -- Mappings
+        local opts = { noremap=true, silent=true }
+        buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+        buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+        buf_set_keymap('n', '<C-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+        buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+        buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+        buf_set_keymap('n', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+        buf_set_keymap('i', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+        buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+        buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+        buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+        buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+        buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+        buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+        buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+        buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+        buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-    -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    end
+        -- Set some keybinds conditional on server capabilities
+        if client.resolved_capabilities.document_formatting then
+            buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+        elseif client.resolved_capabilities.document_range_formatting then
+            buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+        end
 
-    -- Set autocommands conditional on server_capabilities
-    if client.resolved_capabilities.document_highlight then
-        vim.api.nvim_exec([[
-        command! -buffer -nargs=0 -bar LspRename lua vim.lsp.buf.rename()
-        augroup lsp_document_highlight
-            autocmd!
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-        ]], true)
-    end
-  end
+        -- Set autocommands conditional on server_capabilities
+        if client.resolved_capabilities.document_highlight then
+            vim.api.nvim_exec([[
+            command! -buffer -nargs=0 -bar LspRename lua vim.lsp.buf.rename()
+            augroup lsp_document_highlight
+                autocmd!
+                autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+                autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+            augroup END
+            ]], true)
+        end
+      end
 
-  local servers = {'gopls'}
-  for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-      on_attach = on_attach,
-    }
-  end
+      local servers = {'gopls'}
+      for _, lsp in ipairs(servers) do
+        nvim_lsp[lsp].setup {
+          on_attach = on_attach,
+        }
+      end
 
-  -- treesitter
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"go", "python", "java", "typescript"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    highlight = {
-      enable = true,              -- false will disable the whole extension
-    },
-    indent = {
-      enable = true,
-      -- disable = {"go"},
-    },
-  }
+      -- treesitter
+      require'nvim-treesitter.configs'.setup {
+        ensure_installed = {"go", "python", "java", "typescript"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        highlight = {
+          enable = true,              -- false will disable the whole extension
+        },
+        indent = {
+          enable = true,
+          -- disable = {"go"},
+        },
+      }
+
+      -- telescope
+      require('telescope').setup()
+      require('telescope').load_extension('fzy_native')
 EOF
+  endif
 " }}}
 
 " General settings {{{
@@ -1053,11 +1073,19 @@ command! FollowSymlink call <SID>MyFollowSymlink()
     \ },
     \ 'fallback': 'find %s -type f'
   \ }
-  map <silent> <Leader>o :<C-U>CtrlPBuffer<CR>
-  map <silent> <Leader>m :<C-U>CtrlPMixed<CR>
-  map <silent> <Leader>p :<C-U>CtrlP<CR>
-  map <silent> <Leader>c :<C-U>CtrlPCommandline<CR>
-  command! CtrlPCommandline call ctrlp#init(ctrlp#commandline#id())
+  if has('nvim')
+    nnoremap <silent> <Leader>o <cmd>Telescope buffers<CR>
+    nnoremap <silent> <Leader>p <cmd>Telescope find_files<CR>
+    nnoremap <silent> <leader>s <cmd>Telescope live_grep<CR>
+    nnoremap <silent> <leader>c <cmd>Telescope command_history<CR>
+    nnoremap <silent> <leader>m <cmd>Telescope man_pages<CR>
+  else
+    map <silent> <Leader>o :<C-U>CtrlPBuffer<CR>
+    map <silent> <Leader>m :<C-U>CtrlPMixed<CR>
+    map <silent> <Leader>p :<C-U>CtrlP<CR>
+    map <silent> <Leader>c :<C-U>CtrlPCommandline<CR>
+    command! CtrlPCommandline call ctrlp#init(ctrlp#commandline#id())
+  endif
 " }}}
 " UltiSnips settings {{{
   let g:UltiSnipsExpandTrigger  = "<tab>"
