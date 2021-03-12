@@ -1,2 +1,6 @@
 #!/bin/sh
-cat | nc localhost 2224
+if nc -z localhost 2224 &> /dev/null; then
+  cat | nc localhost 2224
+else
+  exec $(env PATH="$(echo -n $PATH | sed "s|$(dirname "$0"):||")" which $(basename "$0")) "$@"
+fi
