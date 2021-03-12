@@ -169,6 +169,11 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     let g:compe.source.ultisnips = v:true
     let g:compe.source.treesitter = v:true
     let g:compe.source.omni = v:false
+    inoremap <silent><expr> <C-Space> compe#complete()
+    inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })
+    inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+    inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+    inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
   call plug#end()
 
@@ -339,7 +344,7 @@ EOF
 
   " Tab completion options
   " (only complete to the longest unambiguous match, and show a menu)
-  set completeopt=longest,menuone,preview,noselect
+  set completeopt=menuone,noselect
   set complete=.,t,i,b,w,kspell
 
   set backspace=indent,eol,start " allow backspacing over everything in insert mode
