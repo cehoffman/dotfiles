@@ -76,6 +76,7 @@ for file in $HOME/.*; do
   if [ -h "$file" ]; then
     case "$(readlink "$file")" in
       .dotfiles/*)
+        echo "Removing link $file"
         if [ -z "$DRY_RUN" ]; then
           rm -f "$file"
         fi
@@ -94,7 +95,7 @@ done
 for file in "$dotfiles"/*; do
   file="$(basename "$file")"
   case $file in
-    Readme.md|os|zsh|irb|vim|gitignore|cacerts|fonts)
+    Readme.md|js|os|zsh|irb|vim|gitignore|fonts)
       ;;
     bootstrap.sh|helpers.rb)
       ;;
@@ -103,9 +104,6 @@ for file in "$dotfiles"/*; do
       ;;
     ctags)
       test_link ctags "$file"
-      ;;
-    elinks)
-      test_link elinks "$file"
       ;;
     gvimrc)
       test_link gvim "$file"
@@ -117,57 +115,12 @@ for file in "$dotfiles"/*; do
     irbrc|pryrc|rspec|rdebugrc|gemrc)
       test_link ruby "$file"
       ;;
-    htoprc)
-      if [ "$PLATFORM" = "darwin" ]; then
-        test_link htop "$file"
-      fi
-      ;;
-    ackrc)
-      test_link ack "$file"
-      test_link ag "$file"
-      ;;
-    minttyrc)
-      platform_link cygwin "$file"
-      ;;
     *.erb)
       if [ -f  "$HOME/.${file%.*}" -a -z "$DRY_RUN" ]; then
         rm "$HOME/.${file%.*}"
       fi
-      ;;
-    config)
-      if [ "$PLATFORM" = "linux" ]; then
-        link "$file"
-      fi
-      ;;
-    ssh)
-      if [ -d "$HOME/.$file" -a ! -h "$HOME/.$file" -a -z "$DRY_RUN" ]; then
-        cp -a ~/.ssh/* ssh/
-        rm -rf ~/.ssh/
-      fi
-      link "$file"
-      ;;
-    *)
-      link "$file"
-      ;;
-  esac
-done
-
-for file in "$dotfiles"/*; do
-  file="$(basename "$file")"
-  case $file in
-    *.erb)
       GENERATE=
       case ${file%.*} in
-        mailrc)
-          if command -v msmtpq > /dev/null 2>&1; then
-            GENERATE=true
-          fi
-          ;;
-        notmuch-config)
-          if command -v notmuch > /dev/null 2>&1; then
-            GENERATE=true
-          fi
-          ;;
         gitconfig)
           if command -v git > /dev/null 2>&1; then
             GENERATE=true
@@ -178,13 +131,24 @@ for file in "$dotfiles"/*; do
         if command -v erb > /dev/null 2>&1; then
           echo "Generating ~/.${file%.*}"
           if [ -z "$DRY_RUN" ]; then
-            erb -r "$dotfiles/helpers" "$dotfiles/$file" > "$HOME/.${file%.*}"
+            ASDF_RUBY_VERSION=system erb -r "$dotfiles/helpers" "$dotfiles/$file" > "$HOME/.${file%.*}"
           fi
         fi
       fi
       unset GENERATE
       ;;
+    config)
+      link "$file"
+      ;;
+    ssh)
+      if [ -d "$HOME/.$file" -a ! -h "$HOME/.$file" -a -z "$DRY_RUN" ]; then
+        cp -a ~/.ssh/* ssh/
+        rm -rf ~/.ssh/
+      fi
+      link "$file"
+      ;;
     *)
+      link "$file"
       ;;
   esac
 done

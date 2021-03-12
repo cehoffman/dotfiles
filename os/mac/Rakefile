@@ -12,19 +12,6 @@ end
 
 desc "Install mac specific items"
 task :install do
-  puts "installing iTerm2HotKey"
-  system 'clang', '-Os', '-fobjc-arc', '-framework', 'Carbon', '-framework',
-    'AppKit', 'iTerm2HotKey.m', '-o', File.expand_path('~/.bin/iTerm2HotKey')
-
-  puts "installing NetworkLocationChanger"
-  nlc = File.expand_path('~/.bin/NetworkLocationChanger')
-  system 'clang', '-Os', '-fobjc-arc', '-framework', 'CoreWLAN', '-framework',
-    'SystemConfiguration', '-o', nlc, 'Reachability.m', 'NetworkLocationChanger.m'
-
-  puts "installing GPGFix"
-  system 'clang', '-Os', '-fobjc-arc', '-framework', 'IOKit', '-framework',
-    'AppKit', 'GPGFix.m', '-o', File.expand_path('~/.bin/GPGFix')
-
   loaded = Hash[%x[launchctl list].strip.lines.map do |line|
     line = line.split
     [line.last, true]

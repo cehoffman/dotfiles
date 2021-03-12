@@ -2,6 +2,7 @@
   name = Chris Hoffman
   email = cehoffman@gmail.com
   useConfigOnly = true
+  signingkey = 0xB7490129ADEDFE08
 [color]
   ui = auto
 [sendemail]
@@ -68,20 +69,16 @@
 [interactive]
   singlekey = true
 [credential]
-<%- if mac? %>
-  helper = osxkeychain
-<% end %>
+<%- if mac? %>  helper = osxkeychain<% end %>
 [pull]
   rebase = true
-<%# [http] %>
-<%#   sslCAPath = <%= ENV['HOME'] %1>/.dotfiles/cacerts/ %>
 [color "diff-highlight"]
   oldNormal = red bold
   oldHighlight = red bold 52
   newNormal = green bold
   newHighlight = green bold 22
 [commit]
-  gpgsign = <% mac? %>
+  gpgsign = <%= mac?.to_s %>
 [diff]
   renameLimit = 5000
 [filter "lfs"]
@@ -92,4 +89,6 @@
 [protocol]
   version = 2
 [init]
-	defaultBranch = master
+  defaultBranch = master
+[url "ssh://git@gitlab.com/"]
+  insteadOf = https://gitlab.com/

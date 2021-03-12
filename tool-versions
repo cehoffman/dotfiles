@@ -1,8 +1,8 @@
 golang 1.16
 ruby 3.0.0
-kubectl 1.20.0
-terraform 0.14.6
-python 3.8.1
-nodejs 15.10.0
-erlang 23.2.6
+kubectl 1.20.4
+terraform 0.14.7
+python 3.9.2
+nodejs 15.11.0
+erlang 23.2.7
 elixir 1.11.3-otp-23
