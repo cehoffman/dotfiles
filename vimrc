@@ -246,7 +246,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
         buf_set_keymap('n', '<leader>ca', "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", opts)
         buf_set_keymap('v', '<leader>ca', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>", opts)
         buf_set_keymap('n', 'K', "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
-        buf_set_keymap('n', '<C-f>/', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
+        buf_set_keymap('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
         buf_set_keymap('n', '<C-b>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
         buf_set_keymap('n', 'gs', "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", opts)
         buf_set_keymap('n', 'gr', "<cmd>lua require('lspsaga.rename').rename()<CR>", opts)
@@ -314,9 +314,9 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
         infor_sign = '⚑',
         dianostic_header_icon = ' ‼️  ',
         code_action_icon = '💡',
-        finder_definition_icon = '🔆 ',
-        finder_reference_icon = '🔆 ',
-        definition_preview_icon = '🔆 ',
+        finder_definition_icon = '❃ ',
+        finder_reference_icon = '❃ ',
+        definition_preview_icon = '❃ ',
         border_style = 2,
         code_action_keys = {
           quit = {'<esc>', 'q'},
