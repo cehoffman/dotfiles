@@ -3,6 +3,9 @@ set nocompatible
 
 let $DYLD_INSERT_LIBRARIES=''
 
+let mapleader = "," " \ is the default leader character
+let maplocalleader = ',' " \ is the default
+
 " TODO: add nvim default runtime paths
 set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vim/after
 
@@ -16,33 +19,48 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
 
   Plug 'tpope/vim-jdaddy'
   Plug 'tpope/vim-capslock'
-  Plug 'tpope/vim-fugitive'
-  if has('nvim')
-    augroup patch_terminal
+  " Git {{{
+    Plug 'tpope/vim-fugitive'
+    if has('nvim')
+      augroup patch_terminal
+        au!
+
+        au TermOpen * startinsert
+        au TermClose * stopinsert
+      augroup END
+    endif
+    Plug 'rhysd/git-messenger.vim'
+    function! s:setup_git_messenger_popup() abort
+      " Your favorite configuration here
+
+      " For example, set go back/forward history to <C-o>/<C-i>
+      nmap <buffer><C-o> o
+      nmap <buffer><C-i> O
+    endfunction
+    augroup gitmessenger
       au!
-
-      au TermOpen * startinsert
-      au TermClose * stopinsert
+      autocmd FileType gitmessengerpopup call <SID>setup_git_messenger_popup()
     augroup END
-  endif
-  Plug 'rhysd/git-messenger.vim'
-  function! s:setup_git_messenger_popup() abort
-    " Your favorite configuration here
-
-    " For example, set go back/forward history to <C-o>/<C-i>
-    nmap <buffer><C-o> o
-    nmap <buffer><C-i> O
-  endfunction
-  augroup gitmessenger
-    au!
-    autocmd FileType gitmessengerpopup call <SID>setup_git_messenger_popup()
-  augroup END
-  Plug 'tpope/vim-git'
+    Plug 'tpope/vim-git'
+    Plug 'airblade/vim-gitgutter'
+    let g:gitgutter_diff_args = '-w'
+    let g:gitgutter_sign_priority = 1 " Allow other uses to override us, default sign priority is 10
+    Plug 'pwntester/octo.nvim'
+  " }}}
   Plug 'tpope/vim-endwise'
   let g:endwise_no_mappings = v:true " Compe will call delimitMate and EndWise
+  " Dadbod {{{
+    Plug 'tpope/vim-dadbod'
+    Plug 'kristijanhusak/vim-dadbod-ui'
+    Plug 'kristijanhusak/vim-dadbod-completion'
+  " }}}
   Plug 'tpope/vim-markdown'
-  Plug 'tpope/vim-rails', {'for': ['ruby']}
-  Plug 'tpope/vim-rake', {'for': ['ruby']}
+  " Ruby {{{
+    Plug 'tpope/vim-rails', {'for': ['ruby']}
+    Plug 'tpope/vim-rake', {'for': ['ruby']}
+    Plug 'ecomba/vim-ruby-refactoring', {'for': ['ruby']}
+    Plug 'nelstrom/vim-textobj-rubyblock'
+  " }}}
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
   Plug 'tpope/vim-abolish'
@@ -56,33 +74,35 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-ragtag'
   Plug 'moll/vim-bbye'
-  Plug 'airblade/vim-gitgutter'
-  let g:gitgutter_diff_args = '-w'
-  let g:gitgutter_sign_priority = 1 " Allow other uses to override us, default sign priority is 10
 
   Plug 'hashivim/vim-terraform'
 
-  Plug 'ecomba/vim-ruby-refactoring', {'for': ['ruby']}
-  Plug 'jason0x43/vim-js-indent', {'for': ['javascript']}
-  Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'typescriptreact']}
-  Plug 'peitalin/vim-jsx-typescript', {'for': ['typescriptreact', 'jsx']}
+  " Javascript {{{
+    Plug 'jason0x43/vim-js-indent', {'for': ['javascript']}
+    Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'typescriptreact']}
+    Plug 'peitalin/vim-jsx-typescript', {'for': ['typescriptreact', 'jsx']}
+    Plug 'moll/vim-node', {'for': ['javascript']}
+  " "}}}
   Plug 'vim-scripts/Match-Bracket-for-Objective-C', {'for': ['objc']}
-  Plug 'jodosha/vim-godebug'
-  Plug 'moll/vim-node', {'for': ['javascript']}
   Plug 'markcornick/vim-bats'
-  Plug 'mhinz/vim-mix-format', {'for': ['elixir']}
-  let g:mix_format_on_save = 1
-  let g:mix_format_options = '--check-equivalent'
-  Plug 'slashmili/alchemist.vim', {'for': ['elixir']}
-  Plug 'elixir-editors/vim-elixir'
-  Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': ['go']}
-  let g:go_def_mapping_enabled = 0
-  let g:go_doc_keywordprg_enabled = 0
-  let g:go_gopls_enabled = 0
-  let g:go_code_completion_enabled = 0
-  let g:go_imports_autosave = 1
-  let g:go_asmfmt_autosave = 1
-  let g:go_template_use_pkg = 1
+  " Elixir {{{
+    Plug 'mhinz/vim-mix-format', {'for': ['elixir']}
+    let g:mix_format_on_save = 1
+    let g:mix_format_options = '--check-equivalent'
+    Plug 'slashmili/alchemist.vim', {'for': ['elixir']}
+    Plug 'elixir-editors/vim-elixir'
+  " }}}
+  " Golang {{{
+    Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': ['go']}
+    let g:go_def_mapping_enabled = 0
+    let g:go_doc_keywordprg_enabled = 0
+    let g:go_gopls_enabled = 0
+    let g:go_code_completion_enabled = 0
+    let g:go_imports_autosave = 1
+    let g:go_asmfmt_autosave = 1
+    let g:go_template_use_pkg = 1
+    Plug 'jodosha/vim-godebug'
+  " }}}
   Plug 'MarcWeber/vim-addon-local-vimrc'
   Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
   let g:grepper = {}
@@ -94,9 +114,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'SirVer/UltiSnips'
   Plug 'honza/vim-snippets'
   Plug 'godlygeek/tabular'
-  Plug 'majutsushi/tagbar'
   Plug 'kana/vim-textobj-user'
-  Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'jamessan/vim-gnupg'
   Plug 'vim-scripts/scratch.vim'
   " Splice configuration {{{
@@ -139,7 +157,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   " }}}
   Plug 'ConradIrwin/vim-bracketed-paste'
   Plug 'wellle/targets.vim'
-  Plug 'rizzatti/dash.vim', {'on': 'Dash'}
   Plug 'machakann/vim-highlightedyank', has('nvim') ? {} : {'on': []}
   let g:highlightedyank_highlight_duration = 200
   Plug 'rhysd/vim-clang-format', {'for': ['arduino', 'c', 'cpp']}
@@ -150,15 +167,16 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
   let g:livepreview_previewer = "open -a Preview"
 
-  Plug 'mhinz/vim-startify'
-  let g:startify_fortune_use_unicode = 1
-  let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
-  command! -nargs=? -bar -bang -complete=customlist,startify#session_list SSave
-        \ call startify#session_save(<bang>0, <f-args>) |
-        \ if !empty(v:this_session) |
-        \   execute "Obsession " . v:this_session |
-        \ endif
-
+  " Startify {{{
+    Plug 'mhinz/vim-startify'
+    let g:startify_fortune_use_unicode = 1
+    let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
+    command! -nargs=? -bar -bang -complete=customlist,startify#session_list SSave
+          \ call startify#session_save(<bang>0, <f-args>) |
+          \ if !empty(v:this_session) |
+          \   execute "Obsession " . v:this_session |
+          \ endif
+  " }}}
 
   if has('nvim')
     " Use nvim in browser
@@ -167,7 +185,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     Plug 'glepnir/lspsaga.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " Compe {{{
-    Plug 'hrsh7th/nvim-compe'
+      Plug 'hrsh7th/nvim-compe'
       let g:compe = {}
       let g:compe.enabled = v:true
       let g:compe.autocomplete = v:true
@@ -195,6 +213,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
       let g:compe.source.ultisnips = v:true
       let g:compe.source.treesitter = v:true
       let g:compe.source.omni = v:false
+      let g:compe.source.vim_dadbod_completion = v:true
 
       inoremap <silent><expr> <C-Space> compe#complete()
       inoremap <silent><expr> <CR>      compe#confirm({'keys': "\<Plug>delimitMateCR\<Plug>DiscretionaryEnd", 'mode': ''})
@@ -202,7 +221,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
       inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
       inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
     " }}}
-    Plug 'pwntester/octo.nvim'
   endif
 
   call plug#end()
@@ -338,9 +356,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
 if !exists('g:loaded_matchit')
   runtime! macros/matchit.vim " Include the matchit macro
 endif
-
-let mapleader = "," " \ is the default leader character
-let maplocalleader = ',' " \ is the default
 
 " General Mappings {{{
   " Allows moving up by screen lines, not file lines
