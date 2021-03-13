@@ -24,7 +24,7 @@ hi ModeMsg                      cterm=NONE           ctermfg=251  ctermbg=NONE g
 hi LineNr                       cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#4e4e4e guibg=NONE
 hi Question                     cterm=NONE           ctermfg=39   ctermbg=NONE gui=NONE                  guifg=#00ff00 guibg=NONE
 hi StatusLine                   cterm=NONE           ctermfg=230  ctermbg=236  gui=NONE                  guifg=#303030 guibg=#ffffd7
-hi StatusLineNC                 cterm=NONE           ctermfg=181  ctermbg=236  gui=NONE                  guifg=#303030 guibg=#d7afaf
+hi StatusLineNC                 cterm=NONE           ctermfg=242  ctermbg=0    gui=NONE                  guifg=#303030 guibg=#d7afaf
 hi VertSplit                    cterm=NONE           ctermfg=0    ctermbg=NONE gui=NONE                  guifg=#303030 guibg=#303030
 hi Title                        cterm=bold           ctermfg=251  ctermbg=NONE gui=bold                  guifg=#f8f8f8 guibg=NONE
 hi Visual                       cterm=NONE           ctermfg=NONE ctermbg=0    gui=NONE                  guifg=NONE    guibg=#262626
