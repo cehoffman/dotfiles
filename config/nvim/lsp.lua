@@ -1,7 +1,7 @@
 local nvim_lsp = require('lspconfig')
+local util = require('lspconfig/util')
 
 local on_attach = function(client, bufnr)
-
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -62,13 +62,90 @@ local on_attach = function(client, bufnr)
   end
 end
 
+local eslint = {
+  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintStdin = true,
+  lintFormats = {"%f:%l:%c: %m"},
+  lintIgnoreExitCode = true,
+  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  formatStdin = true
+}
+
 local servers = {
   gopls = {},
   vimls = {},
   yamlls = {},
   bashls = {filetypes = {"sh", "zsh", "bash"}},
+  sumneko_lua = {
+    cmd = {vim.fn.expand('$HOME/.homebrew/Cellar/lua-language-server/HEAD/bin/lua-language-server'), vim.fn.expand('$HOME/.homebrew/Cellar/lua-language-server/HEAD/libexec/main.lua')},
+    settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+          -- Setup your lua path
+          path = vim.split(package.path, ';'),
+        },
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        },
+      },
+    },
+  },
+  dockerls = {},
+  tsserver = {
+    on_attach = function(client, bufnr)
+      if client.config.flags then
+        client.config.flags.allow_incremental_sync = true
+      end
+      -- disable formating because eslint will do it
+      client.resolved_capabilities.document_formatting = false
+    end,
+  },
+  efm = {
+    on_attach = function(client, bufnr)
+      client.resolved_capabilities.document_formatting = true
+      client.resolved_capabilities.goto_definition = false
+    end,
+    root_dir = util.root_pattern(".git", ".eslintrc");
+    settings = {
+      languages = {
+        javascript = {eslint},
+        javascriptreact = {eslint},
+        ["javascript.jsx"] = {eslint},
+        typescript = {eslint},
+        ["typescript.tsx"] = {eslint},
+        typescriptreact = {eslint}
+      }
+    },
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescript.tsx",
+      "typescriptreact"
+    },
+  },
 }
+
+if 1 == vim.fn.executable('terraform-ls') then
+  servers.terraformls = {}
+end
+
 for lsp, opts in pairs(servers) do
-  opts.on_attach = on_attach
+  if opts.on_attach then
+    opts.on_attach = util.add_hook_after(opts.on_attach, on_attach)
+  else
+    opts.on_attach = on_attach
+  end
   nvim_lsp[lsp].setup(opts)
 end
