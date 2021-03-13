@@ -78,6 +78,7 @@ local servers = {
     settings = {
       gopls = {
         gofumpt = true,
+        linksInHover = false,
       }
     },
   },
