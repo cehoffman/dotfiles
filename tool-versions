@@ -1,4 +1,4 @@
-golang 1.16
+golang 1.16.1
 ruby 3.0.0
 kubectl 1.20.4
 terraform 0.14.7
