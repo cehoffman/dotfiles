@@ -77,13 +77,9 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': ['go']}
   let g:go_def_mapping_enabled = 0
   let g:go_doc_keywordprg_enabled = 0
-  " let g:go_gopls_gofumpt = 1
   let g:go_gopls_enabled = 0
   let g:go_code_completion_enabled = 0
   let g:go_imports_autosave = 1
-  let g:go_fmt_autosave = 1
-  let g:go_fmt_command = "gofumpt"
-  let g:go_fmt_experimental = 1
   let g:go_asmfmt_autosave = 1
   let g:go_template_use_pkg = 1
   Plug 'MarcWeber/vim-addon-local-vimrc'

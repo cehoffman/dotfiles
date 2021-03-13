@@ -71,7 +71,16 @@ local eslint = {
 }
 
 local servers = {
-  gopls = {},
+  gopls = {
+    on_attach = function(client, bufnr)
+      vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync()]]
+    end,
+    settings = {
+      gopls = {
+        gofumpt = true,
+      }
+    },
+  },
   vimls = {},
   yamlls = {},
   bashls = {filetypes = {"sh", "zsh", "bash"}},
