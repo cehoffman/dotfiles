@@ -30,7 +30,7 @@ hi Title                        cterm=bold           ctermfg=251  ctermbg=NONE g
 hi Visual                       cterm=NONE           ctermfg=NONE ctermbg=0    gui=NONE                  guifg=NONE    guibg=#262626
 hi link Visual VisualNOS
 " hi VisualNOS                    cterm=NONE           ctermfg=251  ctermbg=NONE gui=bold,underline        guifg=NONE    guibg=NONE
-hi WarningMsg                   cterm=NONE           ctermfg=124  ctermbg=232  gui=NONE                  guifg=#f8f8f8 guibg=#a32411
+hi WarningMsg                   cterm=NONE           ctermfg=124  ctermbg=NONE  gui=NONE                  guifg=#f8f8f8 guibg=#a32411
 hi WildMenu                     cterm=NONE           ctermfg=16   ctermbg=226  gui=NONE                  guifg=#000000 guibg=#ffff00
 hi Folded                       cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#4e4e4e guibg=#0b161d
 hi FoldColumn                   cterm=NONE           ctermfg=238  ctermbg=NONE gui=NONE                  guifg=#4e4e4e guibg=#0b161d
@@ -188,6 +188,13 @@ hi level13c ctermbg=NONE ctermfg=darkgreen    guibg=NONE guifg=RoyalBlue3
 hi level14c ctermbg=NONE ctermfg=darkcyan     guibg=NONE guifg=SeaGreen3
 hi level15c ctermbg=NONE ctermfg=darkred      guibg=NONE guifg=DarkOrchid3
 hi level16c ctermbg=NONE ctermfg=red          guibg=NONE guifg=firebrick3
+
+" Undotree
+hi link UndotreeTimeStamp Comment
+hi link UndotreeCurrent Function
+hi link UndotreeNext Statement
+hi link UndotreeSeq Text
+hi link UndotreeSavedBig Tag
 
 " ruby << RUBY
 "   his = {:name => [], :term => [], :cterm => [], :ctermfg => [], :ctermbg => [], :gui => [], :guifg => [], :guibg => []}

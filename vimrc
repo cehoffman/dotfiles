@@ -702,7 +702,7 @@ if has("autocmd")
 
       let s:statuscolors = {
         \   'NONE': {
-          \   'NONE'         : [[ s:darkbg, s:midbg, 'bold', s:gui_darkbg, s:gui_midbg], [ s:bgbg, s:darkbg, 'none', s:gui_bgbg, s:gui_darkbg]]
+          \   'NONE'         : [[ s:darkbg, s:midbg, 'bold', s:gui_darkbg, s:gui_midbg], [ s:darkbg, 242, 'none', s:gui_bgbg, s:gui_darkbg]]
         \ }
         \ , 'Normal': {
           \   'Mode'         : [[ s:yellow,  s:bgbg, 'bold',  s:gui_yellow,  s:gui_bgbg], []]
@@ -773,30 +773,40 @@ if has("autocmd")
     " Custom Status Lines {{{
       " Tagbar {{{
         au BufEnter __Tagbar__* if !exists('b:stl')
-              \ | let b:stl = "#[FileName] Tagbar <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
+              \ |   let b:stl = "#[FileName] Tagbar <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
               \ | endif
         au BufEnter __vista__* if !exists('b:stl')
-              \ | let b:stl = "#[FileName] Vista <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName] %{get(g:vista.source, 'fname', '')}%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
+              \ |   let b:stl = "#[FileName] Vista <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName] %{get(g:vista.source, 'fname', '')}%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
               \ | endif
       " }}}
       " Splie HUD {{{
         au BufEnter __Splice_HUD__ if !exists('b:stl')
-              \ | let b:stl = "#[FileName] Splice HUD #[FileNameS][>>]%<%="
+              \ |   let b:stl = "#[FileName] Splice HUD #[FileNameS][>>]%<%="
               \ | endif
       " }}}
       " Quickfix {{{
         au BufWinEnter quickfix if !exists('b:stl')
-              \ | set statusline=
-              \ | let b:stl = "#[FileName] Quickfix <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %l%% "
-              \ | nnoremap <buffer> q :q<CR>
+              \ |   set statusline=
+              \ |   let b:stl = "#[FileName] Quickfix <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %l "
               \ | endif
+              \ | nnoremap <buffer> q :q<CR>
       " }}}
       " Scratch {{{
         au BufEnter __Scratch__ if !exists('b:stl')
-              \ | let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% #[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber] %l#[LineColumn]:%c%V"
+              \ |   let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% #[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber] %l#[LineColumn]:%c%V"
               \ | endif
               \ | imap <expr><buffer> <Return> exists('b:pane_id') ? "<Esc><S-v>mso" : "<Return>"
               \ | nnoremap <expr><buffer><silent> <Return> exists('b:pane_id') ? "<S-v>\"my:TxSend(@m)<CR>" : "<Return>"
+      " }}}
+      " UndoTree {{{
+        au WinEnter undotree_* if !exists('b:stl')
+              \ |   set statusline=
+              \ |   let b:stl = "#[FileName] UndoTree <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercent]"
+              \ | endif
+        au WinEnter diffpanel_* if !exists('b:stl')
+              \ |   set statusline=
+              \ |   let b:stl = "#[FileName] Changes <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercent]"
+              \ | endif
       " }}}
     " }}}
     " Main Statusline Highlighting {{{
