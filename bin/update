@@ -58,7 +58,7 @@ $(dirname "$0")/relink
 if command -v vim > /dev/null 2>&1; then
   if [ -z "$DRY_RUN" ]; then
     if [ -n "$(git diff HEAD@{1}...HEAD -- vimrc)" ]; then
-      vim +PlugInstall! +PlugClean +qa
+      nvim +PlugInstall! +PlugClean +qa
     fi
   fi
 fi
