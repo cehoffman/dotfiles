@@ -38,7 +38,8 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     autocmd FileType gitmessengerpopup call <SID>setup_git_messenger_popup()
   augroup END
   Plug 'tpope/vim-git'
-  " Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-endwise'
+  let g:endwise_no_mappings = v:true " Compe will call delimitMate and EndWise
   Plug 'tpope/vim-markdown'
   Plug 'tpope/vim-rails', {'for': ['ruby']}
   Plug 'tpope/vim-rake', {'for': ['ruby']}
@@ -194,8 +195,9 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
       let g:compe.source.ultisnips = v:true
       let g:compe.source.treesitter = v:true
       let g:compe.source.omni = v:false
+
       inoremap <silent><expr> <C-Space> compe#complete()
-      inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })
+      inoremap <silent><expr> <CR>      compe#confirm({'keys': "\<Plug>delimitMateCR\<Plug>DiscretionaryEnd", 'mode': ''})
       inoremap <silent><expr> <C-e>     compe#close('<C-e>')
       inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
       inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
@@ -945,6 +947,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
 " }}}
 " delimitMate settings {{{
   let g:delimitMate_expand_space = 1
+  let g:delimitMate_expand_cr = 1
   let g:delimitMate_balance_matchpairs = 1
 
   " Allow for quick jumping over delimiters instead of S-Tab
