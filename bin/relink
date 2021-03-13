@@ -152,3 +152,10 @@ for file in "$dotfiles"/*; do
       ;;
   esac
 done
+
+# Setup the mac to default to UTF-8 for all Core Foundation services
+if [[ "$PLATFORM" == darwin ]]; then
+  chmod 600 ~/.CFUserTextEncoding
+  echo -n 0x08000100:0x0 > ~/.CFUserTextEncoding
+  chmod 400 ~/.CFUserTextEncoding
+fi
