@@ -185,7 +185,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     Plug 'glepnir/lspsaga.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " Compe {{{
-      Plug 'hrsh7th/nvim-compe'
+      Plug 'hrsh7th/nvim-compe', {'commit': '25170751944b64bb7b65af1e35772361485bc936'}
       let g:compe = {}
       let g:compe.enabled = v:true
       let g:compe.autocomplete = v:true
