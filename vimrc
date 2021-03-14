@@ -66,6 +66,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-bundler'
   Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-markdown'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-scriptease'
   Plug 'tpope/vim-dispatch'
