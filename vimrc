@@ -146,9 +146,16 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     endif
   " }}}
   Plug 'mbbill/undotree'
-  Plug 'vim-scripts/ZoomWin'
   Plug 'junegunn/goyo.vim'
-  let g:goyo_width=90
+  nnoremap <silent> <C-W>o :Goyo<CR>
+  let g:goyo_width="90%"
+  Plug 'junegunn/limelight.vim'
+  let g:limelight_conceal_ctermfg = 240
+  augroup goyo_custom
+    au!
+    autocmd User GoyoEnter Limelight
+    autocmd User GoyoLeave Limelight!
+  augroup END
   " Tmux integration {{{
     Plug 'sjl/vitality.vim'
     Plug 'christoomey/vim-tmux-navigator'
