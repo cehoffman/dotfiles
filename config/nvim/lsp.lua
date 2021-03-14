@@ -70,6 +70,51 @@ local eslint = {
   formatStdin = true
 }
 
+--[[
+  Split the yaml language server into separate servers in order to isolate the
+  schemas because the LSP can only set schema based on file name matching and
+  kubernetes schemas have infinite file names.
+--]]
+require('lspconfig/configs')['kubernetes'] = {
+  default_config = {
+    cmd = {'yaml-language-server', "--stdio"};
+    filetypes = {"yaml"};
+    root_dir = function(startpath, bufnr)
+      if vim.fn.expand("%:t") == "kustomization.yaml" then
+        return nil
+      end
+      if util.path.exists(util.path.join(util.path.dirname(startpath), "kustomization.yaml")) then
+        return util.find_git_ancestor(startpath) or vim.fn.getcwd()
+      end
+    end,
+    settings = {
+      yaml = {
+        schemas = {
+          kubernetes = {"*.yaml", "*.yml"},
+        },
+      },
+    },
+  };
+}
+require('lspconfig/configs')['kustomization'] = {
+  default_config = {
+    cmd = {'yaml-language-server', "--stdio"};
+    filetypes = {"yaml"};
+    root_dir = function(startpath, bufnr)
+      if vim.fn.expand("%:t") == "kustomization.yaml" then
+        return util.find_git_ancestor(startpath) or vim.fn.getcwd()
+      end
+    end,
+    settings = {
+      yaml = {
+        schemas = {
+          ["https://json.schemastore.org/kustomization"] = "*/kustomization.yaml",
+        },
+      },
+    },
+  };
+}
+
 local servers = {
   gopls = {
     on_attach = function(client, bufnr)
@@ -83,7 +128,8 @@ local servers = {
     },
   },
   vimls = {},
-  yamlls = {},
+  kubernetes = {},
+  kustomization = {},
   bashls = {filetypes = {"sh", "zsh", "bash"}},
   sumneko_lua = {
     cmd = {vim.fn.expand('$HOME/.homebrew/Cellar/lua-language-server/HEAD/bin/lua-language-server'), vim.fn.expand('$HOME/.homebrew/Cellar/lua-language-server/HEAD/libexec/main.lua')},
