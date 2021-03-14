@@ -182,6 +182,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     Plug 'neovim/nvim-lspconfig'
     Plug 'glepnir/lspsaga.nvim'
+    Plug 'tjdevries/nlua.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " Compe {{{
       Plug 'hrsh7th/nvim-compe'

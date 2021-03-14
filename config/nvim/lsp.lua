@@ -131,30 +131,6 @@ local servers = {
   kubernetes = {},
   kustomization = {},
   bashls = {filetypes = {"sh", "zsh", "bash"}},
-  sumneko_lua = {
-    cmd = {vim.fn.expand('$HOME/.homebrew/Cellar/lua-language-server/HEAD/bin/lua-language-server'), vim.fn.expand('$HOME/.homebrew/Cellar/lua-language-server/HEAD/libexec/main.lua')},
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-          -- Setup your lua path
-          path = vim.split(package.path, ';'),
-        },
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-        },
-      },
-    },
-  },
   dockerls = {},
   tsserver = {
     on_attach = function(client, bufnr)
@@ -204,3 +180,8 @@ for lsp, opts in pairs(servers) do
   end
   nvim_lsp[lsp].setup(opts)
 end
+
+require('nlua.lsp.nvim').setup(require('lspconfig'), {
+  cmd = {vim.fn.expand('~/.homebrew/Cellar/lua-language-server/HEAD/bin/lua-language-server'), vim.fn.expand('~/.homebrew/Cellar/lua-language-server/HEAD/libexec/main.lua')},
+  on_attach = on_attach,
+})
