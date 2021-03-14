@@ -73,7 +73,8 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-ragtag'
   Plug 'moll/vim-bbye'
-
+  Plug 'dstein64/vim-startuptime'
+  Plug 'andymass/vim-matchup'
   Plug 'hashivim/vim-terraform'
 
   " Javascript {{{
@@ -359,10 +360,6 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
     syntax enable
   endif
 " }}}
-
-if !exists('g:loaded_matchit')
-  runtime! macros/matchit.vim " Include the matchit macro
-endif
 
 " General Mappings {{{
   " Allows moving up by screen lines, not file lines
