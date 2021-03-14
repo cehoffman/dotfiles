@@ -77,6 +77,7 @@ set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotf
   Plug 'dstein64/vim-startuptime'
   Plug 'andymass/vim-matchup'
   Plug 'hashivim/vim-terraform'
+  Plug 'norcalli/nvim-terminal.lua'
 
   " Javascript {{{
     Plug 'jason0x43/vim-js-indent', {'for': ['javascript']}
