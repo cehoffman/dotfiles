@@ -1,3 +1,5 @@
+require("cehoffman.util").au("packer_recompile", "BufWritePost plugins.lua PackerCompile")
+
 return require("packer").startup {
   function(use)
     use "wbthomason/packer.nvim"
