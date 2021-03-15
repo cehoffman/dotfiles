@@ -7,7 +7,8 @@ let mapleader = "," " \ is the default leader character
 let maplocalleader = ',' " \ is the default
 
 " TODO: add nvim default runtime paths
-set runtimepath=~/.dotfiles/vim,~/.vim,$VIMRUNTIME,~/.homebrew/share/vim,~/.dotfiles/vim/after
+set runtimepath^=~/.dotfiles/vim,~/.vim,
+set runtimepath+=~/.homebrew/share/vim,~/.dotfiles/vim/after
 
 " Plug initialization {{{
   filetype off
