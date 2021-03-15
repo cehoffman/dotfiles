@@ -6,10 +6,7 @@ local wo = vim.wo
 g.mapleader = ","
 g.maplocalleader = ","
 
-if require("cehoffman.first_load")() then
-  return
-end
-
+require("cehoffman.first_load")
 require("cehoffman.plugins")
 
 local util = require("cehoffman.util")

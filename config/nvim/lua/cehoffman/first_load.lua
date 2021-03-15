@@ -16,15 +16,9 @@ local download_packer = function()
 
   print(out)
   print("Downloading packer.nvim...")
-  print("( You'll need to restart now )")
+  vim.api.nvim_command "packadd packer.nvim"
 end
 
-return function()
-  if not pcall(require, "packer") then
-    download_packer()
-
-    return true
-  end
-
-  return
+if not pcall(require, "packer") then
+  download_packer()
 end
