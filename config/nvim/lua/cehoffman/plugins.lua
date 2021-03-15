@@ -65,6 +65,7 @@ return require("packer").startup {
     }
     use {"slashmili/alchemist.vim", ft = {"elixir"}}
     use {"elixir-editors/vim-elixir", ft = {"elixir"}}
+    use {"jeetsukumaran/vim-pythonsense", ft = {"python"}}
     use {
       "fatih/vim-go",
       ft = {"go"},
