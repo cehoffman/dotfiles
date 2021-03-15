@@ -1,0 +1,12 @@
+--type-add
+objc:*.pch
+--type-add
+ruby:*.haml
+---type-add
+xcode:*.{nib,pbxproj,pbxuser,perspectivev3}
+--type-not
+xcode
+--smart-case
+--hidden
+--glob
+!.git
