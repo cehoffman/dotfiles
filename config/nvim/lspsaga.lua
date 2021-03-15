@@ -4,7 +4,7 @@ require('lspsaga').init_lsp_saga({
   hint_sign = '➜',
   infor_sign = '⚑',
   dianostic_header_icon = ' ‼️  ',
-  code_action_icon = '💡',
+  code_action_icon = '➜ ',
   finder_definition_icon = '❃ ',
   finder_reference_icon = '❃ ',
   definition_preview_icon = '❃ ',
