@@ -220,6 +220,34 @@ local servers = {
   },
 }
 
+local blackExe = vim.fn.expand("~/.venvs/black/bin/black")
+if 1 == vim.fn.executable(blackExe) then
+  configs["black"] = {
+    default_config = {
+      cmd = {"env", "-u", "DYLD_INSERT_LIBRARIES", "efm-langserver"},
+      root_dir = util.root_pattern(".git", "pyproject.toml"),
+      filetypes = {"python"},
+      init_options = {documentFormatting = true},
+      settings = {
+        languages = {python = {{formatCommand = blackExe .. " -", formatStdin = true}}},
+      },
+    },
+  }
+  servers.black = {
+    on_attach = function(client, bufnr)
+      vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
+    end,
+  }
+end
+
+local jedi = vim.fn.expand("~/.venvs/jedi/bin/jedi-language-server")
+if 1 == vim.fn.executable(jedi) then
+  servers.jedi_language_server = {
+    cmd = {jedi},
+    root_dir = util.root_pattern("pyproject.toml"),
+  }
+end
+
 if 1 == vim.fn.executable("terraform-ls") then
   servers.terraformls = {}
 end
