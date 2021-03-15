@@ -603,7 +603,7 @@ if has("autocmd")
     autocmd User Fugitive
           \ nnoremap <silent> <buffer> <Leader>gs :Gstatus<CR>|
           \ nnoremap <silent> <buffer> <Leader>gc :Git commit<CR>|
-          \ nnoremap <silent> <buffer> <Leader>gw :Gwrite<CR>:redraw!<CR>|
+          \ nnoremap <silent> <buffer> <Leader>gw :Gwrite!<CR>:redraw!<CR>|
           \ nnoremap <silent> <buffer> <Leader>gl :Glog<CR>|
           \ nnoremap <silent> <buffer> <Leader>gd :call <SID>GdiffToggle()<CR>|
           \ nnoremap <silent> <Leader>gv :Git log <CR>|
