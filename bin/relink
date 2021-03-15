@@ -95,7 +95,7 @@ done
 for file in "$dotfiles"/*; do
   file="$(basename "$file")"
   case $file in
-    Readme.md|js|os|zsh|irb|vim|gitignore|fonts)
+    Readme.md|js|os|zsh|irb|vim|fonts)
       ;;
     bootstrap.sh|helpers.rb)
       ;;
