@@ -142,6 +142,7 @@ return require("packer").startup {
         require("telescope").load_extension("fzy_native")
       end,
     }
+    use {"nvim-telescope/telescope-frecency.nvim", after = {"telescope.nvim"}}
     use "mbbill/undotree"
     use {"junegunn/goyo.vim", cmd = {"Goyo"}}
     use {
