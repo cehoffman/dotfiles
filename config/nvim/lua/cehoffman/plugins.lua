@@ -7,6 +7,7 @@ return require("packer").startup {
     use "tpope/vim-jdaddy"
     use "tpope/vim-capslock"
     use "tpope/vim-fugitive"
+    use "rhysd/committia.vim"
     use {"rhysd/git-messenger.vim", config = require("cehoffman.gitmessenger").init}
     use "tpope/vim-git"
     use {
