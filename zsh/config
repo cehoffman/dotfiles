@@ -118,7 +118,7 @@ if [[ $IS_MAC = 0 ]]; then
   # Set a higher open file limit because we can stand it and it isn't
   # unreasonable to hit this with high concurrency file operations like
   # multiple git repository pulls
-  ulimit -S -n 200048
+  ulimit -S -n 40000
 fi
 
 export MANPATH
