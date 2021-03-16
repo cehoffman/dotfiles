@@ -223,4 +223,5 @@ return require("packer").startup {
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "hrsh7th/nvim-compe"
   end,
+  config = {display = {non_interactive = nil ~= os.getenv("NVIM_UPDATE")}},
 }
