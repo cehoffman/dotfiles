@@ -10,7 +10,10 @@ require("cehoffman.first_load")
 require("cehoffman.plugins")
 
 local util = require("cehoffman.util")
-util.au("patch_terminal", "TermOpen * startinsert", "TermClose * stopinsert")
+util.au(
+  "patch_terminal", "TermOpen * setlocal norelativenumber | startinsert",
+  "TermClose * stopinsert"
+)
 
 vim.cmd [[
   source ~/.vimrc
