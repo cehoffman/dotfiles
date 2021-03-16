@@ -115,6 +115,10 @@ function {
 if [[ $IS_MAC = 0 ]]; then
   fignore+='.DS_Store'
   export __CF_USER_TEXT_ENCODING="$(printf '0x%X' $(id -u)):0x08000100:0"
+  # Set a higher open file limit because we can stand it and it isn't
+  # unreasonable to hit this with high concurrency file operations like
+  # multiple git repository pulls
+  ulimit -S -n 200048
 fi
 
 export MANPATH
