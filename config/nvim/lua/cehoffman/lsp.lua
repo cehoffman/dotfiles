@@ -80,8 +80,10 @@ local on_attach = function(client, bufnr)
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
     nnoremap {"<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>"}
+    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
   elseif client.resolved_capabilities.document_range_formatting then
     nnoremap {"<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>"}
+    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
   end
 
   -- Set autocommands conditional on server_capabilities
@@ -167,12 +169,7 @@ configs["lua"] = {
 }
 
 local servers = {
-  gopls = {
-    on_attach = function(client, bufnr)
-      vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync()]]
-    end,
-    settings = {gopls = {gofumpt = true, linksInHover = false}},
-  },
+  gopls = {settings = {gopls = {gofumpt = true, linksInHover = false}}},
   vimls = {},
   kubernetes = {},
   kustomization = {},
@@ -213,11 +210,7 @@ local servers = {
       "typescriptreact",
     },
   },
-  lua = {
-    on_attach = function(client, bufnr)
-      vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 100)]]
-    end,
-  },
+  lua = {},
 }
 
 local blackExe = vim.fn.expand("~/.venvs/black/bin/black")
@@ -233,11 +226,7 @@ if 1 == vim.fn.executable(blackExe) then
       },
     },
   }
-  servers.black = {
-    on_attach = function(client, bufnr)
-      vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
-    end,
-  }
+  servers.black = {}
 end
 
 local jedi = vim.fn.expand("~/.venvs/jedi/bin/jedi-language-server")
