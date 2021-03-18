@@ -120,6 +120,9 @@ configs["kubernetes"] = {
     cmd = {"yaml-language-server", "--stdio"},
     filetypes = {"yaml"},
     root_dir = function(startpath, bufnr)
+      if string.find(vim.fn.expand("%:t"), "kubectl-") then
+        return "/"
+      end
       if vim.fn.expand("%:t") == "kustomization.yaml" then
         return nil
       end
