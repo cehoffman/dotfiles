@@ -52,7 +52,7 @@ local on_attach = function(client, bufnr)
     nnoremap {"<leader>a", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>"}
     vnoremap {
       "<leader>a",
-      "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>",
+      ":<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>",
     }
   end
   if client.resolved_capabilities.hover then
