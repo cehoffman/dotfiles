@@ -17,6 +17,13 @@ return require("packer").startup {
         vim.g.gitgutter_sign_priority = 1
       end,
     }
+    use {
+      "lambdalisue/suda.vim",
+      cmd = {"SudaRead", "SudaWrite"},
+      setup = function()
+        vim.g.suda_smart_edit = false
+      end,
+    }
     use {"pwntester/octo.nvim", after = {"telescope.nvim"}}
     use {
       "tpope/vim-endwise",
