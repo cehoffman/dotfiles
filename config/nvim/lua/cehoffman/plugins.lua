@@ -32,13 +32,17 @@ return require("packer").startup {
         vim.g.endwise_no_mappings = true
       end,
     }
-    use "tpope/vim-dadbod"
-    use {"kristijanhusak/vim-dadbod-ui", after = {"vim-dadbod"}}
-    use {"kristijanhusak/vim-dadbod-completion", after = {"vim-dadbod"}}
+    use {"kristijanhusak/vim-dadbod-ui", requires = {{"tpope/vim-dadbod"}}}
+    use {"kristijanhusak/vim-dadbod-completion", requires = {{"tpope/vim-dadbod"}}}
     use {"tpope/vim-rails", ft = {"ruby"}}
     use {"tpope/vim-rake", ft = {"ruby"}}
     use {"ecomba/vim-ruby-refactoring", ft = {"ruby"}}
-    use {"nelstrom/vim-textobj-rubyblock", ft = {"ruby"}, after = {"vim-textobj-user"}}
+    use "ryanoasis/vim-devicons"
+    use {
+      "nelstrom/vim-textobj-rubyblock",
+      ft = {"ruby"},
+      requires = {{"kana/vim-textobj-user"}},
+    }
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
     use "tpope/vim-abolish"
@@ -106,7 +110,6 @@ return require("packer").startup {
     use "SirVer/UltiSnips"
     use "honza/vim-snippets"
     use "godlygeek/tabular"
-    use "kana/vim-textobj-user"
     use "jamessan/vim-gnupg"
     use "vim-scripts/scratch.vim"
     use {
@@ -131,11 +134,9 @@ return require("packer").startup {
         vim.g.splitjoin_normalize_whitespace = 1
       end,
     }
-    use "nvim-lua/popup.nvim"
-    use "nvim-lua/plenary.nvim"
     use {
       "nvim-telescope/telescope.nvim",
-      after = {"plenary.nvim", "popup.nvim"},
+      requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
       config = function()
         require("telescope").setup(
           {defaults = {mappings = {i = {["<ESC>"] = require("telescope.actions").close}}}}
@@ -159,10 +160,9 @@ return require("packer").startup {
         vim.g.limelight_conceal_ctermfg = 240
       end,
     }
-    use "sjl/vitality.vim"
     use {
       "christoomey/vim-tmux-navigator",
-      after = {"vitality.vim"},
+      requires = {{"sjl/vitality.vim"}},
       setup = function()
         vim.g.tmux_navigator_save_on_switch = 1
       end,
