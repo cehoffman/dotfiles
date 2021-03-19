@@ -1,7 +1,7 @@
 golang 1.16.2
 ruby 3.0.0
 kubectl 1.20.4
-terraform 0.14.7
+terraform 0.14.8
 python 3.9.2
 nodejs 15.11.0
 erlang 23.2.7
