@@ -97,6 +97,9 @@ for file in "$dotfiles"/*; do
   case $file in
     Readme.md|js|os|zsh|irb|vim|fonts)
       ;;
+    tool-versions)
+      [ ! -f "${HOME}/.${file}" ] && cp "${file}" "${HOME}/.${file}"
+      ;;
     bootstrap.sh|helpers.rb)
       ;;
     editrc)
