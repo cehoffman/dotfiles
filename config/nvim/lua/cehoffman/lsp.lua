@@ -176,6 +176,15 @@ local servers = {
   vimls = {},
   kubernetes = {},
   kustomization = {},
+  yamlls = {
+    root_dir = function(startpath, bufnr)
+      for _, server in ipairs({"kubernetes", "kustomization"}) do
+        if nvim_lsp[server] and nvim_lsp[server].get_root_dir(startpath, bufnr) == nil then
+          return "/"
+        end
+      end
+    end,
+  },
   bashls = {filetypes = {"sh", "zsh", "bash"}},
   dockerls = {},
   tsserver = {
