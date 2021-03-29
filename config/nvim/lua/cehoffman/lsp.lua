@@ -92,11 +92,11 @@ local on_attach = function(client, bufnr)
       [[
       command! -buffer -nargs=0 -bar LspRename lua vim.lsp.buf.rename()
       augroup lsp_document_highlight
-          autocmd!
+          autocmd! * <buffer>
           autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
           autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-      ]], true
+      ]], false
     )
   end
 end
