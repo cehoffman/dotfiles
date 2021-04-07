@@ -133,6 +133,14 @@ if [[ -o interactive ]]; then
     export TERM="screen-256color"
   fi
 
+  ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+  ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=50
+  ZSH_AUTOSUGGEST_HISTORY_IGNORE="?(#c50,)" # Don't suggest anything longer than 50 characters from history
+  source ~/.dotfiles/zsh/vendor/autosuggestions/zsh-autosuggestions.zsh
+  unset ZSH_AUTOSUGGEST_USE_ASYNC
+  bindkey -M viins '^ ' autosuggest-fetch
+  bindkey -M viins '^[[[CE' autosuggest-execute
+
   # Make a nice colored interactive prompt
   source ~/.dotfiles/zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ZSH_HIGHLIGHT_STYLES[path]=none

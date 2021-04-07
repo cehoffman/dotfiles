@@ -28,3 +28,6 @@
 [submodule "zsh/vendor/zsh-nix-shell"]
 	path = zsh/vendor/zsh-nix-shell
 	url = https://github.com/chisui/zsh-nix-shell
+[submodule "zsh/vendor/autosuggestions"]
+	path = zsh/vendor/autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions

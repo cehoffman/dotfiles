@@ -831,6 +831,15 @@
 					<key>Text</key>
 					<string>9</string>
 				</dict>
+				<key>0xd-0x40000-0x24</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>[[CE</string>
+				</dict>
 				<key>0xf700-0x220000</key>
 				<dict>
 					<key>Action</key>
