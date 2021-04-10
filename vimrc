@@ -286,7 +286,7 @@ if has("autocmd")
     autocmd BufRead,BufNewFile *.cjs set ft=javascript
 
     " Maintain tabs for idiomatic go code
-    autocmd FileType go setlocal noexpandtab softtabstop=2 tabstop=2 listchars+=tab:\ \  completeopt-=preview
+    autocmd FileType go,gomod setlocal noexpandtab listchars+=tab:\ \  softtabstop=2 tabstop=2
     autocmd BufWrite *.go :call <SID>TrimTrailingWhitespace()
     autocmd BufWrite *.py :call <SID>TrimTrailingWhitespace()
     autocmd BufWrite *.rb :call <SID>TrimTrailingWhitespace()
