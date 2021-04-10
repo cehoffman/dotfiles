@@ -277,7 +277,7 @@ if has("autocmd")
     " Reload vimrc after editing
     " autocmd BufWritePost .vimrc source $MYVIMRC
     autocmd BufNewFile,BufRead *.txt setfiletype text
-    autocmd BufNewFile,BufRead .envrc setfiletype zsh
+    autocmd BufNewFile,BufRead .envrc setfiletype bash
     autocmd FileType diff setlocal nolist nospell
 
     " Ruby functions can have these in thier names
