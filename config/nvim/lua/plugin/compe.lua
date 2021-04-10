@@ -39,6 +39,6 @@ inoremap {
   expr = true,
 
 }
-inoremap {"<C-e>", "compe#close('<C-e>')", silent = true, expr = true}
+inoremap {"<C-e>", "compe#confirm()", silent = true, expr = true}
 inoremap {"<C-f>", "compe#scroll({ 'delta': +4 })", silent = true, expr = true}
 inoremap {"<C-d>", "compe#scroll({ 'delta': -4 })", silent = true, expr = true}
