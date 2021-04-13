@@ -563,6 +563,14 @@ if has("autocmd")
               \ | endif
               \ | nnoremap <buffer> q :q<CR>
       " }}}
+      " DadBod {{{
+        au BufEnter dbui if !exists('b:stl')
+              \ |   let b:stl = "#[FileName] DB <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %l "
+              \ | endif
+        au BufEnter *.dbout if !exists('b:stl')
+              \ |   let b:stl = "#[FileName] Result <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>%{b:db}#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %l "
+              \ | endif
+      " }}}
       " Scratch {{{
         au BufEnter __Scratch__ if !exists('b:stl')
               \ |   let b:stl = "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>#[FileName] Scratch <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName]%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% #[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber] %l#[LineColumn]:%c%V"
