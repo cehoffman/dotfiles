@@ -136,10 +136,12 @@ if [[ -o interactive ]]; then
   ZSH_AUTOSUGGEST_STRATEGY=(completion history)
   ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=50
   ZSH_AUTOSUGGEST_HISTORY_IGNORE="?(#c50,)" # Don't suggest anything longer than 50 characters from history
+  ZSH_AUTOSUGGEST_MANUAL_REBIND=1
   source ~/.dotfiles/zsh/vendor/autosuggestions/zsh-autosuggestions.zsh
   unset ZSH_AUTOSUGGEST_USE_ASYNC
   bindkey -M viins '^ ' autosuggest-fetch
   bindkey -M viins '^[[[CE' autosuggest-execute
+  bindkey '^Xa' autosuggest-toggle # because it breaks in multiline command editing
 
   # Make a nice colored interactive prompt
   source ~/.dotfiles/zsh/vendor/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
