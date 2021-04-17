@@ -1,7 +1,7 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-let $DYLD_INSERT_LIBRARIES=''
+unlet $DYLD_INSERT_LIBRARIES
 
 let mapleader = "," " \ is the default leader character
 let maplocalleader = ',' " \ is the default

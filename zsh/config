@@ -186,13 +186,11 @@ if [[ -o interactive ]]; then
   # with a fresh instance
   export STDERRED_ESC_CODE="$fg[red]"
   if [[ -f ~/.homebrew/lib/libstderred.dylib ]]; then
-    typeset -TgU DYLD_INSERT_LIBRARIES dyld_insert_libraries
+    typeset -TgUx DYLD_INSERT_LIBRARIES dyld_insert_libraries
     dyld_insert_libraries[1,0]=(~/.homebrew/lib/libstderred.dylib(-.))
-    export DYLD_INSERT_LIBRARIES
   elif [[ -f ~/.homebrew/lib/libstderred.so ]]; then
-    typeset -TgU LD_PRELOAD ld_preload
+    typeset -TgUx LD_PRELOAD ld_preload
     ld_preload[1,0]=($HOME/.homebrew/lib/libstderred.so(-.))
-    export LD_PRELOAD
   else
     if [[ "$STDERR_COLORIZE" != $$ ]]; then
       if (( $+commands[colorize] )); then
@@ -203,11 +201,6 @@ if [[ -o interactive ]]; then
       fi
       export STDERR_COLORIZE=$$
     fi
-  fi
-
-  if [[ -n "${VIM}" ]]; then
-    unset DYLD_INSERT_LIBRARIES
-    unset LD_PRELOAD
   fi
 
   # This needs to be done after all changes to fpath are made so _* commands
