@@ -977,6 +977,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
     tmap <C-H> <C-\><C-N><C-H>
     tmap <C-K> <C-\><C-N><C-K>
     tmap <C-L> <C-\><C-N><C-L>
+    tnoremap <Leader><Leader> <C-\><C-N><C-^>
 
     " Opens a vertical window and moves to it
     nnoremap <silent> <Leader>nv :vsplit<CR><C-W><C-W>
