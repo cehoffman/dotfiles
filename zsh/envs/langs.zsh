@@ -12,12 +12,7 @@ function {
     path[2,1]=("${ASDF_BIN}" "${ASDF_USER_SHIMS}")
     source "${ASDF_DIR}/lib/asdf.sh"
     if [[ -o interactive ]]; then
-      __init_asdf_comp() {
-        . ~/.asdf/completions/asdf.bash
-        precmd_functions[${precmd_functions[(i)__init_asdf_comp]}]=()
-        unfunction __init_asdf_comp
-      }
-      precmd_functions+=(__init_asdf_comp)
+      fpath+=(~/.asdf/completions)
 
       for lang in ${(k)ENV_LANGS}; do
         funs="

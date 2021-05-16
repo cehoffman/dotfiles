@@ -251,6 +251,10 @@ function _prompt_precmd {
   typeset -g _pr_pwdlen=''
   typeset -g _pr_fillwidth=''
 
+  if [[ -f .terraform/environment ]]; then
+    _pr_extras+="tf:$(< .terraform/environment)"
+  fi
+
   if [[ -n "${vcs_info_msg_0_}" ]]; then
     _pr_extras+="${vcs_info_msg_0_}"
     _pr_short_extras+="${vcs_info_msg_1_}"

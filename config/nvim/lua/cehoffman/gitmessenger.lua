@@ -10,6 +10,7 @@ function M.init()
     "gitmessenger_customize",
     "FileType gitmessengerpopup :lua require('cehoffman.gitmessenger').setup()"
   )
+  vim.g.git_messenger_floating_win_opts = {border = "double"}
 end
 
 return M
