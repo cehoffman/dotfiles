@@ -20,7 +20,7 @@ set runtimepath+=~/.homebrew/share/vim,~/.dotfiles/vim/after
   set incsearch            " do incremental searching
   set virtualedit=block    " allows editing inside of characters that may not actually exist
   set noshowmode           " The much improved statusline makes it trivial to know your mode
-  set scrolljump=10        " make the window jump 10 lines when reaching an edge, helpful to prevent slow scrolling
+  set scrolljump=3         " make the window jump 10 lines when reaching an edge, helpful to prevent slow scrolling
   set scrolloff=10         " Don't put the cursor so close to a windows edge
   set sidescrolloff=7      " sides can be a little more forgiving
   set sidescroll=1         " mode the side by 1
@@ -657,7 +657,7 @@ if has("autocmd")
           \ map <buffer> <Leader>gbj :Rjob |
 
     " automatically make the current working directory be the repo root
-    autocmd BufEnter,BufWinEnter * if exists("b:git_dir") | Glcd | endif
+    autocmd BufEnter,BufWinEnter * if exists("b:git_dir") | silent! Glcd | endif
 
     autocmd FileType cucumber set expandtab
   augroup END " }}}
@@ -1024,7 +1024,7 @@ command! FollowSymlink call <SID>MyFollowSymlink()
       let l:uri = matchstr(getline("."), "[a-zA-Z]\\+:\\/\\/\\([a-zA-Z0-9_-]\\+\\.\\)\\+[a-zA-Z]\\+\\(\\/[\\.a-zA-Z0-9_-]\\+\\)*\\ze[^\\.]\\?")
       if !empty(l:uri)
         echo l:uri
-        exec "!open " . shellescape(l:uri)
+        exec "!open " . shellescape(l:uri) . " &> /dev/null"
       else
         echo "No URI found in line."
       endif
