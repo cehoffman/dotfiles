@@ -281,8 +281,10 @@ function _prompt_precmd {
     done
   fi
 
-  if [[ (( $+commands[kubectl] )) && (( $+commands[jq] )) && -d ~/.kube/configs && -f ~/.kube/config ]]; then
-    _pr_extras+="%{$fg_no_bold[blue]%}⎈:$(kubectl config view --minify -o json | jq -r '.contexts | first.context | .user + "@" + .cluster + "/" + (.namespace // "default")')"
+  if (( $+commands[kubectl] )) && (( $+commands[jq] )) && [[ -d ~/.kube/configs && -f ~/.kube/config ]]; then
+    # Reverse path lookup to hopefuly avoid any kubeclt shims since we are
+    # using basic functionality and don't need a pinned version
+    _pr_extras+="%{$fg_no_bold[blue]%}⎈:$(path=(${(Oa)path}) kubectl config view --minify -o json | jq -r '.contexts | first.context | .user + "@" + .cluster + "/" + (.namespace // "default")')"
   fi
 
   tempinfo="%j"

@@ -30,14 +30,6 @@ if [[ -d ~/.homebrew ]]; then
 
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
-  if [ -f ~/.homebrew/opt/dvm/dvm.sh ]; then
-    source ~/.homebrew/opt/dvm/dvm.sh
-    eval "original_$(declare -f dvm)"
-    dvm() {
-      DYLD_INSERT_LIBRARIES= original_dvm "$@"
-    }
-  fi
-
   # Stop homebrew from removing my ability to revert an update easily, dicks
   export HOMEBREW_NO_INSTALL_CLEANUP=1
   alias brew="env -u http_proxy -u https_proxy -u GIT_SSL_CERT -u GIT_SSL_KEY -u GIT_SSL_CAINFO -u DYLD_INSERT_LIBRARIES brew"

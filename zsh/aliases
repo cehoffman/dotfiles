@@ -44,14 +44,16 @@ alias x='extract -d'
 alias history='fc -l 1'
 
 function reload() {
-  for file in ~/.dotfiles/zsh/functions/*(:t); do
-    if (( $+functions[$file] )); then
-      unfunction $file
-    fi
-    autoload -Uz $file
+  local fun dir
+  for dir in $fpath; do
+    for fun in "${dir}"*(-.:t); do
+      if (( $+functions[$fun] )); then
+        unfunction $fun
+      fi
+      autoload -Uz $fun
+    done
   done
 }
-reload
 
 function mcd() { mkdir -p "$1" && cd "$1" }
 
@@ -79,11 +81,6 @@ function debug() {
 }
 
 if [[ -o interactive && $IS_MAC = 0 ]]; then
-  # Aliases for setuid/setgid programs on Mac 10.8+ to avoid DYLD_ complaints
-  for prog ($path/*(s) $path/*(S)) alias ${prog:t}="env -u DYLD_INSERT_LIBRARIES $prog"
-  for prog ($path/nix-*(:t) $path/nix(:t) dep docker docker-machine go kubectl terraform vagrant) [[ $+commands[$prog] = 1 ]] && alias ${prog}="env -u DYLD_INSERT_LIBRARIES $prog"
-  unset prog
-
   # show and hide files from Finder
   alias hide="SetFile -a V"
   alias show="SetFile -a v"
@@ -100,18 +97,6 @@ if [[ -o interactive && $IS_MAC = 0 ]]; then
   function pman() {
     man -t $* | open -f -a Preview
   }
-
-  if [[ -r $HOME/Applications/MacVim.app ]]; then
-    alias vim="$HOME/Applications/MacVim.app/Contents/MacOS/Vim"
-    EDITOR=${=aliases[vim]}
-    VISUAL=$EDITOR
-  fi
-
-  if [[ -f /Library/Application\ Support/VMware\ Fusion/vmrun ]]; then
-    function fusion () {
-      /Library/Application\ Support/VMware\ Fusion/vmrun -T fusion "$@" nogui
-    }
-  fi
 fi
 
 # Rsync options are:
