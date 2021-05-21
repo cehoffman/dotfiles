@@ -106,12 +106,6 @@ path[1,0]=(~/.bin(@) /opt/{s,}bin(/) /usr/{,local/}{s,}bin(/) /Applications/Virt
 fpath[1,0]=(~/.dotfiles/zsh/functions(/) ~/.dotfiles/zsh/vendor/completions/src(/))
 manpath[1,0]=(/usr/local/share/man(/) /usr/share/man(/) /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man(/))
 
-# Load all of your custom configurations from envs/
-function {
-  local config_file
-  for config_file (~/.dotfiles/zsh/envs/*(on)) source $config_file
-}
-
 if [[ $IS_MAC = 0 ]]; then
   fignore+='.DS_Store'
   export __CF_USER_TEXT_ENCODING="$(printf '0x%X' $(id -u)):0x08000100:0"
@@ -206,8 +200,6 @@ if [[ -o interactive ]]; then
     fi
   fi
 
-  # This needs to be done after all changes to fpath are made so _* commands
-  # are setup correctly
   autoload -U compinit
   compinit -i
 
@@ -224,5 +216,11 @@ else
     ld_preload=("${(@)ld_preload:#$HOME/.homebrew/lib/libstderred.so}")
   fi
 fi
+
+# Load all of your custom configurations from envs/
+function {
+  local config_file
+  for config_file (~/.dotfiles/zsh/envs/*(on)) source $config_file
+}
 
 # vim: set ft=zsh:
