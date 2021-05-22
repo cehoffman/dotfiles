@@ -16,7 +16,12 @@ if (( $+commands[pip] )); then
   if (( $+commands[asdf] )); then
     pip() {
       command pip "$@"
-      asdf reshim
+      asdf reshim python
+    }
+
+    pip3() {
+      command pip3 "$@"
+      asdf reshim python
     }
   fi
 fi
