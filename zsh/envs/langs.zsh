@@ -11,6 +11,13 @@ function {
     path[2,1]=("${ASDF_BIN}" "${ASDF_USER_SHIMS}")
     source "${ASDF_DIR}/lib/asdf.sh"
     if [[ -o interactive ]]; then
+      # Keep ASDF man files at front on manpath
+      for mpath in $manpath; do
+        if [[ "${mpath##${ASDF_DIR}/installs/}" != "${mpath}" ]]; then
+          manpath[1,0]=($mpath:q)
+        fi
+      done
+
       fpath+=(~/.asdf/completions)
 
       for lang in ${(k)ENV_LANGS}; do
@@ -29,11 +36,11 @@ function {
           if [[ "\$cur" != "\$__cur_${lang}_version" ]]; then
             local mpath
             for mpath in \$manpath; do
-              if [[ \"\${mpath##$ASDF_DIR/installs/${lang}}\" != \"\${mpath}\" ]]; then
+              if [[ \"\${mpath##${ASDF_DIR}/installs/${lang}}\" != \"\${mpath}\" ]]; then
                 manpath=(\"\${(@)manpath:#\$mpath}\")
               fi
             done
-            manpath[1,0]=(\"$HOME/.asdf/installs/${lang}/\$cur/\"**\"/man\"(/))
+            manpath[1,0]=(\"${ASDF_DIR}/installs/${lang}/\$cur/\"**\"/man\"(/))
           fi
           export __cur_${lang}_version=\$cur
         }"
