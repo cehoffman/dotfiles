@@ -45,8 +45,11 @@ alias history='fc -l 1'
 
 function reload() {
   local fun dir
-  for dir in $fpath; do
-    for fun in "${dir}"*(-.:t); do
+  for dir in ${(Oa)fpath}; do
+    for fun in "${dir}/"*(-.:t); do
+      if [[ "${fun%.zwc}" != "${fun}" || "${fun#_}" != "${fun}" ]]; then
+        continue
+      fi
       if (( $+functions[$fun] )); then
         unfunction $fun
       fi
@@ -54,6 +57,7 @@ function reload() {
     done
   done
 }
+reload
 
 function mcd() { mkdir -p "$1" && cd "$1" }
 
