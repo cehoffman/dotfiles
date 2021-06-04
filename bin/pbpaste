@@ -1,6 +1,9 @@
 #!/bin/sh
-if nc -z localhsot 2225 &> /dev/null; then
+if [ "$(uname -o)" = "Darwin" ]; then
+  exec $(env PATH="$(echo -n $PATH | sed "s|$(dirname "$0"):||")" which $(basename "$0")) "$@"
+elif nc -z localhsot 2225 &> /dev/null; then
   nc localhost 2225
 else
-  exec $(env PATH="$(echo -n $PATH | sed "s|$(dirname "$0"):||")" which $(basename "$0")) "$@"
+  echo "Not on macOS and no port 2225 not open to receive"
+  exit 1
 fi
