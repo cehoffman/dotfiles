@@ -3,7 +3,7 @@ require("cehoffman.util").au("packer_recompile", "BufWritePost plugins.lua Packe
 return require("packer").startup {
   function(use)
     use "wbthomason/packer.nvim"
-    use "tjdevries/astronauta.nvim"
+    use {"tjdevries/astronauta.nvim", commit = "e69d7bdc4183047c4700427922c4a3cc1e3258c6"}
     use "tpope/vim-jdaddy"
     use "tpope/vim-capslock"
     use "tpope/vim-fugitive"
