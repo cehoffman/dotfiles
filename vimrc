@@ -609,7 +609,7 @@ if has("autocmd")
           \ nnoremap <buffer> <C-k> :m -2<CR>
 
     autocmd User Fugitive
-          \ nnoremap <silent> <buffer> <Leader>gs :Gstatus<CR>|
+          \ nnoremap <silent> <buffer> <Leader>gs :Git<CR>|
           \ nnoremap <silent> <buffer> <Leader>gc :Git commit<CR>|
           \ nnoremap <silent> <buffer> <Leader>gw :Gwrite!<CR>:redraw!<CR>|
           \ nnoremap <silent> <buffer> <Leader>gl :Glog<CR>|
