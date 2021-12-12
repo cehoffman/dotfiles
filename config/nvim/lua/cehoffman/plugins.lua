@@ -231,6 +231,16 @@ return require("packer").startup {
     use "tjdevries/nlua.nvim"
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "hrsh7th/nvim-compe"
+    use {
+      "n0v1c3/vira",
+      config = function()
+        vim.g.vira_serv = "https://flockfreight.atlassian.net"
+        vim.g.vira_report_width = 80
+      end,
+    }
+    use {"earthly/earthly.vim", commit = "main"}
+    use "towolf/vim-helm"
+    use "satabin/hocon-vim"
   end,
   config = {display = {non_interactive = nil ~= os.getenv("NVIM_UPDATE")}},
 }
