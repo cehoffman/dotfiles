@@ -1,6 +1,6 @@
 local nvim_lsp = require("lspconfig")
-local util = require("lspconfig/util")
-local configs = require("lspconfig/configs")
+local util = require("lspconfig.util")
+local configs = require("lspconfig.configs")
 
 local on_attach = function(client, bufnr)
   local opts = {buffer = bufnr, silent = true}
@@ -21,17 +21,18 @@ local on_attach = function(client, bufnr)
 
   -- Mappings
   -- nnoremap{'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>'}
-  -- nnoremap{'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>'}
   if client.resolved_capabilities.goto_definition then
     nnoremap {"<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>"}
   end
-  -- nnoremap{'K', '<Cmd>lua vim.lsp.buf.hover()<CR>'}
+  -- nnoremap {"K", "<Cmd>lua vim.lsp.buf.hover()<CR>"}
   if client.resolved_capabilities.implementation then
     nnoremap {"gi", "<cmd>lua vim.lsp.buf.implementation()<CR>"}
   end
   if client.resolved_capabilities.signature_help then
-    -- nnoremap{'<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>'}
-    inoremap {"<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"}
+    nnoremap {"<C-s>", "<cmd>Lspsaga signature_help<CR>"}
+    inoremap {"<C-s>", "<cmd>Lspsaga signature_help<CR>"}
+    -- nnoremap {"<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"}
+    -- inoremap {"<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"}
   end
   nnoremap {"<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>"}
   nnoremap {"<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>"}
@@ -49,10 +50,12 @@ local on_attach = function(client, bufnr)
     nnoremap {"gh", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>"}
   end
   if client.resolved_capabilities.code_action then
-    nnoremap {"<leader>a", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>"}
+    -- nnoremap {"<leader>a", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>"}
+    nnoremap {"<leader>a", "<cmd>Lspsaga code_action<CR>"}
     vnoremap {
       "<leader>a",
-      ":<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>",
+      -- ":<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>",
+      ":<C-U>Lspsaga range_code_action<CR>",
     }
   end
   if client.resolved_capabilities.hover then
@@ -67,15 +70,18 @@ local on_attach = function(client, bufnr)
     nnoremap {"gs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>"}
   end
   if client.resolved_capabilities.rename then
-    nnoremap {"gr", "<cmd>lua require('lspsaga.rename').rename()<CR>"}
+    -- nnoremap {"gr", "<cmd>lua require('lspsaga.rename').rename()<CR>"}
+    nnoremap {"gr", "<cmd>Lspsaga rename<CR>"}
   end
   nnoremap {"gd", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>"}
   nnoremap {
     "<space>e",
     "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>",
   }
-  nnoremap {"[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>"}
-  nnoremap {"]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>"}
+  -- nnoremap {"[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>"}
+  -- nnoremap {"]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>"}
+  nnoremap {"[d", "<cmd>Lspsaga jump_diagnostic_prev<CR>"}
+  nnoremap {"]d", "<cmd>Lspsaga jump_diagnostic_next<CR>"}
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
@@ -115,8 +121,9 @@ local eslint = {
   schemas because the LSP can only set schema based on file name matching and
   kubernetes schemas have infinite file names.
 --]]
-configs["kubernetes"] = {
+configs.kubernetes = {
   default_config = {
+    autostart = false,
     cmd = {"yaml-language-server", "--stdio"},
     filetypes = {"yaml"},
     root_dir = function(startpath, bufnr)
@@ -131,12 +138,15 @@ configs["kubernetes"] = {
       ) then
         return util.find_git_ancestor(startpath) or vim.fn.getcwd()
       end
+      return nil
     end,
     settings = {yaml = {schemas = {kubernetes = {"*.yaml", "*.yml"}}}},
+    single_file_support = true,
   },
 }
-configs["kustomization"] = {
+configs.kustomization = {
   default_config = {
+    autostart = false,
     cmd = {"yaml-language-server", "--stdio"},
     filetypes = {"yaml"},
     root_dir = function(startpath, bufnr)
@@ -151,9 +161,10 @@ configs["kustomization"] = {
         },
       },
     },
+    single_file_support = true,
   },
 }
-configs["lua"] = {
+configs.lua = {
   default_config = {
     cmd = {"env", "-u", "DYLD_INSERT_LIBRARIES", "efm-langserver"},
     root_dir = function()
@@ -177,12 +188,23 @@ local servers = {
   kubernetes = {},
   kustomization = {},
   yamlls = {
+    autostart = false,
     root_dir = function(startpath, bufnr)
+      -- bail on helm charts
+      if util.path.exists(util.path.join(vim.fn.expand("%:h:h"), "Chart.yaml")) then
+        return nil
+      end
+
+      local noMatches = true
       for _, server in ipairs({"kubernetes", "kustomization"}) do
         if nvim_lsp[server] and nvim_lsp[server].get_root_dir(startpath, bufnr) == nil then
-          return "/"
+          noMatches = false
         end
       end
+      if noMatches then
+        return "/"
+      end
+      return nil
     end,
   },
   bashls = {filetypes = {"sh", "zsh", "bash"}},

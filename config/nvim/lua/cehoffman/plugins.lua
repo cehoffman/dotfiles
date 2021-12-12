@@ -207,7 +207,7 @@ return require("packer").startup {
       end,
     }
     use {
-      "glepnir/lspsaga.nvim",
+      "tami5/lspsaga.nvim",
       config = function()
         require("lspsaga").init_lsp_saga(
           {
@@ -215,12 +215,12 @@ return require("packer").startup {
             warn_sign = "‼",
             hint_sign = "➜",
             infor_sign = "⚑",
-            dianostic_header_icon = " ‼️  ",
+            diagnostic_header_icon = " ‼️  ",
             code_action_icon = "➜ ",
             finder_definition_icon = "❃ ",
             finder_reference_icon = "❃ ",
             definition_preview_icon = "❃ ",
-            border_style = 2,
+            border_style = "single",
             code_action_keys = {quit = {"<esc>", "q"}},
             finder_action_keys = {quit = {"<esc>", "q"}},
             rename_action_keys = {quit = {"<esc>", "<C-c>"}},

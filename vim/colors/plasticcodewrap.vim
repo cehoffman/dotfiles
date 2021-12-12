@@ -196,6 +196,16 @@ hi link UndotreeNext Statement
 hi link UndotreeSeq Text
 hi link UndotreeSavedBig Tag
 
+" Lspsaga
+hi link LspFloatWinNormal CursorLine
+hi link LspFloatWinBorder CursorLine
+hi link LspSagaCodeActionBorder CursorLine
+hi link LspSagaHoverBorder CursorLine
+hi link LspSagaRenameBorder CursorLine
+hi link LspSagaSignatureHelpBorder CursorLine
+hi link LspSagaDefPreviewBorder CursorLine
+hi link LspSagaLinesDiagBorder CursorLine
+
 " ruby << RUBY
 "   his = {:name => [], :term => [], :cterm => [], :ctermfg => [], :ctermbg => [], :gui => [], :guifg => [], :guibg => []}
 "   maxes = {}
