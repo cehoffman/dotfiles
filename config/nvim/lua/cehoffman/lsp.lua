@@ -80,8 +80,8 @@ local on_attach = function(client, bufnr)
   }
   -- nnoremap {"[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>"}
   -- nnoremap {"]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>"}
-  nnoremap {"[d", "<cmd>Lspsaga jump_diagnostic_prev<CR>"}
-  nnoremap {"]d", "<cmd>Lspsaga jump_diagnostic_next<CR>"}
+  nnoremap {"[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>"}
+  nnoremap {"]d", "<cmd>Lspsaga diagnostic_jump_next<CR>"}
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
