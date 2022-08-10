@@ -1,5 +1,3 @@
-local inoremap = vim.keymap.inoremap
-
 require("compe").setup {
   enabled = true,
   autocomplete = true,
@@ -31,15 +29,17 @@ require("compe").setup {
   },
 }
 
-inoremap {"<C-Space>", "compe#complete()", silent = true, expr = true}
-inoremap {
+vim.keymap.set ("i", "<C-Space>", "compe#complete()", {silent = true, expr = true, noremap = true})
+vim.keymap.set ("i",
   "<CR>",
   [[compe#confirm({'keys': "\<Plug>delimitMateCR\<Plug>DiscretionaryEnd", 'mode': ''})]],
-  silent = true,
-  expr = true,
-
-}
-inoremap {"<C-e>", "compe#confirm()", silent = true, expr = true}
-inoremap {"<C-f>", "compe#scroll({ 'delta': +4 })", silent = true, expr = true}
-inoremap {"<C-d>", "compe#scroll({ 'delta': -4 })", silent = true, expr = true}
-inoremap {"<ESC>", "compe#close('<ESC>').\"\\<ESC>\"", silent = true, expr = true}
+  {
+    silent = true,
+    expr = true,
+    noremap = true
+  }
+)
+vim.keymap.set ("i", "<C-e>", "compe#confirm()", {silent = true, expr = true, noremap = true})
+vim.keymap.set ("i", "<C-f>", "compe#scroll({ 'delta': +4 })", {silent = true, expr = true, noremap = true})
+vim.keymap.set ("i", "<C-d>", "compe#scroll({ 'delta': -4 })", {silent = true, expr = true, noremap = true})
+vim.keymap.set ("i", "<ESC>", "compe#close('<ESC>').\"\\<ESC>\"", {silent = true, expr = true, noremap = true})

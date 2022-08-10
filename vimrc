@@ -609,13 +609,14 @@ if has("autocmd")
           \ nnoremap <buffer> <C-j> :m +1<CR>|
           \ nnoremap <buffer> <C-k> :m -2<CR>
 
-    autocmd User Fugitive
+    autocmd BufNewFile,BufReadPost * if !empty(FugitiveGitDir()) |
           \ nnoremap <silent> <buffer> <Leader>gs :Git<CR>|
           \ nnoremap <silent> <buffer> <Leader>gc :Git commit<CR>|
           \ nnoremap <silent> <buffer> <Leader>gw :Gwrite!<CR>:redraw!<CR>|
           \ nnoremap <silent> <buffer> <Leader>gl :Glog<CR>|
           \ nnoremap <silent> <buffer> <Leader>gd :call <SID>GdiffToggle()<CR>|
-          \ nnoremap <silent> <Leader>gv :Git log <CR>|
+          \ nnoremap <silent> <Leader>gv :Git log <CR>
+          \ endif
           " \ nnoremap <silent> <Leader>gV :Gitv! --all<CR>
 
     autocmd FileType gitcommit setlocal spell

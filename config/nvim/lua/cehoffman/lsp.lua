@@ -3,15 +3,15 @@ local util = require("lspconfig.util")
 local configs = require("lspconfig.configs")
 
 local on_attach = function(client, bufnr)
-  local opts = {buffer = bufnr, silent = true}
-  local nnoremap = function(args)
-    vim.keymap.nnoremap(vim.tbl_extend("keep", vim.empty_dict(), args, opts))
+  local opts = {buffer = bufnr, silent = true, noremap = true}
+  local nnoremap = function(lhs, rhs, ...)
+    vim.keymap.set("n", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), opts))
   end
-  local inoremap = function(args)
-    vim.keymap.inoremap(vim.tbl_extend("keep", args, opts))
+  local inoremap = function(lhs, rhs, ...)
+    vim.keymap.set("i", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), opts))
   end
-  local vnoremap = function(args)
-    vim.keymap.vnoremap(vim.tbl_extend("keep", args, opts))
+  local vnoremap = function(lhs, rhs, ...)
+    vim.keymap.set("v", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), opts))
   end
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
@@ -22,73 +22,73 @@ local on_attach = function(client, bufnr)
   -- Mappings
   -- nnoremap{'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>'}
   if client.resolved_capabilities.goto_definition then
-    nnoremap {"<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>"}
+    nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>")
   end
   -- nnoremap {"K", "<Cmd>lua vim.lsp.buf.hover()<CR>"}
   if client.resolved_capabilities.implementation then
-    nnoremap {"gi", "<cmd>lua vim.lsp.buf.implementation()<CR>"}
+    nnoremap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
   end
   if client.resolved_capabilities.signature_help then
-    nnoremap {"<C-s>", "<cmd>Lspsaga signature_help<CR>"}
-    inoremap {"<C-s>", "<cmd>Lspsaga signature_help<CR>"}
+    nnoremap("<C-s>", "<cmd>Lspsaga signature_help<CR>")
+    inoremap("<C-s>", "<cmd>Lspsaga signature_help<CR>")
     -- nnoremap {"<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"}
     -- inoremap {"<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"}
   end
-  nnoremap {"<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>"}
-  nnoremap {"<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>"}
-  nnoremap {
+  nnoremap("<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
+  nnoremap("<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
+  nnoremap(
     "<space>wl",
-    "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-  }
+    "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>"
+  )
   if client.resolved_capabilities.type_definition then
-    nnoremap {"<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>"}
+    nnoremap("<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
   end
-  nnoremap {"<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"}
+  nnoremap("<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>")
 
   -- lsp saga
   if client.resolved_capabilities.find_references then
-    nnoremap {"gh", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>"}
+    nnoremap("gh", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>")
   end
   if client.resolved_capabilities.code_action then
     -- nnoremap {"<leader>a", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>"}
-    nnoremap {"<leader>a", "<cmd>Lspsaga code_action<CR>"}
-    vnoremap {
+    nnoremap("<leader>a", "<cmd>Lspsaga code_action<CR>")
+    vnoremap(
       "<leader>a",
       -- ":<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>",
-      ":<C-U>Lspsaga range_code_action<CR>",
-    }
+      ":<C-U>Lspsaga range_code_action<CR>"
+    )
   end
   if client.resolved_capabilities.hover then
-    nnoremap {"K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>"}
-    nnoremap {"<C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>"}
-    nnoremap {
+    nnoremap("K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>")
+    nnoremap("<C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
+    nnoremap(
       "<C-b>",
-      "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>",
-    }
+      "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>"
+    )
   end
   if client.resolved_capabilities.signature_help then
-    nnoremap {"gs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>"}
+    nnoremap("gs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>")
   end
   if client.resolved_capabilities.rename then
     -- nnoremap {"gr", "<cmd>lua require('lspsaga.rename').rename()<CR>"}
-    nnoremap {"gr", "<cmd>Lspsaga rename<CR>"}
+    nnoremap("gr", "<cmd>Lspsaga rename<CR>")
   end
-  nnoremap {"gd", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>"}
-  nnoremap {
+  nnoremap("gd", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>")
+  nnoremap(
     "<space>e",
-    "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>",
-  }
+    "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>"
+  )
   -- nnoremap {"[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>"}
   -- nnoremap {"]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>"}
-  nnoremap {"[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>"}
-  nnoremap {"]d", "<cmd>Lspsaga diagnostic_jump_next<CR>"}
+  nnoremap("[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+  nnoremap("]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    nnoremap {"<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>"}
+    nnoremap ("<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
     vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
   elseif client.resolved_capabilities.document_range_formatting then
-    nnoremap {"<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>"}
+    nnoremap ("<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
     vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
   end
 

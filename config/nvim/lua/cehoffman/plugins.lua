@@ -24,7 +24,14 @@ return require("packer").startup {
         vim.g.suda_smart_edit = false
       end,
     }
-    use {"pwntester/octo.nvim", after = {"telescope.nvim"}}
+    use {
+      "pwntester/octo.nvim",
+      after = {"telescope.nvim"},
+      requires = {"kyazdani42/nvim-web-devicons"},
+      config = function()
+        require"octo".setup()
+      end,
+    }
     use {
       "tpope/vim-endwise",
       setup = function()

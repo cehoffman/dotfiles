@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-  vim.keymap.nmap {"<C-o>", "o", buffer = true}
-  vim.keymap.nmap {"<C-i>", "O", buffer = true}
+  vim.keymap.set("n", "<C-o>", "o", {buffer = true})
+  vim.keymap.set("n", "<C-i>", "O", {buffer = true})
 end
 
 function M.init()
