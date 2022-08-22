@@ -59,7 +59,7 @@ function reload() {
 }
 reload
 
-function mcd() { mkdir -p "$1" && cd "$1" }
+function mkcd() { mkdir -p "$1" && cd "$1" }
 
 function {
   emulate -L zsh
