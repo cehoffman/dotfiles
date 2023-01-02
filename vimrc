@@ -547,6 +547,7 @@ if has("autocmd")
         au BufEnter __Tagbar__* if !exists('b:stl')
               \ |   let b:stl = "#[FileName] Tagbar <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName] %{g:tagbar_sort ? 'Name' : 'Declaration'}%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
               \ | endif
+        au FileType vista,vista_kind nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>
         au BufEnter __vista__* if !exists('b:stl')
               \ |   let b:stl = "#[FileName] Vista <NCUR>[>]</NCUR>#[FileNameS]<CUR>[>>]</CUR>#[FunctionName] %{get(g:vista.source, 'fname', '')}%<%=#[LinePercentS]<CUR>[<<]</CUR>#[LinePercent] %p%% "
               \ | endif
