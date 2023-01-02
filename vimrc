@@ -228,7 +228,7 @@ set runtimepath+=~/.homebrew/share/vim,~/.dotfiles/vim/after
 
       " Let vim know which tab this delineates
       let label .= '%#TabLine# '
-      let label .= '%' . (i == current ? '#TabLineSel#' : '#TabLine#') . '%' . i . 'T'
+      let label .= '%' . (i == current ? '#TabLineSel#' : '#TabLine#') . '%' . i . 'T'
 
       " Append the tab number
       let label .= i . ': '
@@ -257,7 +257,7 @@ set runtimepath+=~/.homebrew/share/vim,~/.dotfiles/vim/after
       endfor
 
       " Append the number of windows in the tab page
-      let label .= '[' . tabpagewinnr(i, '$') . ']' . (i == current ? '' : '')
+      let label .= '[' . tabpagewinnr(i, '$') . ']' . (i == current ? '' : '')
       let i += 1
     endwhile
 
@@ -523,7 +523,7 @@ if has("autocmd")
     " Default statusline {{{
       let g:default_stl  = ""
       let g:default_stl .= "<CUR>#[Mode] %{&paste ? 'PASTE [>] ' : ''}%{strtrans(mode())} #[ModeS][>>]</CUR>"
-      let g:default_stl .= "#[Branch] %(%{exists('*fugitive#statusline') ? substitute(fugitive#statusline(), '\\[GIT(\\([a-z0-9\\-_\\./:]\\+\\))\\]', ' \\1', 'gi') : ''}#[BranchS] [>]%)" " Git branch
+      let g:default_stl .= "#[Branch] %(%{exists('*fugitive#statusline') ? substitute(fugitive#statusline(), '\\[GIT(\\([a-z0-9\\-_\\./:]\\+\\))\\]', ' \\1', 'gi') : ''}#[BranchS] [>]%)" " Git branch
       let g:default_stl .= "#[ModFlag]%{&readonly ? ' ' : ''}#[FileName] %t " " File name
       let g:default_stl .= "#[ModFlag]%(%M %)" " Modified flag
       let g:default_stl .= "#[BufFlag]%(%H%W %)" " HLP,PRV flags
@@ -533,7 +533,7 @@ if has("autocmd")
       let g:default_stl .= "%= " " Right align
       let g:default_stl .= "<CUR>#[FileFormat]%{&fileformat} </CUR>" " File format
       let g:default_stl .= "<CUR>#[FileEncoding]%{(&fenc == '' ? &enc : &fenc)} </CUR>" " File encoding
-      let g:default_stl .= "<CUR>#[Separator][<] #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
+      let g:default_stl .= "<CUR>#[Separator][<] #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
       let g:default_stl .= "<CUR>#[LinePercentS][<<]#[LinePercent]</CUR> %p%% " " Line percentage
       let g:default_stl .= "#[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber]"
       let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage
