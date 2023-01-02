@@ -221,23 +221,26 @@ return require("packer").startup {
       end,
     }
     use {
-      "tami5/lspsaga.nvim",
+      "glepnir/lspsaga.nvim",
       config = function()
         require("lspsaga").init_lsp_saga(
           {
-            error_sign = "✖",
-            warn_sign = "‼",
-            hint_sign = "➜",
-            infor_sign = "⚑",
-            diagnostic_header_icon = " ‼️  ",
+            diagnostic_header = { "✖", "‼", "⚑", "➜" },
+            -- error_sign = "✖",
+            -- warn_sign = "‼",
+            -- hint_sign = "➜",
+            -- infor_sign = "⚑",
+            -- diagnostic_header_icon = " ‼️  ",
             code_action_icon = "➜ ",
-            finder_definition_icon = "❃ ",
-            finder_reference_icon = "❃ ",
-            definition_preview_icon = "❃ ",
+            finder_icons = { def = "❃ ", ref = "❃ ", link = "❃ " },
+            -- finder_definition_icon = "❃ ",
+            -- finder_reference_icon = "❃ ",
+            -- definition_preview_icon = "❃ ",
             border_style = "single",
-            code_action_keys = {quit = {"<esc>", "q"}},
-            finder_action_keys = {quit = {"<esc>", "q"}},
-            rename_action_keys = {quit = {"<esc>", "<C-c>"}},
+            code_action_keys = { quit = { "<esc>", "q" } },
+            finder_action_keys = { quit = { "<esc>", "q" } },
+            rename_action_quit = { "<esc>", "<C-c>" },
+            -- rename_action_keys = {quit = {"<esc>", "<C-c>"}},
           }
         )
       end,

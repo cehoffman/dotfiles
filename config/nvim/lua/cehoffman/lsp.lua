@@ -29,80 +29,56 @@ local on_attach = function(client, bufnr)
   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   -- Mappings
-  -- nnoremap{'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>'}
-  if client.resolved_capabilities.goto_definition then
-    nnoremap("<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>")
+  if client.server_capabilities.definitionProvider then
+    nnoremap("<C-]>", vim.lsp.buf.definition)
   end
-  -- nnoremap {"K", "<Cmd>lua vim.lsp.buf.hover()<CR>"}
-  if client.resolved_capabilities.implementation then
-    nnoremap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+  if client.server_capabilities.implementationProvider then
+    nnoremap("gi", vim.lsp.buf.implementation)
   end
-  if client.resolved_capabilities.signature_help then
-    nnoremap("<C-s>", "<cmd>Lspsaga signature_help<CR>")
-    inoremap("<C-s>", "<cmd>Lspsaga signature_help<CR>")
-    -- nnoremap {"<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"}
-    -- inoremap {"<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"}
+  if client.server_capabilities.signatureHelpProvider then
+    nnoremap("<C-s>", vim.lsp.buf.signature_help)
+    inoremap("<C-s>", vim.lsp.buf.signature_help)
   end
-  nnoremap("<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
-  nnoremap("<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
+  nnoremap("<space>wa", vim.lsp.buf.add_workspace_folder)
+  nnoremap("<space>wr", vim.lsp.buf.remove_workspace_folder)
   nnoremap(
-    "<space>wl",
-    "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>"
+    "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>"
   )
-  if client.resolved_capabilities.type_definition then
-    nnoremap("<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
+  if client.server_capabilities.typeDefinitionProvider then
+    nnoremap("<space>D", vim.lsp.buf.type_definition)
   end
-  nnoremap("<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>")
 
   -- lsp saga
-  if client.resolved_capabilities.find_references then
-    nnoremap("gh", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>")
+  if client.server_capabilities.referencesProvider then
+    nnoremap("gh", "<cmd>Lspsaga lsp_finder<CR>")
   end
-  if client.resolved_capabilities.code_action then
-    -- nnoremap {"<leader>a", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>"}
+  if client.server_capabilities.codeActionProvider then
     nnoremap("<leader>a", "<cmd>Lspsaga code_action<CR>")
-    vnoremap(
-      "<leader>a",
-      -- ":<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>",
-      ":<C-U>Lspsaga range_code_action<CR>"
-    )
   end
-  if client.resolved_capabilities.hover then
-    nnoremap("K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>")
-    nnoremap("<C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
-    nnoremap(
-      "<C-b>",
-      "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>"
-    )
+  if client.server_capabilities.hoverProvider then
+    nnoremap("K", "<cmd>Lspsaga hover_doc<CR>")
   end
-  if client.resolved_capabilities.signature_help then
-    nnoremap("gs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>")
-  end
-  if client.resolved_capabilities.rename then
-    -- nnoremap {"gr", "<cmd>lua require('lspsaga.rename').rename()<CR>"}
+  if client.server_capabilities.renameProvider then
     nnoremap("gr", "<cmd>Lspsaga rename<CR>")
   end
-  nnoremap("gd", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>")
-  nnoremap(
-    "<space>e",
-    "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>"
-  )
-  -- nnoremap {"[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>"}
-  -- nnoremap {"]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>"}
+  if client.server_capabilities.definitionProvider then
+    nnoremap("gd", "<cmd>Lspsaga peek_definition<CR>")
+  end
+  nnoremap("<space>d", "<cmd>Lspsaga show_line_diagnostics<CR>")
   nnoremap("[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
   nnoremap("]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 
   -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    nnoremap ("<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
-  elseif client.resolved_capabilities.document_range_formatting then
-    nnoremap ("<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
+  if client.server_capabilities.documentFormattingProvider then
+    nnoremap("<space>f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
+    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false, timeout_ms = 1000})]]
+  elseif client.server_capabilities.documentRangeFormattingProvider then
+    nnoremap("<space>f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
+    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false, timeout_ms = 1000})]]
   end
 
   -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_exec(
       [[
       command! -buffer -nargs=0 -bar LspRename lua vim.lsp.buf.rename()
@@ -224,14 +200,14 @@ local servers = {
         client.config.flags.allow_incremental_sync = true
       end
       -- disable formating because eslint will do it
-      client.resolved_capabilities.document_formatting = false
+      client.server_capabilities.documentFormattingProvider = false
     end,
   },
   efm = {
     cmd = {"env", "-u", "DYLD_INSERT_LIBRARIES", "efm-langserver"},
     on_attach = function(client, bufnr)
-      client.resolved_capabilities.document_formatting = true
-      client.resolved_capabilities.goto_definition = false
+      client.server_capabilities.documentFormattingProvider = true
+      client.server_capabilities.definitionProvider = false
     end,
     root_dir = util.root_pattern(".git", ".eslintrc"),
     settings = {
