@@ -5,13 +5,22 @@ local configs = require("lspconfig.configs")
 local on_attach = function(client, bufnr)
   local opts = {buffer = bufnr, silent = true, noremap = true}
   local nnoremap = function(lhs, rhs, ...)
-    vim.keymap.set("n", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), opts))
+    vim.keymap.set(
+      "n", lhs, rhs,
+      vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), opts)
+    )
   end
   local inoremap = function(lhs, rhs, ...)
-    vim.keymap.set("i", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), opts))
+    vim.keymap.set(
+      "i", lhs, rhs,
+      vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), opts)
+    )
   end
   local vnoremap = function(lhs, rhs, ...)
-    vim.keymap.set("v", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), opts))
+    vim.keymap.set(
+      "v", lhs, rhs,
+      vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), opts)
+    )
   end
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)

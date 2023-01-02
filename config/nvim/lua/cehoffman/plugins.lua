@@ -3,12 +3,12 @@ require("cehoffman.util").au("packer_recompile", "BufWritePost plugins.lua Packe
 return require("packer").startup {
   function(use)
     use "wbthomason/packer.nvim"
-    use {"tjdevries/astronauta.nvim", commit = "e69d7bdc4183047c4700427922c4a3cc1e3258c6"}
+    use { "tjdevries/astronauta.nvim", commit = "e69d7bdc4183047c4700427922c4a3cc1e3258c6" }
     use "tpope/vim-jdaddy"
     use "tpope/vim-capslock"
     use "tpope/vim-fugitive"
     use "rhysd/committia.vim"
-    use {"rhysd/git-messenger.vim", config = require("cehoffman.gitmessenger").init}
+    use { "rhysd/git-messenger.vim", config = require("cehoffman.gitmessenger").init }
     use "tpope/vim-git"
     use {
       "airblade/vim-gitgutter",
@@ -19,36 +19,37 @@ return require("packer").startup {
     }
     use {
       "lambdalisue/suda.vim",
-      cmd = {"SudaRead", "SudaWrite"},
+      cmd = { "SudaRead", "SudaWrite" },
       setup = function()
         vim.g.suda_smart_edit = false
       end,
     }
     use {
       "pwntester/octo.nvim",
-      after = {"telescope.nvim"},
-      requires = {"kyazdani42/nvim-web-devicons"},
+      after = { "telescope.nvim" },
+      requires = { "kyazdani42/nvim-web-devicons" },
       config = function()
-        require"octo".setup()
+        require "octo".setup()
       end,
     }
     use {
       "tpope/vim-endwise",
       setup = function()
+
         -- Compe will call delimitMate and EndWise
-        vim.g.endwise_no_mappings = true
+        -- vim.g.endwise_no_mappings = true
       end,
     }
-    use {"kristijanhusak/vim-dadbod-ui", requires = {{"tpope/vim-dadbod"}}}
-    use {"kristijanhusak/vim-dadbod-completion", requires = {{"tpope/vim-dadbod"}}}
-    use {"tpope/vim-rails", ft = {"ruby"}}
-    use {"tpope/vim-rake", ft = {"ruby"}}
-    use {"ecomba/vim-ruby-refactoring", ft = {"ruby"}}
+    use { "kristijanhusak/vim-dadbod-ui", requires = { { "tpope/vim-dadbod" } } }
+    use { "kristijanhusak/vim-dadbod-completion", requires = { { "tpope/vim-dadbod" } } }
+    use { "tpope/vim-rails", ft = { "ruby" } }
+    use { "tpope/vim-rake", ft = { "ruby" } }
+    use { "ecomba/vim-ruby-refactoring", ft = { "ruby" } }
     use "ryanoasis/vim-devicons"
     use {
       "nelstrom/vim-textobj-rubyblock",
-      ft = {"ruby"},
-      requires = {{"kana/vim-textobj-user"}},
+      ft = { "ruby" },
+      requires = { { "kana/vim-textobj-user" } },
     }
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
@@ -65,29 +66,29 @@ return require("packer").startup {
     use "tpope/vim-ragtag"
     use "moll/vim-bbye"
     use "dstein64/vim-startuptime"
-    use {"andymass/vim-matchup", event = "VimEnter *"}
+    use { "andymass/vim-matchup", event = "VimEnter *" }
     use "hashivim/vim-terraform"
     use "norcalli/nvim-terminal.lua"
-    use {"jason0x43/vim-js-indent", ft = {"javascript"}}
-    use {"leafgarland/typescript-vim", ft = {"typescript", "typescriptreact"}}
-    use {"peitalin/vim-jsx-typescript", ft = {"typescriptreact", "jsx"}}
-    use {"moll/vim-node", ft = {"javascript"}}
-    use {"vim-scripts/Match-Bracket-for-Objective-C", ft = {"objc"}}
+    use { "jason0x43/vim-js-indent", ft = { "javascript" } }
+    use { "leafgarland/typescript-vim", ft = { "typescript", "typescriptreact" } }
+    use { "peitalin/vim-jsx-typescript", ft = { "typescriptreact", "jsx" } }
+    use { "moll/vim-node", ft = { "javascript" } }
+    use { "vim-scripts/Match-Bracket-for-Objective-C", ft = { "objc" } }
     use "markcornick/vim-bats"
     use {
       "mhinz/vim-mix-format",
-      ft = {"elixir"},
+      ft = { "elixir" },
       setup = function()
         vim.g.mix_format_on_save = true
         vim.g.mix_format_options = "--check-equivalent"
       end,
     }
-    use {"slashmili/alchemist.vim", ft = {"elixir"}}
-    use {"elixir-editors/vim-elixir", ft = {"elixir"}}
-    use {"jeetsukumaran/vim-pythonsense", ft = {"python"}}
+    use { "slashmili/alchemist.vim", ft = { "elixir" } }
+    use { "elixir-editors/vim-elixir", ft = { "elixir" } }
+    use { "jeetsukumaran/vim-pythonsense", ft = { "python" } }
     use {
       "fatih/vim-go",
-      ft = {"go"},
+      ft = { "go" },
       run = ":GoUpdateBinaries",
       setup = function()
         vim.g.go_def_mapping_enabled = 0
@@ -103,10 +104,10 @@ return require("packer").startup {
     use "MarcWeber/vim-addon-local-vimrc"
     use {
       "mhinz/vim-grepper",
-      cmd = {"Grepper"},
+      cmd = { "Grepper" },
       setup = function()
         vim.g.grepper = {
-          tools = {"rg", "ag", "git", "ack", "grep"},
+          tools = { "rg", "ag", "git", "ack", "grep" },
           simple_prompt = true,
           prompt_quote = true,
           switch = false,
@@ -143,33 +144,33 @@ return require("packer").startup {
     }
     use {
       "nvim-telescope/telescope.nvim",
-      requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
+      requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
       config = function()
         require("telescope").setup(
-          {defaults = {mappings = {i = {["<ESC>"] = require("telescope.actions").close}}}}
+          { defaults = { mappings = { i = { ["<ESC>"] = require("telescope.actions").close } } } }
         )
       end,
     }
     use {
       "nvim-telescope/telescope-fzy-native.nvim",
-      after = {"telescope.nvim"},
+      after = { "telescope.nvim" },
       config = function()
         require("telescope").load_extension("fzy_native")
       end,
     }
-    use {"nvim-telescope/telescope-frecency.nvim", after = {"telescope.nvim"}}
+    use { "nvim-telescope/telescope-frecency.nvim", after = { "telescope.nvim" } }
     use "mbbill/undotree"
-    use {"junegunn/goyo.vim", cmd = {"Goyo"}}
+    use { "junegunn/goyo.vim", cmd = { "Goyo" } }
     use {
       "junegunn/limelight.vim",
-      cmd = {"Limelight"},
+      cmd = { "Limelight" },
       setup = function()
         vim.g.limelight_conceal_ctermfg = 240
       end,
     }
     use {
       "christoomey/vim-tmux-navigator",
-      requires = {{"sjl/vitality.vim"}},
+      requires = { { "sjl/vitality.vim" } },
       setup = function()
         vim.g.tmux_navigator_save_on_switch = 1
       end,
@@ -182,13 +183,19 @@ return require("packer").startup {
         vim.g.highlightedyank_highlight_duration = 200
       end,
     }
-    use {"rhysd/vim-clang-format", ft = {"arduino", "c", "cpp"}}
+    use { "rhysd/vim-clang-format", ft = { "arduino", "c", "cpp" } }
     use "psliwka/vim-smoothie"
     use "gyim/vim-boxdraw"
-    use "liuchengxu/vista.vim"
+    use { "junegunn/fzf", run = ":call fzf#install()" }
+    use {
+      "liuchengxu/vista.vim",
+      setup = function()
+        vim.g["vista#renderer#enable_icon"] = 1
+      end,
+    }
     use {
       "xuhdev/vim-latex-live-preview",
-      ft = {"tex"},
+      ft = { "tex" },
       setup = function()
         vim.g.livepreview_previewer = "open -a Preview"
       end,
@@ -245,9 +252,11 @@ return require("packer").startup {
         vim.g.vira_report_width = 80
       end,
     }
-    use {"earthly/earthly.vim", commit = "main"}
+    use { "earthly/earthly.vim", commit = "main" }
     use "towolf/vim-helm"
     use "satabin/hocon-vim"
+    use "coddingtonbear/confluencewiki.vim"
+    use "mracos/mermaid.vim"
   end,
-  config = {display = {non_interactive = nil ~= os.getenv("NVIM_UPDATE")}},
+  config = { display = { non_interactive = nil ~= os.getenv("NVIM_UPDATE") } },
 }
