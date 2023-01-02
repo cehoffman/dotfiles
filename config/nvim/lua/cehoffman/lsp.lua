@@ -169,6 +169,7 @@ configs.lua = {
 
 local servers = {
   gopls = {settings = {gopls = {gofumpt = true, linksInHover = false}}},
+  golangci_lint_ls = {},
   vimls = {},
   kubernetes = {},
   kustomization = {},
