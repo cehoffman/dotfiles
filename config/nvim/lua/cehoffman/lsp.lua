@@ -1,3 +1,7 @@
+-- Must come before lspconfig
+require("neoconf").setup({import = {vscode = false}})
+require("neodev").setup({})
+
 local nvim_lsp = require("lspconfig")
 local util = require("lspconfig.util")
 local configs = require("lspconfig.configs")
@@ -231,6 +235,7 @@ local servers = {
     },
   },
   lua = {},
+  sumneko_lua = {cmd = {"env", "-u", "DYLD_INSERT_LIBRARIES", "lua-language-server"}},
 }
 
 local blackExe = vim.fn.expand("~/.venvs/black/bin/black")
@@ -261,22 +266,32 @@ if 1 == vim.fn.executable("terraform-ls") then
   servers.terraformls = {}
 end
 
+vim.fn.setenv("JAVA_HOME", vim.fn.expand("~/.asdf/installs/java/adoptopenjdk-15.0.0+36"))
+vim.fn.setenv(
+  "JAR", vim.fn.expand(
+    "~/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.6.100.v20201223-0822.jar"
+  )
+)
+vim.fn.setenv(
+  "JDTLS_CONFIG", vim.fn.expand(
+    "~/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_mac"
+  )
+)
+vim.fn.setenv("WORKSPACE", vim.fn.expand("~/workspace"))
+servers.jdtls = {}
+
+-- Set up lspconfig.
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem =
+  {documentationFormat = {"markdown", "plaintext"}}
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
 for lsp, opts in pairs(servers) do
   if opts.on_attach then
     opts.on_attach = util.add_hook_after(opts.on_attach, on_attach)
   else
     opts.on_attach = on_attach
   end
+  opts.capabilities = capabilities
   nvim_lsp[lsp].setup(opts)
 end
-
-require("nlua.lsp.nvim").setup(
-  require("lspconfig"), {
-    cmd = {
-      vim.fn.expand("~/.homebrew/Cellar/lua-language-server/HEAD/bin/lua-language-server"),
-      "-E",
-      vim.fn.expand("~/.homebrew/Cellar/lua-language-server/HEAD/libexec/main.lua"),
-    },
-    on_attach = on_attach,
-  }
-)
