@@ -1,6 +1,7 @@
 if [[ -d ~/.homebrew ]]; then
   # Disable analytics
   export HOMEBREW_NO_ANALYTICS=1
+  export HOMEBREW_NO_INSTALL_FROM_API=1
 
   function {
     local coreutils=~/.homebrew/opt/coreutils
