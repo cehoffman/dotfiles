@@ -216,7 +216,7 @@ return require("packer").startup {
     use {
       "glepnir/lspsaga.nvim",
       config = function()
-        require("lspsaga").init_lsp_saga(
+        require("lspsaga").setup(
           {
             diagnostic_header = {"✖", "‼", "⚑", "➜"},
             code_action_icon = "➜ ",

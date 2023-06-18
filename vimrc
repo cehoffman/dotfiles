@@ -531,9 +531,9 @@ if has("autocmd")
       let g:default_stl .= "#[FunctionName] " " Padding/HL group
       let g:default_stl .= "%<" " Truncate right
       let g:default_stl .= "%= " " Right align
-      let g:default_stl .= "<CUR>#[FileFormat]%{&fileformat} </CUR>" " File format
+      let g:default_stl .= "<CUR>#[FileFormat]%{&fileformat} %{WebDevIconsGetFileFormatSymbol()} </CUR>" " File format
       let g:default_stl .= "<CUR>#[FileEncoding]%{(&fenc == '' ? &enc : &fenc)} </CUR>" " File encoding
-      let g:default_stl .= "<CUR>#[Separator][<] #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
+      let g:default_stl .= "<CUR>#[Separator][<] %{WebDevIconsGetFileTypeSymbol()} #[FileType]%{strlen(&ft) ? &ft : 'n/a'} </CUR>" " File type
       let g:default_stl .= "<CUR>#[LinePercentS][<<]#[LinePercent]</CUR> %p%% " " Line percentage
       let g:default_stl .= "#[LineNumberS]<CUR>[<<]</CUR><NCUR>[<] </NCUR>#[LineNumber]"
       let g:default_stl .= " %l#[LineColumn]:%c%V%{&ft =~ 'csv' ? ' C:'.CSV_WCol() : ''} " " Line/column/virtual column, Line percentage

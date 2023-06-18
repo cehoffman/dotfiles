@@ -1,5 +1,5 @@
 -- Must come before lspconfig
-require("neoconf").setup({import = {vscode = false}})
+require("neoconf").setup({ import = { vscode = false } })
 require("neodev").setup({})
 
 local nvim_lsp = require("lspconfig")
@@ -7,7 +7,7 @@ local util = require("lspconfig.util")
 local configs = require("lspconfig.configs")
 
 local on_attach = function(client, bufnr)
-  local opts = {buffer = bufnr, silent = true, noremap = true}
+  local opts = { buffer = bufnr, silent = true, noremap = true }
   local nnoremap = function(lhs, rhs, ...)
     vim.keymap.set(
       "n", lhs, rhs,
@@ -99,7 +99,7 @@ end
 local eslint = {
   lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
   lintStdin = true,
-  lintFormats = {"%f:%l:%c: %m"},
+  lintFormats = { "%f:%l:%c: %m" },
   lintIgnoreExitCode = true,
   formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
   formatStdin = true,
@@ -113,8 +113,8 @@ local eslint = {
 configs.kubernetes = {
   default_config = {
     autostart = false,
-    cmd = {"yaml-language-server", "--stdio"},
-    filetypes = {"yaml"},
+    cmd = { "yaml-language-server", "--stdio" },
+    filetypes = { "yaml" },
     root_dir = function(startpath, bufnr)
       if string.find(vim.fn.expand("%:t"), "kubectl-") then
         return "/"
@@ -129,15 +129,15 @@ configs.kubernetes = {
       end
       return nil
     end,
-    settings = {yaml = {schemas = {kubernetes = {"*.yaml", "*.yml"}}}},
+    settings = { yaml = { schemas = { kubernetes = { "*.yaml", "*.yml" } } } },
     single_file_support = true,
   },
 }
 configs.kustomization = {
   default_config = {
     autostart = false,
-    cmd = {"yaml-language-server", "--stdio"},
-    filetypes = {"yaml"},
+    cmd = { "yaml-language-server", "--stdio" },
+    filetypes = { "yaml" },
     root_dir = function(startpath, bufnr)
       if vim.fn.expand("%:t") == "kustomization.yaml" then
         return util.find_git_ancestor(startpath) or vim.fn.getcwd()
@@ -155,16 +155,16 @@ configs.kustomization = {
 }
 configs.lua = {
   default_config = {
-    cmd = {"env", "-u", "DYLD_INSERT_LIBRARIES", "efm-langserver"},
+    cmd = { "env", "-u", "DYLD_INSERT_LIBRARIES", "efm-langserver" },
     root_dir = function()
       return "/"
     end,
-    filetypes = {"lua"},
-    init_options = {documentFormatting = true},
+    filetypes = { "lua" },
+    init_options = { documentFormatting = true },
     settings = {
       languages = {
         lua = {
-          {formatCommand = "lua-format -i --config ~/.lua-format", formatStdin = true},
+          { formatCommand = "lua-format -i --config ~/.lua-format", formatStdin = true },
         },
       },
     },
@@ -172,7 +172,7 @@ configs.lua = {
 }
 
 local servers = {
-  gopls = {settings = {gopls = {gofumpt = true, linksInHover = false}}},
+  gopls = { settings = { gopls = { gofumpt = true, linksInHover = false } } },
   golangci_lint_ls = {},
   vimls = {},
   kubernetes = {},
@@ -186,7 +186,7 @@ local servers = {
       end
 
       local noMatches = true
-      for _, server in ipairs({"kubernetes", "kustomization"}) do
+      for _, server in ipairs({ "kubernetes", "kustomization" }) do
         if nvim_lsp[server] and nvim_lsp[server].get_root_dir(startpath, bufnr) == nil then
           noMatches = false
         end
@@ -197,7 +197,7 @@ local servers = {
       return nil
     end,
   },
-  bashls = {filetypes = {"sh", "zsh", "bash"}},
+  bashls = { filetypes = { "sh", "zsh", "bash" } },
   dockerls = {},
   tsserver = {
     on_attach = function(client, bufnr)
@@ -209,7 +209,7 @@ local servers = {
     end,
   },
   efm = {
-    cmd = {"env", "-u", "DYLD_INSERT_LIBRARIES", "efm-langserver"},
+    cmd = { "env", "-u", "DYLD_INSERT_LIBRARIES", "efm-langserver" },
     on_attach = function(client, bufnr)
       client.server_capabilities.documentFormattingProvider = true
       client.server_capabilities.definitionProvider = false
@@ -217,12 +217,12 @@ local servers = {
     root_dir = util.root_pattern(".git", ".eslintrc"),
     settings = {
       languages = {
-        javascript = {eslint},
-        javascriptreact = {eslint},
-        ["javascript.jsx"] = {eslint},
-        typescript = {eslint},
-        ["typescript.tsx"] = {eslint},
-        typescriptreact = {eslint},
+        javascript = { eslint },
+        javascriptreact = { eslint },
+        ["javascript.jsx"] = { eslint },
+        typescript = { eslint },
+        ["typescript.tsx"] = { eslint },
+        typescriptreact = { eslint },
       },
     },
     filetypes = {
@@ -235,19 +235,19 @@ local servers = {
     },
   },
   lua = {},
-  sumneko_lua = {cmd = {"env", "-u", "DYLD_INSERT_LIBRARIES", "lua-language-server"}},
+  lua_ls = { cmd = { "env", "-u", "DYLD_INSERT_LIBRARIES", "lua-language-server" } },
 }
 
 local blackExe = vim.fn.expand("~/.venvs/black/bin/black")
 if 1 == vim.fn.executable(blackExe) then
   configs["black"] = {
     default_config = {
-      cmd = {"env", "-u", "DYLD_INSERT_LIBRARIES", "efm-langserver"},
+      cmd = { "env", "-u", "DYLD_INSERT_LIBRARIES", "efm-langserver" },
       root_dir = util.root_pattern(".git", "pyproject.toml"),
-      filetypes = {"python"},
-      init_options = {documentFormatting = true},
+      filetypes = { "python" },
+      init_options = { documentFormatting = true },
       settings = {
-        languages = {python = {{formatCommand = blackExe .. " -", formatStdin = true}}},
+        languages = { python = { { formatCommand = blackExe .. " -", formatStdin = true } } },
       },
     },
   }
@@ -257,7 +257,7 @@ end
 local jedi = vim.fn.expand("~/.venvs/jedi/bin/jedi-language-server")
 if 1 == vim.fn.executable(jedi) then
   servers.jedi_language_server = {
-    cmd = {jedi},
+    cmd = { jedi },
     root_dir = util.root_pattern("pyproject.toml"),
   }
 end
@@ -283,7 +283,7 @@ servers.jdtls = {}
 -- Set up lspconfig.
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem =
-  {documentationFormat = {"markdown", "plaintext"}}
+{ documentationFormat = { "markdown", "plaintext" } }
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 for lsp, opts in pairs(servers) do
