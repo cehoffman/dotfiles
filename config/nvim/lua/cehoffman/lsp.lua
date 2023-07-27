@@ -54,7 +54,7 @@ local on_attach = function(client, bufnr)
 
   -- lsp saga
   if client.server_capabilities.referencesProvider then
-    nnoremap("gh", "<cmd>Lspsaga lsp_finder<CR>")
+    nnoremap("gh", "<cmd>Lspsaga finder def+ref<CR>")
   end
   if client.server_capabilities.codeActionProvider then
     nnoremap("<leader>a", "<cmd>Lspsaga code_action<CR>")
@@ -123,8 +123,8 @@ configs.kubernetes = {
         return nil
       end
       if util.path.exists(
-        util.path.join(util.path.dirname(startpath), "kustomization.yaml")
-      ) then
+            util.path.join(util.path.dirname(startpath), "kustomization.yaml")
+          ) then
         return util.find_git_ancestor(startpath) or vim.fn.getcwd()
       end
       return nil
