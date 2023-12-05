@@ -9,7 +9,7 @@ function {
     export ASDF_USER_SHIMS="${ASDF_DIR}/shims"
     export ASDF_CONFIG_FILE="${HOME}/.dotfiles/asdfrc"
     path[2,1]=("${ASDF_BIN}" "${ASDF_USER_SHIMS}")
-    source "${ASDF_DIR}/lib/asdf.sh"
+    source "${ASDF_DIR}/asdf.sh"
     if [[ -o interactive ]]; then
       # Keep ASDF man files at front on manpath
       for mpath in $manpath; do
@@ -18,7 +18,7 @@ function {
         fi
       done
 
-      fpath+=(~/.asdf/completions)
+      fpath+=(~/.asdf/completions(/))
 
       for lang in ${(k)ENV_LANGS}; do
         funs="

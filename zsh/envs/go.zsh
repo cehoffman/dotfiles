@@ -3,4 +3,5 @@ if (( $+commands[go] )); then
   path[2,1]=$GOPATH:q/bin
   export GONOPROXY=git.vertiv.life
   export GONOSUMDB=git.vertiv.life
+  export ASDF_GOLANG_MOD_VERSION_ENABLED=false
 fi
