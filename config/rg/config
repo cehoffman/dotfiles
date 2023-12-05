@@ -2,7 +2,7 @@
 objc:*.pch
 --type-add
 ruby:*.haml
----type-add
+--type-add
 xcode:*.{nib,pbxproj,pbxuser,perspectivev3}
 --type-not
 xcode
