@@ -124,12 +124,6 @@ if [[ -o interactive ]]; then
   alias grep="grep --color=auto"
   export GREP_COLOR='1;32'
 
-  if [[ ! $TERM =~ ^screen ]]; then
-    alias screen="screen -dRaA"
-  else
-    export TERM="screen-256color"
-  fi
-
   ZSH_AUTOSUGGEST_STRATEGY=(completion history)
   ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=50
   ZSH_AUTOSUGGEST_HISTORY_IGNORE="?(#c50,)" # Don't suggest anything longer than 50 characters from history

@@ -29,10 +29,16 @@ return require("packer").startup {
       after = { "telescope.nvim" },
       requires = { "kyazdani42/nvim-web-devicons" },
       config = function()
-        require "octo".setup()
+        require("octo").setup()
       end,
     }
-    use "tpope/vim-endwise"
+    -- use "tpope/vim-endwise"
+    use {
+      "RRethy/nvim-treesitter-endwise",
+      config = function()
+        require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
+      end,
+    }
     use { "kristijanhusak/vim-dadbod-ui", requires = { { "tpope/vim-dadbod" } } }
     use { "kristijanhusak/vim-dadbod-completion", requires = { { "tpope/vim-dadbod" } } }
     use { "tpope/vim-rails", ft = { "ruby" } }
@@ -61,24 +67,30 @@ return require("packer").startup {
     use "dstein64/vim-startuptime"
     use { "andymass/vim-matchup", event = "VimEnter *" }
     use "hashivim/vim-terraform"
-    use "norcalli/nvim-terminal.lua"
+    use {
+      "norcalli/nvim-terminal.lua",
+      config = function()
+        require("terminal").setup()
+      end,
+    }
     use { "jason0x43/vim-js-indent", ft = { "javascript" } }
     use { "leafgarland/typescript-vim", ft = { "typescript", "typescriptreact" } }
     use { "peitalin/vim-jsx-typescript", ft = { "typescriptreact", "jsx" } }
     use { "moll/vim-node", ft = { "javascript" } }
-    use { "vim-scripts/Match-Bracket-for-Objective-C", ft = { "objc" } }
+    -- use { "vim-scripts/Match-Bracket-for-Objective-C", ft = { "objc" } }
     use "markcornick/vim-bats"
-    use {
-      "mhinz/vim-mix-format",
-      ft = { "elixir" },
-      setup = function()
-        vim.g.mix_format_on_save = true
-        vim.g.mix_format_options = "--check-equivalent"
-      end,
-    }
-    use { "slashmili/alchemist.vim", ft = { "elixir" } }
-    use { "elixir-editors/vim-elixir", ft = { "elixir" } }
-    use { "jeetsukumaran/vim-pythonsense", ft = { "python" } }
+    -- TODO: investigate if this is replaced with LSP or LSP Saga
+    -- use {
+    --   "mhinz/vim-mix-format",
+    --   ft = { "elixir" },
+    --   setup = function()
+    --     vim.g.mix_format_on_save = true
+    --     vim.g.mix_format_options = "--check-equivalent"
+    --   end,
+    -- }
+    -- use { "slashmili/alchemist.vim", ft = { "elixir" } }
+    -- use { "elixir-editors/vim-elixir", ft = { "elixir" } }
+    -- use { "jeetsukumaran/vim-pythonsense", ft = { "python" } }
     use {
       "fatih/vim-go",
       ft = { "go" },
@@ -107,7 +119,34 @@ return require("packer").startup {
         }
       end,
     }
-    use "Raimondi/delimitMate"
+    -- use "Raimondi/delimitMate"
+    use {
+      "abecodes/tabout.nvim",
+      require = { "nvim-treesitter" },
+      after = { "nvim-cmp" },
+      config = function()
+        require("tabout").setup {
+          tabkey = "<Tab>",             -- key to trigger tabout, set to an empty string to disable
+          backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
+          act_as_tab = true,            -- shift content if tab out is not possible
+          act_as_shift_tab = false,     -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+          default_tab = "<C-t>",        -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
+          default_shift_tab = "<C-d>",  -- reverse shift default action,
+          enable_backwards = true,      -- well ...
+          completion = true,            -- if the tabkey is used in a completion pum
+          tabouts = {
+            { open = "'",  close = "'" },
+            { open = "\"", close = "\"" },
+            { open = "`",  close = "`" },
+            { open = "(",  close = ")" },
+            { open = "[",  close = "]" },
+            { open = "{",  close = "}" },
+          },
+          ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+          exclude = {}, -- tabout will ignore these filetypes
+        }
+      end,
+    }
     use "SirVer/UltiSnips"
     use "honza/vim-snippets"
     use "godlygeek/tabular"
@@ -215,6 +254,21 @@ return require("packer").startup {
       end,
     }
     use {
+      "nvimdev/indentmini.nvim",
+      event = "BufEnter",
+      config = function()
+        require("indentmini").setup(
+          {
+            -- char = "|",
+            -- exclude = {
+            --     "erlang",
+            --     "markdown",
+            -- }
+          }
+        )
+      end,
+    }
+    use {
       "neovim/nvim-lspconfig",
       config = function()
         require("cehoffman.lsp")
@@ -267,6 +321,7 @@ return require("packer").startup {
     use "satabin/hocon-vim"
     use "coddingtonbear/confluencewiki.vim"
     use "mracos/mermaid.vim"
+    use "github/copilot.vim"
   end,
   config = { display = { non_interactive = nil ~= os.getenv("NVIM_UPDATE") } },
 }

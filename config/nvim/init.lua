@@ -3,11 +3,8 @@ local o = vim.o
 local bo = vim.bo
 local wo = vim.wo
 
-g.mapleader = ","
-g.maplocalleader = ","
-
 require("cehoffman.first_load")
-require("cehoffman.plugins")
+-- require("cehoffman.plugins")
 
 local util = require("cehoffman.util")
 util.au(
@@ -15,9 +12,9 @@ util.au(
   "TermClose * stopinsert"
 )
 
-vim.cmd [[
-  source ~/.vimrc
-]]
+-- vim.cmd [[
+--   source ~/.vimrc
+-- ]]
 
 if vim.g.started_by_firenvim then
   vim.o.guifont = "Meslo LG M:h18"
