@@ -59,6 +59,10 @@ vim.keymap.set("n", "*", "*zzzv", { remap = false })
 vim.keymap.set("n", "#", "#zzzv", { remap = false })
 vim.keymap.set("n", "n", "nzzzv", { remap = false })
 vim.keymap.set("n", "N", "Nzzzv", { remap = false })
+vim.keymap.set("n", "<leader>gw", function()
+	vim.cmd.write()
+	vim.fn.jobstart({ "git", "add", "--force", "--", vim.fn.expand("%") })
+end, { remap = false, desc = "Add file to git index" })
 
 -- Insert mode
 -- Make killing a line start an undo point

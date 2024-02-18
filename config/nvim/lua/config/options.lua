@@ -29,6 +29,7 @@ vim.opt.undodir = vim.fn.stdpath("data") .. "/site/undo"
 vim.opt.backupdir = vim.fn.stdpath("data") .. "/site/backup"
 vim.opt.backupcopy = "yes"
 vim.opt.swapfile = false
+vim.opt.spellfile = vim.fn.expand("~") .. "/.dotfiles/vim/spell/common.utf-8.add"
 
 vim.opt.wildignore:append("*.o,*.rbc,*.obj,*.pyc,.git,CVS,.svn,tags,.hg")
 vim.opt.wildignorecase = true

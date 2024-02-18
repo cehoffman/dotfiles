@@ -1,5 +1,14 @@
 return {
 	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = function(_, opts)
+			opts.textobjects.move.goto_next_start = { ["]m"] = "@function.outer", ["]c"] = "@class.outer" }
+			opts.textobjects.move.goto_next_end = { ["]M"] = "@function.outer", ["]C"] = "@class.outer" }
+			opts.textobjects.move.goto_previous_start = { ["[m"] = "@function.outer", ["[c"] = "@class.outer" }
+			opts.textobjects.move.goto_previous_end = { ["[M"] = "@function.outer", ["[C"] = "@class.outer" }
+		end,
+	},
+	{
 		"tummetott/unimpaired.nvim",
 		opts = {
 			default_keymaps = false,
@@ -51,5 +60,34 @@ return {
 				opts.defaults["s"] = { name = "+surround" }
 			end,
 		},
+	},
+
+	{
+		"jbyuki/venn.nvim",
+		config = function()
+			vim.keymap.set("n", "<leader>v", function()
+				local venn_enabled = vim.inspect(vim.w.venn_enabled)
+				vim.w.saved_ve = vim.wo.virtualedit
+				if venn_enabled == "nil" then
+					vim.w.venn_enabled = true
+					vim.wo.virtualedit = "all"
+					-- draw a line on HJKL keystokes
+					vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", { noremap = true })
+					vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", { noremap = true })
+					vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", { noremap = true })
+					vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", { noremap = true })
+					-- draw a box by pressing "f" with visual selection
+					vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", { noremap = true })
+				else
+					vim.wo.virtualedit = vim.w.saved_ve
+					vim.api.nvim_buf_del_keymap(0, "n", "J")
+					vim.api.nvim_buf_del_keymap(0, "n", "K")
+					vim.api.nvim_buf_del_keymap(0, "n", "L")
+					vim.api.nvim_buf_del_keymap(0, "n", "H")
+					vim.api.nvim_buf_del_keymap(0, "v", "f")
+					vim.w.venn_enabled = nil
+				end
+			end, { noremap = true })
+		end,
 	},
 }
