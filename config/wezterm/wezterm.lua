@@ -1,5 +1,8 @@
 local wezterm = require("wezterm")
 local config = {}
+-- domains don't work well with semantic prompts or other terminal OSC features
+-- https://github.com/wez/wezterm/issues/2880
+-- https://github.com/wez/wezterm/issues/3987
 config.unix_domains = {
 	{
 		name = "session",

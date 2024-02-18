@@ -77,9 +77,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_create_autocmd("VimResized", {
 	group = cUtils.augroup("resize"),
 	callback = function()
-		vim.cmd([[
-      wincmd =
-    ]])
+		vim.cmd.wincmd("=")
 	end,
 })
 

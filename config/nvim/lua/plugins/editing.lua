@@ -61,15 +61,18 @@ return {
 			end,
 		},
 	},
-
+	{
+		"tpope/vim-abolish",
+	},
 	{
 		"jbyuki/venn.nvim",
 		config = function()
 			vim.keymap.set("n", "<leader>v", function()
-				local venn_enabled = vim.inspect(vim.w.venn_enabled)
-				vim.w.saved_ve = vim.wo.virtualedit
+				local window = vim.api.nvim_get_current_win()
+				local venn_enabled = vim.inspect(vim.w[window].venn_enabled)
+				vim.w[window].saved_ve = vim.wo.virtualedit
 				if venn_enabled == "nil" then
-					vim.w.venn_enabled = true
+					vim.w[window].venn_enabled = true
 					vim.wo.virtualedit = "all"
 					-- draw a line on HJKL keystokes
 					vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", { noremap = true })
@@ -79,15 +82,39 @@ return {
 					-- draw a box by pressing "f" with visual selection
 					vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", { noremap = true })
 				else
-					vim.wo.virtualedit = vim.w.saved_ve
+					vim.wo.virtualedit = vim.w[window].saved_ve
 					vim.api.nvim_buf_del_keymap(0, "n", "J")
 					vim.api.nvim_buf_del_keymap(0, "n", "K")
 					vim.api.nvim_buf_del_keymap(0, "n", "L")
 					vim.api.nvim_buf_del_keymap(0, "n", "H")
 					vim.api.nvim_buf_del_keymap(0, "v", "f")
-					vim.w.venn_enabled = nil
+					vim.w[window].venn_enabled = nil
 				end
-			end, { noremap = true })
+			end, { noremap = true, desc = "Toggle diagram mode" })
+		end,
+	},
+	{
+		"godlygeek/tabular",
+		lazy = false,
+	},
+	{
+		"AndrewRadev/splitjoin.vim",
+		event = "VeryLazy",
+		config = function()
+			vim.g.splitjoin_align = 1
+			vim.g.splitjoin_normalize_whitespace = 1
+			-- Overwrite mappings so they have descriptions
+			vim.keymap.set("n", "gS", "<Plug>SplitjoinSplit", { desc = "Split construct" })
+			vim.keymap.set("n", "gJ", "<Plug>SplitjoinJoin", { desc = "Join construct" })
+		end,
+	},
+	{
+		"RRethy/nvim-treesitter-endwise",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
 		end,
 	},
 }

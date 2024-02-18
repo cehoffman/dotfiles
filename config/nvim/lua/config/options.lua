@@ -34,34 +34,40 @@ vim.opt.spellfile = vim.fn.expand("~") .. "/.dotfiles/vim/spell/common.utf-8.add
 vim.opt.wildignore:append("*.o,*.rbc,*.obj,*.pyc,.git,CVS,.svn,tags,.hg")
 vim.opt.wildignorecase = true
 vim.opt.complete:append("i,kspell")
+-- Completion options are overriden by nvim-cmp and should be set there instead
 vim.opt.completeopt:append("noinsert")
 
 -- This doesn't seem to work
 -- vim.opt.pastetoggle = "<F2>"
 
--- Folding at the textwidth
-vim.cmd([[
-  function! SimpleFold()
-    let line = getline(v:foldstart)
+-- Folding summary at the textwidth column marker
+function _G.SimpleFold()
+	local line = vim.fn.getline(vim.v.foldstart)
 
-    let numcolwidth = &foldcolumn + (&number + &relativenumber) * &numberwidth
-    if &textwidth != 0 && winwidth(0) > &textwidth
-      let windowwidth = &textwidth
-    else
-      let windowwidth = winwidth(0) - numcolwidth - 3
-    endif
-    let foldedlinecount = v:foldend - v:foldstart
+	-- Compute how many column the left cutter takes
+	local numcolwidth = 0
+	if vim.wo.number or vim.wo.relativenumber then
+		numcolwidth = vim.wo.numberwidth
+	end
+	if vim.wo.signcolumn == "yes" then
+		numcolwidth = numcolwidth + 1
+	end
+	local windowwidth = vim.fn.winwidth(0) - numcolwidth - 3
+	if vim.opt.textwidth:get() ~= 0 and vim.fn.winwidth(0) > vim.opt.textwidth:get() then
+		windowwidth = vim.opt.textwidth:get()
+	end
+	local foldedlinecount = string.format("%d", tonumber(vim.v.foldend) - tonumber(vim.v.foldstart))
 
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
+	-- Calculate how many spaces a tab is and replace tabs with spaces
+	local onetab = vim.fn.strpart("          ", 0, vim.opt.tabstop:get())
+	line = vim.fn.substitute(line, "\t", onetab, "g")
 
-    let line = strpart(line, 0, windowwidth - 1 - len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . repeat(" ", fillcharcount) . foldedlinecount . '…' . ' '
-  endfunction
-  set foldtext=SimpleFold()
-]])
+	line = vim.fn.strpart(line, 0, windowwidth - 1 - vim.fn.len(foldedlinecount))
+	local fillcharcount = windowwidth - vim.fn.len(line) - vim.fn.len(foldedlinecount)
+	return line .. string.rep(" ", fillcharcount) .. foldedlinecount .. "…"
+end
+
+vim.opt.foldtext = "v:lua.SimpleFold()"
 -- Default is to use indent level and with the indent markers it appers to
 -- allow more control in preliminary usage
 -- vim.opt.foldmethod = "expr"
