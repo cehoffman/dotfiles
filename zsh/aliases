@@ -33,7 +33,12 @@ alias gco="git checkout"
 alias gp="git push"
 alias gl="git l"
 
-alias l='ls -lAh'
+if (( $+commands[exa] )); then
+  alias ls="exa --group-directories-first --across"
+  alias l="exa --group-directories-first --all --across --git --long"
+else
+  alias l='ls -lAh'
+fi
 alias less='less -R'
 alias x='extract -d'
 
