@@ -43,6 +43,8 @@ if wezterm.gui then
 
 	-- Make it possible to exit copy mode with the escape key mapping from ^[
 	table.insert(default_tables.copy_mode, { key = "[", mods = "CTRL", action = wezterm.action.CopyMode("Close") })
+	table.insert(default_tables.copy_mode, { key = "Enter", action = wezterm.action.CopyMode("Close") })
+	table.insert(default_tables.copy_mode, { key = "i", action = wezterm.action.CopyMode("Close") })
 	table.insert(
 		default_tables.copy_mode,
 		{ key = "/", action = wezterm.action.Search("CurrentSelectionOrEmptyString") }
