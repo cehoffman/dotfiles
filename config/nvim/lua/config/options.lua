@@ -22,6 +22,7 @@ vim.opt.showbreak = " …"
 vim.opt.cinoptions = ":0,l1,g0,t0,(0,Ws"
 -- vim.opt.list = true
 vim.opt.listchars = { tab = "▸ ", eol = "¬", precedes = "<", extends = ">", nbsp = "·" }
+vim.opt.conceallevel = 1
 vim.opt.maxmempattern = 10000
 
 vim.opt.undofile = true
