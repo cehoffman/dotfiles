@@ -146,9 +146,6 @@ if [[ -o interactive ]]; then
   autoload opp
   {source ~/.dotfiles/zsh/functions/opp-install; opp-install}
 
-  if (( $+commands[direnv] )); then
-    eval "$(direnv hook zsh)"
-  fi
   source ~/.dotfiles/zsh/vendor/zaw/zaw.zsh
   source ~/.dotfiles/zsh/vendor/zsh-nix-shell/nix-shell.plugin.zsh
 
@@ -201,7 +198,7 @@ if [[ -o interactive ]]; then
     compinit -C
   fi
 
-  autoload -U bashcompinit
+  autoload -U +X bashcompinit
   bashcompinit
 else
   alias grep="grep --color=never"
