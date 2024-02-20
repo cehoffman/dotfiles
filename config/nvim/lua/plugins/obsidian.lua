@@ -8,7 +8,7 @@ return {
 		workspaces = {
 			{
 				name = "world",
-				path = "/Users/christopherhoffman/Library/Mobile Documents/com~apple~CloudDocs/Obsidian/World",
+				path = vim.fn.expand("~") .. "/Library/Mobile Documents/iCloud~md~obsidian/Documents/World",
 			},
 		},
 		notes_subdir = "3 - Resources/notes",
@@ -22,4 +22,8 @@ return {
 			},
 		},
 	},
+	config = function(_, opts)
+		require("obsidian").setup(opts)
+		vim.keymap.set("v", "<C-l>", ":ObsidianLink<CR>", { desc = "Link to note" })
+	end,
 }

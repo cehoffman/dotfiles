@@ -33,26 +33,26 @@ vim.keymap.set("n", "<leader><leader>", "<C-^>", { noremap = true, desc = "Go to
 vim.keymap.set("n", "<leader>el", ":e <C-R>=expand('%:p:h')<CR>/", { desc = "Edit file relative to current file" })
 vim.keymap.set({ "n", "v" }, "<space>", "za", { desc = "Toggle fold" })
 vim.keymap.set(
-  "n",
-  "<leader>xx",
-  cUtils.trim_whitespace,
-  { silent = true, noremap = true, desc = "Trim trailing whitespace" }
+	"n",
+	"<leader>xx",
+	cUtils.trim_whitespace,
+	{ silent = true, noremap = true, desc = "Trim trailing whitespace" }
 )
 vim.keymap.set("n", "<leader>xw", function()
-  cUtils.trim_whitespace()
-  vim.cmd.w()
+	cUtils.trim_whitespace()
+	vim.cmd.w()
 end, { silent = true, noremap = true, desc = "Trim trailing whitespace (write)" })
 vim.keymap.set("n", "<leader>w", function()
-  local uri = vim.fn.matchstr(
-    vim.fn.getline("."),
-    "[a-zA-Z]\\+:\\/\\/\\([a-zA-Z0-9_-]\\+\\.\\)\\+[a-zA-Z]\\+\\(\\/[\\.a-zA-Z0-9_-]\\+\\)*\\ze[^\\.]\\?"
-  )
-  if uri ~= "" then
-    vim.notify("Opening " .. uri)
-    vim.fn.execute("!open " .. vim.fn.shellescape(uri) .. " &> /dev/null")
-  else
-    vim.notify("No URI found in line.")
-  end
+	local uri = vim.fn.matchstr(
+		vim.fn.getline("."),
+		"[a-zA-Z]\\+:\\/\\/\\([a-zA-Z0-9_-]\\+\\.\\)\\+[a-zA-Z]\\+\\(\\/[\\.a-zA-Z0-9_-]\\+\\)*\\ze[^\\.]\\?"
+	)
+	if uri ~= "" then
+		vim.notify("Opening " .. uri)
+		vim.fn.execute("!open " .. vim.fn.shellescape(uri) .. " &> /dev/null")
+	else
+		vim.notify("No URI found in line.")
+	end
 end, { remap = false, desc = "Open URL in current line" })
 -- Keep searches in middle of screen
 vim.keymap.set("n", "*", "*zzzv", { remap = false })
@@ -60,8 +60,8 @@ vim.keymap.set("n", "#", "#zzzv", { remap = false })
 vim.keymap.set("n", "n", "nzzzv", { remap = false })
 vim.keymap.set("n", "N", "Nzzzv", { remap = false })
 vim.keymap.set("n", "<leader>gw", function()
-  vim.cmd.write()
-  vim.fn.jobstart({ "git", "add", "--force", "--", vim.fn.expand("%") })
+	vim.cmd.write()
+	vim.fn.jobstart({ "git", "add", "--force", "--", vim.fn.expand("%") })
 end, { remap = false, desc = "Add file to git index" })
 
 -- Insert mode
@@ -69,23 +69,23 @@ end, { remap = false, desc = "Add file to git index" })
 vim.keymap.set("i", "<C-u>", "<C-g>u<C-u>", { desc = "Undo line" })
 -- Jump over closing pair with a univeral key `;`
 vim.keymap.set("i", ";", function()
-  local pos = vim.api.nvim_win_get_cursor(0)
-  local line = vim.api.nvim_get_current_line()
-  local rhPair = {
-    [")"] = ")",
-    ["}"] = "}",
-    ["]"] = "]",
-    ['"'] = '"',
-    ["'"] = "'",
-    ["`"] = "`",
-    [";"] = "<right>",
-  }
+	local pos = vim.api.nvim_win_get_cursor(0)
+	local line = vim.api.nvim_get_current_line()
+	local rhPair = {
+		[")"] = ")",
+		["}"] = "}",
+		["]"] = "]",
+		['"'] = '"',
+		["'"] = "'",
+		["`"] = "`",
+		[";"] = "<right>",
+	}
 
-  local char = line:sub(pos[2] + 1, pos[2] + 1)
-  if rhPair[char] then
-    return rhPair[char]
-  end
-  return ";"
+	local char = line:sub(pos[2] + 1, pos[2] + 1)
+	if rhPair[char] then
+		return rhPair[char]
+	end
+	return ";"
 end, { expr = true, remap = true })
 -- Easy ISO8601 timestamp insertion
 vim.cmd.iabbrev("i8601", "<C-R>=strftime('%Y-%m-%dT%H:%M:%S%z')<CR>")
