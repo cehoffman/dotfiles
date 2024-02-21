@@ -1,4 +1,5 @@
 return {
+	{ "ryanoasis/vim-devicons" },
 	{
 		"RRethy/vim-illuminate",
 		opts = function(_, opts)
