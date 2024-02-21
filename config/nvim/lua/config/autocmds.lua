@@ -53,12 +53,10 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave", "FocusGained", "FocusLost"
 		if event.event == "BufEnter" or event.event == "FocusGained" or event.event == "InsertLeave" then
 			if vim.api.nvim_get_option_value("number", { scope = "local" }) then
 				vim.opt_local.relativenumber = true
-				vim.opt_local.number = false
 			end
 		else
 			if vim.api.nvim_get_option_value("relativenumber", { scope = "local" }) then
 				vim.opt_local.relativenumber = false
-				vim.opt_local.number = true
 			end
 		end
 	end,
