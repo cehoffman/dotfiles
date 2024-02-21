@@ -63,11 +63,42 @@ return {
       { "<leader>bW", function() require("mini.bufremove").delete(0, true) end, desc = "Wipeout Buffer (Force)" },
 		},
 	},
+	-- For edgy to place help and man on right side of workspace
+	-- {
+	-- 	"folke/edgy.nvim",
+	-- 	opts = function(_, opts)
+	-- 		for i, win in ipairs(opts.bottom) do
+	-- 			-- Swamp help window to be on the right
+	-- 			if win.ft == "help" then
+	-- 				table.remove(opts.bottom, i)
+	-- 			end
+	-- 		end
+	--
+	-- 		opts.right = vim.list_extend(opts.right or {}, {
+	-- 			{
+	-- 				ft = "help",
+	-- 				size = { width = 80 },
+	-- 				-- don't open help files in edgy that we're editing
+	-- 				filter = function(buf)
+	-- 					return vim.bo[buf].buftype == "help"
+	-- 				end,
+	-- 			},
+	-- 			{
+	-- 				ft = "man",
+	-- 				size = { width = 80 },
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
-		"lambdalisue/suda.vim",
-		cmd = { "SudaRead", "SudaWrite" },
-		config = function()
-			vim.g.suda_smart_edit = false
+		"echasnovski/mini.indentscope",
+		init = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "man" },
+				callback = function(args)
+					vim.b[args.buf].miniindentscope_disable = true
+				end,
+			})
 		end,
 	},
 }

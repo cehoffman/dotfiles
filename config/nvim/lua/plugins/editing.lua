@@ -117,4 +117,12 @@ return {
 			require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
 		end,
 	},
+	{ "simrat39/symbols-outline.nvim", opts = { auto_close = true } },
+	{
+		"lambdalisue/suda.vim",
+		cmd = { "SudaRead", "SudaWrite" },
+		config = function()
+			vim.g.suda_smart_edit = false
+		end,
+	},
 }
