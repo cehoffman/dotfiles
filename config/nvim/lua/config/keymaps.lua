@@ -104,57 +104,57 @@ vim.keymap.set("v", "Q", "gq", { desc = "Format selection" })
 
 -- LSP mappings
 Util.lsp.on_attach(function(client, bufnr)
-  local flags = { buffer = bufnr, silent = true, noremap = true }
-  local nnoremap = function(lhs, rhs, ...)
-    vim.keymap.set("n", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), flags))
-  end
-  local inoremap = function(lhs, rhs, ...)
-    vim.keymap.set("i", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), flags))
-  end
-  if client.server_capabilities.definitionProvider then
-    nnoremap("<C-]>", vim.lsp.buf.definition, { desc = "Go to definition" })
-  end
-  if client.server_capabilities.definitionProvider then
-    nnoremap("gd", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek definition" })
-  end
+	local flags = { buffer = bufnr, silent = true, noremap = true }
+	local nnoremap = function(lhs, rhs, ...)
+		vim.keymap.set("n", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), flags))
+	end
+	local inoremap = function(lhs, rhs, ...)
+		vim.keymap.set("i", lhs, rhs, vim.tbl_extend("keep", vim.empty_dict(), ... or vim.empty_dict(), flags))
+	end
+	if client.server_capabilities.definitionProvider then
+		nnoremap("<C-]>", vim.lsp.buf.definition, { desc = "Go to definition" })
+	end
+	if client.server_capabilities.definitionProvider then
+		nnoremap("gd", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek definition" })
+	end
 
-  if client.server_capabilities.hoverProvider then
-    nnoremap("K", "<cmd>Lspsaga hover_doc<CR>", { desc = "Show documentation" })
-  end
-  if client.server_capabilities.referencesProvider then
-    nnoremap("gh", "<cmd>Lspsaga finder def+ref<CR>", { desc = "Find code references" })
-  end
-  if client.server_capabilities.codeActionProvider then
-    nnoremap("<leader>a", "<cmd>Lspsaga code_action<CR>", { desc = "Trigger code action" })
-  end
-  if client.server_capabilities.renameProvider then
-    nnoremap("gr", "<cmd>Lspsaga rename<CR>", { desc = "Rename symbol (LSP)" })
-  end
+	if client.server_capabilities.hoverProvider then
+		nnoremap("K", "<cmd>Lspsaga hover_doc<CR>", { desc = "Show documentation" })
+	end
+	if client.server_capabilities.referencesProvider then
+		nnoremap("gh", "<cmd>Lspsaga finder def+ref<CR>", { desc = "Find code references" })
+	end
+	if client.server_capabilities.codeActionProvider then
+		nnoremap("<leader>a", "<cmd>Lspsaga code_action<CR>", { desc = "Trigger code action" })
+	end
+	if client.server_capabilities.renameProvider then
+		nnoremap("gr", "<cmd>Lspsaga rename<CR>", { desc = "Rename symbol (LSP)" })
+	end
 
-  nnoremap("<space>d", "<cmd>Lspsaga show_line_diagnostics<CR>")
-  -- nnoremap("[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-  -- nnoremap("]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+	nnoremap("<space>d", "<cmd>Lspsaga show_line_diagnostics<CR>")
+	-- nnoremap("[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+	-- nnoremap("]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 
-  -- Set some keybinds conditional on server capabilities
-  if client.server_capabilities.documentFormattingProvider then
-    nnoremap("<space>f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = vim.api.nvim_create_augroup("cehoffman_lsp_format", { clear = true }),
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({ async = false, timeout_ms = 1000 })
-      end,
-    })
-    -- vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false, timeout_ms = 1000})]]
-  elseif client.server_capabilities.documentRangeFormattingProvider then
-    nnoremap("<space>f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = vim.api.nvim_create_augroup("cehoffman_lsp_format", { clear = true }),
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({ async = false, timeout_ms = 1000 })
-      end,
-    })
-    -- vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false, timeout_ms = 1000})]])
-  end
+	-- Set some keybinds conditional on server capabilities
+	-- if client.server_capabilities.documentFormattingProvider then
+	--   nnoremap("<space>f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
+	--   vim.api.nvim_create_autocmd("BufWritePre", {
+	--     group = vim.api.nvim_create_augroup("cehoffman_lsp_format", { clear = true }),
+	--     buffer = bufnr,
+	--     callback = function()
+	--       vim.lsp.buf.format({ async = false, timeout_ms = 1000 })
+	--     end,
+	--   })
+	--   -- vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false, timeout_ms = 1000})]]
+	-- elseif client.server_capabilities.documentRangeFormattingProvider then
+	--   nnoremap("<space>f", "<cmd>lua vim.lsp.buf.format({async = true})<CR>")
+	--   vim.api.nvim_create_autocmd("BufWritePre", {
+	--     group = vim.api.nvim_create_augroup("cehoffman_lsp_format", { clear = true }),
+	--     buffer = bufnr,
+	--     callback = function()
+	--       vim.lsp.buf.format({ async = false, timeout_ms = 1000 })
+	--     end,
+	--   })
+	--   -- vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false, timeout_ms = 1000})]])
+	-- end
 end)
