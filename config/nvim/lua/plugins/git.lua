@@ -7,6 +7,11 @@ return {
 	-- Make browsing blame history for lines easier
 	{
 		"rhysd/git-messenger.vim",
+		keys = {
+			-- This doesn't actually cause lazy loading, it is purely here for better
+			-- which-key descriptions
+			{ "<leader>gm", "<Plug>(git-messenger)", desc = "Open git history at line" },
+		},
 		config = function()
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = "gitmessengerpopup",
