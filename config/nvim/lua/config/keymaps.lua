@@ -26,7 +26,7 @@ vim.keymap.set({ "n", "v", "o" }, "Q", "gq")
 
 -- Normal mode mappings
 vim.keymap.set("n", "<leader>nv", "<C-W>v:enew<cr>", { desc = "New buffer in right vertical", silent = true })
-vim.keymap.set("n", "<leader>ns", "<C-W>s:enew<cr>", { desc = "New buffer in belo beloww split", silent = true })
+vim.keymap.set("n", "<leader>ns", "<C-W>s:enew<cr>", { desc = "New buffer in below split", silent = true })
 vim.keymap.set("n", "<leader>nt", "<cmd>tabnew<CR>", { desc = "New tab", silent = true })
 vim.keymap.set("n", "<leader>nT", "<C-W>T", { desc = "New tab from current window" })
 vim.keymap.set("n", "<leader><leader>", "<C-^>", { noremap = true, desc = "Go to alternate file" })
@@ -81,6 +81,11 @@ vim.keymap.set("i", ";", function()
 		[";"] = "<right>",
 	}
 
+	-- Look at the character to the right of the cursor
+	-- If it is a closing pair, jump over it (using mini.pairs) automatic jump
+	-- over when sending the closing pair character. The key we use to signal
+	-- jump over, `;`, is not part of mini.pairs so we need to send a right arrow
+	-- key movement to jump over it. If not a closing pair send `;`.
 	local char = line:sub(pos[2] + 1, pos[2] + 1)
 	if rhPair[char] then
 		return rhPair[char]
@@ -92,13 +97,15 @@ vim.cmd.iabbrev("i8601", "<C-R>=strftime('%Y-%m-%dT%H:%M:%S%z')<CR>")
 
 -- Command mode mappings
 vim.keymap.set("c", "<C-a>", "<home>")
-vim.keymap.set("c", "<C-a>", "<home>")
 vim.keymap.set("c", "<C-e>", "<end>")
 vim.keymap.set("c", "%%", "<C-R>=expand('%:p:h')<CR>", { desc = "Fill in directory of current file" })
 
 -- Visual mode mappings
 vim.keymap.set("v", "ae", "ggVoG$", { desc = "Select whole file" })
-vim.keymap.set("v", "Q", "gq", { desc = "Format selection" })
+-- With conform.nvim managing use of external formatters, gq will default to using
+-- the external formatter. That isn't very useful for comment wrapping as they
+-- are unlikely to touch comments. Define Q to use vim formatting.
+vim.keymap.set("v", "Q", "gw", { desc = "Format selection" })
 -- Select just pasted text in last used visual mode
 -- nnoremap <expr> <Leader>v '`[' . visualmode() . '`]'
 
@@ -124,9 +131,10 @@ Util.lsp.on_attach(function(client, bufnr)
 	if client.server_capabilities.referencesProvider then
 		nnoremap("gh", "<cmd>Lspsaga finder def+ref<CR>", { desc = "Find code references" })
 	end
-	if client.server_capabilities.codeActionProvider then
-		nnoremap("<leader>a", "<cmd>Lspsaga code_action<CR>", { desc = "Trigger code action" })
-	end
+	-- Using LazyVim default <leader>ca
+	-- if client.server_capabilities.codeActionProvider then
+	-- 	nnoremap("<leader>a", "<cmd>Lspsaga code_action<CR>", { desc = "Trigger code action" })
+	-- end
 	if client.server_capabilities.renameProvider then
 		nnoremap("gr", "<cmd>Lspsaga rename<CR>", { desc = "Rename symbol (LSP)" })
 	end

@@ -1,5 +1,16 @@
 return {
-	"neovim/nvim-lspconfig",
+	{
+		"williamboman/mason.nvim",
+		opts = function(_, opts)
+			opts.ensure_installed = opts.ensure_installed or {}
+			vim.list_extend(opts.ensure_installed, { "golangci-lint" })
+		end,
+	},
+	{ "neovim/nvim-lspconfig", opts = {
+		servers = {
+			golangci_lint_ls = {},
+		},
+	} },
 	-- opts = function(_, opts)
 	-- 	-- Update configuration for change of where gofumpt lives in gopls. At some
 	-- 	-- point in time the upstream will reflect this change.
