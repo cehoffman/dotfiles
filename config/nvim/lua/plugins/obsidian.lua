@@ -20,6 +20,12 @@ return {
 				end,
 				opts = { noremap = false, expr = true, buffer = true, desc = "Follow link" },
 			},
+			["<leader>ch"] = {
+				action = function()
+					return require("obsidian").util.toggle_checkbox()
+				end,
+				opts = { buffer = true },
+			},
 		},
 	},
 	config = function(_, opts)
