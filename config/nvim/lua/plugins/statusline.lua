@@ -99,6 +99,19 @@ return {
 				},
 				filetypes = { "scratch" },
 			},
+			{
+				sections = {
+					lualine_a = opts.sections.lualine_a,
+					lualine_b = {
+						function()
+							return "COMMIT MESSAGE"
+						end,
+					},
+					lualine_y = opts.sections.lualine_y,
+					lualine_z = opts.sections.lualine_z,
+				},
+				filetypes = { "gitcommit" },
+			},
 		}
 
 		vim.list_extend(opts.extensions, exts)

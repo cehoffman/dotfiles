@@ -169,22 +169,21 @@ if [ ! -d $HOME/.asdf/installs/erlang/$version ]; then
 	asdf global erlang $version
 fi
 
-version=1.11.3-otp-23
+version=$(version_for elixir)
 if [ ! -d $HOME/.asdf/installs/elixir/$version ]; then
 	asdf plugin-add elixir
 	zsh -c "asdf install elixir $version"
 	asdf global elixir $version
 fi
 
-version=1.21.8
+version=$(version_for golang)
 if [ ! -d $HOME/.asdf/installs/golang/$version ]; then
 	asdf plugin-add golang
 	zsh -c "asdf install golang $version"
 	asdf global golang $version
 fi
 
-asdf plugin-add kubectl
-version=1.28.2
+version=$(version_for kubectl)
 if [ ! -d $HOME/.asdf/installs/kubectl/$version ]; then
 	asdf plugin-add kubectl
 	zsh -c "asdf install kubectl $version"
