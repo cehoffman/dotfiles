@@ -20,6 +20,11 @@ vim.keymap.del("n", "<leader>w|")
 vim.keymap.del("n", "<leader>|")
 vim.keymap.del("n", "<leader>ww")
 vim.keymap.del("n", "<leader>wd")
+-- LazyVim defaults to keeping visual selection and having you use > and < to
+-- indent or deindent. Instead remove them and use `.` to repeat instead of
+-- continuing to use >, <.
+vim.keymap.del("x", ">")
+vim.keymap.del("x", "<")
 
 -- Replace ex mode with format
 vim.keymap.set({ "n", "v", "o" }, "Q", "gq")
