@@ -1,6 +1,3 @@
--- if true then
---   return {}
--- end
 return {
 	{ "folke/neoconf.nvim", opts = { import = { vscode = false } } },
 	{
@@ -38,6 +35,22 @@ return {
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter", -- optional
 			"nvim-tree/nvim-web-devicons", -- optional
+		},
+	},
+	{
+		"stevearc/aerial.nvim",
+		opts = {
+			layout = {
+				default_direction = "right",
+				placement = "edge",
+			},
+			close_automatic_events = {
+				"unsupported", -- Close if buffer has no symbol source
+			},
+			ignore = {
+				unlisted_buffers = true,
+			},
+			close_on_select = true,
 		},
 	},
 }

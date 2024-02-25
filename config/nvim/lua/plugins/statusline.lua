@@ -19,16 +19,30 @@ return {
 		--   { "%M", separator = "", color = { fg = colors.red1, bg = colors.bg_dark } }
 		-- )
 
+		-- Remove unwanted sections from lualine_c
+		for i, section in ipairs(opts.sections.lualine_c) do
+			-- The Aerial symbol outline extra adds the heirarchy to the statusline
+			-- Lspsaga puts this in the winbar, so prefer that
+			if section[1] == "aerial" then
+				table.remove(opts.sections.lualine_c, i)
+			end
+
+			-- Remove the file type icon, it is moved to the right side of statusline
+			if section[1] == "filetype" then
+				table.remove(opts.sections.lualine_c, i)
+				-- table.remove(opts.sections.lualine_c, 3)
+				table.insert(opts.sections.lualine_c, i, {
+					"%{&readonly ? '' : ''}",
+					separator = "",
+					colors = { fg = colors.red1 },
+					padding = { left = 1, right = 0 },
+				})
+			end
+		end
+
 		-- Remove an extra space after the icon
 		opts.sections.lualine_c[1] = require("lazyvim.util").lualine.root_dir({ icon = "󱉭" })
-		-- Remove the file type icon, it is moved to the right side
-		table.remove(opts.sections.lualine_c, 3)
-		table.insert(opts.sections.lualine_c, 3, {
-			"%{&readonly ? '' : ''}",
-			separator = "",
-			colors = { fg = colors.red1 },
-			padding = { left = 1, right = 0 },
-		})
+
 		opts.sections.lualine_c[#opts.sections.lualine_c].separator = ""
 		vim.list_extend(opts.sections.lualine_c, {
 			{ "%(%H%W%)", colors = { gui = "bold" } },
