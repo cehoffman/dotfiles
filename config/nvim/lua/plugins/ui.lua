@@ -15,8 +15,8 @@ return {
 		opts = {
 			window = {
 				options = {
-					-- number = false,
-					-- relativenumber = false,
+					number = false,
+					relativenumber = false,
 					colorcolumn = "",
 					signcolumn = "no",
 				},
@@ -39,7 +39,6 @@ return {
 	-- Setup the unmapped wipeout equivalent
 	{
 		"echasnovski/mini.bufremove",
-
 		keys = {
 			{
 				"<leader>bw",
