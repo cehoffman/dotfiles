@@ -3,7 +3,19 @@ local cUtils = require("cehoffman.util")
 -- Wrap code files
 vim.api.nvim_create_autocmd("FileType", {
 	group = cUtils.augroup("wrap"),
-	pattern = { "go", "lua", "jsx", "javascript", "ruby", "python", "markdown", "sh", "zsh", "bash" },
+	pattern = {
+		"bash",
+		"go",
+		"javascript",
+		"jsx",
+		"lua",
+		"markdown",
+		"python",
+		"ruby",
+		"sh",
+		"terraform",
+		"zsh",
+	},
 	callback = function()
 		vim.opt_local.wrap = true
 		vim.opt_local.textwidth = 79

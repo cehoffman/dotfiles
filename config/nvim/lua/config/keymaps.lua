@@ -7,6 +7,8 @@ vim.keymap.del("n", "<leader>bb")
 vim.keymap.del("n", "<leader>`")
 vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
+vim.keymap.del("n", "<leader>K")
+-- These are vim tabs maniuplation commands I have alternate bindings for
 -- vim.keymap.del("n", "<leader><tab>")
 vim.keymap.del("n", "<leader><tab>f")
 vim.keymap.del("n", "<leader><tab>l")
@@ -14,6 +16,7 @@ vim.keymap.del("n", "<leader><tab>[")
 vim.keymap.del("n", "<leader><tab>]")
 vim.keymap.del("n", "<leader><tab>d")
 vim.keymap.del("n", "<leader><tab><tab>")
+-- These are window manipulation commands I have alternate bindings for
 vim.keymap.del("n", "<leader>w-")
 vim.keymap.del("n", "<leader>-")
 vim.keymap.del("n", "<leader>w|")
@@ -47,7 +50,7 @@ vim.keymap.set("n", "<leader>xw", function()
 	cUtils.trim_whitespace()
 	vim.cmd.w()
 end, { silent = true, noremap = true, desc = "Trim trailing whitespace (write)" })
-vim.keymap.set("n", "<leader>w", function()
+vim.keymap.set("n", "<leader>uu", function()
 	local uri = vim.fn.matchstr(
 		vim.fn.getline("."),
 		"[a-zA-Z]\\+:\\/\\/\\([a-zA-Z0-9_-]\\+\\.\\)\\+[a-zA-Z]\\+\\(\\/[\\.a-zA-Z0-9_-]\\+\\)*\\ze[^\\.]\\?"
@@ -64,10 +67,17 @@ vim.keymap.set("n", "*", "*zzzv", { remap = false })
 vim.keymap.set("n", "#", "#zzzv", { remap = false })
 vim.keymap.set("n", "n", "nzzzv", { remap = false })
 vim.keymap.set("n", "N", "Nzzzv", { remap = false })
-vim.keymap.set("n", "<leader>gw", function()
-	vim.cmd.write()
-	vim.fn.jobstart({ "git", "add", "--force", "--", vim.fn.expand("%") })
-end, { remap = false, desc = "Add file to git index" })
+-- vim.keymap.set("n", "<leader>gw", function()
+-- 	vim.cmd.write()
+-- 	vim.fn.jobstart({ "git", "add", "--force", "--", vim.fn.expand("%") })
+-- end, { remap = false, desc = "Add file to git index" })
+-- Make editing a macro possible
+vim.keymap.set(
+	"n",
+	"<leader>em",
+	":<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>",
+	{ desc = "Edit macro", expr = true }
+)
 
 -- Insert mode
 -- Make killing a line start an undo point

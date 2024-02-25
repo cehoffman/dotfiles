@@ -18,7 +18,7 @@ vim.opt.formatoptions:append("1p/")
 vim.opt.colorcolumn = "+1"
 vim.opt.linebreak = true
 vim.opt.cpoptions:append("n")
-vim.opt.showbreak = " …"
+vim.opt.showbreak = "    …"
 vim.opt.cinoptions = ":0,l1,g0,t0,(0,Ws"
 -- vim.opt.list = true
 vim.opt.listchars = { tab = "▸ ", eol = "¬", precedes = "<", extends = ">", nbsp = "·" }

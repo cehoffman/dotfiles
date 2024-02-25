@@ -123,8 +123,6 @@ $sudo chsh -s "$HOME/.homebrew/bin/zsh" "$USER"
 if [ "$os" = "linux" ]; then
 	# Install tcl deps for git without problematic tk
 	brew install tcl-tk
-elif [ "$os" = "darwin" ]; then
-	brew install reattach-to-user-namespace
 fi
 brew tap cehoffman/personal
 brew install git gnu-tar gnu-sed git-extras tmux ripgrep coreutils cmake tree pstree luajit neovim jq stderred exa bat btop
@@ -134,14 +132,23 @@ if [ "$os" = "linux" ]; then
 	cpan -i Term::ReadKey
 fi
 
-version=3.3.0
+# Install casks
+if [ "$os" = "mac" ]; then
+  brew install wezterm
+fi
+
+version_for() {
+  grep "$1" "$(dirname "${BASH_SOURCE[0]:-$0}"; pwd -P)/tool-versions" | awk '{print $2}'
+}
+
+version=$(version_for ruby)
 if [ ! -d $HOME/.asdf/installs/ruby/$version ]; then
 	asdf plugin-add ruby
 	zsh -c "asdf install ruby $version"
 	asdf global ruby $version
 fi
 
-version=3.9.2
+version=$(version_for python)
 if [ ! -d $HOME/.asdf/installs/python/$version ]; then
 	asdf plugin-add python
 	brew unlink gettext
@@ -151,7 +158,7 @@ if [ ! -d $HOME/.asdf/installs/python/$version ]; then
 	zsh -c "pip install --upgrade pip && pip install httpie && asdf reshim python"
 fi
 
-version=21.6.1
+version=$(version_for nodejs)
 if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
 	asdf plugin-add nodejs
 	zsh -c "~/.asdf/plugins/nodejs/bin/import-release-team-keyring"
@@ -159,7 +166,7 @@ if [ ! -d $HOME/.asdf/installs/nodejs/$version ]; then
 	asdf global nodejs $version
 fi
 
-version=23.2.7
+version=$(version_for erlang)
 if [ ! -d $HOME/.asdf/installs/erlang/$version ]; then
 	asdf plugin-add erlang
 	# Required because sql.h and sqlext.h are installed by unixodbc, but
