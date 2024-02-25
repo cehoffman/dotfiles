@@ -1,4 +1,4 @@
-if (( $+commands[direnv] )); then
+if (( $+commands[direnv] )) && [[ -o interactive ]]; then
 	eval "$(direnv hook zsh)"
 fi
 
