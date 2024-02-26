@@ -1,5 +1,5 @@
 local wezterm = require("wezterm")
-local config = {}
+local config = wezterm.config_builder()
 -- domains don't work well with semantic prompts or other terminal OSC features
 -- https://github.com/wez/wezterm/issues/2880
 -- https://github.com/wez/wezterm/issues/3987
@@ -76,13 +76,6 @@ for _, key in ipairs(neovim) do
 	table.insert(config.keys, key)
 end
 
-wezterm.on("update-status", function(window, pane)
-	local _, usage, _ =
-		wezterm.run_child_process({ wezterm.home_dir .. "/.homebrew/bin/luajit", wezterm.home_dir .. "/.bin/usage" })
-	window:set_right_status(usage)
-end)
-config.status_update_interval = 1000
-
 config.mouse_bindings = {
 	{
 		event = { Down = { streak = 4, button = "Left" } },
@@ -100,11 +93,10 @@ config.font = wezterm.font_with_fallback({
 })
 config.font_size = 10.0
 config.window_decorations = "RESIZE"
-config.use_fancy_tab_bar = false
-config.tab_max_width = 30
-config.tab_bar_at_bottom = true
-config.show_new_tab_button_in_tab_bar = false
 config.mouse_wheel_scrolls_tabs = false
 config.scrollback_lines = 10000
 config.native_macos_fullscreen_mode = true
+
+require("tabbar").config(config)
+
 return config
