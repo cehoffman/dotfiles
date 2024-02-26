@@ -76,6 +76,13 @@ for _, key in ipairs(neovim) do
 	table.insert(config.keys, key)
 end
 
+wezterm.on("update-status", function(window, pane)
+	local _, usage, _ =
+		wezterm.run_child_process({ wezterm.home_dir .. "/.homebrew/bin/luajit", wezterm.home_dir .. "/.bin/usage" })
+	window:set_right_status(usage)
+end)
+config.status_update_interval = 1000
+
 config.mouse_bindings = {
 	{
 		event = { Down = { streak = 4, button = "Left" } },
