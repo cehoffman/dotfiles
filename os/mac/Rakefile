@@ -10,15 +10,19 @@ class Context
   end
 end
 
-desc "Install mac specific items"
+desc 'Install mac specific items'
 task :install do
-  loaded = Hash[%x[launchctl list].strip.lines.map do |line|
+  puts 'installing wezTermHotkey'
+  system 'clang', '-Os', '-fobjc-arc', '-framework', 'Carbon', '-framework',
+         'AppKit', 'wezTermHotkey.m', '-o', File.expand_path('~/.bin/wezTermHotkey')
+
+  loaded = Hash[`launchctl list`.strip.lines.map do |line|
     line = line.split
     [line.last, true]
   end]
 
   launch_agents_path = File.expand_path('~/Library/LaunchAgents')
-  Dir.mkdir launch_agents_path unless Dir.exists? launch_agents_path
+  Dir.mkdir launch_agents_path unless Dir.exist? launch_agents_path
 
   Dir['im.ceh.*.plist*'].each do |plist|
     if plist =~ /\.erb$/
