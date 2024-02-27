@@ -6,6 +6,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
 		"bash",
 		"go",
+		"helm",
 		"javascript",
 		"jsx",
 		"lua",
