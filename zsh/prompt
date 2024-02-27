@@ -275,22 +275,24 @@ function _prompt_precmd {
   # _pr_extras+="%{$fg_no_bold[magenta]%}P:$(process-tree)"
 
   if [[ -n "${vcs_info_msg_0_}" ]]; then
-    local groot="$(git rev-parse --show-toplevel)"
+    local groot="$(git rev-parse --show-toplevel 2> /dev/null)"
     local lang
     local marker
     local -A markers=(ruby "Gemfile" python "setup.py|pyproject.toml" nodejs "package.json" elixir "mix.exs")
     local testfile
     local testpath
 
-    for testpath in ${(s[/])${PWD##$groot}} ''; do
-      for lang in ${(k)markers}; do
-        for testfile in ${(s/|/)markers[$lang]}
-          if [[ -e "${groot}/${testpath}/${testfile}" ]]; then
-            _pr_extras+="%{$fg_no_bold[${ENV_LANGS[$lang]}]%}${(U)lang[1]}:$(eval "echo \$__cur_${lang}_version")"
-            break
-          fi
+    if [[ -n "${groot}" ]]; then
+      for testpath in ${(s[/])${PWD##$groot}} ''; do
+        for lang in ${(k)markers}; do
+          for testfile in ${(s/|/)markers[$lang]}
+            if [[ -e "${groot}/${testpath}/${testfile}" ]]; then
+              _pr_extras+="%{$fg_no_bold[${ENV_LANGS[$lang]}]%}${(U)lang[1]}:$(eval "echo \$__cur_${lang}_version")"
+              break
+            fi
+        done
       done
-    done
+    fi
   fi
 
   if (( $+commands[kubectl] )) && (( $+commands[jq] )) && [[ -d ~/.kube/configs && -f ~/.kube/config ]]; then
