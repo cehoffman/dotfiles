@@ -60,10 +60,15 @@
   showUntrackedFiles = all
 [fetch]
   recurseSubmodules = on-demand
+  writeCommitGraph = true
+[column]
+  ui = auto
 [format]
   pretty = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
 [rerere]
   enabled = 1
+[branch]
+  sort = -committerdate
 [help]
   autocorrect = 1
 [push]
