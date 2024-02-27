@@ -1,1 +1,5 @@
-cd ~/Projects/{,gocode/src}/$1(/Y1)
+if [ -z "$1" ]; then
+  cd ~/Projects
+else
+  cd ~/Projects/{,gocode/src}/$1(/Y1)
+fi
