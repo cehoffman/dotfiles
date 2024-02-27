@@ -144,3 +144,17 @@ vim.api.nvim_create_autocmd("FileType", {
 		-- vim.keymap.set("n", "<C-k>", ":m -2<cr>", { buffer = event.buf, remap = false, desc = "Move commit up" })
 	end,
 })
+
+-- Keep hidden no name buffers from poluting the buffer list
+vim.api.nvim_create_autocmd("BufHidden", {
+	group = cUtils.augroup("nonames"),
+	callback = function(event)
+		if
+			not vim.bo[event.buf].modified
+			and vim.api.nvim_buf_get_name(event.buf) == ""
+			and vim.bo[event.buf].buflisted
+		then
+			require("mini.bufremove").wipeout(event.buf, true)
+		end
+	end,
+})
