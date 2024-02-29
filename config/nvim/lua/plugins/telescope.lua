@@ -28,7 +28,8 @@ return {
 				else
 					root_dir = false
 				end
-				require("lazyvim.util").telescope("files", vim.tbl_deep_extend("force", ... or {}, { cwd = root_dir }))()
+				-- require("lazyvim.util").telescope("files", vim.tbl_deep_extend("force", ... or {}, { cwd = root_dir }))()
+				require("telescope.builtin")["find_files"]({ cwd = root_dir })
 			end,
 			desc = "Find files (git root or local)",
 		},
