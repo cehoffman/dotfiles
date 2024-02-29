@@ -125,4 +125,43 @@ return {
 			vim.g.suda_smart_edit = false
 		end,
 	},
+	{
+		"tpope/vim-projectionist",
+		init = function()
+			vim.g.projectionist_heuristics = {
+				["mix.exs"] = {
+					["lib/*.ex"] = {
+						alternate = "test/{}_test.exs",
+						type = "lib",
+					},
+					["test/*_test.exs"] = {
+						alternate = "lib/{}.ex",
+						type = "unittest",
+					},
+					["mix.exs"] = {
+						type = "mix",
+					},
+				},
+				["go.mod"] = {
+					["*.go"] = {
+						type = "go",
+						alternate = "{}_test.go",
+						template = {
+							"package {dirname|basename}_test",
+						},
+					},
+					["*_test.go"] = {
+						type = "test",
+						alternate = "{}.go",
+						template = {
+							"package {dirname|basename}",
+						},
+					},
+					["go.mod"] = {
+						type = "mod",
+					},
+				},
+			}
+		end,
+	},
 }
