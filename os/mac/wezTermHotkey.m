@@ -70,7 +70,7 @@ OSStatus hotkey_handler(EventHandlerCallRef next, EventRef event, void *data) {
   NSRunningApplication *wezTerm;
   NSArray *apps = [NSRunningApplication
                    runningApplicationsWithBundleIdentifier:wezTermIdentifier];
-  blacklist = @[@"com.apple.loginwindow", @"com.apple.SecurityAgent", @"com.kapeli.dash"];
+  blacklist = @[@"com.apple.loginwindow", @"com.apple.SecurityAgent", @"com.kapeli.dash", @"com.apple.UserNotificationCenter"];
 
   if ([apps count] == 0) return noErr;
   wezTerm = [apps objectAtIndex:0];
