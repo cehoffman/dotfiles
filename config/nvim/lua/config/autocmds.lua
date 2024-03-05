@@ -29,11 +29,11 @@ vim.env.MANWIDTH = "80"
 
 -- Help window is placed to right and includes link navigation keymaps
 local function setupHelpManWindow(event)
-	vim.cmd.wincmd("L")
-	vim.api.nvim_win_set_width(0, 80)
+	-- vim.cmd.wincmd("L")
+	-- vim.api.nvim_win_set_width(0, 80)
+	-- vim.opt_local.winfixwidth = true
 	vim.opt_local.readonly = true
 	vim.opt_local.spell = false
-	vim.opt_local.winfixwidth = true
 	vim.opt_local.signcolumn = "no"
 	vim.opt_local.number = false
 	vim.opt_local.relativenumber = false
@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave", "FocusGained", "FocusLost"
 
 -- Trim trailing whitespace on save
 vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = { "*.go", "*.py", "*.rb", "*.md" },
+	pattern = { "*.py", "*.rb", "*.md" },
 	group = cUtils.augroup("whitespace"),
 	callback = function()
 		cUtils.trim_whitespace()

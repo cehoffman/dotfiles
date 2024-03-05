@@ -64,32 +64,44 @@ return {
 		},
 	},
 	-- For edgy to place help and man on right side of workspace
-	-- {
-	-- 	"folke/edgy.nvim",
-	-- 	opts = function(_, opts)
-	-- 		for i, win in ipairs(opts.bottom) do
-	-- 			-- Swamp help window to be on the right
-	-- 			if win.ft == "help" then
-	-- 				table.remove(opts.bottom, i)
-	-- 			end
-	-- 		end
-	--
-	-- 		opts.right = vim.list_extend(opts.right or {}, {
-	-- 			{
-	-- 				ft = "help",
-	-- 				size = { width = 80 },
-	-- 				-- don't open help files in edgy that we're editing
-	-- 				filter = function(buf)
-	-- 					return vim.bo[buf].buftype == "help"
-	-- 				end,
-	-- 			},
-	-- 			{
-	-- 				ft = "man",
-	-- 				size = { width = 80 },
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
+	{
+		"folke/edgy.nvim",
+		opts = function(_, opts)
+			if opts.bottom ~= nil then
+				for i, win in ipairs(opts.bottom) do
+					-- Swamp help window to be on the right
+					if win.ft == "help" then
+						table.remove(opts.bottom, i)
+					end
+				end
+			end
+
+			opts.right = vim.list_extend(opts.right or {}, {
+				{
+					ft = "help",
+					size = { width = 80 },
+					-- don't open help files in edgy that we're editing
+					filter = function(buf)
+						return vim.bo[buf].buftype == "help"
+					end,
+				},
+				{
+					ft = "man",
+					size = { width = 80 },
+				},
+			})
+
+			if opts.right ~= nil then
+				for i, win in ipairs(opts.right) do
+					-- Swamp Aerial symbol viewer to be on left
+					if win.ft == "aerial" then
+						opts.left = opts.left or {}
+						table.insert(opts.left, table.remove(opts.right, i))
+					end
+				end
+			end
+		end,
+	},
 	{
 		"echasnovski/mini.indentscope",
 		init = function()

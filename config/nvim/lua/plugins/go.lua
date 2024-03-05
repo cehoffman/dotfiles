@@ -18,4 +18,30 @@ return {
 	-- 	opts.servers.gopls.settings.gopls.formatting = { gofumpt = true }
 	-- 	opts.servers.gopls.settings.gopls.gofumpt = nil
 	-- end,
+	{
+		"nvimtools/none-ls.nvim",
+		optional = true,
+		opts = function(_, opts)
+			local nls = require("null-ls")
+			for i, source in ipairs(opts.sources) do
+				-- Delegate formatting to gopls
+				if source == nls.builtins.formatting.gofumpt then
+					table.remove(opts.sources, i)
+				end
+				-- Delegate goimport to conform
+				if source == nls.builtins.formatting.goimports then
+					table.remove(opts.sources, i)
+				end
+			end
+		end,
+	},
+	{
+		"stevearc/conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				-- Default includfes gofumpt, but gopls handles that
+				go = { "goimports" },
+			},
+		},
+	},
 }

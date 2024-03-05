@@ -30,7 +30,7 @@ vim.keymap.del("x", ">")
 vim.keymap.del("x", "<")
 
 -- Replace ex mode with format
-vim.keymap.set({ "n", "v", "o" }, "Q", "gq")
+-- vim.keymap.set({ "n", "v", "o" }, "Q", "gq")
 
 -- Normal mode mappings
 vim.keymap.set("n", "<leader>nv", "<C-W>v:enew<cr>", { desc = "New buffer in right vertical", silent = true })

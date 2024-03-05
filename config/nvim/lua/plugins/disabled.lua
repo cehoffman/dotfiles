@@ -7,7 +7,7 @@ return {
 	},
 	{
 		"nvimtools/none-ls.nvim",
-		-- enabled = false,
+		optional = true,
 		opts = function(_, opts)
 			local nls = require("null-ls")
 			for i, source in ipairs(opts.sources) do

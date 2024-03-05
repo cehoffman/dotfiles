@@ -27,6 +27,8 @@ return {
 				next_file = "]f",
 				blank_above = "[<space>",
 				blank_below = "]<space>",
+				-- TODO: Thesse exchange mappings don't work on multiple lines in visual mode
+				-- If I write a replacement, make it work with count (omap)
 				exchange_above = "[x",
 				exchange_below = "]x",
 				exchange_section_above = "[x",
@@ -147,14 +149,14 @@ return {
 						type = "go",
 						alternate = "{}_test.go",
 						template = {
-							"package {dirname|basename}_test",
+							"package {dirname|basename}",
 						},
 					},
 					["*_test.go"] = {
 						type = "test",
 						alternate = "{}.go",
 						template = {
-							"package {dirname|basename}",
+							"package {dirname|basename}_test",
 						},
 					},
 					["go.mod"] = {
@@ -163,5 +165,14 @@ return {
 				},
 			}
 		end,
+	},
+	{
+		"stevearc/conform.nvim",
+		opts = {
+			formatting = {
+				-- Default is 3s, but goimports for examples takes forever
+				timeout_ms = 10000,
+			},
+		},
 	},
 }

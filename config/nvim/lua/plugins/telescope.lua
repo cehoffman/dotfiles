@@ -2,6 +2,7 @@ return {
 	"nvim-telescope/telescope.nvim",
 	opts = {
 		defaults = {
+			layout_strategy = "vertical",
 			mappings = {
 				i = {
 					-- Keep loading lazy

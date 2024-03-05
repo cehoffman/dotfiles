@@ -1,3 +1,6 @@
+-- Make terminals reload direnv
+vim.env.DIRENV_FILE = nil
+-- Prevent stderred from interfering with subprocesses
 vim.env.DYLD_INSERT_LIBRARIES = nil
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","

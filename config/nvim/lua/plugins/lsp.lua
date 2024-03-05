@@ -40,10 +40,10 @@ return {
 	{
 		"stevearc/aerial.nvim",
 		opts = {
-			layout = {
-				default_direction = "right",
-				placement = "edge",
-			},
+			-- layout = {
+			-- 	default_direction = "right",
+			-- 	placement = "edge",
+			-- },
 			close_automatic_events = {
 				"unsupported", -- Close if buffer has no symbol source
 			},
