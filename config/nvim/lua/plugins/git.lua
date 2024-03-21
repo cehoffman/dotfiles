@@ -25,7 +25,129 @@ return {
 		end,
 	},
 	{
+		"ThePrimeagen/git-worktree.nvim",
+		keys = {
+			{
+				"<leader>gt",
+				":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>",
+				desc = "Switch to git worktree",
+			},
+			{
+				"<leader>gT",
+				":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>",
+				desc = "Create git worktree",
+			},
+			{
+				"<leader>gp",
+				function()
+					local branch = require("neogit.lib.git.branch").current()
+					-- local branch = vim.fn.FugitiveHead()
+					local Job = require("plenary.job")
+					local stdout, code = Job:new({
+						"gh",
+						"pr",
+						"list",
+						"--head",
+						branch,
+						"--state",
+						"open",
+						"--limit",
+						"1",
+						"--json",
+						"url",
+						"--jq",
+						".[] | .url",
+						cwd = vim.loop.cwd(),
+					}):sync()
+					stdout = table.concat(stdout, "")
+					if code == 0 then
+						vim.fn.execute("!open " .. vim.fn.shellescape(stdout) .. " &>/dev/null")
+					else
+						vim.ui.select({ "Yes", "No" }, { prompt = "Create PR?" }, function(idx)
+							if idx == 1 then
+								vim.notify("No open PR found for " .. branch, vim.log.levels.INFO)
+								vim.fn.execute("!gh pr create --fill-first --web &>/dev/null")
+							end
+						end)
+					end
+				end,
+				desc = "Open related pull request",
+			},
+		},
+		opts = {
+			update_on_change = true,
+			update_on_change_command = "e .",
+			confirm_telescope_deletions = true,
+			autopush = false,
+			bare_as_non_bare = true,
+		},
+		config = function(_, opts)
+			local gwt = require("git-worktree")
+			gwt.setup(opts)
+
+			-- Automate sparse checkout setup
+			gwt.on_tree_change(function(op, metadata)
+				local abspath = gwt.get_worktree_path(metadata.path)
+				if op == gwt.Operations.Create then
+					-- The worktree exists, but the working directory is not yet switched
+					local Job = require("plenary.job")
+					local init_sparse_checkout = Job:new({
+						"git",
+						"sparse-checkout",
+						"init",
+						cwd = abspath,
+					})
+					local _, code = init_sparse_checkout:sync()
+					if code ~= 0 then
+						vim.notify("Failed to init sparse-checkout for " .. metadata.path, vim.log.levels.ERROR)
+					end
+				elseif op == gwt.Operations.Delete then
+					local wipeout = require("mini.bufremove").wipeout
+
+					for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+						local bufpath = vim.fn.expand(string.format("#%d:p", buf))
+						---@diagnostic disable-next-line: unused-local
+						local startindex, _endindex = string.find(bufpath, abspath, 1, true)
+						if startindex == 1 then
+							wipeout(buf)
+						end
+					end
+				end
+			end)
+
+			require("lazyvim.util").on_load("telescope.nvim", function()
+				require("telescope").load_extension("git_worktree")
+			end)
+		end,
+	},
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+			-- Only one of these is needed, not both.
+			"nvim-telescope/telescope.nvim", -- optional
+		},
+		keys = {
+			{ "<leader>gs", "<cmd>Neogit kind=split_above<CR>", desc = "Git status" },
+			{ "<leader>gc", "<cmd> require('neogit').action('commit', 'commit')", desc = "Git commit" },
+		},
+		cmd = { "Neogit" },
+		opts = {
+			disable_signs = true,
+			graph_style = "unicode",
+			telescope_sorter = function()
+				return require("telescope").extensions.fzf.native_fzf_sorter()
+			end,
+			kind = "split_above",
+			-- commit_editor = {
+			-- 	kind = "floating",
+			-- },
+		},
+	},
+	{
 		"tpope/vim-fugitive",
+		enabled = false,
 		init = function()
 			local utils = require("cehoffman.util")
 			local augroup = utils.augroup("git")

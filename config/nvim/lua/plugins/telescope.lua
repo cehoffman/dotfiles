@@ -20,6 +20,8 @@ return {
 			desc = "Switch Buffer",
 		},
 		{ "<leader>,", false },
+		{ "<leader>gc", false },
+		{ "<leader>gs", false },
 		{
 			"<leader>p",
 			function(...)
