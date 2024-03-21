@@ -39,8 +39,7 @@ return {
 		"stevearc/conform.nvim",
 		opts = {
 			formatters_by_ft = {
-				-- Default includfes gofumpt, but gopls handles that
-				go = { "goimports" },
+				go = { "goimports", "gofumpt" },
 			},
 		},
 	},
