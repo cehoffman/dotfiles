@@ -39,6 +39,7 @@ return {
 	},
 	{
 		"stevearc/aerial.nvim",
+		optional = true,
 		opts = {
 			-- layout = {
 			-- 	default_direction = "right",
@@ -51,6 +52,15 @@ return {
 				unlisted_buffers = true,
 			},
 			close_on_select = true,
+		},
+	},
+	{
+		"hedyhli/outline.nvim",
+		opts = {
+			outline_window = {
+				auto_close = true,
+				-- auto_jump = true,
+			},
 		},
 	},
 }

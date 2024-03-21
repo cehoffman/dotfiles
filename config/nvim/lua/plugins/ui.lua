@@ -67,13 +67,28 @@ return {
 	{
 		"folke/edgy.nvim",
 		opts = function(_, opts)
-			if opts.bottom ~= nil then
-				for i, win in ipairs(opts.bottom) do
-					-- Swamp help window to be on the right
-					if win.ft == "help" then
-						table.remove(opts.bottom, i)
-					end
+			local removal_idxs = {}
+			opts.bottom = opts.bottom or {}
+			for i, win in ipairs(opts.bottom) do
+				-- Swamp help window to be on the right
+				if win.ft == "help" then
+					table.remove(opts.bottom, i)
 				end
+			end
+			for i = #removal_idxs, 1, -1 do
+				table.remove(opts.bottom, removal_idxs[i])
+			end
+
+			opts.left = opts.left or {}
+			for i, win in ipairs(opts.left) do
+				-- Remove neo-tree since it is disabled
+				if win.ft == "neo-tree" or win == "neo-tree" then
+					vim.list_extend(removal_idxs, { i })
+				end
+			end
+
+			for i = #removal_idxs, 1, -1 do
+				table.remove(opts.left, removal_idxs[i])
 			end
 
 			opts.right = vim.list_extend(opts.right or {}, {
@@ -93,9 +108,8 @@ return {
 
 			if opts.right ~= nil then
 				for i, win in ipairs(opts.right) do
-					-- Swamp Aerial symbol viewer to be on left
-					if win.ft == "aerial" then
-						opts.left = opts.left or {}
+					-- Swamp symbol viewer to be on left
+					if win.ft == "aerial" or win.ft == "Outline" then
 						table.insert(opts.left, table.remove(opts.right, i))
 					end
 				end

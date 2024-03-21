@@ -36,6 +36,7 @@ return {
 			end,
 			desc = "Find files (git root or local)",
 		},
+		{ "<leader>co", "<cmd>Telescope lsp_document_symbols<CR>" },
 		-- { '<leader>s', "<cmd>Telescope registers<cr>", desc = "Registers" },
 	},
 }
