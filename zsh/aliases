@@ -33,11 +33,15 @@ alias gco="git checkout"
 alias gp="git push"
 alias gl="git l"
 
-if (( $+commands[exa] )); then
-  alias ls="exa --group-directories-first --across"
-  alias l="exa --group-directories-first --all --across --git --long"
+if (( $+commands[eza] )); then
+  alias ls="eza --group-directories-first --across"
+  alias l="eza --group-directories-first --all --across --git --long"
 else
   alias l='ls -lAh'
+fi
+if (( $+commands[bat] )); then
+  alias cat="bat"
+  export BAT_THEME="Coldark-Dark"
 fi
 alias less='less -R'
 alias x='extract -d'
