@@ -43,4 +43,14 @@ return {
 			},
 		},
 	},
+	{
+		"nvim-neotest/neotest",
+		opts = {
+			adapters = {
+				["neotest-go"] = {
+					-- experimental = { test_table = true },
+				},
+			},
+		},
+	},
 }

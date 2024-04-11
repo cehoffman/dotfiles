@@ -154,7 +154,9 @@ vim.api.nvim_create_autocmd("BufHidden", {
 			and vim.api.nvim_buf_get_name(event.buf) == ""
 			and vim.bo[event.buf].buflisted
 		then
-			require("mini.bufremove").wipeout(event.buf, true)
+			vim.schedule(function()
+				require("mini.bufremove").wipeout(event.buf, true)
+			end)
 		end
 	end,
 })

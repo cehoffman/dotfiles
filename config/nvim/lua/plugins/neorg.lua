@@ -1,7 +1,13 @@
 return {
 	"nvim-neorg/neorg",
-	dependencies = { "nvim-lua/plenary.nvim" },
-	build = ":Neorg sync-parsers",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		{
+			"vhyrro/luarocks.nvim",
+			priority = 1000,
+			config = true,
+		},
+	},
 	version = "*",
 	lazy = true, -- enable lazy load
 	ft = "norg", -- lazy load on file type
@@ -12,23 +18,31 @@ return {
 			["core.esupports.hop"] = {}, -- Link following on <CR> and autofixing
 			-- ["core.esupports.indent"] = {}, -- Note reformatting
 			["core.esupports.metagen"] = {
-				type = "auto", -- Always generate metadata
+				config = {
+					type = "auto", -- Always generate metadata
+				},
 			},
 			["core.itero"] = {}, -- Continue contex type to next line with <A-CR>
 			["core.journal"] = {
-				journal_folder = "dailies",
-				workspace = "personal",
+				config = {
+					journal_folder = "dailies",
+					workspace = "personal",
+				},
 			},
 			["core.pivot"] = {},
 			["core.promo"] = {},
 			["core.qol.toc"] = {},
 			["core.qol.todo_items"] = {},
 			["core.completion"] = {
-				engine = "nvim-cmp",
+				config = {
+					engine = "nvim-cmp",
+				},
 			},
 			["core.export"] = {},
 			["core.export.markdown"] = {
-				extensions = { "todo-items-basic", "metadata" },
+				config = {
+					extensions = { "todo-items-basic", "metadata" },
+				},
 			},
 			["core.summary"] = {},
 			["core.ui.calendar"] = {},
@@ -39,7 +53,9 @@ return {
 			-- },
 			["core.defaults"] = {}, -- Loads default behaviour
 			["core.concealer"] = { -- Adds pretty icons to your documents
-				icon_preset = "diamond",
+				config = {
+					icon_preset = "diamond",
+				},
 			},
 			["core.dirman"] = { -- Manages Neorg workspaces
 				config = {

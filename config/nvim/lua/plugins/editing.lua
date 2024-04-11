@@ -171,7 +171,7 @@ return {
 		opts = {
 			formatting = {
 				-- Default is 3s, but goimports for examples takes forever
-				timeout_ms = 10000,
+				timeout_ms = 100000,
 			},
 		},
 	},
