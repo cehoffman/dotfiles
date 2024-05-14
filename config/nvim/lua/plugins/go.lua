@@ -38,6 +38,9 @@ return {
 	{
 		"stevearc/conform.nvim",
 		opts = {
+			format = {
+				timeout_ms = 30000,
+			},
 			formatters_by_ft = {
 				go = { "goimports", "gofumpt" },
 			},
@@ -46,6 +49,7 @@ return {
 	{
 		"nvim-neotest/neotest",
 		opts = {
+			log_level = vim.log.levels.DEBUG,
 			adapters = {
 				["neotest-go"] = {
 					-- experimental = { test_table = true },
