@@ -117,12 +117,12 @@ return {
 		end,
 	},
 	{
-		"echasnovski/mini.indentscope",
+		"lukas-reineke/indent-blankline.nvim",
 		init = function()
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = { "man" },
 				callback = function(args)
-					vim.b[args.buf].miniindentscope_disable = true
+					require("ibl").setup_buffer(args.buf, { enabled = false })
 				end,
 			})
 		end,
