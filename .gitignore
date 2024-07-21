@@ -23,3 +23,5 @@
 *.pyc
 /bin/NetworkLocationChanger
 zsh/functions/_kubectl
+bin/istioctl
+bin/talosctl
