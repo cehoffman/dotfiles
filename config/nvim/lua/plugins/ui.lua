@@ -28,7 +28,7 @@ return {
 				tmux = { enabled = true },
 				wezterm = {
 					enabled = true,
-					font = "+3",
+					font = "+4",
 				},
 			},
 		},

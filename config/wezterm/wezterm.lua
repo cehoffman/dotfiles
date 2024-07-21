@@ -91,7 +91,7 @@ config.font = wezterm.font_with_fallback({
 	"Geist Mono",
 	-- "Meslo LG S", This display the word config terribly. Don't understand why
 })
-config.font_size = 10.0
+config.font_size = 9.0
 config.window_decorations = "RESIZE"
 config.mouse_wheel_scrolls_tabs = false
 config.scrollback_lines = 10000

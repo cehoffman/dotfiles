@@ -23,10 +23,13 @@ return {
 	{ "folke/flash.nvim", enabled = false },
 	{
 		"folke/which-key.nvim",
-		opts = function(_, opts)
-			opts.defaults["<leader><tab>"] = nil
-			opts.defaults["<leader>w"] = nil
-			opts.defaults["<leader>n"] = { name = "+new" }
-		end,
+		opts = {
+			spec = {
+				{ "<leader>e", group = "edit" },
+				-- { "<leader><tab>", hidden = true },
+				-- { "<leader>w", hidden = true },
+				{ "<leader>n", group = "new" },
+			},
+		},
 	},
 }

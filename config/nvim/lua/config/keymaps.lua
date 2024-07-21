@@ -17,16 +17,16 @@ vim.keymap.del("n", "<leader><tab>]")
 vim.keymap.del("n", "<leader><tab>d")
 vim.keymap.del("n", "<leader><tab><tab>")
 -- These are window manipulation commands I have alternate bindings for
-vim.keymap.del("n", "<leader>w-")
+-- vim.keymap.del("n", "<leader>w-")
 vim.keymap.del("n", "<leader>-")
-vim.keymap.del("n", "<leader>w|")
+-- vim.keymap.del("n", "<leader>w|")
 vim.keymap.del("n", "<leader>|")
-vim.keymap.del("n", "<leader>ww")
-vim.keymap.del("n", "<leader>wd")
+-- vim.keymap.del("n", "<leader>ww")
+-- vim.keymap.del("n", "<leader>wd")
 -- Use neogit instead of lazygit
--- vim.keymap.del("n", "<leader>gg")
+vim.keymap.del("n", "<leader>gg")
 vim.keymap.del("n", "<leader>gG")
-vim.keymap.del("n", "<leader>gc")
+-- vim.keymap.del("n", "<leader>gc")
 -- LazyVim defaults to keeping visual selection and having you use > and < to
 -- indent or deindent. Instead remove them and use `.` to repeat instead of
 -- continuing to use >, <.

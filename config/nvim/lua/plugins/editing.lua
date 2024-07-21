@@ -56,12 +56,12 @@ return {
 				update_n_lines = "sn", -- Update `n_lines`
 			},
 		},
-		dependencies = {
-			"folke/which-key.nvim",
-			opts = function(_, opts)
-				opts.defaults["s"] = { name = "+surround" }
-			end,
-		},
+		-- dependencies = {
+		-- 	"folke/which-key.nvim",
+		-- 	opts = function(_, opts)
+		-- 		opts.defaults["s"] = { name = "+surround" }
+		-- 	end,
+		-- },
 	},
 	{
 		"tpope/vim-abolish",
