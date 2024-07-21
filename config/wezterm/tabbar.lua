@@ -74,7 +74,7 @@ end
 return {
 	config = function(config)
 		config.use_fancy_tab_bar = false
-		config.tab_max_width = 30
+		config.tab_max_width = 80
 		config.tab_bar_at_bottom = true
 		config.show_new_tab_button_in_tab_bar = false
 		wezterm.on("format-tab-title", format_tab(config))
