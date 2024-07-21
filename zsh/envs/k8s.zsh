@@ -10,3 +10,7 @@ if (( $+commands[kubectl] )); then
   # individual config files that are most likely for individual clusters
   typeset -gxUT KUBECONFIG kubeconfig=(~/.kube/config $HOME:q/.kube/configs/*(.))
 fi
+
+if (( $+commands[kubectl-krew])); then
+  path[1,0]=(~/.krew/bin)
+fi
