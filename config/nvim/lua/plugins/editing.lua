@@ -169,9 +169,9 @@ return {
 	{
 		"stevearc/conform.nvim",
 		opts = {
-			formatting = {
+			default_format_opts = {
 				-- Default is 3s, but goimports for examples takes forever
-				timeout_ms = 100000,
+				timeout_ms = 30000,
 			},
 		},
 	},
